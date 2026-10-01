@@ -1,4 +1,4 @@
-name: Bellmire v8.4.4 tavern camera
+name: Bellmire v8.4.5 tavern camera
 on:
   push:
     paths: ['.github/workflows/v83.yml']
@@ -14,16 +14,16 @@ jobs:
         run: |
           from pathlib import Path
           p=Path('index.html'); s=p.read_text()
-          old="tavern:[[-20,7,19],[-10,4,8]]"
-          new="tavern:[[-18,8,25],[-10,5.2,12.2]]"
+          old="tavern:[[-18,8,25],[-10,5.2,12.2]]"
+          new="tavern:[[-10,8,27],[-10,5.2,12.2]]"
           if old not in s: raise SystemExit('tavern camera marker missing')
           s=s.replace(old,new,1)
-          s=s.replace('Bellmire v8.4.3 — Orlaithe miniature','Bellmire v8.4.4 — Orlaithe miniature').replace('Orlaithe miniature · v8.4.3','Orlaithe miniature · v8.4.4')
+          s=s.replace('Bellmire v8.4.4 — Orlaithe miniature','Bellmire v8.4.5 — Orlaithe miniature').replace('Orlaithe miniature · v8.4.4','Orlaithe miniature · v8.4.5')
           p.write_text(s)
       - name: Commit camera fix
         run: |
           git config user.name 'Bellmire Builder'
           git config user.email 'actions@users.noreply.github.com'
           git add index.html
-          git commit -m 'Fix v8.4.4 tavern camera framing' || exit 0
+          git commit -m 'Fix v8.4.5 tavern camera framing' || exit 0
           git push
