@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v8.3.1 — Orlaithe miniature</title>
+<title>Bellmire v8.4 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:hidden;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -15,7 +15,7 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v8.3.1</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v8.4</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
 <div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="streetwalk">路地散歩</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="tavern">酒場</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">列車</button><button data-v="resident">住人</button><button data-v="catview">猫</button></div>
 <div class="row"><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div></div></div>
@@ -172,6 +172,20 @@ tinyWindow(25.4,7.9,11.68);tinyWindow(30.6,7.9,11.68);
 box(16,1.1,27,9,8,8,warmStone);roofLong(16,9.1,27,9,8,2.7,slate);
 box(16,1.1,31.05,3.1,3.4,.18,wood);
 tinyWindow(13.5,5.2,31.12,.7,1);tinyWindow(18.5,5.2,31.12,.7,1);
+
+// ===== v8.4 tavern district =====
+const tavernGlow=new THREE.MeshStandardMaterial({color:0xe7a85f,emissive:0xff8a32,emissiveIntensity:1.15,roughness:.55});lit.push(tavernGlow);
+const tavernDark=M(0x493329,.94),tavernTrim=M(0x2f2924,.9),tavernBrass=M(0x8b6a3e,.45,.5);
+box(-10.00,3.00,10.10,5.8,5.7,1.0,tavernDark);box(-10.00,3.05,10.66,1.25,2.65,.18,tavernTrim);
+box(-11.75,4.00,10.67,1.25,1.45,.14,tavernGlow);box(-8.25,4.00,10.67,1.25,1.45,.14,tavernGlow);box(-10.00,6.90,10.72,5.5,.28,.2,tavernTrim);
+box(-13.00,5.25,10.70,.16,2.4,.16,v8Iron);box(-12.20,7.00,10.70,1.65,.85,.16,tavernDark);
+const kettle=new THREE.Mesh(new THREE.SphereGeometry(.42,12,8),tavernBrass);kettle.scale.set(1.15,.72,.82);kettle.position.set(-12.20,7.35,10.82);scene.add(kettle);
+for(const dx of [-2.3,2.3]){const lamp=new THREE.Mesh(new THREE.SphereGeometry(.18,8,6),tavernGlow);lamp.position.set(-10.00+dx,5.75,10.88);scene.add(lamp)}
+for(const dx of [-2.15,-1.45,1.65]){box(-10.00+dx,3.00,11.15,.72,1,.72,v8Wood);box(-10.00+dx,3.45,11.15,.78,.09,.78,v8Iron)}
+box(-6.90,3.00,11.10,2.2,.62,.75,v8Wood);box(-6.90,3.62,11.10,2,.12,.68,tavernTrim);
+for(const q of [[-16.00,3.00,9.00],[-4.00,3.00,12.00],[-18.00,3.00,13.00]]){box(q[0],q[1],q[2],1.8,.28,1.1,path);box(q[0]+.65,q[1]+.28,q[2],.48,.65,.48,v8Wood)}
+for(const q of [[-15.00,4.80,10.80],[-5.00,4.90,10.80]]){const l=new THREE.Mesh(new THREE.SphereGeometry(.14,8,6),tavernGlow);l.position.set(...q);scene.add(l)}
+
 // v8.3.1 millstream: one readable flow line through the wheel
 box(21,.10,18,3.4,.34,14,water);
 box(21,.08,27,2.8,.38,6.0,water);
