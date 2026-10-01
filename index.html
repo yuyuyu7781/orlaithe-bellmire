@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v8 — Orlaithe miniature</title>
+<title>Bellmire v8.1 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:hidden;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -15,9 +15,9 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v8</span></div><div class="sub">Bellmire — 石畳と軒先、窓明かり、猫と住人が暮らす丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v8.1</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
-<div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="streetwalk">路地散歩</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">列車</button></div>
+<div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="streetwalk">路地散歩</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">列車</button><button data-v="resident">住人</button><button data-v="catview">猫</button></div>
 <div class="row"><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div></div></div>
 <div class="resident">追跡 <select id="residentSel"><option value="0">パン屋</option><option value="1">本屋</option><option value="2">旅人</option><option value="3">吟遊詩人</option></select></div>
 <div class="hint">ドラッグ：回転　ホイール：ズーム　右ドラッグ：移動</div>
@@ -59,6 +59,29 @@ v8Sign(-34,4.7,31.8);v8Sign(-21,5,31.8);v8Sign(-43.5,6.3,3.2);
 for(const [x,z] of [[-32,30],[-28,27],[-21,30],[-14,25],[-38,6],[29,35],[35,31]]){box(x,1.25,z,1,.65,.8,v8Wood);const sack=new THREE.Mesh(new THREE.SphereGeometry(.38,8,6),new THREE.MeshStandardMaterial({color:0x8d8068}));sack.scale.set(.8,1.15,.7);sack.position.set(x+.7,1.52,z+.25);scene.add(sack)}
 // laundry across a narrow lane
 for(let i=0;i<5;i++){const cloth=new THREE.Mesh(new THREE.PlaneGeometry(.8,.7),v8Cloth);cloth.material.side=THREE.DoubleSide;cloth.position.set(-16+i*1.05,7.2+Math.sin(i)*.12,22.5);cloth.rotation.y=Math.PI/2;scene.add(cloth)}
+
+
+// v8.1 focal lane: deliberately varied silhouettes
+gableRoof(-39,8.25,3.0,9.2,7.2,2.5,v81RoofB,0);
+gableRoof(-31,7.7,28.0,7.2,6.2,2.0,v81RoofA,Math.PI/2);
+leanRoof(-18,8.5,31.8,6.6,6.4,v81RoofC,-.18);
+gableRoof(-10,8.2,26.0,7.3,6.2,2.3,v81RoofB,0);
+leanRoof(31,8.2,33.5,6.5,5.5,v81RoofA,.16);
+gableRoof(37,9.3,29.5,5.5,5.5,2.0,v81RoofC,Math.PI/2);
+
+// doors, planters, lamps and benches make the street legible at close range
+doorDetail(-35.8,2.25,3.15); doorDetail(-28.7,2.25,31.1);
+doorDetail(-14.8,2.25,31.95); doorDetail(-7.2,2.25,26.25);
+for(const p of [[-34.8,1.38,4.0],[-29.8,1.38,30.6],[-20.5,1.38,31.2],[-12.0,1.38,25.5],[28.5,1.38,34.4],[35.0,1.38,30.4]]) planter(...p);
+for(const p of [[-36,6.8,3.45],[-28,6.4,31.4],[-15,6.8,32.15],[-7,6.2,26.45],[29,6.3,33.9]]) lamp(...p);
+box(-24,1.35,29.6,2.8,.55,.65,v8Wood); box(-24,1.15,29.6,.18,.85,.18,v8Iron);
+
+// irregular cobble patches instead of one flat continuous carpet
+for(let i=0;i<55;i++){
+  const c=new THREE.Mesh(new THREE.BoxGeometry(.48+Math.random()*.32,.07,.34+Math.random()*.24),v8Stone);
+  c.position.set(-35+Math.random()*27,1.205,26+Math.random()*5.2);
+  c.rotation.y=Math.random()*.8; scene.add(c);
+}
 
 // ===== v7 district redesign: fill the empty east side and stitch the city into the hill =====
 const v7Terracotta=M(0x8c6551,.9);
@@ -177,9 +200,9 @@ const innLamp=new THREE.PointLight(0xffb45e,1.6,12);innLamp.position.set(-39,7,3
 
 // Orrery House — celestial instrument shop with copper dome and exterior rings
 box(3,4.5,-3,7.5,8,7.5,bluePlaster);
-const dome=new THREE.Mesh(new THREE.SphereGeometry(3.25,24,12,0,Math.PI*2,0,Math.PI/2),v8Copper);dome.scale.y=.62;dome.position.set(3,12.5,-3);scene.add(dome);
+const dome=new THREE.Mesh(new THREE.SphereGeometry(2.45,24,12,0,Math.PI*2,0,Math.PI/2),v8Copper);dome.scale.y=.62;dome.position.set(3,11.9,-3);scene.add(dome);
 const orrery=new THREE.Group();
-for(const rr of [1.75,2.35,2.95]){const ring=new THREE.Mesh(new THREE.TorusGeometry(rr,.055,6,48),v8Copper);ring.rotation.set(Math.random()*1.2,Math.random()*1.2,Math.random()*1.2);orrery.add(ring)}
+for(const rr of [1.25,1.72,2.18]){const ring=new THREE.Mesh(new THREE.TorusGeometry(rr,.055,6,48),v8Copper);ring.rotation.set(Math.random()*1.2,Math.random()*1.2,Math.random()*1.2);orrery.add(ring)}
 const star=new THREE.Mesh(new THREE.SphereGeometry(.55,12,8),new THREE.MeshStandardMaterial({color:0xe8c77d,emissive:0xc28a35,emissiveIntensity:.5}));orrery.add(star);orrery.position.set(3,16,-3);scene.add(orrery);
 
 // house built across an alley: a true undercroft passage
@@ -255,7 +278,7 @@ const chimneySources=[
 const smoke=[];for(let i=0;i<34;i++){const q=new THREE.Mesh(new THREE.SphereGeometry(.25+Math.random()*.35,7,5),new THREE.MeshBasicMaterial({color:0xc4c4b8,transparent:true,opacity:.12}));scene.add(q);smoke.push(q)}
 const N=1500,a=new Float32Array(N*3);for(let i=0;i<N;i++){a[i*3]=(Math.random()-.5)*120;a[i*3+1]=Math.random()*65;a[i*3+2]=(Math.random()-.5)*95}const rg=new THREE.BufferGeometry();rg.setAttribute('position',new THREE.BufferAttribute(a,3));const rain=new THREE.Points(rg,new THREE.PointsMaterial({color:0xc5d7de,size:.11,transparent:true,opacity:.6}));rain.visible=false;scene.add(rain);
 let view='overview',followMode=false,followIdx=0;
-const viewMap={overview:[[72,54,78],[-2,7,0]],alley:[[-15,6,36],[-9,5,23]],streetwalk:[[-34,4.4,34],[-18,3.5,24]],bakery:[[-39,7,34],[-31,4,24]],bookshop:[[-25,7,38],[-18,6,29]],inn:[[-49,11,11],[-39,8,-1]],orrery:[[15,17,12],[3,12,-3]],square:[[-31,6,16],[-24,2,7]],roofgarden:[[-38,18,-8],[-28,11,-18]],mill:[[33,10,39],[20,5,27]],archway:[[39,10,21],[28,5,9]],canal:[[31,7,33],[17,3,14]],rooftop:[[-5,21,13],[-20,7,0]],belfry:[[-4,27,-17],[-13,23,-32]],drone:[[0,33,45],[-8,6,-5]],train:[[52,6,-27],[5,7,-10]]};
+const viewMap={overview:[[72,54,78],[-2,7,0]],alley:[[-15,6,36],[-9,5,23]],streetwalk:[[-34,4.4,34],[-18,3.5,24]],resident:[[-4,4.3,29],[-9,3.1,24]],catview:[[-25,3.3,16],[-20,2.0,18]],bakery:[[-39,7,34],[-31,4,24]],bookshop:[[-25,7,38],[-18,6,29]],inn:[[-49,11,11],[-39,8,-1]],orrery:[[15,17,12],[3,12,-3]],square:[[-31,6,16],[-24,2,7]],roofgarden:[[-38,18,-8],[-28,11,-18]],mill:[[33,10,39],[20,5,27]],archway:[[39,10,21],[28,5,9]],canal:[[31,7,33],[17,3,14]],rooftop:[[-5,21,13],[-20,7,0]],belfry:[[-4,27,-17],[-13,23,-32]],drone:[[0,33,45],[-8,6,-5]],train:[[52,6,-27],[5,7,-10]]};
 function setView(v){view=v;followMode=false;document.getElementById('follow').classList.remove('active');const[p,t]=viewMap[v];camera.position.fromArray(p);controls.target.fromArray(t);controls.enabled=!['drone','train'].includes(v);document.querySelectorAll('#views button').forEach(b=>b.classList.toggle('active',b.dataset.v===v))}
 function setWeather(w){rain.visible=w==='rain';lit.forEach(m=>m.emissiveIntensity=w==='blackout'?0:.65);ovenGlow.intensity=w==='blackout'?0:2.2;const cfg={clear:[0x9eaaa3,.0018,1.35,1.85,1.02,.18],rain:[0x5d6b70,.010,.7,.38,.78,.30],fog:[0x929b96,.0145,.86,.48,.80,.38],blackout:[0x071017,.012,.12,.02,.48,.18],dawn:[0x5f6c7d,.009,.48,.42,.68,.34],night:[0x07111d,.010,.25,.05,.58,.55]}[w];scene.background.set(cfg[0]);scene.fog.color.set(cfg[0]);scene.fog.density=cfg[1];hemi.intensity=cfg[2];sun.intensity=cfg[3];renderer.toneMappingExposure=cfg[4];bloom.strength=cfg[5];sun.color.set(w==='dawn'?0xd58b62:0xffe2b5);document.querySelectorAll('#weather button').forEach(b=>b.classList.toggle('active',b.dataset.w===w))}
 document.getElementById('weather').onclick=e=>e.target.dataset.w&&setWeather(e.target.dataset.w);document.getElementById('views').onclick=e=>e.target.dataset.v&&setView(e.target.dataset.v);residentSel.onchange=e=>followIdx=+e.target.value;
