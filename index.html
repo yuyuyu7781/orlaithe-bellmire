@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v6.2 — Orlaithe miniature</title>
+<title>Bellmire v7 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:hidden;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -15,9 +15,9 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v6.2</span></div><div class="sub">Bellmire — 暮らしの路地、水車、屋根庭、猫のいる街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v7</span></div><div class="sub">Bellmire — 水路が街を縫い、崖と家々が重なる丘の都市</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
-<div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">列車</button></div>
+<div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">列車</button></div>
 <div class="row"><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div></div></div>
 <div class="resident">追跡 <select id="residentSel"><option value="0">パン屋</option><option value="1">本屋</option><option value="2">旅人</option><option value="3">吟遊詩人</option></select></div>
 <div class="hint">ドラッグ：回転　ホイール：ズーム　右ドラッグ：移動</div>
@@ -46,6 +46,92 @@ box(-10,1,-3,90,2.5,62,stone2);box(-18,3.45,-14,69,2.8,42,stone);box(-12,6.2,-24
 // broken retaining walls and planted ledges make the hill feel accumulated rather than terraced
 [[-49,2,21,2,5,18],[-47,2,-2,2,5,13],[-43,4.5,-20,2,5,16],[16,2,-14,2,5,17],[8,6.5,-33,2,5,12]].forEach(q=>box(...q,stone2));
 for(let i=0;i<18;i++){const x=-48+Math.random()*62,z=-34+Math.random()*68,y=.2+Math.random()*7;const r=.7+Math.random()*1.7;const rock=new THREE.Mesh(new THREE.DodecahedronGeometry(r,0),stone2);rock.position.set(x,y,z);rock.scale.y=.55+Math.random()*.7;rock.rotation.set(Math.random(),Math.random(),Math.random());scene.add(rock)}
+
+
+// ===== v7 district redesign: fill the empty east side and stitch the city into the hill =====
+const darkStone=M(0x4d514b),warmStone=M(0x827b69),sage=M(0x65735e),slate=M(0x303b36);
+function roofLong(x,y,z,w,d,h=2.2,ma=roof){
+  const g=new THREE.ConeGeometry(Math.max(w,d)*.72,h,4);
+  const o=new THREE.Mesh(g,ma);o.rotation.y=Math.PI/4;o.position.set(x,y+h/2,z);o.castShadow=true;scene.add(o);return o;
+}
+function tinyWindow(x,y,z,w=.45,h=.7){
+  const ma=new THREE.MeshStandardMaterial({color:0xf0bd75,emissive:0xff9f43,emissiveIntensity:.52});
+  const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,.09),ma);o.position.set(x,y,z);scene.add(o);lit.push(ma);return o;
+}
+// irregular cliff skirts hide the old slab edges
+[
+ [18,.15,35,26,5,5],[29,.15,27,12,4,11],[34,.15,12,8,5,18],
+ [30,2.6,-5,15,6,10],[22,5.2,-20,14,7,10],[10,8.2,-34,20,8,6],
+ [-1,.2,38,16,4,5],[-47,.2,34,8,4,10]
+].forEach(q=>box(q[0],q[1],q[2],q[3],q[4],q[5],darkStone));
+
+// east-side houses: smaller footprints, mixed heights, attached clusters
+const eastHouses=[
+ [31,31,1.1,6,5,7,1],[38,27,1.1,5,5,9,2],[31,21,1.1,7,5,6,3],
+ [37,16,1.1,5,6,8,4],[31,10,1.1,6,5,7,5],[37,5,1.1,5,5,6,6],
+ [29,-4,4.5,7,5,8,7],[36,-8,4.5,5,5,7,8],[27,-13,4.5,6,5,9,9],
+ [22,-23,8.2,7,5,8,10],[14,-29,8.2,6,5,10,11]
+];
+eastHouses.forEach((a,i)=>house(...a));
+
+// attached timber upper floors break the box silhouettes
+[
+ [31,8.3,31,7.4,2.5,5.3],[37.5,10.1,27,5.7,2.2,5.1],
+ [29,12.5,-4,7.8,2.4,5.2],[22,16.2,-23,7.8,2.2,5.2]
+].forEach((q,i)=>{box(q[0],q[1],q[2],q[3],q[4],q[5],i%2?wood:winePlaster);roofLong(q[0],q[1]+q[4],q[2],q[3],q[5],1.7)});
+
+// canal branch bends into the town instead of remaining a straight edge feature
+box(27,.12,20,6,.34,28,water);
+box(24,.22,20,2,.5,28,path);box(30,.22,20,2,.5,28,path);
+box(12,.14,-1,24,.34,5.5,water);
+box(12,.22,-4.2,24,.5,1.6,path);box(12,.22,2.2,24,.5,1.6,path);
+
+// arched stone gateway over the canal approach
+box(24,1.1,9,3.0,7,5,darkStone);box(32,1.1,9,3.0,7,5,darkStone);
+box(28,6.2,9,11,3.0,5,warmStone);roofLong(28,9.2,9,11,5,2.4,slate);
+const archVoid=M(0x1b2422,.95);
+box(28,1.15,11.55,5.3,5.1,.18,archVoid);
+tinyWindow(25.4,7.9,11.68);tinyWindow(30.6,7.9,11.68);
+
+// watermill house: wheel now belongs to a building and a channel
+box(16,1.1,27,9,8,8,warmStone);roofLong(16,9.1,27,9,8,2.7,slate);
+box(16,1.1,31.05,3.1,3.4,.18,wood);
+tinyWindow(13.5,5.2,31.12,.7,1);tinyWindow(18.5,5.2,31.12,.7,1);
+box(21,.15,27,3,.45,18,water);
+box(23,.2,27,1.2,.55,18,path);
+
+// hillside stairs weaving between east houses
+for(let i=0;i<15;i++){box(33-i*.55,1.1+i*.23,34-i*1.2,3.0,.22,1.05,path)}
+for(let i=0;i<12;i++){box(25-i*.72,4.5+i*.31,-8-i*1.15,3.2,.22,1.05,path)}
+
+// two small landmark silhouettes
+// Lantern tower
+box(38,1.1,-21,5.2,13,5.2,darkStone);roofLong(38,14.1,-21,6.2,6.2,4,slate);
+for(const yy of [5,9,12]) tinyWindow(38,yy,-18.34,.65,.9);
+const beacon=new THREE.PointLight(0xffb86b,1.25,18);beacon.position.set(38,14,-18);scene.add(beacon);
+// elevated glasshouse-like roof garden pavilion (code-only)
+box(8,11.3,-28,8,.35,6,grass);
+for(const xx of [5,11]) box(xx,11.65,-28,.18,3.2,5.5,metal);
+box(8,14.6,-28,6.2,.18,5.5,metal);
+for(let i=0;i<9;i++){const b=new THREE.Mesh(new THREE.IcosahedronGeometry(.42+Math.random()*.35,0),moss);b.position.set(5+Math.random()*6,12,-30+Math.random()*4);scene.add(b)}
+
+// bridges and overhangs make vertical layers
+box(27,8.8,18,12,.6,2.2,wood);
+for(const xx of [22,32]) box(xx,4.0,18,.35,4.8,.35,wood);
+box(14,12.2,-16,13,.65,2.0,wood);
+
+// market pocket, carts and awnings
+box(33,1.12,38,14,.2,8,path);
+for(const xx of [29,33,37]){
+  box(xx,1.25,38,3.1,1.2,1.8,wood);
+  const aw=M(xx===33?0x8f6556:0x7b806b,.95);
+  box(xx,3.4,38,3.6,.12,2.4,aw);
+  for(const sx of [-1.4,1.4]) box(xx+sx,1.2,38,.12,2.3,.12,wood);
+}
+
+// scattered details on the new district
+for(let i=0;i<12;i++){barrel(27+Math.random()*12,3+Math.random()*34,1.1)}
+for(let i=0;i<14;i++){const pot=new THREE.Mesh(new THREE.CylinderGeometry(.3,.23,.48,9),terracotta);pot.position.set(25+Math.random()*13,1.38,Math.random()*34);scene.add(pot)}
 
 box(20,.05,10,8,.38,76,water);box(14,.2,10,3,.55,76,path);box(26,.2,10,3,.55,76,path);[-25,-7,12,31].forEach(z=>box(20,.55,z,15,.65,2.5,path));
 const lower=[[-43,31,6,5],[-36,32,5,5],[-29,32,6,4.5],[-21,31,5,5],[-42,23,5,5],[-34,24,6,4.5],[-25,24,5,5],[-17,23,6,5],[-44,15,6,5],[-36,16,5,4.5],[-28,15,6,5],[-19,15,5,4.5],[-11,16,5,5],[-43,8,5,4.5],[-34,8,6,5],[-25,8,5,4.5],[-16,8,6,5],[-8,8,5,5]];
@@ -109,8 +195,8 @@ for(let i=0;i<12;i++){
   const paddle=new THREE.Mesh(new THREE.BoxGeometry(1.15,.42,.8),wood);
   paddle.position.set(Math.cos(ang)*3.65,Math.sin(ang)*3.65,0);paddle.rotation.z=ang;wheel.add(paddle);
 }
-wheel.position.set(16,4.55,27);scene.add(wheel);
-const axle=new THREE.Mesh(new THREE.CylinderGeometry(.32,.32,3.0,12),metal);axle.rotation.x=Math.PI/2;axle.position.set(16,4.55,27);scene.add(axle);
+wheel.position.set(21.05,4.55,27);wheel.rotation.y=Math.PI/2;scene.add(wheel);
+const axle=new THREE.Mesh(new THREE.CylinderGeometry(.32,.32,3.0,12),metal);axle.rotation.z=Math.PI/2;axle.position.set(21.05,4.55,27);scene.add(axle);
 for(let z=-42;z<44;z+=3){box(44,.35,z,.25,.25,2.4,metal);box(48,.35,z,.25,.25,2.4,metal)}
 const train=new THREE.Group();for(let i=0;i<3;i++){const c=box(0,0,i*8,3.2,3.2,7.5,M(0x53675e),train);c.position.y=1.6}train.position.set(46,1,-35);scene.add(train);
 const residents=[];function person(c){const g=new THREE.Group(),body=new THREE.Mesh(new THREE.CapsuleGeometry(.38,1.15,4,8),M(c)),head=new THREE.Mesh(new THREE.SphereGeometry(.36,10,8),M(0xb98e6d));body.position.y=1.1;head.position.y=2.05;g.add(body,head);scene.add(g);residents.push(g);return g}
@@ -148,12 +234,12 @@ const chimneySources=[
 const smoke=[];for(let i=0;i<34;i++){const q=new THREE.Mesh(new THREE.SphereGeometry(.25+Math.random()*.35,7,5),new THREE.MeshBasicMaterial({color:0xc4c4b8,transparent:true,opacity:.12}));scene.add(q);smoke.push(q)}
 const N=1500,a=new Float32Array(N*3);for(let i=0;i<N;i++){a[i*3]=(Math.random()-.5)*120;a[i*3+1]=Math.random()*65;a[i*3+2]=(Math.random()-.5)*95}const rg=new THREE.BufferGeometry();rg.setAttribute('position',new THREE.BufferAttribute(a,3));const rain=new THREE.Points(rg,new THREE.PointsMaterial({color:0xc5d7de,size:.11,transparent:true,opacity:.6}));rain.visible=false;scene.add(rain);
 let view='overview',followMode=false,followIdx=0;
-const viewMap={overview:[[62,48,70],[-10,7,-2]],alley:[[-15,6,36],[-9,5,23]],bakery:[[-39,7,34],[-31,4,24]],bookshop:[[-25,7,38],[-18,6,29]],inn:[[-49,11,11],[-39,8,-1]],orrery:[[15,17,12],[3,12,-3]],square:[[-31,6,16],[-24,2,7]],roofgarden:[[-38,18,-8],[-28,11,-18]],canal:[[31,7,33],[17,3,14]],rooftop:[[-5,21,13],[-20,7,0]],belfry:[[-4,27,-17],[-13,23,-32]],drone:[[0,33,45],[-8,6,-5]],train:[[52,6,-27],[5,7,-10]]};
+const viewMap={overview:[[72,54,78],[-2,7,0]],alley:[[-15,6,36],[-9,5,23]],bakery:[[-39,7,34],[-31,4,24]],bookshop:[[-25,7,38],[-18,6,29]],inn:[[-49,11,11],[-39,8,-1]],orrery:[[15,17,12],[3,12,-3]],square:[[-31,6,16],[-24,2,7]],roofgarden:[[-38,18,-8],[-28,11,-18]],mill:[[33,10,39],[20,5,27]],archway:[[39,10,21],[28,5,9]],canal:[[31,7,33],[17,3,14]],rooftop:[[-5,21,13],[-20,7,0]],belfry:[[-4,27,-17],[-13,23,-32]],drone:[[0,33,45],[-8,6,-5]],train:[[52,6,-27],[5,7,-10]]};
 function setView(v){view=v;followMode=false;document.getElementById('follow').classList.remove('active');const[p,t]=viewMap[v];camera.position.fromArray(p);controls.target.fromArray(t);controls.enabled=!['drone','train'].includes(v);document.querySelectorAll('#views button').forEach(b=>b.classList.toggle('active',b.dataset.v===v))}
 function setWeather(w){rain.visible=w==='rain';lit.forEach(m=>m.emissiveIntensity=w==='blackout'?0:.65);ovenGlow.intensity=w==='blackout'?0:2.2;const cfg={clear:[0x9eaaa3,.0018,1.35,1.85,1.02,.18],rain:[0x5d6b70,.010,.7,.38,.78,.30],fog:[0x929b96,.0145,.86,.48,.80,.38],blackout:[0x071017,.012,.12,.02,.48,.18],dawn:[0x5f6c7d,.009,.48,.42,.68,.34],night:[0x07111d,.010,.25,.05,.58,.55]}[w];scene.background.set(cfg[0]);scene.fog.color.set(cfg[0]);scene.fog.density=cfg[1];hemi.intensity=cfg[2];sun.intensity=cfg[3];renderer.toneMappingExposure=cfg[4];bloom.strength=cfg[5];sun.color.set(w==='dawn'?0xd58b62:0xffe2b5);document.querySelectorAll('#weather button').forEach(b=>b.classList.toggle('active',b.dataset.w===w))}
 document.getElementById('weather').onclick=e=>e.target.dataset.w&&setWeather(e.target.dataset.w);document.getElementById('views').onclick=e=>e.target.dataset.v&&setView(e.target.dataset.v);residentSel.onchange=e=>followIdx=+e.target.value;
 follow.onclick=()=>{followMode=!followMode;follow.classList.toggle('active',followMode);controls.enabled=!followMode};fullscreen.onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen?.();toggle.onclick=()=>{panel.classList.toggle('collapsed');toggle.textContent=panel.classList.contains('collapsed')?'操作':'街を見る'};if(innerWidth<701)panel.classList.add('collapsed');
-const clock=new THREE.Clock();function animate(){requestAnimationFrame(animate);const t=clock.getElapsedTime();wheel.rotation.z=-t*.22;orrery.rotation.y=t*.08;orrery.rotation.x=Math.sin(t*.05)*.12;train.position.z=((t*3.2)%95)-48;routes.forEach((r,i)=>{const u=(Math.sin(t*r.s+i)+1)/2;r.p.position.lerpVectors(r.a,r.b,u);r.p.lookAt(u<.5?r.b:r.a)});const cu=(Math.sin(t*.18)+1)/2;cat.position.lerpVectors(new THREE.Vector3(-39,1.12,27.4),new THREE.Vector3(-13,1.12,18.5),cu);cat.rotation.y=cu<.5?-1.2:1.95;
+const clock=new THREE.Clock();function animate(){requestAnimationFrame(animate);const t=clock.getElapsedTime();if(wheel)wheel.rotation.z=-t*.22;if(orrery)orrery.rotation.y=t*.08;if(orrery)orrery.rotation.x=Math.sin(t*.05)*.12;train.position.z=((t*3.2)%95)-48;routes.forEach((r,i)=>{const u=(Math.sin(t*r.s+i)+1)/2;r.p.position.lerpVectors(r.a,r.b,u);r.p.lookAt(u<.5?r.b:r.a)});const cu=(Math.sin(t*.18)+1)/2;cat.position.lerpVectors(new THREE.Vector3(-39,1.12,27.4),new THREE.Vector3(-13,1.12,18.5),cu);cat.rotation.y=cu<.5?-1.2:1.95;
 smoke.forEach((q,i)=>{const u=(t*.09+i/smoke.length)%1;const cs=chimneySources[i%chimneySources.length];q.position.set(cs[0]+Math.sin(t*.4+i)*.45,cs[1]+u*12,cs[2]+Math.cos(t*.35+i)*.35);q.scale.setScalar(.5+u*2.3);q.material.opacity=.14*(1-u)});if(rain.visible){const p=rg.attributes.position.array;for(let i=0;i<N;i++){p[i*3+1]-=.48;if(p[i*3+1]<0)p[i*3+1]=65}rg.attributes.position.needsUpdate=true}if(view==='drone'&&!followMode){camera.position.set(Math.sin(t*.07)*52,29+Math.sin(t*.11)*4,Math.cos(t*.07)*52);camera.lookAt(-8,6,-4)}if(view==='train'&&!followMode){camera.position.set(52,5.7,train.position.z+7);camera.lookAt(3,6,train.position.z-4)}if(followMode){const p=residents[followIdx],d=new THREE.Vector3();p.getWorldDirection(d);camera.position.lerp(p.position.clone().add(new THREE.Vector3(0,2.8,0)).add(d.multiplyScalar(-4.5)),.07);camera.lookAt(p.position.clone().add(new THREE.Vector3(0,1.4,0)))}controls.update();composer.render()}
-setView('overview');setWeather('dawn');animate();addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight)});loading.classList.add('hide');
+setView('overview');setWeather('clear');animate();addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight)});loading.classList.add('hide');
 </script></body></html>
