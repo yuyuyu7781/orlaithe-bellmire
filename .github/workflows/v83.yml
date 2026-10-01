@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Patch watermill to v8.3.1
+      - name: Patch millstream
         shell: python
         run: |
           from pathlib import Path
@@ -18,38 +18,17 @@ jobs:
           s=p.read_text()
           s=s.replace('Bellmire v8.3 — Orlaithe miniature','Bellmire v8.3.1 — Orlaithe miniature')
           s=s.replace('Orlaithe miniature · v8.3','Orlaithe miniature · v8.3.1')
-          old='''box(21,.15,27,3,.45,18,water);
-box(23,.2,27,1.2,.55,18,path);
-
-
-// v8.3 mill hydraulics: headrace -> chute -> wheel -> tailrace
-box(28,5.05,27,12,.28,2.4,water);
-box(22.9,3.55,27,2.0,.24,5.2,water);
-box(22.9,3.15,27,2.5,.35,5.5,warmStone);
-box(21,.10,34,3.2,.34,14,water);
-for(const zz of [21,33]) box(21,.18,zz,5.2,.42,.7,path);'''
-          new='''// v8.3.1 millstream: one readable flow line through the wheel
-// upstream race approaches from the hill side, narrows at the wheel, then opens downstream
-box(21,.10,18,3.4,.34,14,water);
-box(21,.08,27,2.8,.38,6.0,water);
-box(21,.06,36,3.6,.32,14,water);
-// stone-lined banks keep the stream visually continuous instead of looking like blue tiles
-box(18.95,.08,18,.55,.72,14,warmStone);box(23.05,.08,18,.55,.72,14,warmStone);
-box(19.25,.06,27,.48,.58,6,warmStone);box(22.75,.06,27,.48,.58,6,warmStone);
-box(18.8,.04,36,.6,.62,14,warmStone);box(23.2,.04,36,.6,.62,14,warmStone);
-// shallow stone sills suggest a small drop in level before and after the wheel
-box(21,.05,23.7,4.6,.28,.55,path);box(21,.03,30.3,4.8,.24,.55,path);
-// narrow service path beside the mill race
-box(24.15,.16,27,1.05,.48,25,path);'''
+          old="box(21,.15,27,3,.45,18,water);\nbox(23,.2,27,1.2,.55,18,path);\n\n\n// v8.3 mill hydraulics: headrace -> chute -> wheel -> tailrace\nbox(28,5.05,27,12,.28,2.4,water);\nbox(22.9,3.55,27,2.0,.24,5.2,water);\nbox(22.9,3.15,27,2.5,.35,5.5,warmStone);\nbox(21,.10,34,3.2,.34,14,water);\nfor(const zz of [21,33]) box(21,.18,zz,5.2,.42,.7,path);"
+          new="// v8.3.1 millstream: one readable flow line through the wheel\nbox(21,.10,18,3.4,.34,14,water);\nbox(21,.08,27,2.8,.38,6.0,water);\nbox(21,.06,36,3.6,.32,14,water);\nbox(18.95,.08,18,.55,.72,14,warmStone);box(23.05,.08,18,.55,.72,14,warmStone);\nbox(19.25,.06,27,.48,.58,6,warmStone);box(22.75,.06,27,.48,.58,6,warmStone);\nbox(18.8,.04,36,.6,.62,14,warmStone);box(23.2,.04,36,.6,.62,14,warmStone);\nbox(21,.05,23.7,4.6,.28,.55,path);box(21,.03,30.3,4.8,.24,.55,path);\nbox(24.15,.16,27,1.05,.48,25,path);"
           if old not in s:
               raise SystemExit('expected v8.3 mill block not found')
           s=s.replace(old,new)
           s=s.replace("canal:[[35,9,34],[22,3.8,27]]","canal:[[31,7.5,38],[21,.7,27]]")
           p.write_text(s)
-      - name: Commit v8.3.1
+      - name: Commit patch
         run: |
           git config user.name "Bellmire Builder"
           git config user.email "actions@users.noreply.github.com"
           git add index.html
-          git commit -m "Refine Bellmire v8.3.1 millstream and wheel channel" || exit 0
+          git commit -m "Refine Bellmire v8.3.1 millstream" || exit 0
           git push
