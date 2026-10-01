@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v7 — Orlaithe miniature</title>
+<title>Bellmire v7.1 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:hidden;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -15,7 +15,7 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v7</span></div><div class="sub">Bellmire — 水路が街を縫い、崖と家々が重なる丘の都市</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v7.1</span></div><div class="sub">Bellmire — 水路が街を縫い、崖と家々が重なる丘の都市</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
 <div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">列車</button></div>
 <div class="row"><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div></div></div>
@@ -49,6 +49,7 @@ for(let i=0;i<18;i++){const x=-48+Math.random()*62,z=-34+Math.random()*68,y=.2+M
 
 
 // ===== v7 district redesign: fill the empty east side and stitch the city into the hill =====
+const v7Terracotta=M(0x8c6551,.9);
 const darkStone=M(0x4d514b),warmStone=M(0x827b69),sage=M(0x65735e),slate=M(0x303b36);
 function roofLong(x,y,z,w,d,h=2.2,ma=roof){
   const g=new THREE.ConeGeometry(Math.max(w,d)*.72,h,4);
@@ -131,7 +132,7 @@ for(const xx of [29,33,37]){
 
 // scattered details on the new district
 for(let i=0;i<12;i++){barrel(27+Math.random()*12,3+Math.random()*34,1.1)}
-for(let i=0;i<14;i++){const pot=new THREE.Mesh(new THREE.CylinderGeometry(.3,.23,.48,9),terracotta);pot.position.set(25+Math.random()*13,1.38,Math.random()*34);scene.add(pot)}
+for(let i=0;i<14;i++){const pot=new THREE.Mesh(new THREE.CylinderGeometry(.3,.23,.48,9),v7Terracotta);pot.position.set(25+Math.random()*13,1.38,Math.random()*34);scene.add(pot)}
 
 box(20,.05,10,8,.38,76,water);box(14,.2,10,3,.55,76,path);box(26,.2,10,3,.55,76,path);[-25,-7,12,31].forEach(z=>box(20,.55,z,15,.65,2.5,path));
 const lower=[[-43,31,6,5],[-36,32,5,5],[-29,32,6,4.5],[-21,31,5,5],[-42,23,5,5],[-34,24,6,4.5],[-25,24,5,5],[-17,23,6,5],[-44,15,6,5],[-36,16,5,4.5],[-28,15,6,5],[-19,15,5,4.5],[-11,16,5,5],[-43,8,5,4.5],[-34,8,6,5],[-25,8,5,4.5],[-16,8,6,5],[-8,8,5,5]];
