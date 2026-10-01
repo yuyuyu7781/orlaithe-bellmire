@@ -6,12 +6,20 @@ html,body{margin:0;height:100%;overflow:hidden;background:#0b1014;color:#eee;fon
 <div class='row' id='views'><button data-v='overview' class='active'>全景</button><button data-v='alley'>路地</button><button data-v='bakery'>パン屋</button><button data-v='rooftop'>屋上</button><button data-v='belfry'>鐘楼</button><button data-v='drone'>ドローン</button><button data-v='train'>列車</button></div>
 <div class='row'><button id='follow'>住人を追う</button><button id='fullscreen'>全画面</button></div></div>
 <div class='resident'>追跡する住人 <select id='residentSel'><option value='0'>パン屋</option><option value='1'>本屋</option><option value='2'>旅人</option><option value='3'>吟遊詩人</option></select></div><div class='hint'>ドラッグ: 視点回転　ホイール: ズーム　右ドラッグ: 平行移動</div>
-<script>setTimeout(()=>{const l=document.querySelector('#loading');if(l&&!l.classList.contains('hide')){l.innerHTML='BELLMIRE<br><small style="font-family:system-ui;letter-spacing:0;font-size:12px;opacity:.7">読み込みに時間がかかっています…</small>'}},7000)</script><script type='module'>
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
-import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/controls/OrbitControls.js';
-import {EffectComposer} from 'https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/postprocessing/EffectComposer.js';
-import {RenderPass} from 'https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/postprocessing/RenderPass.js';
-import {UnrealBloomPass} from 'https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/postprocessing/UnrealBloomPass.js';
+<script>window.addEventListener('error',e=>{const l=document.querySelector('#loading');if(l)l.classList.add('hide');const box=document.querySelector('#error');if(box){box.classList.add('show');box.querySelector('p').textContent='読み込みエラー: '+(e.message||'不明なエラー')+'。ページを再読み込みしてください。';}});window.addEventListener('unhandledrejection',e=>{const l=document.querySelector('#loading');if(l)l.classList.add('hide');const box=document.querySelector('#error');if(box){box.classList.add('show');box.querySelector('p').textContent='読み込みエラー: '+(e.reason?.message||e.reason||'不明なエラー');}});setTimeout(()=>{const l=document.querySelector('#loading');if(l&&!l.classList.contains('hide')){l.innerHTML='BELLMIRE<br><small style="font-family:system-ui;letter-spacing:0;font-size:12px;opacity:.7">読み込みに時間がかかっています…</small>'}},7000)</script><script type='importmap'>
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+  }
+}
+</script>
+<script type='module'>
+import * as THREE from 'three';
+import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
+import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
+import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
 
 const app=document.querySelector('#app'), scene=new THREE.Scene();scene.background=new THREE.Color(0x9fb1a7);scene.fog=new THREE.FogExp2(0x9fb1a7,.007);
 const camera=new THREE.PerspectiveCamera(48,innerWidth/innerHeight,.1,500);camera.position.set(65,58,76);
