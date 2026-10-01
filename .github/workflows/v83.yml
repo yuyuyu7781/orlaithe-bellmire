@@ -1,4 +1,4 @@
-name: Bellmire v8.4 tavern patch
+name: Bellmire v8.4.1 tavern hotfix
 on:
   push:
     paths: ['.github/workflows/v83.yml']
@@ -9,27 +9,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build tavern district
+      - name: Fix duplicate tavern glow name
         shell: python
         run: |
           from pathlib import Path
-          import re
           p=Path('index.html'); s=p.read_text()
-          s=s.replace('Bellmire v8.3.1 — Orlaithe miniature','Bellmire v8.4 — Orlaithe miniature').replace('Orlaithe miniature · v8.3.1','Orlaithe miniature · v8.4')
-          m=re.search(r'tavern:\[\[([^\]]+)\],\[([^\]]+)\]\]',s)
-          if not m: raise SystemExit('tavern camera not found')
-          tx,ty,tz=[float(v.strip()) for v in m.group(2).split(',')]
           marker='// ===== v8.4 tavern district ====='
-          if marker not in s:
-            js=f'''\n{marker}\nconst tavernGlow=new THREE.MeshStandardMaterial({{color:0xe7a85f,emissive:0xff8a32,emissiveIntensity:1.15,roughness:.55}});lit.push(tavernGlow);\nconst tavernDark=M(0x493329,.94),tavernTrim=M(0x2f2924,.9),tavernBrass=M(0x8b6a3e,.45,.5);\nbox({tx:.2f},{ty-1:.2f},{tz+2.1:.2f},5.8,5.7,1.0,tavernDark);box({tx:.2f},{ty-.95:.2f},{tz+2.66:.2f},1.25,2.65,.18,tavernTrim);\nbox({tx-1.75:.2f},{ty:.2f},{tz+2.67:.2f},1.25,1.45,.14,tavernGlow);box({tx+1.75:.2f},{ty:.2f},{tz+2.67:.2f},1.25,1.45,.14,tavernGlow);box({tx:.2f},{ty+2.9:.2f},{tz+2.72:.2f},5.5,.28,.2,tavernTrim);\nbox({tx-3:.2f},{ty+1.25:.2f},{tz+2.7:.2f},.16,2.4,.16,v8Iron);box({tx-2.2:.2f},{ty+3:.2f},{tz+2.7:.2f},1.65,.85,.16,tavernDark);\nconst kettle=new THREE.Mesh(new THREE.SphereGeometry(.42,12,8),tavernBrass);kettle.scale.set(1.15,.72,.82);kettle.position.set({tx-2.2:.2f},{ty+3.35:.2f},{tz+2.82:.2f});scene.add(kettle);\nfor(const dx of [-2.3,2.3]){{const lamp=new THREE.Mesh(new THREE.SphereGeometry(.18,8,6),tavernGlow);lamp.position.set({tx:.2f}+dx,{ty+1.75:.2f},{tz+2.88:.2f});scene.add(lamp)}}\nfor(const dx of [-2.15,-1.45,1.65]){{box({tx:.2f}+dx,{ty-1:.2f},{tz+3.15:.2f},.72,1,.72,v8Wood);box({tx:.2f}+dx,{ty-.55:.2f},{tz+3.15:.2f},.78,.09,.78,v8Iron)}}\nbox({tx+3.1:.2f},{ty-1:.2f},{tz+3.1:.2f},2.2,.62,.75,v8Wood);box({tx+3.1:.2f},{ty-.38:.2f},{tz+3.1:.2f},2,.12,.68,tavernTrim);\nfor(const q of [[{tx-6:.2f},{ty-1:.2f},{tz+1:.2f}],[{tx+6:.2f},{ty-1:.2f},{tz+4:.2f}],[{tx-8:.2f},{ty-1:.2f},{tz+5:.2f}]]){{box(q[0],q[1],q[2],1.8,.28,1.1,path);box(q[0]+.65,q[1]+.28,q[2],.48,.65,.48,v8Wood)}}\nfor(const q of [[{tx-5:.2f},{ty+.8:.2f},{tz+2.8:.2f}],[{tx+5:.2f},{ty+.9:.2f},{tz+2.8:.2f}]]){{const l=new THREE.Mesh(new THREE.SphereGeometry(.14,8,6),tavernGlow);l.position.set(...q);scene.add(l)}}\n'''
-            anchor='// v8.3.1 millstream: one readable flow line through the wheel'
-            if anchor not in s: raise SystemExit('anchor not found')
-            s=s.replace(anchor,js+'\n'+anchor)
+          if marker not in s: raise SystemExit('v8.4 tavern marker not found')
+          head, tail = s.split(marker, 1)
+          tail = tail.replace('const tavernGlow=', 'const tavernWindowGlow=', 1)
+          tail = tail.replace('lit.push(tavernGlow)', 'lit.push(tavernWindowGlow)', 1)
+          tail = tail.replace('tavernGlow);', 'tavernWindowGlow);')
+          s = head + marker + tail
+          s=s.replace('Bellmire v8.4 — Orlaithe miniature','Bellmire v8.4.1 — Orlaithe miniature').replace('Orlaithe miniature · v8.4','Orlaithe miniature · v8.4.1')
           p.write_text(s)
-      - name: Commit patch
+      - name: Commit hotfix
         run: |
           git config user.name 'Bellmire Builder'
           git config user.email 'actions@users.noreply.github.com'
           git add index.html
-          git commit -m 'Build Bellmire v8.4 tavern district' || exit 0
+          git commit -m 'Fix Bellmire v8.4 tavern glow collision' || exit 0
           git push
