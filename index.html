@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v6 — Orlaithe miniature</title>
+<title>Bellmire v6.1 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:hidden;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -15,7 +15,7 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v6</span></div><div class="sub">Bellmire — 暮らしの路地、水車、屋根庭、猫のいる街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v6.1</span></div><div class="sub">Bellmire — 暮らしの路地、水車、屋根庭、猫のいる街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
 <div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">列車</button></div>
 <div class="row"><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div></div></div>
@@ -116,6 +116,29 @@ const train=new THREE.Group();for(let i=0;i<3;i++){const c=box(0,0,i*8,3.2,3.2,7
 const residents=[];function person(c){const g=new THREE.Group(),body=new THREE.Mesh(new THREE.CapsuleGeometry(.38,1.15,4,8),M(c)),head=new THREE.Mesh(new THREE.SphereGeometry(.36,10,8),M(0xb98e6d));body.position.y=1.1;head.position.y=2.05;g.add(body,head);scene.add(g);residents.push(g);return g}
 const p0=person(0x7e4d35),p1=person(0x53695c),p2=person(0x6c6257),bard=person(0x2d5144);
 const routes=[{p:p0,a:new THREE.Vector3(-35,1.15,28),b:new THREE.Vector3(-22,1.15,26),s:.38},{p:p1,a:new THREE.Vector3(-39,1.15,12),b:new THREE.Vector3(-24,1.15,12),s:.3},{p:p2,a:new THREE.Vector3(-12,4.6,-8),b:new THREE.Vector3(7,4.6,-8),s:.34},{p:bard,a:new THREE.Vector3(12,1.15,19),b:new THREE.Vector3(12,1.15,24),s:.12}];
+
+// v6.1 cat — guaranteed definition before animation starts
+const cat=new THREE.Group();
+const catMat=M(0x393632,.9);
+const catBody=new THREE.Mesh(new THREE.SphereGeometry(.46,12,8),catMat);
+catBody.scale.set(1.45,.72,.78);catBody.position.set(0,.62,0);cat.add(catBody);
+const catHead=new THREE.Mesh(new THREE.SphereGeometry(.34,12,8),catMat);
+catHead.position.set(.58,.82,0);cat.add(catHead);
+for(const zz of [-.18,.18]){
+  const ear=new THREE.Mesh(new THREE.ConeGeometry(.13,.30,4),catMat);
+  ear.position.set(.57,1.10,zz);ear.rotation.y=Math.PI/4;cat.add(ear);
+}
+for(const zz of [-.22,.22]){
+  for(const xx of [-.42,.38]){
+    const leg=new THREE.Mesh(new THREE.CylinderGeometry(.07,.08,.55,7),catMat);
+    leg.position.set(xx,.28,zz);cat.add(leg);
+  }
+}
+const tail=new THREE.Mesh(new THREE.TorusGeometry(.55,.075,7,18,Math.PI*1.45),catMat);
+tail.rotation.y=Math.PI/2;tail.position.set(-.72,.82,0);cat.add(tail);
+cat.scale.setScalar(1.35);
+scene.add(cat);
+
 const smoke=[];for(let i=0;i<34;i++){const q=new THREE.Mesh(new THREE.SphereGeometry(.25+Math.random()*.35,7,5),new THREE.MeshBasicMaterial({color:0xc4c4b8,transparent:true,opacity:.12}));scene.add(q);smoke.push(q)}
 const N=1500,a=new Float32Array(N*3);for(let i=0;i<N;i++){a[i*3]=(Math.random()-.5)*120;a[i*3+1]=Math.random()*65;a[i*3+2]=(Math.random()-.5)*95}const rg=new THREE.BufferGeometry();rg.setAttribute('position',new THREE.BufferAttribute(a,3));const rain=new THREE.Points(rg,new THREE.PointsMaterial({color:0xc5d7de,size:.11,transparent:true,opacity:.6}));rain.visible=false;scene.add(rain);
 let view='overview',followMode=false,followIdx=0;
