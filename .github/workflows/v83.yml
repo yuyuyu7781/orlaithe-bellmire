@@ -1,4 +1,4 @@
-name: Bellmire v8.4.3 tavern
+name: Bellmire v8.4.4 tavern camera
 on:
   push:
     paths: ['.github/workflows/v83.yml']
@@ -9,21 +9,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Add tavern street details
+      - name: Fix tavern camera
         shell: python
         run: |
           from pathlib import Path
           p=Path('index.html'); s=p.read_text()
-          marker='// grouped crates and sacks'
-          if marker not in s: raise SystemExit('detail marker missing')
-          add='''// v8.4.3 tavern identity: warm doorway, hanging sign, barrels and lanterns\nconst tavernDetail=new THREE.Group();scene.add(tavernDetail);\nbox(-10,3.45,11.9,3.4,4.7,.35,v8Wood,tavernDetail);\nbox(-10,3.5,12.12,2.45,3.8,.18,M(0x3b241b),tavernDetail);\nconst tavernDoorGlow=new THREE.MeshStandardMaterial({color:0xe3a35f,emissive:0xff8b35,emissiveIntensity:1.15});\nbox(-10,3.8,12.24,1.45,2.35,.10,tavernDoorGlow,tavernDetail);lit.push(tavernDoorGlow);\nbox(-12.25,5.35,12.15,.12,2.25,.12,v8Iron,tavernDetail);box(-11.45,7.15,12.15,1.55,.82,.16,v8Wood,tavernDetail);\nfor(const bx of [-13.0,-11.9]){const barrel=new THREE.Mesh(new THREE.CylinderGeometry(.48,.52,1.05,12),v8Wood);barrel.rotation.z=Math.PI/2;barrel.position.set(bx,3.95,12.65);tavernDetail.add(barrel)}\nfor(const lx of [-11.45,-8.55]){const lamp=new THREE.Mesh(new THREE.SphereGeometry(.16,8,6),new THREE.MeshStandardMaterial({color:0xf4c170,emissive:0xffa03b,emissiveIntensity:1.6}));lamp.position.set(lx,6.15,12.48);tavernDetail.add(lamp);lit.push(lamp.material)}\nconst tavernPointGlowV843=new THREE.PointLight(0xff9b4a,1.25,10);tavernPointGlowV843.position.set(-10,5.1,13.2);scene.add(tavernPointGlowV843);\n'''
-          s=s.replace(marker,add+'\n'+marker,1)
-          s=s.replace('Bellmire v8.4.2 — Orlaithe miniature','Bellmire v8.4.3 — Orlaithe miniature').replace('Orlaithe miniature · v8.4.2','Orlaithe miniature · v8.4.3')
+          old="tavern:[[-20,7,19],[-10,4,8]]"
+          new="tavern:[[-18,8,25],[-10,5.2,12.2]]"
+          if old not in s: raise SystemExit('tavern camera marker missing')
+          s=s.replace(old,new,1)
+          s=s.replace('Bellmire v8.4.3 — Orlaithe miniature','Bellmire v8.4.4 — Orlaithe miniature').replace('Orlaithe miniature · v8.4.3','Orlaithe miniature · v8.4.4')
           p.write_text(s)
-      - name: Commit tavern
+      - name: Commit camera fix
         run: |
           git config user.name 'Bellmire Builder'
           git config user.email 'actions@users.noreply.github.com'
           git add index.html
-          git commit -m 'Build Bellmire v8.4.3 tavern' || exit 0
+          git commit -m 'Fix v8.4.4 tavern camera framing' || exit 0
           git push
