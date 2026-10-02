@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v9.4 — Orlaithe miniature</title>
+<title>Bellmire v9.5 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:hidden;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -15,7 +15,7 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v9.4</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v9.5</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
 <div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="streetwalk">路地散歩</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="tavern">酒場</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">列車</button><button data-v="resident">住人</button><button data-v="catview">猫</button></div>
 <div class="row"><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div></div></div>
@@ -372,6 +372,26 @@ box(25.0,9.0,-27.8,.1,2.4,.1,v8Wood,hillQuarter);box(30.0,9.0,-28.1,.1,2.4,.1,v8
 const hqCloth=[M(0xa89a7f,.95),M(0x7b8270,.95),M(0x8d6d63,.95)];for(let i=0;i<3;i++)box(26.1+i*1.35,9.15,-27.93,.82,.9,.05,hqCloth[i],hillQuarter);
 // residents make it clearly domestic rather than another landmark
 const hqSkin=M(0xb78b6b,.96),hqCoat=[M(0x66584d,.96),M(0x596459,.96)];for(const q of [[29,6.2,-20.2,0],[34,6.2,-21.3,1]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.24,.34,1.0,8),hqCoat[q[3]]);b.position.set(q[0],q[1]+.55,q[2]);hillQuarter.add(b);const hd=new THREE.Mesh(new THREE.SphereGeometry(.22,8,6),hqSkin);hd.position.set(q[0],q[1]+1.3,q[2]);hillQuarter.add(hd)}
+
+
+// v9.5 — riverside working quarter: sheds, bridge, dock and cargo
+const riverQuarter=new THREE.Group();scene.add(riverQuarter);
+const rqWood=M(0x4b382b,.96),rqDark=M(0x343b36,.96),rqPlaster=M(0x858276,.96);
+function rqShed(x,y,z,w,d,h){box(x,y,z,w,h,d,rqPlaster,riverQuarter);const r=new THREE.Mesh(new THREE.ConeGeometry(Math.max(w,d)*.72,1.45,4),rqDark);r.rotation.y=Math.PI/4;r.position.set(x,y+h+.72,z);riverQuarter.add(r)}
+rqShed(-38,1.2,-4.5,5.4,4.3,4.7);rqShed(-31.8,1.2,-6.4,4.6,4.0,5.4);rqShed(-43.0,1.2,-10.5,4.8,4.2,4.2);
+// timber footbridge across the stream, with irregular planks
+for(let i=0;i<9;i++) box(-30.5+i*.78,3.0,-14.2+(i%2)*.06,.66,.16,2.0,rqWood,riverQuarter);
+for(const x of [-30.8,-24.0]){box(x,3.0,-15.1,.12,1.25,.12,rqWood,riverQuarter);box(x,3.0,-13.3,.12,1.25,.12,rqWood,riverQuarter)}
+// dock/work platform and stacked cargo
+box(-39.0,1.15,-15.8,8.2,.38,3.0,rqWood,riverQuarter);
+for(const x of [-42,-39,-36]) box(x,.9,-15.2,.28,2.0,.28,rqWood,riverQuarter);
+for(const q of [[-41.0,1.55,-15.2,1.2,.8,.9],[-39.5,1.55,-15.4,.9,.65,.8],[-36.7,1.55,-15.0,1.15,.75,.9]]) box(q[0],q[1],q[2],q[3],q[4],q[5],rqWood,riverQuarter);
+for(const q of [[-42.0,-12.8],[-35.7,-11.8]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.42,.48,.86,10),rqWood);b.position.set(q[0],1.65,q[1]);riverQuarter.add(b)}
+// drying rack / nets give the water edge a working identity
+box(-44.2,2.2,-6.0,.12,2.5,.12,rqWood,riverQuarter);box(-40.5,2.2,-6.0,.12,2.5,.12,rqWood,riverQuarter);box(-42.35,4.45,-6.0,3.7,.08,.08,v8Iron,riverQuarter);
+const net=new THREE.Mesh(new THREE.PlaneGeometry(3.2,1.35,4,3),new THREE.MeshStandardMaterial({color:0x777262,roughness:1,wireframe:true}));net.position.set(-42.35,3.55,-6.02);riverQuarter.add(net);
+// warm work lamps so this district reads at night too
+for(const q of [[-38,4.5,-2.2],[-31.8,4.7,-4.25],[-40.0,3.2,-14.1]]){const lm=new THREE.MeshStandardMaterial({color:0xe6b56e,emissive:0xff9a42,emissiveIntensity:1});const l=new THREE.Mesh(new THREE.SphereGeometry(.14,8,6),lm);l.position.set(...q);riverQuarter.add(l);lit.push(lm)}
 
 // v8.3.1 millstream: one readable flow line through the wheel
 box(21,.10,18,3.4,.34,14,water);
