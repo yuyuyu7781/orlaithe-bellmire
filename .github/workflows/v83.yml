@@ -1,4 +1,4 @@
-name: Bellmire v10.6 town square character
+name: Bellmire v10.7 square market life
 on:
   push:
     paths:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Add town square character
+      - name: Add square market life
         shell: python
         run: |
           from pathlib import Path
@@ -18,33 +18,28 @@ jobs:
           s=p.read_text()
           marker='const residents=[];'
           add=r'''
-          // v10.6 town square character: notice board, well, benches, planters and market clutter
-          const square106=new THREE.Group();scene.add(square106);
-          const wood106=M(0x5f402d,.98),dark106=M(0x2b2d27,.98),stone106=M(0x777466,.98),paper106=M(0xc7b38a,.96),green106=M(0x526443,.98),warm106=M(0xe8b25c,.9);
-          // notice board near the square edge
-          box(-5,1.65,18.3,.14,2.7,.14,dark106,square106);box(-1.8,1.65,18.3,.14,2.7,.14,dark106,square106);box(-3.4,2.45,18.3,3.45,1.65,.16,wood106,square106);
-          for(const q of [[-4.25,2.65],[-3.35,2.35],[-2.45,2.72]])box(q[0],q[1],18.18,.62,.52,.035,paper106,square106);
-          // low stone well with timber crossbar
-          const well106=new THREE.Mesh(new THREE.CylinderGeometry(1.05,1.18,.82,10),stone106);well106.position.set(8.2,.9,17.3);square106.add(well106);
-          for(const dx of [-1.25,1.25])box(8.2+dx,2.05,17.3,.14,3,.14,dark106,square106);box(8.2,3.45,17.3,2.75,.15,.15,wood106,square106);
-          // benches make the plaza read as a social place
-          function bench106(x,z,r=0){const g=new THREE.Group();g.position.set(x,0,z);g.rotation.y=r;square106.add(g);box(0,1.05,0,2.8,.22,.72,wood106,g);for(const dx of [-1,1])box(dx,.55,0,.18,.9,.18,dark106,g);}
-          bench106(-12,20.5,.15);bench106(14.5,21,-.18);bench106(1.5,23,0);
-          // planters and small greenery around plaza, not blocking paths
-          for(const q of [[-15,17],[16,17.5],[-9,23],[11,23]]){const pot=new THREE.Mesh(new THREE.CylinderGeometry(.36,.46,.58,8),wood106);pot.position.set(q[0],.75,q[1]);square106.add(pot);const bush=new THREE.Mesh(new THREE.SphereGeometry(.52,7,6),green106);bush.scale.y=.8;bush.position.set(q[0],1.38,q[1]);square106.add(bush);}
-          // one warm square lamp
-          box(18,1.6,19,.12,3.2,.12,dark106,square106);const lamp106=new THREE.Mesh(new THREE.SphereGeometry(.17,8,7),warm106);lamp106.position.set(18,3.25,19);square106.add(lamp106);lit.push(warm106);
+          // v10.7 square market life: compact stalls, crates, awnings and gathering details
+          const market107=new THREE.Group();scene.add(market107);
+          const wood107=M(0x60412e,.98),dark107=M(0x292b26,.98),clothA107=M(0x8b6a52,.98),clothB107=M(0x718066,.98),goods107=M(0xb48b55,.98),green107=M(0x66784f,.98);
+          function stall107(x,z,cloth){const g=new THREE.Group();g.position.set(x,0,z);market107.add(g);for(const dx of [-1.25,1.25])box(dx,1.45,0,.12,2.9,.12,dark107,g);box(0,1.25,0,2.8,.2,.95,wood107,g);box(0,3,0,3.2,.16,1.35,cloth,g);for(const dx of [-.85,0,.85]){const a=new THREE.Mesh(new THREE.SphereGeometry(.22,7,6),goods107);a.position.set(dx,1.55,0);g.add(a);}}
+          stall107(-10.5,14.2,clothA107);stall107(12.5,14.5,clothB107);
+          // baskets/crates tucked beside stalls
+          for(const q of [[-12.4,15.2],[-8.8,15.1],[10.7,15.5],[14.4,15.4]])box(q[0],.55,q[1],.8,.7,.8,wood107,market107);
+          // produce baskets for a bit of color and purpose
+          for(const q of [[-11.8,14.4],[11.3,14.7]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.42,.5,.42,8),wood107);b.position.set(q[0],.55,q[1]);market107.add(b);for(const dx of [-.2,.05,.25]){const v=new THREE.Mesh(new THREE.SphereGeometry(.13,6,5),green107);v.position.set(q[0]+dx,.86,q[1]);market107.add(v);}}
+          // small handcart parked at the edge of the square
+          const cart107=new THREE.Group();cart107.position.set(18.5,14.5,0);market107.add(cart107);box(0,1.05,0,2.2,.28,1.15,wood107,cart107);box(-1.6,.82,0,1.2,.12,.12,dark107,cart107);for(const x of [-.75,.75]){const w=new THREE.Mesh(new THREE.TorusGeometry(.38,.1,6,10),dark107);w.rotation.x=Math.PI/2;w.position.set(x,.58,.62);cart107.add(w);}
           '''
-          if 'v10.6 town square character' not in s:
+          if 'v10.7 square market life' not in s:
               if marker not in s: raise SystemExit('residents marker missing')
               s=s.replace(marker,add+'\n'+marker,1)
-          s=s.replace('Bellmire v10.5 — Orlaithe miniature','Bellmire v10.6 — Orlaithe miniature')
-          s=s.replace('Orlaithe miniature · v10.5','Orlaithe miniature · v10.6')
+          s=s.replace('Bellmire v10.6 — Orlaithe miniature','Bellmire v10.7 — Orlaithe miniature')
+          s=s.replace('Orlaithe miniature · v10.6','Orlaithe miniature · v10.7')
           p.write_text(s)
-      - name: Commit v10.6
+      - name: Commit v10.7
         run: |
           git config user.name 'Bellmire Builder'
           git config user.email 'actions@users.noreply.github.com'
           git add index.html
-          git commit -m 'Build v10.6 town square character' || exit 0
+          git commit -m 'Build v10.7 square market life' || exit 0
           git push
