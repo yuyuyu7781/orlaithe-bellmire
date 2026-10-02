@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v10.5 — Orlaithe miniature</title>
+<title>Bellmire v10.6 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:hidden;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -15,7 +15,7 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v10.5</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v10.6</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
 <div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="streetwalk">路地散歩</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="tavern">酒場</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">列車</button><button data-v="resident">住人</button><button data-v="catview">猫</button></div>
 <div class="row"><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div></div></div>
@@ -673,6 +673,24 @@ for(const q of [[-6,32.4],[16,32.3]]){const b=new THREE.Mesh(new THREE.CylinderG
 for(const x of [-27,-22,-7,-2,5,21,27]){const p=new THREE.Mesh(new THREE.CylinderGeometry(.12,.14,1.15,7),dark105);p.position.set(x,.55,35.3);port105.add(p);}
 // a couple of warm shore lamps
 for(const x of [-15,13]){box(x,1.35,33,.11,2.7,.11,dark105,port105);const l=new THREE.Mesh(new THREE.SphereGeometry(.16,8,7),warm105);l.position.set(x,2.75,33);port105.add(l);lit.push(warm105);}
+
+
+// v10.6 town square character: notice board, well, benches, planters and market clutter
+const square106=new THREE.Group();scene.add(square106);
+const wood106=M(0x5f402d,.98),dark106=M(0x2b2d27,.98),stone106=M(0x777466,.98),paper106=M(0xc7b38a,.96),green106=M(0x526443,.98),warm106=M(0xe8b25c,.9);
+// notice board near the square edge
+box(-5,1.65,18.3,.14,2.7,.14,dark106,square106);box(-1.8,1.65,18.3,.14,2.7,.14,dark106,square106);box(-3.4,2.45,18.3,3.45,1.65,.16,wood106,square106);
+for(const q of [[-4.25,2.65],[-3.35,2.35],[-2.45,2.72]])box(q[0],q[1],18.18,.62,.52,.035,paper106,square106);
+// low stone well with timber crossbar
+const well106=new THREE.Mesh(new THREE.CylinderGeometry(1.05,1.18,.82,10),stone106);well106.position.set(8.2,.9,17.3);square106.add(well106);
+for(const dx of [-1.25,1.25])box(8.2+dx,2.05,17.3,.14,3,.14,dark106,square106);box(8.2,3.45,17.3,2.75,.15,.15,wood106,square106);
+// benches make the plaza read as a social place
+function bench106(x,z,r=0){const g=new THREE.Group();g.position.set(x,0,z);g.rotation.y=r;square106.add(g);box(0,1.05,0,2.8,.22,.72,wood106,g);for(const dx of [-1,1])box(dx,.55,0,.18,.9,.18,dark106,g);}
+bench106(-12,20.5,.15);bench106(14.5,21,-.18);bench106(1.5,23,0);
+// planters and small greenery around plaza, not blocking paths
+for(const q of [[-15,17],[16,17.5],[-9,23],[11,23]]){const pot=new THREE.Mesh(new THREE.CylinderGeometry(.36,.46,.58,8),wood106);pot.position.set(q[0],.75,q[1]);square106.add(pot);const bush=new THREE.Mesh(new THREE.SphereGeometry(.52,7,6),green106);bush.scale.y=.8;bush.position.set(q[0],1.38,q[1]);square106.add(bush);}
+// one warm square lamp
+box(18,1.6,19,.12,3.2,.12,dark106,square106);const lamp106=new THREE.Mesh(new THREE.SphereGeometry(.17,8,7),warm106);lamp106.position.set(18,3.25,19);square106.add(lamp106);lit.push(warm106);
 
 const residents=[];
 function person(c){
