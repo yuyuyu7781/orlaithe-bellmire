@@ -1,4 +1,4 @@
-name: Bellmire v10.3 waterfront homes
+name: Bellmire v10.4 waterfront market
 on:
   push:
     paths:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Add waterfront homes and shore details
+      - name: Add waterfront market life
         shell: python
         run: |
           from pathlib import Path
@@ -18,26 +18,26 @@ jobs:
           s=p.read_text()
           marker='const residents=[];'
           add=r'''
-          // v10.3 waterfront homes and shore details
-          const shore103=new THREE.Group();scene.add(shore103);
-          const w103=M(0x756b54,.98),d103=M(0x2f3026,.98),wd103=M(0x65442f,.98),rf103=M(0x26392d,.98),c103=M(0xb78366,.98),l103=M(0xe9b45d,.9);
-          function hut103(x,z){box(x,3.05,z,5.2,3.7,4.2,w103,shore103);const r=new THREE.Mesh(new THREE.ConeGeometry(3.7,1.35,4),rf103);r.position.set(x,5.55,z);r.rotation.y=Math.PI/4;shore103.add(r);box(x,2.65,z+2.12,.8,1.4,.08,l103,shore103);}
-          hut103(-29,32.0);hut103(18,32.0);
-          box(-4.7,1.2,33,.13,2.4,.13,d103,shore103);box(.3,1.2,33,.13,2.4,.13,d103,shore103);box(-2.2,3.5,33,5.2,.12,1.9,c103,shore103);box(-2.2,1.5,33,4.3,.55,1,wd103,shore103);
-          box(7,1.2,32.7,.12,2.4,.12,d103,shore103);box(12,1.2,32.7,.12,2.4,.12,d103,shore103);box(9.5,3.35,32.7,5,.05,.05,d103,shore103);
-          for(const x of [8,9.5,11])box(x,2.95,32.72,.9,.7,.05,c103,shore103);
-          for(const q of [[-24,33],[-21.8,33.2],[-8,32.8],[3.2,33],[14,33],[22.5,32.8],[29,33]])box(q[0],1.48,q[1],1,.62,.82,wd103,shore103);
+          // v10.4 waterfront market life
+          const market104=new THREE.Group();scene.add(market104);
+          const wood104=M(0x684631,.98),dark104=M(0x2d3028,.98),clothA104=M(0x8f6d52,.98),clothB104=M(0x77725a,.98),basket104=M(0x98704a,.98),green104=M(0x596b49,.98),warm104=M(0xe9b35d,.9);
+          function stall104(x,z,c){box(x,1.42,z,3.2,.72,1.25,wood104,market104);box(x,3.05,z,3.7,.12,1.65,c,market104);for(const dx of [-1.45,1.45])box(x+dx,1.25,z,.12,3.4,.12,dark104,market104);for(const dx of [-.95,0,.95]){const b=new THREE.Mesh(new THREE.SphereGeometry(.23,7,6),green104);b.scale.set(1,.55,1);b.position.set(x+dx,1.92,z);market104.add(b);}}
+          stall104(-17,31.8,clothA104);stall104(-10.5,31.8,clothB104);stall104(7.5,31.7,clothA104);stall104(14,31.7,clothB104);
+          for(const q of [[-23,32],[-3,32],[20,32],[25,32]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.34,.39,.72,8),basket104);b.position.set(q[0],1.55,q[1]);market104.add(b);}
+          // stepping crates and dry goods kept on shore rather than in the water
+          for(const q of [[-27,33],[-25.5,33],[-1,33],[1,33],[23,33],[25,33]])box(q[0],1.46,q[1],1,.55,.82,wood104,market104);
+          for(const x of [-20,3,18]){box(x,1.2,32.8,.12,2.25,.12,dark104,market104);const l=new THREE.Mesh(new THREE.SphereGeometry(.15,8,7),warm104);l.position.set(x,3.25,32.8);market104.add(l);lit.push(warm104);}
           '''
-          if 'v10.3 waterfront homes and shore details' not in s:
+          if 'v10.4 waterfront market life' not in s:
               if marker not in s: raise SystemExit('residents marker missing')
               s=s.replace(marker,add+'\n'+marker,1)
-          s=s.replace('Bellmire v10.2 — Orlaithe miniature','Bellmire v10.3 — Orlaithe miniature')
-          s=s.replace('Orlaithe miniature · v10.2','Orlaithe miniature · v10.3')
+          s=s.replace('Bellmire v10.3 — Orlaithe miniature','Bellmire v10.4 — Orlaithe miniature')
+          s=s.replace('Orlaithe miniature · v10.3','Orlaithe miniature · v10.4')
           p.write_text(s)
-      - name: Commit v10.3
+      - name: Commit v10.4
         run: |
           git config user.name 'Bellmire Builder'
           git config user.email 'actions@users.noreply.github.com'
           git add index.html
-          git commit -m 'Build v10.3 waterfront homes' || exit 0
+          git commit -m 'Build v10.4 waterfront market' || exit 0
           git push
