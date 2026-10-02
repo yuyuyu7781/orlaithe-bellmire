@@ -1,4 +1,4 @@
-name: Bellmire v10.1 expanded waterfront
+name: Bellmire v10.2 living waterfront
 on:
   push:
     paths:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Expand waterfront after all previous town geometry
+      - name: Add boats people and dockside life
         shell: python
         run: |
           from pathlib import Path
@@ -18,35 +18,30 @@ jobs:
           s=p.read_text()
           marker='const residents=[];'
           add=r'''
-          // v10.1 — definitive south waterfront, inserted late so the stubborn foreground slab already exists
-          const waterfront101=new THREE.Group();scene.add(waterfront101);
-          const water101=M(0x356d76,.18,.10),dock101=M(0x67462f,.97),dockDark101=M(0x382a22,.98),stone101=M(0x777267,.98),sail101=M(0xa99b7d,.98),lamp101=M(0xe9b45d,.90);
-          scene.traverse(o=>{if(!o.isMesh||!o.geometry||!o.geometry.parameters||o.parent===waterfront101)return;const g=o.geometry.parameters,p=o.position,w=g.width||0,h=g.height||0,d=g.depth||0,a=Math.max(w,d),b=Math.min(w,d);if(p.z>24&&p.y<4.2&&a>14&&b<12&&h>1.2)o.visible=false;});
-          // broad water surface replacing the visually dead south strip
-          box(0,1.03,40.5,74,.20,10.5,water101,waterfront101);
-          // broken quay edge with gaps to the piers
-          for(const q of [[-31,35,10],[-17,35,7],[-5,35,6],[8,35,7],[22,35,8],[33,35,5]])box(q[0],1.14,q[1],q[2],.55,1,stone101,waterfront101);
-          // two piers extending visibly into water
-          for(const x of [-18,11]){for(let i=0;i<7;i++)box(x,1.22,35.8+i*1.18,3.4,.16,1.02,dock101,waterfront101);for(const z of [36,42.6])for(const dx of [-1.35,1.35])box(x+dx,.55,z,.20,1.55,.20,dockDark101,waterfront101);}
-          // cargo and mooring clutter
-          for(const q of [[-20,36.1],[-16.8,36.4],[8.8,36],[12.5,36.4]])box(q[0],1.38,q[1],1.05,.72,.9,dock101,waterfront101);
-          for(const q of [[-21.5,39],[-14.5,42],[8,39.5],[14,42.2]])box(q[0],1.15,q[1],.22,1.45,.22,dockDark101,waterfront101);
-          // small moored skiff
-          const skiff101=new THREE.Mesh(new THREE.CylinderGeometry(.55,.9,5,6),dockDark101);skiff101.rotation.z=Math.PI/2;skiff101.scale.set(1,.48,1.35);skiff101.position.set(-3,1.28,41.5);waterfront101.add(skiff101);box(-3,1.55,41.5,3.4,.12,.5,dock101,waterfront101);
-          // waterside stall + lamps
-          for(const x of [24.2,29.8])box(x,1.18,35.7,.14,2.6,.14,dockDark101,waterfront101);box(27,3.65,35.7,6.1,.12,2,sail101,waterfront101);box(27,1.25,35.7,4.8,.75,1.25,dock101,waterfront101);
-          for(const x of [-24,18,32]){box(x,1.18,34.8,.14,2.5,.14,dockDark101,waterfront101);const l=new THREE.Mesh(new THREE.SphereGeometry(.18,9,7),lamp101);l.position.set(x,3.55,34.8);waterfront101.add(l);lit.push(lamp101);}
+          // v10.2 — make the waterfront read as a lived-in working quay
+          const waterfront102=new THREE.Group();scene.add(waterfront102);
+          const hull102=M(0x3b2920,.98),wood102=M(0x765038,.98),rope102=M(0x9b8869,.98),cloth102=M(0x766f58,.98),skin102=M(0xc79a72,.98),shirt102=M(0x445b55,.98),lamp102=M(0xe8b35d,.9);
+          function boat102(x,z,r=0){const g=new THREE.Group();g.position.set(x,1.23,z);g.rotation.y=r;waterfront102.add(g);const hull=new THREE.Mesh(new THREE.CylinderGeometry(.62,.92,4.5,6),hull102);hull.rotation.z=Math.PI/2;hull.scale.set(1,.42,1.15);g.add(hull);box(0,.22,0,3.25,.13,.52,wood102,g);box(-1.15,.42,0,.12,.65,.12,wood102,g);box(1.15,.42,0,.12,.65,.12,wood102,g);return g;}
+          boat102(-8,39.7,.10);boat102(22,41.2,-.14);boat102(3,43.2,.06);
+          function dockPerson102(x,z,c=shirt102){const g=new THREE.Group();g.position.set(x,1.22,z);waterfront102.add(g);const body=new THREE.Mesh(new THREE.CylinderGeometry(.23,.32,1.05,7),c);body.position.y=.55;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.23,8,7),skin102);head.position.y=1.28;g.add(head);return g;}
+          dockPerson102(-19,37.3);dockPerson102(-16.8,39.3,M(0x6d5141,.98));dockPerson102(10.2,37.2,M(0x4b5368,.98));dockPerson102(13,40.2,M(0x6c6245,.98));dockPerson102(27,34.7,M(0x465c4d,.98));
+          // barrels, crates, rope coils and fish baskets
+          for(const q of [[-25,35.7],[-22.8,36.4],[-13.8,35.8],[6.8,36.1],[16.5,35.8],[20,36.6],[30,35.8]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.35,.4,.72,8),wood102);b.position.set(q[0],1.55,q[1]);waterfront102.add(b);}
+          for(const q of [[-12,36.1],[5,36.4],[18.5,36.2],[25,36.1]])box(q[0],1.48,q[1],1.05,.62,.9,wood102,waterfront102);
+          for(const q of [[-10,35.4],[15.8,35.3]]){const tor=new THREE.Mesh(new THREE.TorusGeometry(.48,.07,6,14),rope102);tor.rotation.x=Math.PI/2;tor.position.set(q[0],1.26,q[1]);waterfront102.add(tor);}
+          // a couple of warm quay lamps to tie the waterfront into the town at night
+          for(const x of [-7,6,23]){box(x,1.2,34.9,.13,2.2,.13,hull102,waterfront102);const l=new THREE.Mesh(new THREE.SphereGeometry(.16,8,7),lamp102);l.position.set(x,3.35,34.9);waterfront102.add(l);lit.push(lamp102);}
           '''
-          if 'v10.1 — definitive south waterfront' not in s:
+          if 'v10.2 — make the waterfront read as a lived-in working quay' not in s:
               if marker not in s: raise SystemExit('residents marker missing')
               s=s.replace(marker,add+'\n'+marker,1)
-          s=s.replace('Bellmire v10.0 — Orlaithe miniature','Bellmire v10.1 — Orlaithe miniature')
-          s=s.replace('Orlaithe miniature · v10.0','Orlaithe miniature · v10.1')
+          s=s.replace('Bellmire v10.1 — Orlaithe miniature','Bellmire v10.2 — Orlaithe miniature')
+          s=s.replace('Orlaithe miniature · v10.1','Orlaithe miniature · v10.2')
           p.write_text(s)
-      - name: Commit v10.1
+      - name: Commit v10.2
         run: |
           git config user.name 'Bellmire Builder'
           git config user.email 'actions@users.noreply.github.com'
           git add index.html
-          git commit -m 'Build v10.1 expanded waterfront' || exit 0
+          git commit -m 'Build v10.2 living waterfront' || exit 0
           git push
