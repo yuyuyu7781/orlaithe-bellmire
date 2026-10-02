@@ -1,4 +1,4 @@
-name: Bellmire v9.6 waterwheel district
+name: Bellmire v9.7 open waterfront
 on:
   push:
     paths:
@@ -10,46 +10,37 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Expand the existing waterwheel waterfront
+      - name: Open the waterfront visually
         shell: python
         run: |
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text()
-          marker='// v8.3.1 millstream: one readable flow line through the wheel'
+          marker='// v9.6 — expand the EXISTING visible waterwheel waterfront (front/south edge)'
           add=r'''
-          // v9.6 — expand the EXISTING visible waterwheel waterfront (front/south edge)
-          const wheelFront=new THREE.Group();scene.add(wheelFront);
-          const wfWood=M(0x53392a,.97),wfWood2=M(0x6a4933,.97),wfStone=M(0x777568,.97),wfRoof=M(0x354038,.97),wfWall=M(0x8b806d,.97);
-          // long boardwalk deliberately placed beside the familiar foreground water strip
-          box(-2.0,.72,38.0,20,.34,2.5,wfWood,wheelFront);
-          for(let x=-11;x<=7;x+=3){box(x,.15,38.7,.28,1.5,.28,wfWood,wheelFront);box(x,.15,37.3,.28,1.5,.28,wfWood,wheelFront)}
-          // two waterside sheds, visibly different from the market stalls
-          function wfShed(x,z,w,d,h){box(x,1.0,z,w,h,d,wfWall,wheelFront);const r=new THREE.Mesh(new THREE.ConeGeometry(Math.max(w,d)*.72,1.55,4),wfRoof);r.rotation.y=Math.PI/4;r.position.set(x,1+h+.78,z);wheelFront.add(r)}
-          wfShed(-9,34.2,5.0,4.4,4.5);wfShed(5.5,34.5,4.6,4.0,4.0);
-          // short footbridge visibly links the green bank to the boardwalk
-          for(let i=0;i<7;i++) box(10.0+i*.72,.95,38.0,.62,.15,2.0,i%2?wfWood:wfWood2,wheelFront);
-          // dock clutter: crates, barrels, sacks, rope posts
-          for(const q of [[-6,1.25,38,1.2,.8,.9],[-4.5,1.2,38.3,.9,.7,.8],[2,1.2,37.7,1.1,.75,.9]]) box(q[0],q[1],q[2],q[3],q[4],q[5],wfWood2,wheelFront);
-          for(const q of [[-1.0,38.2],[4.0,37.8]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.42,.48,.85,10),wfWood);b.position.set(q[0],1.35,q[1]);wheelFront.add(b)}
-          for(const x of [-10,-3,6,12]){box(x,1.2,36.8,.16,2.0,.16,wfWood,wheelFront)}
-          // a small moored skiff on the visible waterline
-          const hull=new THREE.Mesh(new THREE.CylinderGeometry(.42,.72,4.0,6),wfWood2);hull.rotation.z=Math.PI/2;hull.scale.set(1,.55,1.25);hull.position.set(-1,.45,41.0);wheelFront.add(hull);
-          // workers make the waterfront read as an active district
-          const wfSkin=M(0xb88b69,.96),wfCoats=[M(0x5d665b,.96),M(0x68554b,.96),M(0x4d5c61,.96)];for(const q of [[-7,1,37,0],[0,1,38,1],[8,1,37.5,2]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.24,.34,1.0,8),wfCoats[q[3]]);b.position.set(q[0],1.65,q[2]);wheelFront.add(b);const hd=new THREE.Mesh(new THREE.SphereGeometry(.22,8,6),wfSkin);hd.position.set(q[0],2.4,q[2]);wheelFront.add(hd)}
-          // warm lanterns along the waterfront
-          for(const q of [[-10,3.4,36.8],[-3,3.4,36.8],[6,3.4,36.8]]){const lm=new THREE.MeshStandardMaterial({color:0xe7b66e,emissive:0xff9a42,emissiveIntensity:1});const l=new THREE.Mesh(new THREE.SphereGeometry(.15,8,6),lm);l.position.set(...q);wheelFront.add(l);lit.push(lm)}
+          // v9.7 — open waterfront: hide the oversized foreground retaining blocks that cut the town off from water
+          scene.traverse(o=>{
+            if(!o.isMesh || !o.geometry || !o.geometry.parameters) return;
+            const g=o.geometry.parameters, p=o.position;
+            // only target very long, low box meshes along the SOUTH/front bank
+            if(g.width>=18 && g.height>=2.0 && g.depth<=6 && p.z>24 && p.y<5){o.visible=false;}
+          });
+          // replace the hard barrier with a low broken stone edge and openings toward the docks
+          const openBank=new THREE.Group();scene.add(openBank);const obStone=M(0x66675d,.98),obWood=M(0x58402f,.96);
+          for(const q of [[-25,27,9],[-12,27,6],[1,27,5],[13,27,6],[25,27,8]]) box(q[0],.15,q[1],q[2],.65,1.05,obStone,openBank);
+          // three descending access paths make the waterfront feel connected to town
+          for(const x of [-17,2,18]) for(let i=0;i<4;i++) box(x,1.0-i*.18,28.2+i*1.25,2.6,.16,1.0,i%2?obStone:obWood,openBank);
           '''
-          if 'v9.6 — expand the EXISTING visible waterwheel waterfront' not in s:
-              if marker not in s: raise SystemExit('millstream marker missing')
+          if 'v9.7 — open waterfront' not in s:
+              if marker not in s: raise SystemExit('v9.6 marker missing')
               s=s.replace(marker,add+'\n'+marker,1)
-          s=s.replace('Bellmire v9.5 — Orlaithe miniature','Bellmire v9.6 — Orlaithe miniature')
-          s=s.replace('Orlaithe miniature · v9.5','Orlaithe miniature · v9.6')
+          s=s.replace('Bellmire v9.6 — Orlaithe miniature','Bellmire v9.7 — Orlaithe miniature')
+          s=s.replace('Orlaithe miniature · v9.6','Orlaithe miniature · v9.7')
           p.write_text(s)
-      - name: Commit v9.6
+      - name: Commit v9.7
         run: |
           git config user.name 'Bellmire Builder'
           git config user.email 'actions@users.noreply.github.com'
           git add index.html
-          git commit -m 'Build v9.6 visible waterwheel district' || exit 0
+          git commit -m 'Build v9.7 open waterfront' || exit 0
           git push
