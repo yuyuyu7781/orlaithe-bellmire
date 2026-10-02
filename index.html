@@ -314,8 +314,8 @@ function produceTray(x,z,i){box(x,3.72,z,1.45,.18,.75,v8Wood,marketTexture);for(
 // baskets and barrels beside the stalls
 for(const q of [[6.1,4.5],[9.1,5.2],[11.2,7.8],[16.2,5.1],[18.2,4.7]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.34,.42,.48,10),M(0x73553d,.98));b.position.set(q[0],3.75,q[1]);marketTexture.add(b)}
 // cloth awnings make the market edge visually distinct from ordinary houses
-const cloth=[M(0x80594a,.96),M(0x6b7057,.96),M(0x8b7358,.96)];
-for(const q of [[7.5,4.5,0],[12.5,6.4,1],[17.5,3.8,2]]){const a=new THREE.Mesh(new THREE.BoxGeometry(2.7,.12,1.25),cloth[q[2]]);a.position.set(q[0],5.15,q[1]);a.rotation.x=-.12;marketTexture.add(a);for(const dx of [-1.15,1.15])box(q[0]+dx,4.35,q[1]+.48,.09,1.65,.09,v8Wood,marketTexture)}
+const marketCloth=[M(0x80594a,.96),M(0x6b7057,.96),M(0x8b7358,.96)];
+for(const q of [[7.5,4.5,0],[12.5,6.4,1],[17.5,3.8,2]]){const a=new THREE.Mesh(new THREE.BoxGeometry(2.7,.12,1.25),marketCloth[q[2]]);a.position.set(q[0],5.15,q[1]);a.rotation.x=-.12;marketTexture.add(a);for(const dx of [-1.15,1.15])box(q[0]+dx,4.35,q[1]+.48,.09,1.65,.09,v8Wood,marketTexture)}
 
 // v8.3.1 millstream: one readable flow line through the wheel
 box(21,.10,18,3.4,.34,14,water);
