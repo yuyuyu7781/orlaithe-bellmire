@@ -1,4 +1,4 @@
-name: Bellmire v10.0 waterfront district
+name: Bellmire v10.1 expanded waterfront
 on:
   push:
     paths:
@@ -10,50 +10,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build waterfront district
+      - name: Expand waterfront after all previous town geometry
         shell: python
         run: |
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text()
-          marker='// v9.9 — working waterfront + final foreground bar cleanup'
+          marker='const residents=[];'
           add=r'''
-          // v10.0 — waterfront district: remove stray foreground slab, add readable quay life
-          scene.traverse(o=>{
-            if(!o.isMesh || !o.geometry || !o.geometry.parameters) return;
-            const g=o.geometry.parameters, p=o.position;
-            const w=g.width||0, h=g.height||0, d=g.depth||0;
-            // surgical cleanup of the last long dark slab along the south foreground
-            if(p.z>18 && p.y<4 && Math.max(w,d)>18 && Math.min(w,d)<9 && h>1.4) o.visible=false;
-          });
-          const wharf100=new THREE.Group();scene.add(wharf100);
-          const timber100=M(0x6a4931,.98), timberDark100=M(0x3a2c24,.98), canvas100=M(0xb8aa8b,.98), cargo100=M(0x806044,.98), warm100=M(0xf0bd62,.98);
-          // broad boardwalk so the water edge reads as an intentional district
-          for(let i=0;i<11;i++) box(-8+i*1.55,.22,28.3,1.38,.18,4.0,timber100,wharf100);
-          // mooring posts
-          for(const x of [-8,-1,6,7.5]) box(x,.72,30.0,.22,1.45,.22,timberDark100,wharf100);
-          // cargo crates and barrels
-          for(const q of [[-5.8,27.0],[-4.2,27.4],[4.0,27.0]]) box(q[0],.72,q[1],1.15,.9,1.0,cargo100,wharf100);
-          for(const x of [-2.4,2.4]){const b100=new THREE.Mesh(new THREE.CylinderGeometry(.48,.55,.9,8),timberDark100);b100.position.set(x,.65,27.1);wharf100.add(b100);}
-          // small cloth awning / fish stall by the quay
-          box(9.4,.7,26.5,3.5,.9,1.25,timber100,wharf100);
-          for(const x of [8.0,10.8]) box(x,1.8,26.5,.14,2.3,.14,timberDark100,wharf100);
-          box(9.4,2.85,26.5,3.7,.12,1.7,canvas100,wharf100);
-          // two warm quay lamps
-          for(const x of [-10,12]){box(x,1.4,27.2,.16,2.8,.16,timberDark100,wharf100);const l100=new THREE.Mesh(new THREE.SphereGeometry(.23,10,8),warm100);l100.position.set(x,2.88,27.2);wharf100.add(l100);}
+          // v10.1 — definitive south waterfront, inserted late so the stubborn foreground slab already exists
+          const waterfront101=new THREE.Group();scene.add(waterfront101);
+          const water101=M(0x356d76,.18,.10),dock101=M(0x67462f,.97),dockDark101=M(0x382a22,.98),stone101=M(0x777267,.98),sail101=M(0xa99b7d,.98),lamp101=M(0xe9b45d,.90);
+          scene.traverse(o=>{if(!o.isMesh||!o.geometry||!o.geometry.parameters||o.parent===waterfront101)return;const g=o.geometry.parameters,p=o.position,w=g.width||0,h=g.height||0,d=g.depth||0,a=Math.max(w,d),b=Math.min(w,d);if(p.z>24&&p.y<4.2&&a>14&&b<12&&h>1.2)o.visible=false;});
+          // broad water surface replacing the visually dead south strip
+          box(0,1.03,40.5,74,.20,10.5,water101,waterfront101);
+          // broken quay edge with gaps to the piers
+          for(const q of [[-31,35,10],[-17,35,7],[-5,35,6],[8,35,7],[22,35,8],[33,35,5]])box(q[0],1.14,q[1],q[2],.55,1,stone101,waterfront101);
+          // two piers extending visibly into water
+          for(const x of [-18,11]){for(let i=0;i<7;i++)box(x,1.22,35.8+i*1.18,3.4,.16,1.02,dock101,waterfront101);for(const z of [36,42.6])for(const dx of [-1.35,1.35])box(x+dx,.55,z,.20,1.55,.20,dockDark101,waterfront101);}
+          // cargo and mooring clutter
+          for(const q of [[-20,36.1],[-16.8,36.4],[8.8,36],[12.5,36.4]])box(q[0],1.38,q[1],1.05,.72,.9,dock101,waterfront101);
+          for(const q of [[-21.5,39],[-14.5,42],[8,39.5],[14,42.2]])box(q[0],1.15,q[1],.22,1.45,.22,dockDark101,waterfront101);
+          // small moored skiff
+          const skiff101=new THREE.Mesh(new THREE.CylinderGeometry(.55,.9,5,6),dockDark101);skiff101.rotation.z=Math.PI/2;skiff101.scale.set(1,.48,1.35);skiff101.position.set(-3,1.28,41.5);waterfront101.add(skiff101);box(-3,1.55,41.5,3.4,.12,.5,dock101,waterfront101);
+          // waterside stall + lamps
+          for(const x of [24.2,29.8])box(x,1.18,35.7,.14,2.6,.14,dockDark101,waterfront101);box(27,3.65,35.7,6.1,.12,2,sail101,waterfront101);box(27,1.25,35.7,4.8,.75,1.25,dock101,waterfront101);
+          for(const x of [-24,18,32]){box(x,1.18,34.8,.14,2.5,.14,dockDark101,waterfront101);const l=new THREE.Mesh(new THREE.SphereGeometry(.18,9,7),lamp101);l.position.set(x,3.55,34.8);waterfront101.add(l);lit.push(lamp101);}
           '''
-          if 'v10.0 — waterfront district' not in s:
-              if marker not in s: raise SystemExit('v9.9 marker missing')
+          if 'v10.1 — definitive south waterfront' not in s:
+              if marker not in s: raise SystemExit('residents marker missing')
               s=s.replace(marker,add+'\n'+marker,1)
-          for old in ['Bellmire v9.9 — Orlaithe miniature','Bellmire v9.8 — Orlaithe miniature']:
-              s=s.replace(old,'Bellmire v10.0 — Orlaithe miniature')
-          for old in ['Orlaithe miniature · v9.9','Orlaithe miniature · v9.8']:
-              s=s.replace(old,'Orlaithe miniature · v10.0')
+          s=s.replace('Bellmire v10.0 — Orlaithe miniature','Bellmire v10.1 — Orlaithe miniature')
+          s=s.replace('Orlaithe miniature · v10.0','Orlaithe miniature · v10.1')
           p.write_text(s)
-      - name: Commit v10.0
+      - name: Commit v10.1
         run: |
           git config user.name 'Bellmire Builder'
           git config user.email 'actions@users.noreply.github.com'
           git add index.html
-          git commit -m 'Build v10.0 waterfront district' || exit 0
+          git commit -m 'Build v10.1 expanded waterfront' || exit 0
           git push
