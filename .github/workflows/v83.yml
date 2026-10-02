@@ -1,4 +1,4 @@
-name: Bellmire v9.1 market texture
+name: Bellmire v9.1 market texture fix
 on:
   push:
     paths:
@@ -10,35 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Add market goods and lived-in texture
+      - name: Fix duplicate cloth declaration
         shell: python
         run: |
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text()
-          marker='// v8.3.1 millstream: one readable flow line through the wheel'
-          add=r'''
-          // v9.1 — market texture: produce, baskets, barrels and awnings
-          const marketTexture=new THREE.Group();scene.add(marketTexture);
-          const veg=[M(0x6f7047,.98),M(0x8a6848,.98),M(0x8b5b45,.98),M(0x59684c,.98)];
-          function produceTray(x,z,i){box(x,3.72,z,1.45,.18,.75,v8Wood,marketTexture);for(let n=0;n<6;n++){const a=new THREE.Mesh(new THREE.SphereGeometry(.12,7,5),veg[(i+n)%veg.length]);a.position.set(x-.5+(n%3)*.48,3.91,z-.18+Math.floor(n/3)*.35);marketTexture.add(a)}}
-          [[7.2,5.2,0],[12.1,7.2,1],[17.2,4.4,2]].forEach(q=>produceTray(...q));
-          // baskets and barrels beside the stalls
-          for(const q of [[6.1,4.5],[9.1,5.2],[11.2,7.8],[16.2,5.1],[18.2,4.7]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.34,.42,.48,10),M(0x73553d,.98));b.position.set(q[0],3.75,q[1]);marketTexture.add(b)}
-          // cloth awnings make the market edge visually distinct from ordinary houses
-          const cloth=[M(0x80594a,.96),M(0x6b7057,.96),M(0x8b7358,.96)];
-          for(const q of [[7.5,4.5,0],[12.5,6.4,1],[17.5,3.8,2]]){const a=new THREE.Mesh(new THREE.BoxGeometry(2.7,.12,1.25),cloth[q[2]]);a.position.set(q[0],5.15,q[1]);a.rotation.x=-.12;marketTexture.add(a);for(const dx of [-1.15,1.15])box(q[0]+dx,4.35,q[1]+.48,.09,1.65,.09,v8Wood,marketTexture)}
-          '''
-          if 'v9.1 — market texture' not in s:
-              if marker not in s: raise SystemExit('millstream marker missing')
-              s=s.replace(marker,add+'\n'+marker,1)
-          s=s.replace('Bellmire v9.0 — Orlaithe miniature','Bellmire v9.1 — Orlaithe miniature')
-          s=s.replace('Orlaithe miniature · v9.0','Orlaithe miniature · v9.1')
+          s=s.replace('const cloth=[M(0x80594a,.96),M(0x6b7057,.96),M(0x8b7358,.96)];','const marketCloth=[M(0x80594a,.96),M(0x6b7057,.96),M(0x8b7358,.96)];')
+          s=s.replace('cloth[q[2]]);a.position.set(q[0],5.15,q[1])','marketCloth[q[2]]);a.position.set(q[0],5.15,q[1])')
           p.write_text(s)
-      - name: Commit v9.1
+      - name: Commit v9.1 fix
         run: |
           git config user.name 'Bellmire Builder'
           git config user.email 'actions@users.noreply.github.com'
           git add index.html
-          git commit -m 'Build v9.1 market texture' || exit 0
+          git commit -m 'Fix v9.1 duplicate cloth variable' || exit 0
           git push
