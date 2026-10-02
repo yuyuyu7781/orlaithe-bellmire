@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v10.3 — Orlaithe miniature</title>
+<title>Bellmire v10.4 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:hidden;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -15,7 +15,7 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v10.3</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v10.4</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
 <div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="streetwalk">路地散歩</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="tavern">酒場</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">列車</button><button data-v="resident">住人</button><button data-v="catview">猫</button></div>
 <div class="row"><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div></div></div>
@@ -648,6 +648,17 @@ box(-4.7,1.2,33,.13,2.4,.13,d103,shore103);box(.3,1.2,33,.13,2.4,.13,d103,shore1
 box(7,1.2,32.7,.12,2.4,.12,d103,shore103);box(12,1.2,32.7,.12,2.4,.12,d103,shore103);box(9.5,3.35,32.7,5,.05,.05,d103,shore103);
 for(const x of [8,9.5,11])box(x,2.95,32.72,.9,.7,.05,c103,shore103);
 for(const q of [[-24,33],[-21.8,33.2],[-8,32.8],[3.2,33],[14,33],[22.5,32.8],[29,33]])box(q[0],1.48,q[1],1,.62,.82,wd103,shore103);
+
+
+// v10.4 waterfront market life
+const market104=new THREE.Group();scene.add(market104);
+const wood104=M(0x684631,.98),dark104=M(0x2d3028,.98),clothA104=M(0x8f6d52,.98),clothB104=M(0x77725a,.98),basket104=M(0x98704a,.98),green104=M(0x596b49,.98),warm104=M(0xe9b35d,.9);
+function stall104(x,z,c){box(x,1.42,z,3.2,.72,1.25,wood104,market104);box(x,3.05,z,3.7,.12,1.65,c,market104);for(const dx of [-1.45,1.45])box(x+dx,1.25,z,.12,3.4,.12,dark104,market104);for(const dx of [-.95,0,.95]){const b=new THREE.Mesh(new THREE.SphereGeometry(.23,7,6),green104);b.scale.set(1,.55,1);b.position.set(x+dx,1.92,z);market104.add(b);}}
+stall104(-17,31.8,clothA104);stall104(-10.5,31.8,clothB104);stall104(7.5,31.7,clothA104);stall104(14,31.7,clothB104);
+for(const q of [[-23,32],[-3,32],[20,32],[25,32]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.34,.39,.72,8),basket104);b.position.set(q[0],1.55,q[1]);market104.add(b);}
+// stepping crates and dry goods kept on shore rather than in the water
+for(const q of [[-27,33],[-25.5,33],[-1,33],[1,33],[23,33],[25,33]])box(q[0],1.46,q[1],1,.55,.82,wood104,market104);
+for(const x of [-20,3,18]){box(x,1.2,32.8,.12,2.25,.12,dark104,market104);const l=new THREE.Mesh(new THREE.SphereGeometry(.15,8,7),warm104);l.position.set(x,3.25,32.8);market104.add(l);lit.push(warm104);}
 
 const residents=[];
 function person(c){
