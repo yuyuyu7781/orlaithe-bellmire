@@ -1,4 +1,4 @@
-name: Bellmire v9.8 waterfront cleanup
+name: Bellmire v9.9 working waterfront
 on:
   push:
     paths:
@@ -10,32 +10,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Waterfront cleanup
+      - name: Build working waterfront
         shell: python
         run: |
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text()
-          marker='// v9.7 — open waterfront: hide the oversized foreground retaining blocks that cut the town off from water'
+          marker='// v9.8 waterfront cleanup'
           add=r'''
-          // v9.8 waterfront cleanup
+          // v9.9 — working waterfront + final foreground bar cleanup
           scene.traverse(o=>{
             if(!o.isMesh || !o.geometry || !o.geometry.parameters) return;
             const g=o.geometry.parameters, p=o.position;
             const a=Math.max(g.width||0,g.depth||0), b=Math.min(g.width||0,g.depth||0);
-            if(a>=18 && b<=12 && g.height>=2.0 && p.z>18 && p.y<5) o.visible=false;
+            // remaining long block sits farther inward than the previous waterfront filter
+            if(a>=20 && b<=13 && g.height>=2 && p.z>12 && p.y<5) o.visible=false;
           });
+          const quay99=new THREE.Group();scene.add(quay99);
+          const wood99=M(0x60432f,.98), dark99=M(0x3d3027,.98), rope99=M(0x9a8563,.95), lamp99=M(0xe8b65c,.98);
+          // modest timber landing and cargo cluster on the front/south waterfront
+          for(let i=0;i<6;i++) box(8+i*1.55,.42,31.0,1.35,.24,4.8,wood99,quay99);
+          for(const q of [[8,30.0],[15.8,30.0],[8,32.1],[15.8,32.1]]) box(q[0],-.45,q[1],.22,1.8,.22,dark99,quay99);
+          for(const q of [[-1,29.3],[1.1,29.7],[3.0,29.2]]) box(q[0],.45,q[1],1.45,.75,1.15,wood99,quay99);
+          // warm quay lamps
+          for(const x of [-7,20]){box(x,1.35,28.7,.18,2.7,.18,dark99,quay99);sphere(x,2.82,28.7,.22,lamp99,quay99);}
+          // tiny mooring posts
+          for(const x of [6.8,17.2]) box(x,.55,32.5,.25,1.1,.25,rope99,quay99);
           '''
-          if 'v9.8 waterfront cleanup' not in s:
-              if marker not in s: raise SystemExit('marker missing')
+          if 'v9.9 — working waterfront' not in s:
+              if marker not in s: raise SystemExit('v9.8 marker missing')
               s=s.replace(marker,add+'\n'+marker,1)
-          s=s.replace('Bellmire v9.7 — Orlaithe miniature','Bellmire v9.8 — Orlaithe miniature')
-          s=s.replace('Orlaithe miniature · v9.7','Orlaithe miniature · v9.8')
+          s=s.replace('Bellmire v9.8 — Orlaithe miniature','Bellmire v9.9 — Orlaithe miniature')
+          s=s.replace('Orlaithe miniature · v9.8','Orlaithe miniature · v9.9')
           p.write_text(s)
-      - name: Commit v9.8
+      - name: Commit v9.9
         run: |
           git config user.name 'Bellmire Builder'
           git config user.email 'actions@users.noreply.github.com'
           git add index.html
-          git commit -m 'Build v9.8 waterfront cleanup' || exit 0
+          git commit -m 'Build v9.9 working waterfront' || exit 0
           git push
