@@ -1,4 +1,4 @@
-name: Bellmire v10.5 waterfront activity
+name: Bellmire v10.6 town square character
 on:
   push:
     paths:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Add waterfront activity
+      - name: Add town square character
         shell: python
         run: |
           from pathlib import Path
@@ -18,29 +18,33 @@ jobs:
           s=p.read_text()
           marker='const residents=[];'
           add=r'''
-          // v10.5 waterfront activity: nets, fish racks, shore cargo, small boat details
-          const port105=new THREE.Group();scene.add(port105);
-          const wood105=M(0x5c3d2b,.98),rope105=M(0x8b7757,.98),fish105=M(0x8b9a86,.95),cloth105=M(0x7c6654,.98),dark105=M(0x292c27,.98),warm105=M(0xe9b45d,.9);
-          function rack105(x,z){for(const dx of [-1.2,1.2])box(x+dx,1.5,z,.11,2.5,.11,dark105,port105);box(x,2.65,z,2.6,.11,.11,wood105,port105);for(const dx of [-.8,0,.8]){const f=new THREE.Mesh(new THREE.ConeGeometry(.16,.75,6),fish105);f.rotation.z=Math.PI;f.position.set(x+dx,2.15,z);port105.add(f);}}
-          rack105(-13,32.6);rack105(11,32.5);
-          // cargo is intentionally placed on the dry bank
-          for(const q of [[-20,32.2],[-18.6,32.1],[3.5,32.1],[5,32.2],[19,32.1]])box(q[0],1.48,q[1],1.05,.62,.9,wood105,port105);
-          for(const q of [[-6,32.4],[16,32.3]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.45,.52,.72,8),cloth105);b.position.set(q[0],1.55,q[1]);port105.add(b);}
-          // low mooring posts along the waterline
-          for(const x of [-27,-22,-7,-2,5,21,27]){const p=new THREE.Mesh(new THREE.CylinderGeometry(.12,.14,1.15,7),dark105);p.position.set(x,.55,35.3);port105.add(p);}
-          // a couple of warm shore lamps
-          for(const x of [-15,13]){box(x,1.35,33,.11,2.7,.11,dark105,port105);const l=new THREE.Mesh(new THREE.SphereGeometry(.16,8,7),warm105);l.position.set(x,2.75,33);port105.add(l);lit.push(warm105);}
+          // v10.6 town square character: notice board, well, benches, planters and market clutter
+          const square106=new THREE.Group();scene.add(square106);
+          const wood106=M(0x5f402d,.98),dark106=M(0x2b2d27,.98),stone106=M(0x777466,.98),paper106=M(0xc7b38a,.96),green106=M(0x526443,.98),warm106=M(0xe8b25c,.9);
+          // notice board near the square edge
+          box(-5,1.65,18.3,.14,2.7,.14,dark106,square106);box(-1.8,1.65,18.3,.14,2.7,.14,dark106,square106);box(-3.4,2.45,18.3,3.45,1.65,.16,wood106,square106);
+          for(const q of [[-4.25,2.65],[-3.35,2.35],[-2.45,2.72]])box(q[0],q[1],18.18,.62,.52,.035,paper106,square106);
+          // low stone well with timber crossbar
+          const well106=new THREE.Mesh(new THREE.CylinderGeometry(1.05,1.18,.82,10),stone106);well106.position.set(8.2,.9,17.3);square106.add(well106);
+          for(const dx of [-1.25,1.25])box(8.2+dx,2.05,17.3,.14,3,.14,dark106,square106);box(8.2,3.45,17.3,2.75,.15,.15,wood106,square106);
+          // benches make the plaza read as a social place
+          function bench106(x,z,r=0){const g=new THREE.Group();g.position.set(x,0,z);g.rotation.y=r;square106.add(g);box(0,1.05,0,2.8,.22,.72,wood106,g);for(const dx of [-1,1])box(dx,.55,0,.18,.9,.18,dark106,g);}
+          bench106(-12,20.5,.15);bench106(14.5,21,-.18);bench106(1.5,23,0);
+          // planters and small greenery around plaza, not blocking paths
+          for(const q of [[-15,17],[16,17.5],[-9,23],[11,23]]){const pot=new THREE.Mesh(new THREE.CylinderGeometry(.36,.46,.58,8),wood106);pot.position.set(q[0],.75,q[1]);square106.add(pot);const bush=new THREE.Mesh(new THREE.SphereGeometry(.52,7,6),green106);bush.scale.y=.8;bush.position.set(q[0],1.38,q[1]);square106.add(bush);}
+          // one warm square lamp
+          box(18,1.6,19,.12,3.2,.12,dark106,square106);const lamp106=new THREE.Mesh(new THREE.SphereGeometry(.17,8,7),warm106);lamp106.position.set(18,3.25,19);square106.add(lamp106);lit.push(warm106);
           '''
-          if 'v10.5 waterfront activity' not in s:
+          if 'v10.6 town square character' not in s:
               if marker not in s: raise SystemExit('residents marker missing')
               s=s.replace(marker,add+'\n'+marker,1)
-          s=s.replace('Bellmire v10.4 — Orlaithe miniature','Bellmire v10.5 — Orlaithe miniature')
-          s=s.replace('Orlaithe miniature · v10.4','Orlaithe miniature · v10.5')
+          s=s.replace('Bellmire v10.5 — Orlaithe miniature','Bellmire v10.6 — Orlaithe miniature')
+          s=s.replace('Orlaithe miniature · v10.5','Orlaithe miniature · v10.6')
           p.write_text(s)
-      - name: Commit v10.5
+      - name: Commit v10.6
         run: |
           git config user.name 'Bellmire Builder'
           git config user.email 'actions@users.noreply.github.com'
           git add index.html
-          git commit -m 'Build v10.5 waterfront activity' || exit 0
+          git commit -m 'Build v10.6 town square character' || exit 0
           git push
