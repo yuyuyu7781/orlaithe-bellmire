@@ -1,4 +1,4 @@
-name: Bellmire v9.1 market texture fix
+name: Bellmire v9.2 laundry courtyard
 on:
   push:
     paths:
@@ -10,19 +10,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Fix duplicate cloth declaration
+      - name: Add a lived-in laundry courtyard
         shell: python
         run: |
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text()
-          s=s.replace('const cloth=[M(0x80594a,.96),M(0x6b7057,.96),M(0x8b7358,.96)];','const marketCloth=[M(0x80594a,.96),M(0x6b7057,.96),M(0x8b7358,.96)];')
-          s=s.replace('cloth[q[2]]);a.position.set(q[0],5.15,q[1])','marketCloth[q[2]]);a.position.set(q[0],5.15,q[1])')
+          marker='// v8.3.1 millstream: one readable flow line through the wheel'
+          add=r'''
+          // v9.2 — laundry courtyard: a quiet domestic pocket away from the market
+          const laundryCourt=new THREE.Group();scene.add(laundryCourt);
+          const laundryWood=M(0x4f392c,.98), laundryLine=M(0x2d2924,.98);
+          // wash trough and two water tubs
+          box(-8.2,3.62,9.5,2.6,.42,.9,laundryWood,laundryCourt);
+          for(const q of [[-10.0,9.1],[-6.5,10.2]]){const tub=new THREE.Mesh(new THREE.CylinderGeometry(.48,.55,.48,10),laundryWood);tub.position.set(q[0],3.7,q[1]);laundryCourt.add(tub)}
+          // clothesline posts
+          for(const x of [-10.6,-5.4]) box(x,4.55,11.2,.12,2.3,.12,laundryWood,laundryCourt);
+          box(-8.0,5.55,11.2,5.2,.05,.05,laundryLine,laundryCourt);
+          // uneven little sheets and garments
+          const washColors=[M(0xb7aa8b,.96),M(0x8b7667,.96),M(0x7b856f,.96),M(0xa88a76,.96)];
+          for(const q of [[-9.8,.75,.72,0],[-8.7,.55,.9,1],[-7.6,.82,.62,2],[-6.4,.58,.78,3]]){const c=new THREE.Mesh(new THREE.PlaneGeometry(q[1],q[2]),washColors[q[3]]);c.position.set(q[0],5.18,11.22);c.rotation.x=-.08;laundryCourt.add(c)}
+          // baskets and a small bench make the corner feel used
+          box(-8.1,3.7,12.15,1.8,.24,.42,laundryWood,laundryCourt);
+          for(const q of [[-9.4,10.0],[-6.9,9.1]]){const basket=new THREE.Mesh(new THREE.CylinderGeometry(.3,.4,.34,9),M(0x806347,.98));basket.position.set(q[0],3.65,q[1]);laundryCourt.add(basket)}
+          '''
+          if 'v9.2 — laundry courtyard' not in s:
+              if marker not in s: raise SystemExit('millstream marker missing')
+              s=s.replace(marker,add+'\n'+marker,1)
+          s=s.replace('Bellmire v9.1 — Orlaithe miniature','Bellmire v9.2 — Orlaithe miniature')
+          s=s.replace('Orlaithe miniature · v9.1','Orlaithe miniature · v9.2')
           p.write_text(s)
-      - name: Commit v9.1 fix
+      - name: Commit v9.2
         run: |
           git config user.name 'Bellmire Builder'
           git config user.email 'actions@users.noreply.github.com'
           git add index.html
-          git commit -m 'Fix v9.1 duplicate cloth variable' || exit 0
+          git commit -m 'Build v9.2 laundry courtyard' || exit 0
           git push
