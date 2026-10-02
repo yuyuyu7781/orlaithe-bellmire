@@ -412,7 +412,7 @@ for(let i=0;i<6;i++) box(8+i*1.55,.42,31.0,1.35,.24,4.8,wood99,quay99);
 for(const q of [[8,30.0],[15.8,30.0],[8,32.1],[15.8,32.1]]) box(q[0],-.45,q[1],.22,1.8,.22,dark99,quay99);
 for(const q of [[-1,29.3],[1.1,29.7],[3.0,29.2]]) box(q[0],.45,q[1],1.45,.75,1.15,wood99,quay99);
 // warm quay lamps
-for(const x of [-7,20]){box(x,1.35,28.7,.18,2.7,.18,dark99,quay99);sphere(x,2.82,28.7,.22,lamp99,quay99);}
+for(const x of [-7,20]){box(x,1.35,28.7,.18,2.7,.18,dark99,quay99);const glow99=new THREE.Mesh(new THREE.SphereGeometry(.22,10,8),lamp99);glow99.position.set(x,2.82,28.7);quay99.add(glow99);}
 // tiny mooring posts
 for(const x of [6.8,17.2]) box(x,.55,32.5,.25,1.1,.25,rope99,quay99);
 
