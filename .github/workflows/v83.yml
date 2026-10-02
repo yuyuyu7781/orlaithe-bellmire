@@ -1,4 +1,4 @@
-name: Bellmire v9.7 open waterfront
+name: Bellmire v9.8 waterfront cleanup
 on:
   push:
     paths:
@@ -10,37 +10,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Open the waterfront visually
+      - name: Waterfront cleanup
         shell: python
         run: |
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text()
-          marker='// v9.6 — expand the EXISTING visible waterwheel waterfront (front/south edge)'
+          marker='// v9.7 — open waterfront: hide the oversized foreground retaining blocks that cut the town off from water'
           add=r'''
-          // v9.7 — open waterfront: hide the oversized foreground retaining blocks that cut the town off from water
+          // v9.8 waterfront cleanup
           scene.traverse(o=>{
             if(!o.isMesh || !o.geometry || !o.geometry.parameters) return;
             const g=o.geometry.parameters, p=o.position;
-            // only target very long, low box meshes along the SOUTH/front bank
-            if(g.width>=18 && g.height>=2.0 && g.depth<=6 && p.z>24 && p.y<5){o.visible=false;}
+            const a=Math.max(g.width||0,g.depth||0), b=Math.min(g.width||0,g.depth||0);
+            if(a>=18 && b<=12 && g.height>=2.0 && p.z>18 && p.y<5) o.visible=false;
           });
-          // replace the hard barrier with a low broken stone edge and openings toward the docks
-          const openBank=new THREE.Group();scene.add(openBank);const obStone=M(0x66675d,.98),obWood=M(0x58402f,.96);
-          for(const q of [[-25,27,9],[-12,27,6],[1,27,5],[13,27,6],[25,27,8]]) box(q[0],.15,q[1],q[2],.65,1.05,obStone,openBank);
-          // three descending access paths make the waterfront feel connected to town
-          for(const x of [-17,2,18]) for(let i=0;i<4;i++) box(x,1.0-i*.18,28.2+i*1.25,2.6,.16,1.0,i%2?obStone:obWood,openBank);
           '''
-          if 'v9.7 — open waterfront' not in s:
-              if marker not in s: raise SystemExit('v9.6 marker missing')
+          if 'v9.8 waterfront cleanup' not in s:
+              if marker not in s: raise SystemExit('marker missing')
               s=s.replace(marker,add+'\n'+marker,1)
-          s=s.replace('Bellmire v9.6 — Orlaithe miniature','Bellmire v9.7 — Orlaithe miniature')
-          s=s.replace('Orlaithe miniature · v9.6','Orlaithe miniature · v9.7')
+          s=s.replace('Bellmire v9.7 — Orlaithe miniature','Bellmire v9.8 — Orlaithe miniature')
+          s=s.replace('Orlaithe miniature · v9.7','Orlaithe miniature · v9.8')
           p.write_text(s)
-      - name: Commit v9.7
+      - name: Commit v9.8
         run: |
           git config user.name 'Bellmire Builder'
           git config user.email 'actions@users.noreply.github.com'
           git add index.html
-          git commit -m 'Build v9.7 open waterfront' || exit 0
+          git commit -m 'Build v9.8 waterfront cleanup' || exit 0
           git push
