@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v8.4.5 — Orlaithe miniature</title>
+<title>Bellmire v8.5 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:hidden;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -15,7 +15,7 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v8.4.5</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v8.5</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
 <div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="streetwalk">路地散歩</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="tavern">酒場</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">列車</button><button data-v="resident">住人</button><button data-v="catview">猫</button></div>
 <div class="row"><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div></div></div>
@@ -66,6 +66,17 @@ box(-12.25,5.35,12.15,.12,2.25,.12,v8Iron,tavernDetail);box(-11.45,7.15,12.15,1.
 for(const bx of [-13.0,-11.9]){const barrel=new THREE.Mesh(new THREE.CylinderGeometry(.48,.52,1.05,12),v8Wood);barrel.rotation.z=Math.PI/2;barrel.position.set(bx,3.95,12.65);tavernDetail.add(barrel)}
 for(const lx of [-11.45,-8.55]){const lamp=new THREE.Mesh(new THREE.SphereGeometry(.16,8,6),new THREE.MeshStandardMaterial({color:0xf4c170,emissive:0xffa03b,emissiveIntensity:1.6}));lamp.position.set(lx,6.15,12.48);tavernDetail.add(lamp);lit.push(lamp.material)}
 const tavernPointGlowV843=new THREE.PointLight(0xff9b4a,1.25,10);tavernPointGlowV843.position.set(-10,5.1,13.2);scene.add(tavernPointGlowV843);
+// v8.5 street-life layer around the tavern
+const tavernStreet=new THREE.Group();scene.add(tavernStreet);
+box(-10,3.48,14.0,6.8,.10,3.0,path,tavernStreet);
+box(-10,6.55,13.0,5.4,.16,2.15,v8Cloth,tavernStreet);
+for(const px of [-12.45,-7.55]) box(px,3.5,13.65,.16,3.15,.16,v8Wood,tavernStreet);
+box(-7.15,3.52,14.45,1.7,.16,1.05,v8Wood,tavernStreet);
+box(-7.15,3.68,14.45,.18,.85,.18,v8Wood,tavernStreet);
+for(const sx of [-8.05,-6.25]) box(sx,3.5,14.45,.55,.48,.55,v8Wood,tavernStreet);
+for(const bx of [-13.15,-12.45]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.42,.47,.9,12),v8Wood);b.position.set(bx,3.95,14.25);tavernStreet.add(b)}
+const tavernWarm=new THREE.PointLight(0xff9b4a,.9,8);tavernWarm.position.set(-10,5.0,14.4);scene.add(tavernWarm);
+
 
 // grouped crates and sacks
 for(const [x,z] of [[-32,30],[-28,27],[-21,30],[-14,25],[-38,6],[29,35],[35,31]]){box(x,1.25,z,1,.65,.8,v8Wood);const sack=new THREE.Mesh(new THREE.SphereGeometry(.38,8,6),new THREE.MeshStandardMaterial({color:0x8d8068}));sack.scale.set(.8,1.15,.7);sack.position.set(x+.7,1.52,z+.25);scene.add(sack)}
