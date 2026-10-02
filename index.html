@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v10.2 — Orlaithe miniature</title>
+<title>Bellmire v10.3 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:hidden;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -15,7 +15,7 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v10.2</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v10.3</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
 <div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="streetwalk">路地散歩</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="tavern">酒場</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">列車</button><button data-v="resident">住人</button><button data-v="catview">猫</button></div>
 <div class="row"><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div></div></div>
@@ -637,6 +637,17 @@ for(const q of [[-12,36.1],[5,36.4],[18.5,36.2],[25,36.1]])box(q[0],1.48,q[1],1.
 for(const q of [[-10,35.4],[15.8,35.3]]){const tor=new THREE.Mesh(new THREE.TorusGeometry(.48,.07,6,14),rope102);tor.rotation.x=Math.PI/2;tor.position.set(q[0],1.26,q[1]);waterfront102.add(tor);}
 // a couple of warm quay lamps to tie the waterfront into the town at night
 for(const x of [-7,6,23]){box(x,1.2,34.9,.13,2.2,.13,hull102,waterfront102);const l=new THREE.Mesh(new THREE.SphereGeometry(.16,8,7),lamp102);l.position.set(x,3.35,34.9);waterfront102.add(l);lit.push(lamp102);}
+
+
+// v10.3 waterfront homes and shore details
+const shore103=new THREE.Group();scene.add(shore103);
+const w103=M(0x756b54,.98),d103=M(0x2f3026,.98),wd103=M(0x65442f,.98),rf103=M(0x26392d,.98),c103=M(0xb78366,.98),l103=M(0xe9b45d,.9);
+function hut103(x,z){box(x,3.05,z,5.2,3.7,4.2,w103,shore103);const r=new THREE.Mesh(new THREE.ConeGeometry(3.7,1.35,4),rf103);r.position.set(x,5.55,z);r.rotation.y=Math.PI/4;shore103.add(r);box(x,2.65,z+2.12,.8,1.4,.08,l103,shore103);}
+hut103(-29,32.0);hut103(18,32.0);
+box(-4.7,1.2,33,.13,2.4,.13,d103,shore103);box(.3,1.2,33,.13,2.4,.13,d103,shore103);box(-2.2,3.5,33,5.2,.12,1.9,c103,shore103);box(-2.2,1.5,33,4.3,.55,1,wd103,shore103);
+box(7,1.2,32.7,.12,2.4,.12,d103,shore103);box(12,1.2,32.7,.12,2.4,.12,d103,shore103);box(9.5,3.35,32.7,5,.05,.05,d103,shore103);
+for(const x of [8,9.5,11])box(x,2.95,32.72,.9,.7,.05,c103,shore103);
+for(const q of [[-24,33],[-21.8,33.2],[-8,32.8],[3.2,33],[14,33],[22.5,32.8],[29,33]])box(q[0],1.48,q[1],1,.62,.82,wd103,shore103);
 
 const residents=[];
 function person(c){
