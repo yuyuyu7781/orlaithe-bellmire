@@ -1,0 +1,57 @@
+name: Bellmire v8.7 street life
+on:
+  push:
+    paths:
+      - '.github/workflows/bellmire-v87.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add v8.7 merchant street life
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          s=s.replace('Bellmire v8.6 — Orlaithe miniature','Bellmire v8.7 — Orlaithe miniature')
+          s=s.replace('Orlaithe miniature · v8.6','Orlaithe miniature · v8.7')
+          marker='// ===== v8 close-up layer ====='
+          if '// ===== v8.7 merchant street life =====' not in s:
+              block=r'''
+// ===== v8.7 merchant street life =====
+// Small, fixed details: readable traces of trade without cluttering the town.
+const v87StreetLife=new THREE.Group();scene.add(v87StreetLife);
+const v87Canvas=M(0x756b58,.94),v87Red=M(0x765147,.94),v87Paper=M(0xb9aa83,.96),v87Rope=M(0x665642,.98);
+function v87Crate(x,y,z,s=1){box(x,y,z,1.15*s,.72*s,.9*s,v8Wood,v87StreetLife);box(x,y+.36*s,z+.46*s,1.2*s,.08*s,.08*s,v8Iron,v87StreetLife)}
+function v87Barrel(x,y,z,s=1){const b=new THREE.Mesh(new THREE.CylinderGeometry(.42*s,.48*s,.9*s,10),v8Wood);b.position.set(x,y+.45*s,z);b.castShadow=true;v87StreetLife.add(b);for(const yy of [y+.18*s,y+.70*s]){const r=new THREE.Mesh(new THREE.TorusGeometry(.45*s,.035*s,5,10),v8Iron);r.rotation.x=Math.PI/2;r.position.set(x,yy,z);v87StreetLife.add(r)}}
+function v87Awning(x,y,z,w=3,ma=v87Canvas){box(x,y,z,w,.10,1.35,ma,v87StreetLife);for(const dx of [-w*.44,w*.44])box(x+dx,y-2.0,z+.52,.09,2.0,.09,v8Wood,v87StreetLife)}
+function v87Lantern(x,y,z){const ma=new THREE.MeshStandardMaterial({color:0xe6b86b,emissive:0xff9f43,emissiveIntensity:1.05});const l=new THREE.Mesh(new THREE.SphereGeometry(.14,8,6),ma);l.position.set(x,y,z);v87StreetLife.add(l);lit.push(ma);box(x,y+.15,z,.08,.55,.08,v8Iron,v87StreetLife)}
+function v87Laundry(a,b,y,z){box(a,y,z,.06,.06,.06,v87Rope,v87StreetLife);box(b,y,z,.06,.06,.06,v87Rope,v87StreetLife);const n=4;for(let i=0;i<n;i++){const x=a+(b-a)*(i+.5)/n;const ma=i%2?v87Canvas:v87Red;box(x,y-.62-(i%2)*.08,z,.72,.9,.05,ma,v87StreetLife)}}
+// Bookshop / bakery lane: goods at the threshold and a restrained awning rhythm.
+v87Awning(-31,6.15,29.05,3.7,v87Canvas);v87Crate(-33.2,3.5,29.5,.82);v87Crate(-32.1,3.5,29.7,.68);
+for(let i=0;i<5;i++)box(-33.15+i*.36,4.15,29.55,.27,.09,.42,i%2?v87Paper:v87Red,v87StreetLife);
+v87Awning(-18,6.45,32.85,3.5,v87Red);v87Crate(-20.4,3.5,33.0,.78);v87Barrel(-15.8,3.48,32.8,.82);
+// Tavern / inn approach: deliveries and warm lamps, leaving the walking line open.
+v87Barrel(-14.0,3.48,14.4,.92);v87Crate(-6.5,3.5,14.3,.86);v87Lantern(-15.2,6.0,13.8);v87Lantern(-5.4,5.8,13.7);
+// Upper lane: laundry makes the residential layer legible from the overview.
+v87Laundry(-4.5,1.5,11.2,-17.2);v87Laundry(27.0,33.0,10.4,18.4);
+// Market pocket: three distinct stalls rather than a generic row.
+v87Awning(29,4.7,39.0,3.0,v87Canvas);v87Awning(33,4.7,39.0,3.0,v87Red);v87Awning(37,4.7,39.0,3.0,v87Canvas);
+for(const [x,z] of [[28.3,39.2],[29.5,39.1],[32.4,39.2],[33.6,39.1],[36.5,39.2],[37.6,39.1]])v87Crate(x,1.25,z,.58);
+// Fixed street clutter: intentionally explicit coordinates so reloads never reshuffle it.
+for(const q of [[-27,3.48,30.4,.62],[-23.8,3.48,29.8,.55],[-12.7,3.48,25.8,.58],[27.8,1.15,34.2,.55],[35.5,1.15,31.0,.62]])v87Crate(...q);
+'''
+              s=s.replace(marker,block+'\n'+marker)
+          p.write_text(s)
+          PY
+      - name: Commit v8.7
+        run: |
+          git config user.name 'bellmire-builder'
+          git config user.email 'actions@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Bellmire v8.7: add merchant street life' || exit 0
+          git push
