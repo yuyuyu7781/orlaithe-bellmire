@@ -1,4 +1,4 @@
-name: Bellmire v9.0 living market square
+name: Bellmire v9.1 market texture
 on:
   push:
     paths:
@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Give market residents readable little scenes
+      - name: Add market goods and lived-in texture
         shell: python
         run: |
           from pathlib import Path
@@ -18,31 +18,27 @@ jobs:
           s=p.read_text()
           marker='// v8.3.1 millstream: one readable flow line through the wheel'
           add=r'''
-          // v9.0 — market vignettes: pairs, vendor/customer, seated figures
-          const marketStories=new THREE.Group();scene.add(marketStories);
-          const storyCoats=[M(0x725c50,.98),M(0x4e6258,.98),M(0x776b55,.98),M(0x5e5967,.98),M(0x7a5547,.98)];
-          function storyPerson(x,z,i,ry=0){const g=new THREE.Group();const body=new THREE.Mesh(new THREE.CylinderGeometry(.28,.38,1.15,8),storyCoats[i%storyCoats.length]);body.position.y=.7;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.25,9,7),M(0xbc8f70,.98));head.position.y=1.55;g.add(head);g.position.set(x,3.5,z);g.rotation.y=ry;marketStories.add(g);return g}
-          // two neighbours talking face-to-face
-          storyPerson(5.8,11.5,0,.8);storyPerson(7.1,12.1,1,-2.2);
-          // stall keeper and customer opposite one another
-          storyPerson(8,4.7,2,0);storyPerson(8,7.0,3,Math.PI);
-          storyPerson(13,6.7,4,Math.PI);storyPerson(14.1,9.2,1,.25);
-          // seated silhouettes by benches — lower body makes posture readable from above
-          function sitter(x,z,i,ry=0){const g=storyPerson(x,z,i,ry);g.scale.y=.82;g.position.y=3.35;return g}
-          sitter(4,11.8,3,Math.PI/2);sitter(15,15.8,0,-Math.PI/2);
-          // crates beside vendors make each interaction read as commerce
-          for(const q of [[7.0,3.75,5.1],[12.0,3.75,7.1],[17.0,3.75,4.2]]){box(q[0],q[1],q[2],.7,.5,.7,v8Wood,marketStories);box(q[0]+.8,q[1]-.08,q[2]+.25,.6,.35,.6,v8Wood,marketStories)}
+          // v9.1 — market texture: produce, baskets, barrels and awnings
+          const marketTexture=new THREE.Group();scene.add(marketTexture);
+          const veg=[M(0x6f7047,.98),M(0x8a6848,.98),M(0x8b5b45,.98),M(0x59684c,.98)];
+          function produceTray(x,z,i){box(x,3.72,z,1.45,.18,.75,v8Wood,marketTexture);for(let n=0;n<6;n++){const a=new THREE.Mesh(new THREE.SphereGeometry(.12,7,5),veg[(i+n)%veg.length]);a.position.set(x-.5+(n%3)*.48,3.91,z-.18+Math.floor(n/3)*.35);marketTexture.add(a)}}
+          [[7.2,5.2,0],[12.1,7.2,1],[17.2,4.4,2]].forEach(q=>produceTray(...q));
+          // baskets and barrels beside the stalls
+          for(const q of [[6.1,4.5],[9.1,5.2],[11.2,7.8],[16.2,5.1],[18.2,4.7]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.34,.42,.48,10),M(0x73553d,.98));b.position.set(q[0],3.75,q[1]);marketTexture.add(b)}
+          // cloth awnings make the market edge visually distinct from ordinary houses
+          const cloth=[M(0x80594a,.96),M(0x6b7057,.96),M(0x8b7358,.96)];
+          for(const q of [[7.5,4.5,0],[12.5,6.4,1],[17.5,3.8,2]]){const a=new THREE.Mesh(new THREE.BoxGeometry(2.7,.12,1.25),cloth[q[2]]);a.position.set(q[0],5.15,q[1]);a.rotation.x=-.12;marketTexture.add(a);for(const dx of [-1.15,1.15])box(q[0]+dx,4.35,q[1]+.48,.09,1.65,.09,v8Wood,marketTexture)}
           '''
-          if 'v9.0 — market vignettes' not in s:
+          if 'v9.1 — market texture' not in s:
               if marker not in s: raise SystemExit('millstream marker missing')
               s=s.replace(marker,add+'\n'+marker,1)
-          s=s.replace('Bellmire v8.9 — Orlaithe miniature','Bellmire v9.0 — Orlaithe miniature')
-          s=s.replace('Orlaithe miniature · v8.9','Orlaithe miniature · v9.0')
+          s=s.replace('Bellmire v9.0 — Orlaithe miniature','Bellmire v9.1 — Orlaithe miniature')
+          s=s.replace('Orlaithe miniature · v9.0','Orlaithe miniature · v9.1')
           p.write_text(s)
-      - name: Commit v9.0
+      - name: Commit v9.1
         run: |
           git config user.name 'Bellmire Builder'
           git config user.email 'actions@users.noreply.github.com'
           git add index.html
-          git commit -m 'Build v9.0 living market square' || exit 0
+          git commit -m 'Build v9.1 market texture' || exit 0
           git push
