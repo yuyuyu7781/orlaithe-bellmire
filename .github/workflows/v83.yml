@@ -1,4 +1,4 @@
-name: Bellmire v9.9 working waterfront fix
+name: Bellmire v10.0 waterfront district
 on:
   push:
     paths:
@@ -10,25 +10,50 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Fix waterfront lamp helper
+      - name: Build waterfront district
         shell: python
         run: |
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text()
-          old="for(const x of [-7,20]){box(x,1.35,28.7,.18,2.7,.18,dark99,quay99);sphere(x,2.82,28.7,.22,lamp99,quay99);}"
-          new="for(const x of [-7,20]){box(x,1.35,28.7,.18,2.7,.18,dark99,quay99);const glow99=new THREE.Mesh(new THREE.SphereGeometry(.22,10,8),lamp99);glow99.position.set(x,2.82,28.7);quay99.add(glow99);}"
-          if old in s:
-              s=s.replace(old,new,1)
-          elif 'sphere(x,2.82,28.7,.22,lamp99,quay99)' in s:
-              s=s.replace('sphere(x,2.82,28.7,.22,lamp99,quay99)','(()=>{const glow99=new THREE.Mesh(new THREE.SphereGeometry(.22,10,8),lamp99);glow99.position.set(x,2.82,28.7);quay99.add(glow99);})()',1)
-          else:
-              raise SystemExit('v9.9 lamp call not found')
+          marker='// v9.9 — working waterfront + final foreground bar cleanup'
+          add=r'''
+          // v10.0 — waterfront district: remove stray foreground slab, add readable quay life
+          scene.traverse(o=>{
+            if(!o.isMesh || !o.geometry || !o.geometry.parameters) return;
+            const g=o.geometry.parameters, p=o.position;
+            const w=g.width||0, h=g.height||0, d=g.depth||0;
+            // surgical cleanup of the last long dark slab along the south foreground
+            if(p.z>18 && p.y<4 && Math.max(w,d)>18 && Math.min(w,d)<9 && h>1.4) o.visible=false;
+          });
+          const wharf100=new THREE.Group();scene.add(wharf100);
+          const timber100=M(0x6a4931,.98), timberDark100=M(0x3a2c24,.98), canvas100=M(0xb8aa8b,.98), cargo100=M(0x806044,.98), warm100=M(0xf0bd62,.98);
+          // broad boardwalk so the water edge reads as an intentional district
+          for(let i=0;i<11;i++) box(-8+i*1.55,.22,28.3,1.38,.18,4.0,timber100,wharf100);
+          // mooring posts
+          for(const x of [-8,-1,6,7.5]) box(x,.72,30.0,.22,1.45,.22,timberDark100,wharf100);
+          // cargo crates and barrels
+          for(const q of [[-5.8,27.0],[-4.2,27.4],[4.0,27.0]]) box(q[0],.72,q[1],1.15,.9,1.0,cargo100,wharf100);
+          for(const x of [-2.4,2.4]){const b100=new THREE.Mesh(new THREE.CylinderGeometry(.48,.55,.9,8),timberDark100);b100.position.set(x,.65,27.1);wharf100.add(b100);}
+          // small cloth awning / fish stall by the quay
+          box(9.4,.7,26.5,3.5,.9,1.25,timber100,wharf100);
+          for(const x of [8.0,10.8]) box(x,1.8,26.5,.14,2.3,.14,timberDark100,wharf100);
+          box(9.4,2.85,26.5,3.7,.12,1.7,canvas100,wharf100);
+          // two warm quay lamps
+          for(const x of [-10,12]){box(x,1.4,27.2,.16,2.8,.16,timberDark100,wharf100);const l100=new THREE.Mesh(new THREE.SphereGeometry(.23,10,8),warm100);l100.position.set(x,2.88,27.2);wharf100.add(l100);}
+          '''
+          if 'v10.0 — waterfront district' not in s:
+              if marker not in s: raise SystemExit('v9.9 marker missing')
+              s=s.replace(marker,add+'\n'+marker,1)
+          for old in ['Bellmire v9.9 — Orlaithe miniature','Bellmire v9.8 — Orlaithe miniature']:
+              s=s.replace(old,'Bellmire v10.0 — Orlaithe miniature')
+          for old in ['Orlaithe miniature · v9.9','Orlaithe miniature · v9.8']:
+              s=s.replace(old,'Orlaithe miniature · v10.0')
           p.write_text(s)
-      - name: Commit fix
+      - name: Commit v10.0
         run: |
           git config user.name 'Bellmire Builder'
           git config user.email 'actions@users.noreply.github.com'
           git add index.html
-          git commit -m 'Fix v9.9 waterfront lamp geometry' || exit 0
+          git commit -m 'Build v10.0 waterfront district' || exit 0
           git push
