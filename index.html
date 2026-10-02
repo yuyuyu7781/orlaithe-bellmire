@@ -246,6 +246,22 @@ box(-6.90,3.00,11.10,2.2,.62,.75,v8Wood);box(-6.90,3.62,11.10,2,.12,.68,tavernTr
 for(const q of [[-16.00,3.00,9.00],[-4.00,3.00,12.00],[-18.00,3.00,13.00]]){box(q[0],q[1],q[2],1.8,.28,1.1,path);box(q[0]+.65,q[1]+.28,q[2],.48,.65,.48,v8Wood)}
 for(const q of [[-15.00,4.80,10.80],[-5.00,4.90,10.80]]){const l=new THREE.Mesh(new THREE.SphereGeometry(.14,8,6),tavernWindowGlow);l.position.set(...q);scene.add(l)}
 
+
+// v8.7 — lived-in market lane, deliberately fixed positions
+const marketLife=new THREE.Group();scene.add(marketLife);
+// crates, baskets and barrels connecting bakery/bookshop lane
+for(const q of [[-27.0,3.5,29.3,1.15,.62,.85],[-24.8,3.5,30.1,.85,.48,.72],[-14.2,3.5,29.0,1.05,.58,.82]]) box(q[0],q[1],q[2],q[3],q[4],q[5],v8Wood,marketLife);
+for(const q of [[-25.8,3.85,29.4],[-15.2,3.9,29.7]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.38,.43,.8,12),v8Wood);b.position.set(...q);marketLife.add(b)}
+// cloth line between two facades
+box(-24.5,7.35,30.55,.08,.08,.08,v8Iron,marketLife);box(-20.8,7.15,31.0,.08,.08,.08,v8Iron,marketLife);
+const cloths=[M(0x8b7868,.95),M(0x6f7b70,.95),M(0x8b6c68,.95)];
+for(let i=0;i<3;i++) box(-23.8+i*1.15,6.55-i*.06,30.75+i*.12,.72,.95,.06,cloths[i],marketLife);
+// two small lane lamps and a notice board
+for(const q of [[-26.2,5.7,31.0],[-13.8,5.65,28.6]]){box(q[0],3.5,q[2],.11,2.05,.11,v8Iron,marketLife);const lm=new THREE.MeshStandardMaterial({color:0xe9b76b,emissive:0xffa348,emissiveIntensity:1.1});const l=new THREE.Mesh(new THREE.SphereGeometry(.14,8,6),lm);l.position.set(q[0],q[1],q[2]);marketLife.add(l);lit.push(lm)}
+box(-22.8,3.5,28.45,2.2,1.55,.16,v8Wood,marketLife);box(-22.8,3.72,28.34,1.72,1.05,.05,M(0x9a8b72,.95),marketLife);
+// plants soften the commercial lane without changing building layout
+for(const q of [[-28.2,3.75,30.0],[-20.5,3.75,29.0],[-12.8,3.75,28.2]]){const pot=new THREE.Mesh(new THREE.CylinderGeometry(.3,.24,.5,9),M(0x845d49,.92));pot.position.set(...q);marketLife.add(pot);const plant=new THREE.Mesh(new THREE.IcosahedronGeometry(.38,1),moss);plant.scale.set(.8,1.15,.8);plant.position.set(q[0],q[1]+.48,q[2]);marketLife.add(plant)}
+
 // v8.3.1 millstream: one readable flow line through the wheel
 box(21,.10,18,3.4,.34,14,water);
 box(21,.08,27,2.8,.38,6.0,water);
