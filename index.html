@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v9.8 — Orlaithe miniature</title>
+<title>Bellmire v9.9 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:hidden;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -15,7 +15,7 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v9.8</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v9.9</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
 <div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="streetwalk">路地散歩</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="tavern">酒場</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">列車</button><button data-v="resident">住人</button><button data-v="catview">猫</button></div>
 <div class="row"><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div></div></div>
@@ -395,6 +395,26 @@ for(const q of [[-38,4.5,-2.2],[-31.8,4.7,-4.25],[-40.0,3.2,-14.1]]){const lm=ne
 
 
 
+
+
+// v9.9 — working waterfront + final foreground bar cleanup
+scene.traverse(o=>{
+  if(!o.isMesh || !o.geometry || !o.geometry.parameters) return;
+  const g=o.geometry.parameters, p=o.position;
+  const a=Math.max(g.width||0,g.depth||0), b=Math.min(g.width||0,g.depth||0);
+  // remaining long block sits farther inward than the previous waterfront filter
+  if(a>=20 && b<=13 && g.height>=2 && p.z>12 && p.y<5) o.visible=false;
+});
+const quay99=new THREE.Group();scene.add(quay99);
+const wood99=M(0x60432f,.98), dark99=M(0x3d3027,.98), rope99=M(0x9a8563,.95), lamp99=M(0xe8b65c,.98);
+// modest timber landing and cargo cluster on the front/south waterfront
+for(let i=0;i<6;i++) box(8+i*1.55,.42,31.0,1.35,.24,4.8,wood99,quay99);
+for(const q of [[8,30.0],[15.8,30.0],[8,32.1],[15.8,32.1]]) box(q[0],-.45,q[1],.22,1.8,.22,dark99,quay99);
+for(const q of [[-1,29.3],[1.1,29.7],[3.0,29.2]]) box(q[0],.45,q[1],1.45,.75,1.15,wood99,quay99);
+// warm quay lamps
+for(const x of [-7,20]){box(x,1.35,28.7,.18,2.7,.18,dark99,quay99);sphere(x,2.82,28.7,.22,lamp99,quay99);}
+// tiny mooring posts
+for(const x of [6.8,17.2]) box(x,.55,32.5,.25,1.1,.25,rope99,quay99);
 
 // v9.8 waterfront cleanup
 scene.traverse(o=>{
