@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v11.5 — Orlaithe miniature</title>
+<title>Bellmire v11.6 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:hidden;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -18,7 +18,7 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v11.5</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v11.6</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
 <div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="streetwalk">路地散歩</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="tavern">酒場</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">ケーブルカー</button><button data-v="resident">住人</button><button data-v="catview">猫</button></div>
 <div class="row"><button id="walk">歩行</button><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div></div></div>
@@ -39,6 +39,8 @@ import {addLifeDetails} from './life-details.js';
 import {createInspectionTargets} from './inspection-targets.js';
 import {createInspectionSystem} from './interaction.js';
 import {createDialogueSystem,addBardDetails} from './dialogue.js';
+import {catModelSettings,catViewSettings} from './cat-settings.js';
+import {applyStorybookSurfaces} from './storybook.js';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
 import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
@@ -48,8 +50,8 @@ const scene=new THREE.Scene();scene.background=new THREE.Color(0x89988f);scene.f
 const camera=new THREE.PerspectiveCamera(46,innerWidth/innerHeight,.1,400);
 const renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=.9;document.getElementById('app').appendChild(renderer.domElement);
 const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.maxPolarAngle=Math.PI*.49;controls.touches={ONE:THREE.TOUCH.ROTATE,TWO:THREE.TOUCH.DOLLY_PAN};
-const composer=new EffectComposer(renderer);composer.addPass(new RenderPass(scene,camera));const bloom=new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),.28,.75,.78);composer.addPass(bloom);
-const hemi=new THREE.HemisphereLight(0xc8d5cf,0x332d28,1.15);scene.add(hemi);const sun=new THREE.DirectionalLight(0xffe2b5,1.65);sun.position.set(-45,65,35);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);scene.add(sun);
+const composer=new EffectComposer(renderer);composer.addPass(new RenderPass(scene,camera));const bloom=new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),.24,.62,.85);composer.addPass(bloom);
+const hemi=new THREE.HemisphereLight(0xd2d9cd,0x777365,1.15);scene.add(hemi);const sun=new THREE.DirectionalLight(0xffe5c0,1.5);sun.position.set(-45,65,35);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);scene.add(sun);
 let bellSeed=0xB311A5;function bellRand(){bellSeed=(bellSeed*1664525+1013904223)>>>0;return bellSeed/4294967296;}
 const M=(c,r=.85,m=.02)=>new THREE.MeshStandardMaterial({color:c,roughness:r,metalness:m}),stone=M(0x77756b),stone2=M(0x5d625c),plaster=M(0xa9a28d),roof=M(0x3d4b43),wood=M(0x59402f),path=M(0x8d8778),grass=M(0x596b53),water=M(0x3f6d73,.25,.08),metal=M(0x4c4a43,.45,.5),copper=M(0x7a6047,.38,.55),bluePlaster=M(0x777f7b),winePlaster=M(0x75645f),moss=M(0x53624d);const lit=[];const v8Iron=M(0x343733,.55,.55),v8Wood=M(0x4a3326,.92),v8Stone=M(0x6d6a60,.96),v8Cloth=M(0x765d55,.9),v8CatMat=M(0x4a433b,.92),v8Skin=M(0xb98a68,.9),v8Coat=M(0x53606a,.9),v8Boot=M(0x302923,.95),v8Copper=M(0x66513e,.72,.58);
 function box(x,y,z,w,h,d,ma=stone,parent=scene){const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),ma);o.position.set(x,y+h/2,z);o.castShadow=o.receiveShadow=true;parent.add(o);return o}
@@ -981,7 +983,7 @@ for(const zz of [-.22,.22]){
 }
 const tail=new THREE.Mesh(new THREE.TorusGeometry(.55,.075,7,18,Math.PI*1.45),catMat);
 tail.rotation.y=Math.PI/2;tail.position.set(-.72,.82,0);cat.add(tail);
-cat.scale.setScalar(1.45);
+cat.scale.setScalar(catModelSettings.scale);
 scene.add(cat);
 
 const chimneySources=[
@@ -1021,7 +1023,7 @@ let view='overview',followMode=false,followIdx=0;
 const viewMap={overview:[[72,54,78],[-2,7,0]],alley:[[-15,6,36],[-9,5,23]],streetwalk:[[-34,4.4,34],[-18,3.5,24]],resident:[[-4,4.3,29],[-9,3.1,24]],catview:[[-25,3.3,16],[-20,2.0,18]],bakery:[[-39,7,34],[-31,4,24]],bookshop:[[-25,7,38],[-18,6,29]],inn:[[-49,11,11],[-39,8,-1]],tavern:[[-10,8,27],[-10,5.2,12.2]],orrery:[[15,17,12],[3,12,-3]],square:[[-31,6,16],[-24,2,7]],roofgarden:[[-38,18,-8],[-28,11,-18]],mill:[[33,10,39],[20,5,27]],archway:[[39,10,21],[28,5,9]],canal:[[31,7.5,38],[21,.7,27]],rooftop:[[-5,21,13],[-20,7,0]],belfry:[[-4,27,-17],[-13,23,-32]],drone:[[0,33,45],[-8,6,-5]],train:[[51,7,19],[43.5,2.5,12]]};
 function setView(v){if(walking.active)walking.leave();view=v;followMode=false;document.getElementById('follow').classList.remove('active');const[p,t]=viewMap[v];camera.position.fromArray(p);controls.target.fromArray(t);controls.enabled=!['drone','train'].includes(v);document.querySelectorAll('#views button').forEach(b=>b.classList.toggle('active',b.dataset.v===v))}
 let currentWeather='clear';
-function setWeather(w){currentWeather=w;rain.visible=w==='rain';lit.forEach(m=>m.emissiveIntensity=w==='blackout'?0:.65);ovenGlow.intensity=w==='blackout'?0:2.2;const cfg={clear:[0x9eaaa3,.0018,1.35,1.85,1.02,.18],rain:[0x5d6b70,.010,.7,.38,.78,.30],fog:[0x929b96,.0145,.86,.48,.80,.38],blackout:[0x071017,.012,.12,.02,.48,.18],dawn:[0x5f6c7d,.009,.48,.42,.68,.34],night:[0x07111d,.010,.25,.05,.58,.55]}[w];scene.background.set(cfg[0]);scene.fog.color.set(cfg[0]);scene.fog.density=cfg[1];hemi.intensity=cfg[2];sun.intensity=cfg[3];renderer.toneMappingExposure=cfg[4];bloom.strength=cfg[5];sun.color.set(w==='dawn'?0xd58b62:0xffe2b5);document.querySelectorAll('#weather button').forEach(b=>b.classList.toggle('active',b.dataset.w===w))}
+function setWeather(w){currentWeather=w;rain.visible=w==='rain';lit.forEach(m=>m.emissiveIntensity=w==='blackout'?0:.65);ovenGlow.intensity=w==='blackout'?0:2.2;const cfg={clear:[0x9eaaa3,.0032,1.55,1.55,1.06,.15],rain:[0x5d6b70,.0105,.76,.34,.78,.22],fog:[0x929b96,.0145,.91,.43,.80,.24],blackout:[0x071017,.012,.12,.02,.48,.18],dawn:[0x5f6c7d,.0095,.53,.38,.68,.23],night:[0x101b20,.0095,.52,.10,.76,.27]}[w];scene.background.set(cfg[0]);scene.fog.color.set(cfg[0]);scene.fog.density=cfg[1];hemi.intensity=cfg[2];sun.intensity=cfg[3];renderer.toneMappingExposure=cfg[4];bloom.strength=cfg[5];sun.color.set(w==='dawn'?0xd7a17f:0xffe5c0);document.querySelectorAll('#weather button').forEach(b=>b.classList.toggle('active',b.dataset.w===w))}
 document.getElementById('weather').onclick=e=>e.target.dataset.w&&setWeather(e.target.dataset.w);document.getElementById('views').onclick=e=>e.target.dataset.v&&setView(e.target.dataset.v);residentSel.onchange=e=>followIdx=+e.target.value;
 follow.onclick=()=>{if(walking.active){walking.leave();setView(view)}followMode=!followMode;follow.classList.toggle('active',followMode);controls.enabled=!followMode};fullscreen.onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen?.();toggle.onclick=()=>{panel.classList.toggle('collapsed');toggle.textContent=panel.classList.contains('collapsed')?'操作':'街を見る'};if(innerWidth<701)panel.classList.add('collapsed');
 // v8.2 movement helpers
@@ -1032,7 +1034,7 @@ const clock=new THREE.Clock();let previousFrame=0;function animate(){requestAnim
 routes.forEach((r,i)=>{const phase=t*r.s+i,u=(Math.sin(phase)+1)/2,forward=Math.cos(phase)>=0;r.p.position.lerpVectors(r.a,r.b,u);r.p.lookAt(forward?r.b:r.a);const swing=Math.sin(t*5+i)*.48;r.p.userData.legs[0].rotation.x=swing;r.p.userData.legs[1].rotation.x=-swing;r.p.userData.arms[0].rotation.x=-swing*.7;r.p.userData.arms[1].rotation.x=swing*.7;grounding.actor(r.p,r.p.userData.legs)});
 const ru=(Math.sin(t*.11)+1)/2,rForward=Math.cos(t*.11)>=0;residentV8.position.lerpVectors(new THREE.Vector3(-1,3.5,18),new THREE.Vector3(5,3.5,18),ru);residentV8.rotation.y=rForward?Math.PI/2:-Math.PI/2;const rs=Math.sin(t*4.8)*.42;residentLegs[0].rotation.x=rs;residentLegs[1].rotation.x=-rs;residentArms[0].rotation.x=-rs*.65;residentArms[1].rotation.x=rs*.65;grounding.actor(residentV8,residentLegs);
 const raw=(Math.sin(t*.115)+1)/2,cu=raw<.08?0:raw>.92?1:(raw-.08)/.84;walkPath(catPath,cu,_catPos);cat.position.copy(_catPos);cat.rotation.y=Math.cos(t*.115)>=0?0:Math.PI;const cs=Math.sin(t*7.5)*.5;catLegs[0].rotation.z=cs;catLegs[1].rotation.z=-cs;catLegs[2].rotation.z=-cs;catLegs[3].rotation.z=cs;tail.rotation.z=.15+Math.sin(t*2.2)*.18;grounding.actor(cat,catLegs);
-smoke.forEach((q,i)=>{const u=(t*.09+i/smoke.length)%1;const cs=chimneySources[i%chimneySources.length];q.position.set(cs[0]+Math.sin(t*.4+i)*.45,cs[1]+u*12,cs[2]+Math.cos(t*.35+i)*.35);q.scale.setScalar(.5+u*2.3);q.material.opacity=.14*(1-u)});if(rain.visible){const p=rg.attributes.position.array;for(let i=0;i<N;i++){p[i*3+1]-=.48;if(p[i*3+1]<0)p[i*3+1]=65}rg.attributes.position.needsUpdate=true}if(!walking.active&&view==='catview'&&!followMode){const cp=cat.position.clone();camera.position.lerp(cp.clone().add(new THREE.Vector3(-4.2,2.5,4.6)),.08);controls.target.lerp(cp.clone().add(new THREE.Vector3(0,.65,0)),.10);}if(!walking.active&&view==='drone'&&!followMode){camera.position.set(Math.sin(t*.07)*52,29+Math.sin(t*.11)*4,Math.cos(t*.07)*52);camera.lookAt(-8,6,-4)}if(!walking.active&&view==='train'&&!followMode){camera.position.copy(train.position).add(new THREE.Vector3(7.5,5.5,7));controls.target.copy(train.position).add(new THREE.Vector3(0,1.2,0));camera.lookAt(controls.target)}if(followMode){const p=residents[followIdx],d=new THREE.Vector3();p.getWorldDirection(d);camera.position.lerp(p.position.clone().add(new THREE.Vector3(0,2.8,0)).add(d.multiplyScalar(-4.5)),.07);camera.lookAt(p.position.clone().add(new THREE.Vector3(0,1.4,0)))}if(walking.active)walking.update(dt);else controls.update();inspections.update(dt);composer.render()}
+smoke.forEach((q,i)=>{const u=(t*.09+i/smoke.length)%1;const cs=chimneySources[i%chimneySources.length];q.position.set(cs[0]+Math.sin(t*.4+i)*.45,cs[1]+u*12,cs[2]+Math.cos(t*.35+i)*.35);q.scale.setScalar(.5+u*2.3);q.material.opacity=.14*(1-u)});if(rain.visible){const p=rg.attributes.position.array;for(let i=0;i<N;i++){p[i*3+1]-=.48;if(p[i*3+1]<0)p[i*3+1]=65}rg.attributes.position.needsUpdate=true}if(!walking.active&&view==='catview'&&!followMode){const cp=cat.position.clone();camera.position.lerp(cp.clone().add(new THREE.Vector3(-4.2,2.5,4.6)),.08);controls.target.lerp(cp.clone().add(new THREE.Vector3(0,catViewSettings.focusHeight,0)),.10);}if(!walking.active&&view==='drone'&&!followMode){camera.position.set(Math.sin(t*.07)*52,29+Math.sin(t*.11)*4,Math.cos(t*.07)*52);camera.lookAt(-8,6,-4)}if(!walking.active&&view==='train'&&!followMode){camera.position.copy(train.position).add(new THREE.Vector3(7.5,5.5,7));controls.target.copy(train.position).add(new THREE.Vector3(0,1.2,0));camera.lookAt(controls.target)}if(followMode){const p=residents[followIdx],d=new THREE.Vector3();p.getWorldDirection(d);camera.position.lerp(p.position.clone().add(new THREE.Vector3(0,2.8,0)).add(d.multiplyScalar(-4.5)),.07);camera.lookAt(p.position.clone().add(new THREE.Vector3(0,1.4,0)))}if(walking.active)walking.update(dt);else controls.update();inspections.update(dt);composer.render()}
 // Add v10.8+ construction above this finalization point. Preserve the legacy
 // checkpoints; retire intentionally replaced meshes explicitly instead of
 // extending geometry filters to newly built waterfront groups.
@@ -1094,6 +1096,14 @@ const inspections=createInspectionSystem({THREE,scene,camera,walking,targets:ins
   ignored:[...residents,residentV8,cat,...smoke,train,axle]});
 const dialogue=createDialogueSystem({THREE,inspections,walking,getTime:()=>currentWeather,
   actors:{baker:p0,bookseller:shopResidents[4],boatworker:talkingDockWorker,starmaker:shopResidents[1],greenBard:bard}});
+// Surface treatment follows registration: contact and collision keep their
+// existing cached geometry/material policy, and residents keep their palette.
+const storybook=applyStorybookSurfaces({THREE,scene,grounding,
+  stone:[stone,stone2,plaster,bluePlaster,winePlaster,...hqPlaster,rqPlaster,wfWall,w103,v8Stone,darkStone,warmStone,wfStone,stone101,stone106,culture.tools.materials.stone,culture.tools.materials.cut],
+  wood:[wood,v8Wood,craftWood,laundryWood,rqWood,wfWood,wfWood2,dock101,dockDark101,wood102,wd103,wood104,wood105,wood106,wood107,culture.tools.materials.wood],
+  roof:[roof,slate,v81RoofA,v81RoofB,v81RoofC,...hqRoof,rqDark,wfRoof,rf103],ground:[path],
+  terrain:[...townGround,...cliffSkirts],ignored:[...residentScale.residents.map(q=>q.object),cat,...smoke,orrery]});
+for(const material of [water,water101]){material.roughness=.44;material.metalness=.025;}
 walk.onclick=()=>{
   if(walking.active){walking.leave();setView(view);return}
   followMode=false;follow.classList.remove('active');
