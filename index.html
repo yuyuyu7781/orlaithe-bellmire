@@ -29,6 +29,7 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <script type="module">
 import * as THREE from 'three';
 import {createWalkingSystem} from './walking.js';
+import {createGroundingSystem} from './grounding.js';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
 import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
@@ -53,16 +54,26 @@ box(-10,1,-3,90,2.5,62,stone2),box(-18,3.45,-14,69,2.8,42,stone),box(-12,6.2,-24
 for(let i=0;i<18;i++){const x=-48+bellRand()*62,z=-34+bellRand()*68,y=.2+bellRand()*7;const r=.7+bellRand()*1.7;const rock=new THREE.Mesh(new THREE.DodecahedronGeometry(r,0),stone2);rock.position.set(x,y,z);rock.scale.y=.55+bellRand()*.7;rock.rotation.set(bellRand(),bellRand(),bellRand());scene.add(rock)}
 
 
+// Register a whole vignette so goods, wheels and foliage keep their relative positions.
+const groundedObjects=[];
+function groundAssembly(parent,build,options={}){
+  const before=new Set(parent.children);build();
+  const group=new THREE.Group();group.name='Grounded street detail';parent.add(group);
+  for(const child of [...parent.children])if(child!==group&&!before.has(child))group.attach(child);
+  groundedObjects.push({object:group,...options});return group;
+}
+function registerGrounded(object,options={}){groundedObjects.push({object,...options});return object;}
+
 // ===== v8.7 merchant street life =====
 const v87StreetLife=new THREE.Group();scene.add(v87StreetLife);
 const v87Canvas=M(0x756b58,.94),v87Red=M(0x765147,.94),v87Paper=M(0xb9aa83,.96),v87Rope=M(0x665642,.98);
-function v87Crate(x,y,z,s=1){box(x,y,z,1.15*s,.72*s,.9*s,v8Wood,v87StreetLife);box(x,y+.36*s,z+.46*s,1.2*s,.08*s,.08*s,v8Iron,v87StreetLife)}
-function v87Barrel(x,y,z,s=1){const b=new THREE.Mesh(new THREE.CylinderGeometry(.42*s,.48*s,.9*s,10),v8Wood);b.position.set(x,y+.45*s,z);b.castShadow=true;v87StreetLife.add(b);for(const yy of [y+.18*s,y+.70*s]){const r=new THREE.Mesh(new THREE.TorusGeometry(.45*s,.035*s,5,10),v8Iron);r.rotation.x=Math.PI/2;r.position.set(x,yy,z);v87StreetLife.add(r)}}
-function v87Awning(x,y,z,w=3,ma=v87Canvas,surfaceY=y-2.0){box(x,y,z,w,.10,1.35,ma,v87StreetLife);for(const dx of [-w*.44,w*.44])box(x+dx,surfaceY,z+.52,.09,y-surfaceY,.09,v8Wood,v87StreetLife)}
+function v87Crate(x,y,z,s=1){return groundAssembly(v87StreetLife,()=>{box(x,y,z,1.15*s,.72*s,.9*s,v8Wood,v87StreetLife);box(x,y+.36*s,z+.46*s,1.2*s,.08*s,.08*s,v8Iron,v87StreetLife)});}
+function v87Barrel(x,y,z,s=1){return groundAssembly(v87StreetLife,()=>{const b=new THREE.Mesh(new THREE.CylinderGeometry(.42*s,.48*s,.9*s,10),v8Wood);b.position.set(x,y+.45*s,z);b.castShadow=true;v87StreetLife.add(b);for(const yy of [y+.18*s,y+.70*s]){const r=new THREE.Mesh(new THREE.TorusGeometry(.45*s,.035*s,5,10),v8Iron);r.rotation.x=Math.PI/2;r.position.set(x,yy,z);v87StreetLife.add(r)}});}
+function v87Awning(x,y,z,w=3,ma=v87Canvas,surfaceY=y-2.0){return groundAssembly(v87StreetLife,()=>{box(x,y,z,w,.10,1.35,ma,v87StreetLife);for(const dx of [-w*.44,w*.44])box(x+dx,surfaceY,z+.52,.09,y-surfaceY,.09,v8Wood,v87StreetLife)});}
 function v87Lantern(x,y,z){const ma=new THREE.MeshStandardMaterial({color:0xe6b86b,emissive:0xff9f43,emissiveIntensity:1.05});const l=new THREE.Mesh(new THREE.SphereGeometry(.14,8,6),ma);l.position.set(x,y,z);v87StreetLife.add(l);lit.push(ma);box(x,y+.15,z,.08,.55,.08,v8Iron,v87StreetLife)}
 function v87Laundry(a,b,y,z){box(a,y,z,.06,.06,.06,v87Rope,v87StreetLife);box(b,y,z,.06,.06,.06,v87Rope,v87StreetLife);for(let i=0;i<4;i++){const x=a+(b-a)*(i+.5)/4;box(x,y-.62-(i%2)*.08,z,.72,.9,.05,i%2?v87Canvas:v87Red,v87StreetLife)}}
-v87Awning(-31,6.15,29.05,3.7,v87Canvas);v87Crate(-33.2,3.5,29.5,.82);v87Crate(-32.1,3.5,29.7,.68);
-for(let i=0;i<5;i++)box(-33.15+i*.36,4.15,29.55,.27,.09,.42,i%2?v87Paper:v87Red,v87StreetLife);
+v87Awning(-31,6.15,29.05,3.7,v87Canvas);const breadCrates=[v87Crate(-33.2,3.5,29.5,.82),v87Crate(-32.1,3.5,29.7,.68)];
+for(let i=0;i<5;i++)box(-33.15+i*.36,3.5+.72*(i<2?.82:.68),29.55,.27,.09,.42,i%2?v87Paper:v87Red,breadCrates[i<2?0:1]);
 v87Awning(-18,6.45,32.85,3.5,v87Red);v87Crate(-20.4,3.5,33.0,.78);v87Barrel(-14.8,1.38,34.25,.82);
 v87Barrel(-14.0,3.48,14.4,.92);v87Crate(-6.5,3.5,14.3,.86);v87Lantern(-15.2,6.0,13.8);v87Lantern(-5.4,5.8,13.7);
 v87Laundry(-4.5,1.5,11.2,-17.2);v87Laundry(27.0,33.0,10.4,18.4);
@@ -84,7 +95,7 @@ box(-10,3.5,12.12,2.45,3.8,.18,M(0x3b241b),tavernDetail);
 const tavernDoorGlow=new THREE.MeshStandardMaterial({color:0xe3a35f,emissive:0xff8b35,emissiveIntensity:1.15});
 box(-10,3.8,12.24,1.45,2.35,.10,tavernDoorGlow,tavernDetail);lit.push(tavernDoorGlow);
 box(-12.25,5.35,12.15,.12,2.25,.12,v8Iron,tavernDetail);box(-11.45,7.15,12.15,1.55,.82,.16,v8Wood,tavernDetail);
-for(const bx of [-13.0,-11.9]){const barrel=new THREE.Mesh(new THREE.CylinderGeometry(.48,.52,1.05,12),v8Wood);barrel.rotation.z=Math.PI/2;barrel.position.set(bx,3.95,12.65);tavernDetail.add(barrel)}
+for(const bx of [-13.0,-11.9]){const barrel=new THREE.Mesh(new THREE.CylinderGeometry(.48,.52,1.05,12),v8Wood);barrel.rotation.z=Math.PI/2;barrel.position.set(bx,3.95,12.65);tavernDetail.add(barrel);registerGrounded(barrel)}
 for(const lx of [-11.45,-8.55]){const lamp=new THREE.Mesh(new THREE.SphereGeometry(.16,8,6),new THREE.MeshStandardMaterial({color:0xf4c170,emissive:0xffa03b,emissiveIntensity:1.6}));lamp.position.set(lx,6.15,12.48);tavernDetail.add(lamp);lit.push(lamp.material)}
 const tavernPointGlowV843=new THREE.PointLight(0xff9b4a,1.25,10);tavernPointGlowV843.position.set(-10,5.1,13.2);scene.add(tavernPointGlowV843);
 // v8.5 street-life layer around the tavern
@@ -92,36 +103,46 @@ const tavernStreet=new THREE.Group();scene.add(tavernStreet);
 box(-10,3.48,14.0,6.8,.10,3.0,path,tavernStreet);
 box(-10,6.55,13.0,5.4,.16,2.15,v8Cloth,tavernStreet);
 for(const px of [-12.45,-7.55]) box(px,3.5,13.65,.16,3.15,.16,v8Wood,tavernStreet);
-box(-7.15,3.52,14.45,1.7,.16,1.05,v8Wood,tavernStreet);
-box(-7.15,3.68,14.45,.18,.85,.18,v8Wood,tavernStreet);
+groundAssembly(tavernStreet,()=>{
+box(-7.15,4.35,14.45,1.7,.16,1.05,v8Wood,tavernStreet);
+box(-7.15,3.5,14.45,.18,.85,.18,v8Wood,tavernStreet);
+});
 for(const sx of [-8.05,-6.25]) box(sx,3.5,14.45,.55,.48,.55,v8Wood,tavernStreet);
 for(const bx of [-13.15,-12.45]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.42,.47,.9,12),v8Wood);b.position.set(bx,3.95,14.25);tavernStreet.add(b)}
 const tavernWarm=new THREE.PointLight(0xff9b4a,.9,8);tavernWarm.position.set(-10,5.0,14.4);scene.add(tavernWarm);
 // v8.6 — lived-in shopfronts: bakery, bookshop, inn
 const shopLife=new THREE.Group();scene.add(shopLife);
 // bakery: striped awning, bread crates and warm doorway
-box(-31,3.5,27.15,5.6,.16,1.8,v8Cloth,shopLife);
+box(-31,6.2,27.15,5.6,.16,1.8,v8Cloth,shopLife);
 for(const x of [-33.4,-28.6]) box(x,3.5,27.0,.14,2.7,.14,v8Wood,shopLife);
+groundAssembly(shopLife,()=>{
 box(-31,3.55,27.75,2.2,.55,1.05,v8Wood,shopLife);
-for(const x of [-31.7,-31,-30.3]){const loaf=new THREE.Mesh(new THREE.SphereGeometry(.27,10,6),M(0xb9824f,.9));loaf.scale.set(1.45,.55,.8);loaf.position.set(x,4.2,27.72);shopLife.add(loaf)}
+for(const x of [-31.7,-31,-30.3]){const loaf=new THREE.Mesh(new THREE.SphereGeometry(.27,10,6),M(0xb9824f,.9));loaf.scale.set(1.45,.55,.8);loaf.position.set(x,4.2485,27.72);shopLife.add(loaf)}
+});
 const bakeLamp=new THREE.PointLight(0xffb45f,.8,7);bakeLamp.position.set(-31,5.1,27.8);scene.add(bakeLamp);
 // bookshop: projecting sign, narrow display table and stacked book blocks
 box(-18,4.8,32.05,.12,2.2,.12,v8Iron,shopLife);box(-17.25,6.55,32.05,1.35,.72,.14,v8Wood,shopLife);
+groundAssembly(shopLife,()=>{
 box(-18,3.55,32.45,3.5,.72,.8,v8Wood,shopLife);
 const bookMats=[M(0x6d4b43,.9),M(0x4d5a4c,.9),M(0x6a5c3e,.9)];
-for(let i=0;i<7;i++) box(-19.2+i*.4,4.28+(i%2)*.08,32.45,.34,.10,.48,bookMats[i%3],shopLife);
+for(let i=0;i<7;i++) box(-19.2+i*.4,4.27,32.45,.34,.10+(i%2)*.08,.48,bookMats[i%3],shopLife);
+
+});
 const bookLamp=new THREE.PointLight(0xe9a65a,.62,6);bookLamp.position.set(-18,5.3,32.7);scene.add(bookLamp);
 // inn: covered arrival bench, luggage and paired lanterns
-box(-39,3.55,3.55,5.8,.18,1.75,v8Cloth,shopLife);
+groundAssembly(shopLife,()=>{
+box(-39,6.3,3.55,5.8,.18,1.75,v8Cloth,shopLife);
 for(const x of [-41.5,-36.5]) box(x,3.5,3.35,.15,2.8,.15,v8Wood,shopLife);
-box(-39,3.55,4.15,2.7,.45,.72,v8Wood,shopLife);
-box(-41.1,3.55,4.35,.7,.9,.55,v8Wood,shopLife);box(-40.3,3.55,4.4,.55,.65,.48,v8Wood,shopLife);
+box(-39,3.5,4.15,2.7,.45,.72,v8Wood,shopLife);
+box(-41.1,3.5,4.35,.7,.9,.55,v8Wood,shopLife);box(-40.3,3.5,4.4,.55,.65,.48,v8Wood,shopLife);
 for(const x of [-41.7,-36.3]){const lm=new THREE.MeshStandardMaterial({color:0xf1bd70,emissive:0xff9a3c,emissiveIntensity:1.25});const l=new THREE.Mesh(new THREE.SphereGeometry(.14,8,6),lm);l.position.set(x,5.65,3.75);shopLife.add(l);lit.push(lm)}
+});
+
 
 
 
 // grouped crates and sacks
-for(const [x,z] of [[-32,30],[-28,27],[-21,30],[-14,25],[-38,6],[29,35],[35,31]]){box(x,1.25,z,1,.65,.8,v8Wood);const sack=new THREE.Mesh(new THREE.SphereGeometry(.38,8,6),new THREE.MeshStandardMaterial({color:0x8d8068}));sack.scale.set(.8,1.15,.7);sack.position.set(x+.7,1.52,z+.25);scene.add(sack)}
+for(const [x,z] of [[-32,30],[-28,27],[-21,30],[-14,25],[-38,6],[29,35],[35,31]]){groundAssembly(scene,()=>{box(x,1.25,z,1,.65,.8,v8Wood);const sack=new THREE.Mesh(new THREE.SphereGeometry(.38,8,6),new THREE.MeshStandardMaterial({color:0x8d8068}));sack.scale.set(.8,1.15,.7);sack.position.set(x+.7,1.687,z+.25);scene.add(sack)});}
 // laundry across a narrow lane
 for(let i=0;i<5;i++){const cloth=new THREE.Mesh(new THREE.PlaneGeometry(.8,.7),v8Cloth);cloth.material.side=THREE.DoubleSide;cloth.position.set(-16+i*1.05,7.2+Math.sin(i)*.12,22.5);cloth.rotation.y=Math.PI/2;scene.add(cloth)}
 
@@ -151,12 +172,12 @@ function doorDetail(x,y,z,ma=v8Wood){
   const knob=new THREE.Mesh(new THREE.SphereGeometry(.07,7,5),v8Copper);
   knob.position.set(x+.3,y,z+.11);scene.add(knob);
 }
-function planter(x,y,z){
+function planter(x,y,z){return groundAssembly(scene,()=>{
   const pot=new THREE.Mesh(new THREE.CylinderGeometry(.34,.26,.48,9),v81Terracotta);
   pot.position.set(x,y,z);scene.add(pot);
   const plant=new THREE.Mesh(new THREE.IcosahedronGeometry(.38,1),moss);
   plant.scale.set(.8,1.25,.8);plant.position.set(x,y+.52,z);scene.add(plant);
-}
+});}
 function lamp(x,y,z){
   box(x,y,z,.12,.65,.12,v8Iron);
   const ma=new THREE.MeshStandardMaterial({color:0xe7b86b,emissive:0xffa94f,emissiveIntensity:.7});
@@ -177,7 +198,7 @@ doorDetail(-35.8,2.25,3.15); doorDetail(-28.7,2.25,31.1);
 doorDetail(-14.8,2.25,31.95); doorDetail(-7.2,2.25,26.25);
 for(const p of [[-34.8,1.38,4.0],[-29.8,1.38,30.6],[-20.5,1.38,31.2],[-12.0,1.38,25.5],[28.5,1.38,34.4],[35.0,1.38,30.4]]) planter(...p);
 for(const p of [[-36,6.8,3.45],[-28,6.4,31.4],[-15,6.8,32.15],[-7,6.2,26.45],[29,6.3,33.9]]) lamp(...p);
-box(-24,1.35,29.6,2.8,.55,.65,v8Wood); box(-24,1.15,29.6,.18,.85,.18,v8Iron);
+groundAssembly(scene,()=>{box(-24,1.35,29.6,2.8,.55,.65,v8Wood); box(-24,1.15,29.6,.18,.85,.18,v8Iron);});
 
 // irregular cobble patches instead of one flat continuous carpet
 for(let i=0;i<55;i++){
@@ -264,32 +285,33 @@ for(let i=0;i<3;i++) box(-23.8+i*1.15,6.55-i*.06,30.75+i*.12,.72,.95,.06,cloths[
 for(const q of [[-26.2,5.7,31.0],[-13.8,5.65,28.6]]){box(q[0],3.5,q[2],.11,2.05,.11,v8Iron,marketLife);const lm=new THREE.MeshStandardMaterial({color:0xe9b76b,emissive:0xffa348,emissiveIntensity:1.1});const l=new THREE.Mesh(new THREE.SphereGeometry(.14,8,6),lm);l.position.set(q[0],q[1],q[2]);marketLife.add(l);lit.push(lm)}
 box(-22.8,3.5,28.45,2.2,1.55,.16,v8Wood,marketLife);box(-22.8,3.72,28.34,1.72,1.05,.05,M(0x9a8b72,.95),marketLife);
 // plants soften the commercial lane without changing building layout
-for(const q of [[-28.2,3.75,30.0],[-20.5,3.75,29.0],[-12.8,3.75,28.2]]){const pot=new THREE.Mesh(new THREE.CylinderGeometry(.3,.24,.5,9),M(0x845d49,.92));pot.position.set(...q);marketLife.add(pot);const plant=new THREE.Mesh(new THREE.IcosahedronGeometry(.38,1),moss);plant.scale.set(.8,1.15,.8);plant.position.set(q[0],q[1]+.48,q[2]);marketLife.add(plant)}
+for(const q of [[-28.2,3.75,30.0],[-20.5,3.75,29.0],[-12.8,3.75,28.2]]){groundAssembly(marketLife,()=>{const pot=new THREE.Mesh(new THREE.CylinderGeometry(.3,.24,.5,9),M(0x845d49,.92));pot.position.set(...q);marketLife.add(pot);const plant=new THREE.Mesh(new THREE.IcosahedronGeometry(.38,1),moss);plant.scale.set(.8,1.15,.8);plant.position.set(q[0],q[1]+.48,q[2]);marketLife.add(plant)});}
 
 
 // v8.8 — market-square texture: stalls, benches, planters and lane clutter
 const squareLife=new THREE.Group();scene.add(squareLife);
 const stallCloth=[M(0x7b5c4e,.96),M(0x6d745e,.96),M(0x92745d,.96)];
-for(const q of [[8,3.5,6,0],[13,3.5,8,1],[18,3.5,5,2]]){
+for(const q of [[8,3.5,6,0],[13,3.5,8,1],[18,3.5,5,2]]){groundAssembly(squareLife,()=>{
   box(q[0],q[1]+.55,q[2],3.0,.25,1.25,v8Wood,squareLife);
   box(q[0],q[1]+2.4,q[2],3.5,.18,1.65,stallCloth[q[3]],squareLife);
-  for(const dx of [-1.35,1.35]) box(q[0]+dx,q[1]+1.35,q[2],.12,2.7,.12,v8Wood,squareLife);
+  for(const dx of [-1.35,1.35]) box(q[0]+dx,q[1],q[2],.12,2.4,.12,v8Wood,squareLife);
+  for(const dx of [-1.1,1.1])box(q[0]+dx,q[1],q[2],.12,.55,.12,v8Wood,squareLife);
   for(let i=0;i<4;i++) box(q[0]-1.05+i*.7,q[1]+.82,q[2]-.05,.42,.18,.42,M(i%2?0x8b6a43:0x65704c,.95),squareLife);
-}
+});}
 // benches and planters around the open square
-for(const q of [[4,3.5,12],[21,3.5,12],[15,3.5,16]]){box(q[0],q[1]+.45,q[2],2.25,.28,.55,v8Wood,squareLife);box(q[0]-.8,q[1]+.15,q[2],.18,.7,.45,v8Wood,squareLife);box(q[0]+.8,q[1]+.15,q[2],.18,.7,.45,v8Wood,squareLife)}
-for(const q of [[6,3.75,15],[23,3.75,9],[11,3.75,18]]){const pot=new THREE.Mesh(new THREE.CylinderGeometry(.38,.3,.55,10),M(0x805a45,.94));pot.position.set(...q);squareLife.add(pot);const plant=new THREE.Mesh(new THREE.IcosahedronGeometry(.52,1),moss);plant.scale.set(.9,1.25,.9);plant.position.set(q[0],q[1]+.55,q[2]);squareLife.add(plant)}
+for(const q of [[4,3.5,12],[21,3.5,12],[15,3.5,16]]){groundAssembly(squareLife,()=>{box(q[0],q[1]+.45,q[2],2.25,.28,.55,v8Wood,squareLife);box(q[0]-.8,q[1]+.15,q[2],.18,.7,.45,v8Wood,squareLife);box(q[0]+.8,q[1]+.15,q[2],.18,.7,.45,v8Wood,squareLife)});}
+for(const q of [[6,3.75,15],[23,3.75,9],[11,3.75,18]]){groundAssembly(squareLife,()=>{const pot=new THREE.Mesh(new THREE.CylinderGeometry(.38,.3,.55,10),M(0x805a45,.94));pot.position.set(...q);squareLife.add(pot);const plant=new THREE.Mesh(new THREE.IcosahedronGeometry(.52,1),moss);plant.scale.set(.9,1.25,.9);plant.position.set(q[0],q[1]+.55,q[2]);squareLife.add(plant)});}
 // modest signposts make lanes feel navigable
-for(const q of [[2,3.5,8],[20,3.5,18]]){box(q[0],q[1]+1.3,q[2],.13,2.6,.13,v8Iron,squareLife);box(q[0]+.55,q[1]+2.25,q[2],1.25,.42,.12,v8Wood,squareLife)}
+for(const q of [[2,3.5,8],[20,3.5,18]]){groundAssembly(squareLife,()=>{box(q[0],q[1]+1.3,q[2],.13,2.6,.13,v8Iron,squareLife);box(q[0]+.55,q[1]+2.25,q[2],1.25,.42,.12,v8Wood,squareLife)});}
 
 
 // v8.9 — visible street life: residents, carts and everyday objects
 const streetLife=new THREE.Group();scene.add(streetLife);
 const coat=[M(0x66584e,.96),M(0x58635b,.96),M(0x796353,.96),M(0x59606a,.96)];
-function resident(x,z,i){const g=new THREE.Group();const body=new THREE.Mesh(new THREE.CylinderGeometry(.24,.34,1.05,8),coat[i%coat.length]);body.position.y=.65;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.23,9,7),M(0xb58b6d,.96));head.position.y=1.42;g.add(head);g.position.set(x,3.5,z);streetLife.add(g)}
+function resident(x,z,i){const g=new THREE.Group();const body=new THREE.Mesh(new THREE.CylinderGeometry(.24,.34,1.05,8),coat[i%coat.length]);body.position.y=.65;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.23,9,7),M(0xb58b6d,.96));head.position.y=1.42;g.add(head);g.position.set(x,3.5,z);streetLife.add(g);registerGrounded(g,{person:true})}
 [[7,10,0],[11,6,1],[17,12,2],[22,7,3],[-18,29,1],[-24,31,2]].forEach(q=>resident(...q));
 // handcarts near market and shop lane
-for(const q of [[10,3.5,14],[20,3.5,10],[-21,3.5,29]]){box(q[0],q[1]+.55,q[2],1.65,.55,.95,v8Wood,streetLife);for(const dx of [-.62,.62]){const w=new THREE.Mesh(new THREE.TorusGeometry(.28,.08,7,12),v8Iron);w.rotation.y=Math.PI/2;w.position.set(q[0]+dx,q[1]+.32,q[2]+.52);streetLife.add(w)}box(q[0],q[1]+.62,q[2]-1.05,.12,.12,1.35,v8Wood,streetLife)}
+for(const q of [[10,3.5,14],[20,3.5,10],[-21,3.5,29]]){groundAssembly(streetLife,()=>{box(q[0],q[1]+.55,q[2],1.65,.55,.95,v8Wood,streetLife);for(const dx of [-.62,.62]){const w=new THREE.Mesh(new THREE.TorusGeometry(.28,.08,7,12),v8Iron);w.rotation.y=Math.PI/2;w.position.set(q[0]+dx,q[1]+.32,q[2]+.52);streetLife.add(w)}box(q[0],q[1]+.62,q[2]-1.05,.12,.12,1.35,v8Wood,streetLife)});}
 // sacks and baskets clustered rather than evenly scattered
 for(const q of [[8.5,3.72,5.0],[9.2,3.72,5.3],[18.5,3.72,4.5],[-26,3.72,30]]){const b=new THREE.Mesh(new THREE.SphereGeometry(.34,8,6),M(0x9a8264,.95));b.scale.set(1,.7,.85);b.position.set(...q);streetLife.add(b)}
 
@@ -297,29 +319,29 @@ for(const q of [[8.5,3.72,5.0],[9.2,3.72,5.3],[18.5,3.72,4.5],[-26,3.72,30]]){co
 // v9.0 — market vignettes: pairs, vendor/customer, seated figures
 const marketStories=new THREE.Group();scene.add(marketStories);
 const storyCoats=[M(0x725c50,.98),M(0x4e6258,.98),M(0x776b55,.98),M(0x5e5967,.98),M(0x7a5547,.98)];
-function storyPerson(x,z,i,ry=0){const g=new THREE.Group();const body=new THREE.Mesh(new THREE.CylinderGeometry(.28,.38,1.15,8),storyCoats[i%storyCoats.length]);body.position.y=.7;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.25,9,7),M(0xbc8f70,.98));head.position.y=1.55;g.add(head);g.position.set(x,3.5,z);g.rotation.y=ry;marketStories.add(g);return g}
+function storyPerson(x,z,i,ry=0){const g=new THREE.Group();const body=new THREE.Mesh(new THREE.CylinderGeometry(.28,.38,1.15,8),storyCoats[i%storyCoats.length]);body.position.y=.7;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.25,9,7),M(0xbc8f70,.98));head.position.y=1.55;g.add(head);g.position.set(x,3.5,z);g.rotation.y=ry;marketStories.add(g);registerGrounded(g,{person:true});return g}
 // two neighbours talking face-to-face
 storyPerson(5.8,11.5,0,.8);storyPerson(7.1,12.1,1,-2.2);
 // stall keeper and customer opposite one another
 storyPerson(8,4.7,2,0);storyPerson(8,7.0,3,Math.PI);
 storyPerson(13,6.7,4,Math.PI);storyPerson(14.1,9.2,1,.25);
 // seated silhouettes by benches — lower body makes posture readable from above
-function sitter(x,z,i,ry=0){const g=storyPerson(x,z,i,ry);g.scale.y=.82;g.position.y=3.35;return g}
+function sitter(x,z,i,ry=0){const g=storyPerson(x,z,i,ry);g.scale.y=.82;g.position.y=3.35;groundedObjects.find(q=>q.object===g).seat=true;return g}
 sitter(4,11.8,3,Math.PI/2);sitter(15,15.8,0,-Math.PI/2);
 // crates beside vendors make each interaction read as commerce
-for(const q of [[7.0,3.75,5.1],[12.0,3.75,7.1],[17.0,3.75,4.2]]){box(q[0],q[1],q[2],.7,.5,.7,v8Wood,marketStories);box(q[0]+.8,q[1]-.08,q[2]+.25,.6,.35,.6,v8Wood,marketStories)}
+for(const q of [[7.0,3.75,5.1],[12.0,3.75,7.1],[17.0,3.75,4.2]]){groundAssembly(marketStories,()=>{box(q[0],q[1],q[2],.7,.5,.7,v8Wood,marketStories);box(q[0]+.8,q[1]-.08,q[2]+.25,.6,.35,.6,v8Wood,marketStories)});}
 
 
 // v9.1 — market texture: produce, baskets, barrels and awnings
 const marketTexture=new THREE.Group();scene.add(marketTexture);
 const veg=[M(0x6f7047,.98),M(0x8a6848,.98),M(0x8b5b45,.98),M(0x59684c,.98)];
-function produceTray(x,z,i){box(x,3.72,z,1.45,.18,.75,v8Wood,marketTexture);for(let n=0;n<6;n++){const a=new THREE.Mesh(new THREE.SphereGeometry(.12,7,5),veg[(i+n)%veg.length]);a.position.set(x-.5+(n%3)*.48,3.91,z-.18+Math.floor(n/3)*.35);marketTexture.add(a)}}
+function produceTray(x,z,i){return groundAssembly(marketTexture,()=>{box(x,3.72,z,1.45,.18,.75,v8Wood,marketTexture);for(let n=0;n<6;n++){const a=new THREE.Mesh(new THREE.SphereGeometry(.12,7,5),veg[(i+n)%veg.length]);a.position.set(x-.5+(n%3)*.48,3.91,z-.18+Math.floor(n/3)*.35);marketTexture.add(a)}});}
 [[7.2,5.2,0],[12.1,7.2,1],[17.2,4.4,2]].forEach(q=>produceTray(...q));
 // baskets and barrels beside the stalls
 for(const q of [[6.1,4.5],[9.1,5.2],[11.2,7.8],[16.2,5.1],[18.2,4.7]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.34,.42,.48,10),M(0x73553d,.98));b.position.set(q[0],3.75,q[1]);marketTexture.add(b)}
 // cloth awnings make the market edge visually distinct from ordinary houses
 const marketCloth=[M(0x80594a,.96),M(0x6b7057,.96),M(0x8b7358,.96)];
-for(const q of [[7.5,4.5,0],[12.5,6.4,1],[17.5,3.8,2]]){const a=new THREE.Mesh(new THREE.BoxGeometry(2.7,.12,1.25),marketCloth[q[2]]);a.position.set(q[0],5.15,q[1]);a.rotation.x=-.12;marketTexture.add(a);for(const dx of [-1.15,1.15])box(q[0]+dx,4.35,q[1]+.48,.09,1.65,.09,v8Wood,marketTexture)}
+for(const q of [[7.5,4.5,0],[12.5,6.4,1],[17.5,3.8,2]]){groundAssembly(marketTexture,()=>{const a=new THREE.Mesh(new THREE.BoxGeometry(2.7,.12,1.25),marketCloth[q[2]]);a.position.set(q[0],5.15,q[1]);a.rotation.x=-.12;marketTexture.add(a);for(const dx of [-1.15,1.15])box(q[0]+dx,3.5,q[1]+.48,.09,1.65,.09,v8Wood,marketTexture)});}
 
 
 // v9.2 — laundry courtyard: a quiet domestic pocket away from the market
@@ -329,11 +351,13 @@ const laundryWood=M(0x4f392c,.98), laundryLine=M(0x2d2924,.98);
 box(-8.2,3.62,9.5,2.6,.42,.9,laundryWood,laundryCourt);
 for(const q of [[-10.0,9.1],[-6.5,10.2]]){const tub=new THREE.Mesh(new THREE.CylinderGeometry(.48,.55,.48,10),laundryWood);tub.position.set(q[0],3.7,q[1]);laundryCourt.add(tub)}
 // clothesline posts
+groundAssembly(laundryCourt,()=>{
 for(const x of [-10.6,-5.4]) box(x,4.55,11.2,.12,2.3,.12,laundryWood,laundryCourt);
 box(-8.0,5.55,11.2,5.2,.05,.05,laundryLine,laundryCourt);
 // uneven little sheets and garments
 const washColors=[M(0xb7aa8b,.96),M(0x8b7667,.96),M(0x7b856f,.96),M(0xa88a76,.96)];
 for(const q of [[-9.8,.75,.72,0],[-8.7,.55,.9,1],[-7.6,.82,.62,2],[-6.4,.58,.78,3]]){const c=new THREE.Mesh(new THREE.PlaneGeometry(q[1],q[2]),washColors[q[3]]);c.position.set(q[0],5.18,11.22);c.rotation.x=-.08;laundryCourt.add(c)}
+});
 // baskets and a small bench make the corner feel used
 box(-8.1,3.7,12.15,1.8,.24,.42,laundryWood,laundryCourt);
 for(const q of [[-9.4,10.0],[-6.9,9.1]]){const basket=new THREE.Mesh(new THREE.CylinderGeometry(.3,.4,.34,9),M(0x806347,.98));basket.position.set(q[0],3.65,q[1]);laundryCourt.add(basket)}
@@ -346,18 +370,27 @@ const craftWood=M(0x4a3023,.98), craftDark=M(0x292720,.98), craftMetal=M(0x55544
 box(11.8,3.72,-7.7,3.4,.34,.72,craftWood,craftYard);
 for(const q of [[10.5,-6.6],[12.8,-6.45],[13.8,-8.5]]) box(q[0],3.62,q[1],.55,.55,.55,craftWood,craftYard);
 // tool rack against the lane edge
-box(14.15,4.45,-7.1,.14,2.15,3.1,craftDark,craftYard);
+groundAssembly(craftYard,()=>{
+box(14.15,3.5,-7.1,.14,2.15,3.1,craftDark,craftYard);
 for(const z of [-8.05,-7.35,-6.65]){box(13.98,4.55,z,.52,.08,.08,craftMetal,craftYard);box(13.72,4.25,z,.08,.72,.08,craftMetal,craftYard)}
+
+});
 // low forge/brazier with restrained warm glow
+groundAssembly(craftYard,()=>{
 const forge=new THREE.Mesh(new THREE.CylinderGeometry(.62,.72,.42,10),craftDark);forge.position.set(10.25,3.75,-8.55);craftYard.add(forge);
 const coal=new THREE.Mesh(new THREE.CylinderGeometry(.38,.42,.08,10),emberMat);coal.position.set(10.25,4.0,-8.55);craftYard.add(coal);
 const forgeGlow=new THREE.PointLight(0xd18445,.55,5.5);forgeGlow.position.set(10.25,4.45,-8.55);craftYard.add(forgeGlow);
+
+});
 // timber stock and a handcart: messy enough to feel worked-in
 for(const q of [[11.0,-9.35,1.8],[12.15,-9.5,1.35],[13.05,-9.25,1.65]]) box(q[0],3.55,q[1],q[2],.18,.24,craftWood,craftYard);
+groundAssembly(craftYard,()=>{
 box(12.25,3.68,-5.85,1.35,.28,.82,craftWood,craftYard);
 const wheelGeo=new THREE.TorusGeometry(.28,.07,6,12);for(const x of [11.75,12.75]){const w=new THREE.Mesh(wheelGeo,craftDark);w.position.set(x,3.52,-5.45);w.rotation.y=Math.PI/2;craftYard.add(w)}
+
+});
 // one worker keeps this corner from becoming another decorative set
-const worker=new THREE.Group();craftYard.add(worker);const body=new THREE.Mesh(new THREE.CylinderGeometry(.22,.28,.78,8),M(0x596052,.98));body.position.set(11.15,4.05,-7.0);worker.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.2,8,6),M(0xb98c68,.98));head.position.set(11.15,4.58,-7.0);worker.add(head);
+const worker=new THREE.Group();craftYard.add(worker);const body=new THREE.Mesh(new THREE.CylinderGeometry(.22,.28,.78,8),M(0x596052,.98));body.position.set(11.15,4.05,-7.0);worker.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.2,8,6),M(0xb98c68,.98));head.position.set(11.15,4.58,-7.0);worker.add(head);registerGrounded(worker,{person:true});
 
 
 // v9.4 — hillside neighborhood: a whole readable residential pocket
@@ -370,12 +403,14 @@ hqHouse(24,6.2,-25,5.2,4.5,5.8,0);hqHouse(30.2,6.2,-23.2,4.5,4.2,6.7,1);hqHouse(
 for(let i=0;i<7;i++) box(19.0+i*1.15,6.15+i*.16,-20.2-i*.65,1.5,.22,1.25,v8Stone,hillQuarter);
 box(30,6.05,-19.3,17,.55,1.0,v8Stone,hillQuarter);
 // tiny shared courtyard: tree, well, bench, laundry
+groundAssembly(hillQuarter,()=>{
 const trunk=new THREE.Mesh(new THREE.CylinderGeometry(.22,.3,2.2,8),v8Wood);trunk.position.set(32.2,7.3,-20.8);hillQuarter.add(trunk);const crown=new THREE.Mesh(new THREE.IcosahedronGeometry(1.35,1),moss);crown.scale.set(1.1,.9,1);crown.position.set(32.2,9.1,-20.8);hillQuarter.add(crown);
-const well=new THREE.Mesh(new THREE.CylinderGeometry(.72,.82,.65,12),v8Stone);well.position.set(27.8,6.55,-20.8);hillQuarter.add(well);box(35.2,6.35,-20.5,2.5,.28,.55,v8Wood,hillQuarter);
+});
+const well=new THREE.Mesh(new THREE.CylinderGeometry(.72,.82,.65,12),v8Stone);well.position.set(27.8,6.55,-20.8);hillQuarter.add(well);registerGrounded(well);registerGrounded(box(35.2,6.35,-20.5,2.5,.28,.55,v8Wood,hillQuarter));
 box(25.0,9.0,-27.8,.1,2.4,.1,v8Wood,hillQuarter);box(30.0,9.0,-28.1,.1,2.4,.1,v8Wood,hillQuarter);box(27.5,10.05,-27.95,5,.05,.05,v8Iron,hillQuarter);
 const hqCloth=[M(0xa89a7f,.95),M(0x7b8270,.95),M(0x8d6d63,.95)];for(let i=0;i<3;i++)box(26.1+i*1.35,9.15,-27.93,.82,.9,.05,hqCloth[i],hillQuarter);
 // residents make it clearly domestic rather than another landmark
-const hqSkin=M(0xb78b6b,.96),hqCoat=[M(0x66584d,.96),M(0x596459,.96)];for(const q of [[29,6.2,-20.2,0],[34,6.2,-21.3,1]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.24,.34,1.0,8),hqCoat[q[3]]);b.position.set(q[0],q[1]+.55,q[2]);hillQuarter.add(b);const hd=new THREE.Mesh(new THREE.SphereGeometry(.22,8,6),hqSkin);hd.position.set(q[0],q[1]+1.3,q[2]);hillQuarter.add(hd)}
+const hqSkin=M(0xb78b6b,.96),hqCoat=[M(0x66584d,.96),M(0x596459,.96)];for(const q of [[29,6.2,-20.2,0],[34,6.2,-21.3,1]]){groundAssembly(hillQuarter,()=>{const b=new THREE.Mesh(new THREE.CylinderGeometry(.24,.34,1.0,8),hqCoat[q[3]]);b.position.set(q[0],q[1]+.55,q[2]);hillQuarter.add(b);const hd=new THREE.Mesh(new THREE.SphereGeometry(.22,8,6),hqSkin);hd.position.set(q[0],q[1]+1.3,q[2]);hillQuarter.add(hd)});}
 
 
 // v9.5 — riverside working quarter: sheds, bridge, dock and cargo
@@ -392,8 +427,11 @@ for(const x of [-42,-39,-36]) box(x,.9,-15.2,.28,2.0,.28,rqWood,riverQuarter);
 for(const q of [[-41.0,1.55,-15.2,1.2,.8,.9],[-39.5,1.55,-15.4,.9,.65,.8],[-36.7,1.55,-15.0,1.15,.75,.9]]) box(q[0],q[1],q[2],q[3],q[4],q[5],rqWood,riverQuarter);
 for(const q of [[-42.0,-12.8],[-35.7,-11.8]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.42,.48,.86,10),rqWood);b.position.set(q[0],1.65,q[1]);riverQuarter.add(b)}
 // drying rack / nets give the water edge a working identity
+groundAssembly(riverQuarter,()=>{
 box(-44.2,2.2,-6.0,.12,2.5,.12,rqWood,riverQuarter);box(-40.5,2.2,-6.0,.12,2.5,.12,rqWood,riverQuarter);box(-42.35,4.45,-6.0,3.7,.08,.08,v8Iron,riverQuarter);
 const net=new THREE.Mesh(new THREE.PlaneGeometry(3.2,1.35,4,3),new THREE.MeshStandardMaterial({color:0x777262,roughness:1,wireframe:true}));net.position.set(-42.35,3.55,-6.02);riverQuarter.add(net);
+
+});
 // warm work lamps so this district reads at night too
 for(const q of [[-38,4.5,-2.2],[-31.8,4.7,-4.25],[-40.0,3.2,-14.1]]){const lm=new THREE.MeshStandardMaterial({color:0xe6b56e,emissive:0xff9a42,emissiveIntensity:1});const l=new THREE.Mesh(new THREE.SphereGeometry(.14,8,6),lm);l.position.set(...q);riverQuarter.add(l);lit.push(lm)}
 
@@ -438,12 +476,14 @@ for(let i=0;i<11;i++) box(-8+i*1.55,.22,28.3,1.38,.18,4.0,timber100,wharf100);
 // mooring posts
 for(const x of [-8,-1,6,7.5]) box(x,.72,30.0,.22,1.45,.22,timberDark100,wharf100);
 // cargo crates and barrels
-for(const q of [[-5.8,27.0],[-4.2,27.4],[4.0,27.0]]) box(q[0],.72,q[1],1.15,.9,1.0,cargo100,wharf100);
-for(const x of [-2.4,2.4]){const b100=new THREE.Mesh(new THREE.CylinderGeometry(.48,.55,.9,8),timberDark100);b100.position.set(x,.65,27.1);wharf100.add(b100);}
+for(const q of [[-5.8,29.3],[-4.2,29.7],[4.0,29.3]]) box(q[0],.72,q[1],1.15,.9,1.0,cargo100,wharf100);
+for(const x of [-2.4,2.4]){const b100=new THREE.Mesh(new THREE.CylinderGeometry(.48,.55,.9,8),timberDark100);b100.position.set(x,.65,29.5);wharf100.add(b100);}
 // small cloth awning / fish stall by the quay
+groundAssembly(wharf100,()=>{
 box(9.4,.7,26.5,3.5,.9,1.25,timber100,wharf100);
-for(const x of [8.0,10.8]) box(x,1.8,26.5,.14,2.3,.14,timberDark100,wharf100);
+for(const x of [8.0,10.8]) box(x,.7,26.5,.14,2.15,.14,timberDark100,wharf100);
 box(9.4,2.85,26.5,3.7,.12,1.7,canvas100,wharf100);
+});
 // two warm quay lamps
 for(const x of [-10,12]){box(x,1.4,27.2,.16,2.8,.16,timberDark100,wharf100);const l100=new THREE.Mesh(new THREE.SphereGeometry(.23,10,8),warm100);l100.position.set(x,2.88,27.2);wharf100.add(l100);}
 
@@ -577,8 +617,8 @@ const upper=[[-34,-23],[-25,-24],[-16,-23],[-7,-24],[2,-23],[-29,-31],[-19,-32],
 for(let i=0;i<25;i++){const x=-4+Math.sin(i*.55)*2.2,z=23-i*2.05,y=1.1+i*.31;box(x,y,z,4.1,.35,1.8,path)}
 // The First Loaf
 box(-31,1.1,24,8,7,6,plaster);roofAt(-31,8.1,24,8,6,2.5);box(-31,1.12,27.08,3.1,3.4,.18,wood);windowAt(-34,4.7,27.1,1.15);windowAt(-28,4.7,27.1,1.15);box(-34.2,8,23,1,4.5,1,stone2);box(-31,5.6,27.25,4,.9,.16,wood);const ovenGlow=new THREE.PointLight(0xffa34e,2.2,16);ovenGlow.position.set(-31,4,26);scene.add(ovenGlow);
-function barrel(x,z,y=1.1){const o=new THREE.Mesh(new THREE.CylinderGeometry(.55,.62,1.2,10),wood);o.position.set(x,y+.6,z);scene.add(o)}
-[[-37,27],[-26,27],[-18,19],[-40,12],[-12,11]].forEach(p=>barrel(...p));[[-38,19],[-23,19],[-14,27],[-30,11]].forEach(p=>{box(p[0],1.1,p[1],1.2,1,1.2,wood);box(p[0]+1,1.1,p[1]+.4,.8,.7,.8,wood)});
+function barrel(x,z,y=1.1){const o=new THREE.Mesh(new THREE.CylinderGeometry(.55,.62,1.2,10),wood);o.position.set(x,y+.6,z);scene.add(o);registerGrounded(o)}
+[[-37,28.7],[-26,27],[-18,19],[-41.2,11.3],[-12,11]].forEach(p=>barrel(...p));[[-38,19],[-23,19],[-14,27],[-32.8,13.7]].forEach(p=>{box(p[0],1.1,p[1],1.2,1,1.2,wood);box(p[0]+1,1.1,p[1]+.4,.8,.7,.8,wood)});
 const cloth=[0xb46f5e,0xd1c4a5,0x697c74,0x8d6c75];for(let k=0;k<4;k++){const ma=M(cloth[k],.95);for(let i=0;i<3;i++)box(-40+k*9+i*1.3,7.5-k*.35,20-k*2,1,.08,1.4,ma)}
 
 // ---- named places: Bellmire's daily-life landmarks ----
@@ -837,29 +877,38 @@ port105.children.forEach(o=>{
 const square106=new THREE.Group();scene.add(square106);
 const wood106=M(0x5f402d,.98),dark106=M(0x2b2d27,.98),stone106=M(0x777466,.98),paper106=M(0xc7b38a,.96),green106=M(0x526443,.98),warm106=M(0xe8b25c,.9);
 // notice board near the square edge
+groundAssembly(square106,()=>{
 box(-5,1.65,18.3,.14,2.7,.14,dark106,square106);box(-1.8,1.65,18.3,.14,2.7,.14,dark106,square106);box(-3.4,2.45,18.3,3.45,1.65,.16,wood106,square106);
 for(const q of [[-4.25,2.65],[-3.35,2.35],[-2.45,2.72]])box(q[0],q[1],18.18,.62,.52,.035,paper106,square106);
+
+});
 // low stone well with timber crossbar
+groundAssembly(square106,()=>{
 const well106=new THREE.Mesh(new THREE.CylinderGeometry(1.05,1.18,.82,10),stone106);well106.position.set(8.2,.9,17.3);square106.add(well106);
-for(const dx of [-1.25,1.25])box(8.2+dx,2.05,17.3,.14,3,.14,dark106,square106);box(8.2,3.45,17.3,2.75,.15,.15,wood106,square106);
+for(const dx of [-1.25,1.25])box(8.2+dx,.49,17.3,.14,2.96,.14,dark106,square106);box(8.2,3.45,17.3,2.75,.15,.15,wood106,square106);
+
+});
 // benches make the plaza read as a social place
-function bench106(x,z,r=0){const g=new THREE.Group();g.position.set(x,0,z);g.rotation.y=r;square106.add(g);box(0,1.05,0,2.8,.22,.72,wood106,g);for(const dx of [-1,1])box(dx,.55,0,.18,.9,.18,dark106,g);}
-bench106(-12,20.5,.15);bench106(14.5,21,-.18);bench106(1.5,23,0);
+function bench106(x,z,r=0){return groundAssembly(square106,()=>{const g=new THREE.Group();g.position.set(x,0,z);g.rotation.y=r;square106.add(g);box(0,1.05,0,2.8,.22,.72,wood106,g);for(const dx of [-1,1])box(dx,.55,0,.18,.9,.18,dark106,g);});}
+bench106(-11.3,22,.15);bench106(14.5,21,-.18);bench106(1.5,23,0);
 // planters and small greenery around plaza, not blocking paths
-for(const q of [[-15,17],[16,17.5],[-9,23],[11,23]]){const pot=new THREE.Mesh(new THREE.CylinderGeometry(.36,.46,.58,8),wood106);pot.position.set(q[0],.75,q[1]);square106.add(pot);const bush=new THREE.Mesh(new THREE.SphereGeometry(.52,7,6),green106);bush.scale.y=.8;bush.position.set(q[0],1.38,q[1]);square106.add(bush);}
+for(const q of [[-15,17],[16,17.5],[-9,23],[11,23]]){groundAssembly(square106,()=>{const pot=new THREE.Mesh(new THREE.CylinderGeometry(.36,.46,.58,8),wood106);pot.position.set(q[0],.75,q[1]);square106.add(pot);const bush=new THREE.Mesh(new THREE.SphereGeometry(.52,7,6),green106);bush.scale.y=.8;bush.position.set(q[0],1.38,q[1]);square106.add(bush);});}
 // one warm square lamp
+groundAssembly(square106,()=>{
 box(18,1.6,19,.12,3.2,.12,dark106,square106);const lamp106=new THREE.Mesh(new THREE.SphereGeometry(.17,8,7),warm106);lamp106.position.set(18,3.25,19);square106.add(lamp106);lit.push(warm106);
+});
+
 
 
 // v10.7 square market life: compact stalls, crates, awnings and gathering details
 const market107=new THREE.Group();scene.add(market107);
 const wood107=M(0x60412e,.98),dark107=M(0x292b26,.98),clothA107=M(0x8b6a52,.98),clothB107=M(0x718066,.98),goods107=M(0xb48b55,.98),green107=M(0x66784f,.98);
-function stall107(x,z,cloth){const g=new THREE.Group();g.position.set(x,0,z);market107.add(g);for(const dx of [-1.25,1.25])box(dx,1.45,0,.12,2.9,.12,dark107,g);box(0,1.25,0,2.8,.2,.95,wood107,g);box(0,3,0,3.2,.16,1.35,cloth,g);for(const dx of [-.85,0,.85]){const a=new THREE.Mesh(new THREE.SphereGeometry(.22,7,6),goods107);a.position.set(dx,1.55,0);g.add(a);}}
+function stall107(x,z,cloth){return groundAssembly(market107,()=>{const g=new THREE.Group();g.position.set(x,0,z);market107.add(g);for(const dx of [-1.25,1.25])box(dx,.55,0,.12,2.45,.12,dark107,g);box(0,1.25,0,2.8,.2,.95,wood107,g);for(const dx of [-1,1])for(const dz of [-.3,.3])box(dx,.55,dz,.12,.7,.12,wood107,g);box(0,3,0,3.2,.16,1.35,cloth,g);for(const dx of [-.85,0,.85]){const a=new THREE.Mesh(new THREE.SphereGeometry(.22,7,6),goods107);a.position.set(dx,1.55,0);g.add(a);}});}
 stall107(-10.5,14.2,clothA107);stall107(12.5,14.5,clothB107);
 // baskets/crates tucked beside stalls
 for(const q of [[-12.4,15.2],[-8.8,15.1],[10.7,15.5],[14.4,15.4]])box(q[0],.55,q[1],.8,.7,.8,wood107,market107);
 // produce baskets for a bit of color and purpose
-for(const q of [[-11.8,14.4],[11.3,14.7]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.42,.5,.42,8),wood107);b.position.set(q[0],.55,q[1]);market107.add(b);for(const dx of [-.2,.05,.25]){const v=new THREE.Mesh(new THREE.SphereGeometry(.13,6,5),green107);v.position.set(q[0]+dx,.86,q[1]);market107.add(v);}}
+for(const q of [[-11.8,14.4],[11.3,14.7]]){groundAssembly(market107,()=>{const b=new THREE.Mesh(new THREE.CylinderGeometry(.42,.5,.42,8),wood107);b.position.set(q[0],.55,q[1]);market107.add(b);for(const dx of [-.2,.05,.25]){const v=new THREE.Mesh(new THREE.SphereGeometry(.13,6,5),green107);v.position.set(q[0]+dx,.86,q[1]);market107.add(v);}});}
 // small handcart parked at the edge of the square
 const cart107=new THREE.Group();cart107.position.set(18.5,0,8.35);market107.add(cart107);box(0,1.05,0,2.2,.28,1.15,wood107,cart107);box(-1.6,1.08,0,1.2,.12,.12,dark107,cart107);for(const x of [-.75,.75]){const w=new THREE.Mesh(new THREE.TorusGeometry(.38,.1,6,10),dark107);w.rotation.y=Math.PI/2;w.position.set(x,.595,.52);cart107.add(w);}
 // v10.8: park the cart beside the alley on the existing 3.5-high terrace.
@@ -879,12 +928,12 @@ function person(c){
   g.userData={legs,arms};scene.add(g);residents.push(g);return g
 }
 const p0=person(0x7e4d35),p1=person(0x53695c),p2=person(0x6c6257),bard=person(0x2d5144);
-// Routes stay on single-height lanes so residents no longer sink into terrace steps.
+// Clear walking lanes; the grounding system supplies height and foot contact.
 const routes=[
- {p:p0,a:new THREE.Vector3(-35,1.38,28),b:new THREE.Vector3(-24,1.38,28),s:.30},
- {p:p1,a:new THREE.Vector3(-39,1.38,12),b:new THREE.Vector3(-27,1.38,12),s:.25},
- {p:p2,a:new THREE.Vector3(-12,4.95,-8),b:new THREE.Vector3(5,4.95,-8),s:.27},
- {p:bard,a:new THREE.Vector3(12,1.38,19),b:new THREE.Vector3(12,1.38,24),s:.12}
+ {p:p0,a:new THREE.Vector3(-35,3.5,27.55),b:new THREE.Vector3(-24,3.5,27.55),s:.30},
+ {p:p1,a:new THREE.Vector3(-39,3.5,12.9),b:new THREE.Vector3(-34.2,3.5,12.9),s:.25},
+ {p:p2,a:new THREE.Vector3(-12,6.25,-8.5),b:new THREE.Vector3(-6.1,6.25,-8.5),s:.27},
+ {p:bard,a:new THREE.Vector3(10,3.5,19),b:new THREE.Vector3(10,3.5,22),s:.12}
 ];
 
 // v8 readable resident
@@ -928,7 +977,7 @@ const chimneySources=[
 const smoke=[];for(let i=0;i<34;i++){const q=new THREE.Mesh(new THREE.SphereGeometry(.25+bellRand()*.35,7,5),new THREE.MeshBasicMaterial({color:0xc4c4b8,transparent:true,opacity:.12}));scene.add(q);smoke.push(q)}
 const N=1500,a=new Float32Array(N*3);for(let i=0;i<N;i++){a[i*3]=(bellRand()-.5)*120;a[i*3+1]=bellRand()*65;a[i*3+2]=(bellRand()-.5)*95}const rg=new THREE.BufferGeometry();rg.setAttribute('position',new THREE.BufferAttribute(a,3));const rain=new THREE.Points(rg,new THREE.PointsMaterial({color:0xc5d7de,size:.11,transparent:true,opacity:.6}));rain.visible=false;scene.add(rain);
 // v11.0: narrow pedestrian connections fill discontinuities in the old steps.
-// No existing building, prop or waterfront mesh is moved.
+// Existing buildings and waterfront geometry remain in place.
 const walkingLinks=new THREE.Group();walkingLinks.name='Pedestrian terrace steps';scene.add(walkingLinks);
 function pedestrianSteps(x,z0,z1,y0,y1,width,count){
   const depth=Math.abs(z1-z0)/count;
@@ -959,18 +1008,54 @@ function setWeather(w){rain.visible=w==='rain';lit.forEach(m=>m.emissiveIntensit
 document.getElementById('weather').onclick=e=>e.target.dataset.w&&setWeather(e.target.dataset.w);document.getElementById('views').onclick=e=>e.target.dataset.v&&setView(e.target.dataset.v);residentSel.onchange=e=>followIdx=+e.target.value;
 follow.onclick=()=>{if(walking.active){walking.leave();setView(view)}followMode=!followMode;follow.classList.toggle('active',followMode);controls.enabled=!followMode};fullscreen.onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen?.();toggle.onclick=()=>{panel.classList.toggle('collapsed');toggle.textContent=panel.classList.contains('collapsed')?'操作':'街を見る'};if(innerWidth<701)panel.classList.add('collapsed');
 // v8.2 movement helpers
-const catPath=[new THREE.Vector3(-39,1.38,12.8),new THREE.Vector3(-36,1.38,12.8),new THREE.Vector3(-33,1.38,12.8),new THREE.Vector3(-30,1.38,12.8),new THREE.Vector3(-27,1.38,12.8)];
+const catPath=[new THREE.Vector3(-39,3.5,11.4),new THREE.Vector3(-36,3.5,11.4),new THREE.Vector3(-33,3.5,11.4),new THREE.Vector3(-30,3.5,11.4),new THREE.Vector3(-27,3.5,11.4)];
 function walkPath(points,u,out){const n=points.length-1,q=Math.min(n-.0001,u*n),i=Math.floor(q),f=q-i;out.lerpVectors(points[i],points[i+1],f);return points[Math.min(i+1,n)]}
 const _catPos=new THREE.Vector3();
 const clock=new THREE.Clock();let previousFrame=0;function animate(){requestAnimationFrame(animate);const t=clock.getElapsedTime(),dt=Math.min(.05,Math.max(0,t-previousFrame));previousFrame=t;if(wheel)wheel.rotation.z=-t*.22;if(orrery)orrery.rotation.y=t*.08;if(orrery)orrery.rotation.x=Math.sin(t*.05)*.12;updateCableCar(t);
-routes.forEach((r,i)=>{const phase=t*r.s+i,u=(Math.sin(phase)+1)/2,forward=Math.cos(phase)>=0;r.p.position.lerpVectors(r.a,r.b,u);r.p.lookAt(forward?r.b:r.a);r.p.position.y+=Math.abs(Math.sin(t*3.6+i))*.055;const swing=Math.sin(t*5+i)*.48;r.p.userData.legs[0].rotation.x=swing;r.p.userData.legs[1].rotation.x=-swing;r.p.userData.arms[0].rotation.x=-swing*.7;r.p.userData.arms[1].rotation.x=swing*.7});
-const ru=(Math.sin(t*.11)+1)/2,rForward=Math.cos(t*.11)>=0;residentV8.position.lerpVectors(new THREE.Vector3(-13,1.38,24),new THREE.Vector3(-4,1.38,24),ru);residentV8.rotation.y=rForward?Math.PI/2:-Math.PI/2;residentV8.position.y+=Math.abs(Math.sin(t*3.2))*.045;const rs=Math.sin(t*4.8)*.42;residentLegs[0].rotation.x=rs;residentLegs[1].rotation.x=-rs;residentArms[0].rotation.x=-rs*.65;residentArms[1].rotation.x=rs*.65;
-const raw=(Math.sin(t*.115)+1)/2,cu=raw<.08?0:raw>.92?1:(raw-.08)/.84,catTarget=walkPath(catPath,cu,_catPos);cat.position.copy(_catPos);const catDir=catTarget.clone().sub(cat.position);cat.rotation.y=Math.atan2(catDir.x,catDir.z)-Math.PI/2;cat.position.y+=Math.abs(Math.sin(t*5.5))*.035;const cs=Math.sin(t*7.5)*.5;catLegs[0].rotation.z=cs;catLegs[1].rotation.z=-cs;catLegs[2].rotation.z=-cs;catLegs[3].rotation.z=cs;tail.rotation.z=.15+Math.sin(t*2.2)*.18;
+routes.forEach((r,i)=>{const phase=t*r.s+i,u=(Math.sin(phase)+1)/2,forward=Math.cos(phase)>=0;r.p.position.lerpVectors(r.a,r.b,u);r.p.lookAt(forward?r.b:r.a);const swing=Math.sin(t*5+i)*.48;r.p.userData.legs[0].rotation.x=swing;r.p.userData.legs[1].rotation.x=-swing;r.p.userData.arms[0].rotation.x=-swing*.7;r.p.userData.arms[1].rotation.x=swing*.7;grounding.actor(r.p,r.p.userData.legs)});
+const ru=(Math.sin(t*.11)+1)/2,rForward=Math.cos(t*.11)>=0;residentV8.position.lerpVectors(new THREE.Vector3(-1,3.5,18),new THREE.Vector3(5,3.5,18),ru);residentV8.rotation.y=rForward?Math.PI/2:-Math.PI/2;const rs=Math.sin(t*4.8)*.42;residentLegs[0].rotation.x=rs;residentLegs[1].rotation.x=-rs;residentArms[0].rotation.x=-rs*.65;residentArms[1].rotation.x=rs*.65;grounding.actor(residentV8,residentLegs);
+const raw=(Math.sin(t*.115)+1)/2,cu=raw<.08?0:raw>.92?1:(raw-.08)/.84;walkPath(catPath,cu,_catPos);cat.position.copy(_catPos);cat.rotation.y=Math.cos(t*.115)>=0?0:Math.PI;const cs=Math.sin(t*7.5)*.5;catLegs[0].rotation.z=cs;catLegs[1].rotation.z=-cs;catLegs[2].rotation.z=-cs;catLegs[3].rotation.z=cs;tail.rotation.z=.15+Math.sin(t*2.2)*.18;grounding.actor(cat,catLegs);
 smoke.forEach((q,i)=>{const u=(t*.09+i/smoke.length)%1;const cs=chimneySources[i%chimneySources.length];q.position.set(cs[0]+Math.sin(t*.4+i)*.45,cs[1]+u*12,cs[2]+Math.cos(t*.35+i)*.35);q.scale.setScalar(.5+u*2.3);q.material.opacity=.14*(1-u)});if(rain.visible){const p=rg.attributes.position.array;for(let i=0;i<N;i++){p[i*3+1]-=.48;if(p[i*3+1]<0)p[i*3+1]=65}rg.attributes.position.needsUpdate=true}if(!walking.active&&view==='catview'&&!followMode){const cp=cat.position.clone();camera.position.lerp(cp.clone().add(new THREE.Vector3(-4.2,2.5,4.6)),.08);controls.target.lerp(cp.clone().add(new THREE.Vector3(0,.65,0)),.10);}if(!walking.active&&view==='drone'&&!followMode){camera.position.set(Math.sin(t*.07)*52,29+Math.sin(t*.11)*4,Math.cos(t*.07)*52);camera.lookAt(-8,6,-4)}if(!walking.active&&view==='train'&&!followMode){camera.position.copy(train.position).add(new THREE.Vector3(7.5,5.5,7));controls.target.copy(train.position).add(new THREE.Vector3(0,1.2,0));camera.lookAt(controls.target)}if(followMode){const p=residents[followIdx],d=new THREE.Vector3();p.getWorldDirection(d);camera.position.lerp(p.position.clone().add(new THREE.Vector3(0,2.8,0)).add(d.multiplyScalar(-4.5)),.07);camera.lookAt(p.position.clone().add(new THREE.Vector3(0,1.4,0)))}if(walking.active)walking.update(dt);else controls.update();composer.render()}
 // Add v10.8+ construction above this finalization point. Preserve the legacy
 // checkpoints; retire intentionally replaced meshes explicitly instead of
 // extending geometry filters to newly built waterfront groups.
 finalizeWaterfront();
+// Ungrouped single cargo meshes from older layers also use the common contact rule.
+for(const parent of [marketLife,streetLife,marketStories,marketTexture,laundryCourt,craftYard,riverQuarter,market107,wharf100,quay99]){
+  for(const o of parent.children){
+    if(!o.isMesh)continue;
+    const g=o.geometry.parameters||{};
+    if((o.geometry.type==='BoxGeometry'&&g.height<=1&&g.width<=3.5&&g.depth>=.2&&g.depth<=1.5)||
+       (o.geometry.type==='CylinderGeometry'&&g.height<=1.2)||
+       (parent===streetLife&&o.geometry.type==='SphereGeometry'))registerGrounded(o);
+  }
+}
+registerGrounded(cart107);
+for(const o of harborLandObjects)registerGrounded(o);
+// Loose original cargo that was built directly in the scene.
+for(const o of scene.children){
+  const g=o.geometry?.parameters||{};
+  if(o.isMesh&&[wood,v8Wood].includes(o.material)&&g.width<=1.3&&g.height<=1.2&&g.depth>=.4)registerGrounded(o);
+}
+// Keep the grounded cargo clear of stairs and the animated walking lanes.
+function clearLane(a,b,radius,height){
+  const bounds=new THREE.Box3().setFromPoints([a,b]);
+  bounds.min.x-=radius;bounds.max.x+=radius;bounds.min.z-=radius;bounds.max.z+=radius;
+  bounds.max.y+=height;return bounds;
+}
+const grounding=createGroundingSystem({THREE,scene,objects:groundedObjects,
+  terrain:[...townGround,...cliffSkirts],surfaces:harborSupports,
+  surfaceMaterials:[path,v8Stone,stone101],waterMaterials:[water,water101],
+  excluded:[...residents,residentV8,cat,train,wheel,orrery,...smoke,walkingLinks],
+  clearRoutes:[walkingLinks],clearPaths:[...routes.map(r=>clearLane(r.a,r.b,.58,2.55)),
+    clearLane(catPath[0],catPath.at(-1),1.0,1.85),
+    clearLane(new THREE.Vector3(-1,3.5,18),new THREE.Vector3(5,3.5,18),.7,3.8),
+    clearLane(new THREE.Vector3(0,3.5,27.8),new THREE.Vector3(-11.5,3.5,27.8),.3,1.8),
+    clearLane(new THREE.Vector3(-13.3,3.5,27.8),new THREE.Vector3(-13.3,3.5,19.5),.3,1.8),
+    clearLane(new THREE.Vector3(-13.3,1.38,33.5),new THREE.Vector3(-18.1,1.38,33.5),.3,1.8),
+    clearLane(new THREE.Vector3(22.65,4.15,24.6),new THREE.Vector3(34.6,4.15,24.6),.3,1.8),
+    clearLane(new THREE.Vector3(34.6,4.15,24.6),new THREE.Vector3(34.6,4.15,32.3),.3,1.8)]});
+grounding.placeAll();
 const walking=createWalkingSystem({THREE,scene,camera,controls,canvas:renderer.domElement,
   terrain:[...townGround,cliffSkirts[1]],surfaces:harborSupports,
   surfaceMaterials:[path,v8Stone,stone101],dynamicObjects:[train],
