@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v12.0 — Orlaithe miniature</title>
+<title>Bellmire v12.1 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:hidden;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -44,6 +44,7 @@ import {applyStorybookSurfaces} from './storybook.js';
 import {createAtmosphere} from './atmosphere.js';
 import {createTownLife} from './town-life.js';
 import {addMiniatureGoods,enrichMiniature} from './miniature.js';
+import {addHarborGoods,enrichHarbor,buildSkiff} from './harbor-details.js';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
 import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
@@ -543,20 +544,7 @@ function landHarborObject(object,surfaceY){
 function harborBoat(x,z,angle,material,seatMaterial){
   const boat=new THREE.Group();boat.position.set(x,harborLevels.water+.06,z);
   boat.rotation.y=angle;boat.userData.harborRole='boat';
-  const outline=[[2.25,0],[1.4,.65],[-1.4,.65],[-2.25,0],[-1.4,-.65],[1.4,-.65]];
-  const vertices=[];
-  for(let i=0;i<outline.length;i++){
-    const a=outline[i],b=outline[(i+1)%outline.length];
-    const topA=[a[0],.20,a[1]],topB=[b[0],.20,b[1]];
-    const lowA=[a[0]*.78,-.32,a[1]*.55],lowB=[b[0]*.78,-.32,b[1]*.55];
-    vertices.push(...topA,...lowA,...topB,...topB,...lowA,...lowB,0,-.32,0,...lowB,...lowA);
-  }
-  const geometry=new THREE.BufferGeometry();
-  geometry.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));geometry.computeVertexNormals();
-  const hullMaterial=material.clone();hullMaterial.side=THREE.DoubleSide;
-  const body=new THREE.Mesh(geometry,hullMaterial);body.castShadow=body.receiveShadow=true;boat.add(body);
-  for(const xx of [-.75,.75])box(xx,.02,0,.22,.10,1.06,seatMaterial,boat);
-  for(const zz of [-.62,.62])box(0,.17,zz,2.8,.08,.09,seatMaterial,boat);
+  buildSkiff({THREE,boat,material,seatMaterial,box});
   return boat;
 }
 
@@ -1087,6 +1075,7 @@ const culture=addTownCulture({THREE,scene,grounding,groundedObjects,lit,well,wel
   landings:[[39.88,lowerLandingY+.58,12.6],[39.88,upperLandingY+.58,-26.7]]});
 const lifeDetails=addLifeDetails({THREE,culture,lit});
 const miniatureGoods=addMiniatureGoods(culture);
+const harborGoods=addHarborGoods(culture);
 const walking=createWalkingSystem({THREE,scene,camera,controls,canvas:renderer.domElement,
   terrain:[...townGround,cliffSkirts[1]],surfaces:harborSupports,
   surfaceMaterials:[path,v8Stone,stone101],dynamicObjects:[train],
@@ -1116,8 +1105,11 @@ const miniature=enrichMiniature({THREE,scene,walking,grounding,lit,
   wallMaterials:[stone,plaster,bluePlaster,winePlaster,...hqPlaster,rqPlaster,wfWall,w103],
   roofMaterials:(()=>{const list=[];scene.traverse(o=>{if(o.userData.storybookKind==='roof')list.push(o.material)});return list;})(),
   ignored:[...residentScale.residents.map(q=>q.object),cat,...smoke,orrery]});
+const harborDetails=enrichHarbor({THREE,scene,grounding,walking,supports:harborSupports,water,water101,lit,
+  ignored:[...residentScale.residents.map(q=>q.object),cat,...smoke,orrery]});
 inspections.resolver.refreshOccluders();
 const townLife=createTownLife({THREE,scene,lit,smoke,chimneySources});
+townLife.onChange(harborDetails.applyTime);harborDetails.applyTime(townLife.state);
 const atmosphere=createAtmosphere({THREE,scene,camera,renderer,bloom,hemi,sun});
 walk.onclick=()=>{
   if(walking.active){walking.leave();setView(view);return}
