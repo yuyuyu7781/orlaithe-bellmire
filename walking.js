@@ -1,7 +1,7 @@
 // Walking is separate from the miniature's view/animation system. Future actors
 // can supply their own dimensions and ground policy without changing input/UI.
 export const walkingProfiles={
-  human:{eyeHeight:1.65,height:1.8,radius:.24,footRadius:.16,speed:3.2,stepUp:.38,stepDown:.42}
+  human:{id:'human',eyeHeight:1.65,height:1.8,radius:.24,footRadius:.16,speed:3.2,stepUp:.38,stepDown:.42}
 };
 
 export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,surfaces,

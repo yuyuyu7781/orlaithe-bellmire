@@ -4,7 +4,7 @@ export function addTownCulture({THREE,scene,grounding,groundedObjects,lit,well,w
   const root=new THREE.Group();root.name='Bellmire everyday customs';scene.add(root);
   const mat=(color,roughness=.96,metalness=.02)=>new THREE.MeshStandardMaterial({color,roughness,metalness});
   const m={wood:mat(0x59402f),iron:mat(0x343733,.65,.45),brass:mat(0x806743,.65,.4),stone:mat(0x77756b),cut:mat(0x55594e),green:mat(0x53624d),blue:mat(0x657674),red:mat(0x765147),linen:mat(0xb9aa8c),leather:mat(0x6d4b38),wax:mat(0xc4b695),wicker:mat(0x8b7351)};
-  const goods=[],signs=[],fittings=[];
+  const goods=[],signs=[],fittings=[],landingBells=[];
   scene.updateMatrixWorld(true);
   function facade(x,y,z){let front=z;scene.traverse(o=>{if(!o.isMesh)return;for(let p=o;p;p=p.parent)if(!p.visible||p===root)return;const g=o.geometry.parameters||{};if(!(g.width>=3&&g.width<18&&g.depth>=3&&g.depth<18&&g.height>=2))return;const b=new THREE.Box3().setFromObject(o,true);if(x>=b.min.x&&x<=b.max.x&&y>=b.min.y&&y<=b.max.y&&b.max.z>=z-.35&&b.max.z<=z+5)front=Math.max(front,b.max.z+.002);});return front;}
   function mesh(g,ma,parent,x=0,y=0,z=0){const o=new THREE.Mesh(g,ma);o.position.set(x,y,z);o.castShadow=o.receiveShadow=true;parent.add(o);return o;}
@@ -44,7 +44,12 @@ export function addTownCulture({THREE,scene,grounding,groundedObjects,lit,well,w
   scene.traverse(o=>{if(!o.isMesh||o.userData.walkSoft)return;for(let p=o;p;p=p.parent)if(!p.visible||p===root)return;const b=new THREE.Box3().setFromObject(o,true);if(b.max.y-b.min.y>.09&&b.max.x-b.min.x<18&&b.max.z-b.min.z<18)occupied.push(b);});
   function overlaps(a,b){return a.max.x>b.min.x-.10&&a.min.x<b.max.x+.10&&a.max.z>b.min.z-.10&&a.min.z<b.max.z+.10&&a.max.y>b.min.y+.04&&a.min.y<b.max.y-.04;}
   function parcel(name,x,z,kind){const g=new THREE.Group();g.name=name;g.position.set(x,0,z);root.add(g);
-    block(g,0,0,0,.76,.40,.52,m.wood);for(const sx of [-.31,.31])block(g,sx,0,.27,.045,.40,.035,m.iron);
+    if(kind==='stone'){block(g,0,0,0,.46,.68,.30,m.stone);ring(g,0,.45,.158,.13,m.cut);nine(g,0,.38,.17);}else{block(g,0,0,0,.76,.40,.52,m.wood);for(const sx of [-.31,.31])block(g,sx,0,.27,.045,.40,.035,m.iron);}
+    if(kind==='flour'){const sack=mesh(new THREE.SphereGeometry(.23,8,6),m.linen,g,0,.63,0);sack.scale.set(1,1.2,.8);ring(g,0,.80,0,.075,m.wicker).rotation.x=Math.PI/2;}
+    if(kind==='bread'){basket(g,0,.40,0);for(const dx of [-.13,.10]){const loaf=mesh(new THREE.SphereGeometry(.14,7,5),m.linen,g,dx,.76,0);loaf.scale.set(1,.55,.8);}}
+    if(kind==='luggage'){block(g,-.12,.40,0,.35,.25,.35,m.leather);block(g,.19,.40,.02,.16,.15,.30,m.linen);ring(g,-.12,.68,0,.07,m.iron);for(const dx of [-.22,-.03])block(g,dx,.40,.182,.022,.25,.015,m.brass);}
+    if(kind==='net'){basket(g,-.12,.40,0);const rope=ring(g,.19,.43,.02,.15,m.wicker);rope.rotation.x=Math.PI/2;block(g,.16,.62,.15,.14,.18,.025,m.wood);const net=mesh(new THREE.PlaneGeometry(.42,.25,4,3),new THREE.MeshStandardMaterial({color:0x777262,roughness:1,wireframe:true,side:THREE.DoubleSide}),g,-.03,.82,0);net.userData.walkSoft=true;line(g,[-.26,.95,0],[.21,.95,0],m.wood,.015);}
+    if(kind==='orrery'){for(const r of [.13,.19]){const o=ring(g,0,.64,0,r,m.brass);o.rotation.y=r===.13?.8:0;}mesh(new THREE.SphereGeometry(.035,7,5),m.brass,g,0,.64,0);block(g,0,.40,0,.055,.06,.055,m.brass);}
     if(kind==='herbs'){basket(g,0,.40,0);herb(g,-.10,.62,0);herb(g,.10,.62,0);}
     if(kind==='wool'){for(const dx of [-.18,.16]){const o=mesh(new THREE.IcosahedronGeometry(.19,1),m.linen,g,dx,.58,0);o.scale.set(1,.85,1);}block(g,0,.40,.19,.44,.09,.16,m.blue);}
     if(kind==='dye'){for(let i=0;i<3;i++)block(g,0,.40+i*.065,0,.58-i*.07,.065,.38,[m.blue,m.red,m.green][i]);line(g,[-.19,.59,.195],[.19,.59,.195],m.linen,.008);}
@@ -62,7 +67,7 @@ export function addTownCulture({THREE,scene,grounding,groundedObjects,lit,well,w
     if(!placed){root.remove(g);console.warn('No clear cultural detail site:',name);return null;}
     groundedObjects.push({object:g});goods.push(g);return g;
   }
-  for(const q of [['Bakery flour and wool',-35.4,28.0,'wool'],['Inn candles',-44.3,3.0,'candles'],['Tavern cooperage',-14.8,12.7,'barrel'],['Market dyed cloth',24.0,8.1,'dye'],['Market herb basket',19.4,14.9,'herbs'],['Square wool',13.4,21.4,'wool'],['Workshop tools',14.9,-8.7,'tools'],['Harbor herbs',-24.4,34.8,'herbs'],['Harbor sailcloth',24.7,34.7,'dye'],['Cableway parcels',46.3,12.7,'wool'],['Alley candles',-40.4,19.1,'candles']])parcel(...q);
+  for(const q of [['Bakery flour and wool',-35.4,28.0,'flour'],['Inn candles',-44.3,3.0,'candles'],['Tavern cooperage',-14.8,12.7,'barrel'],['Market dyed cloth',24.0,8.1,'dye'],['Market herb basket',19.4,14.9,'herbs'],['Square wool',13.4,21.4,'wool'],['Workshop tools',14.9,-8.7,'tools'],['Harbor herbs',-24.4,34.8,'herbs'],['Harbor sailcloth',24.7,34.7,'dye'],['Cableway parcels',46.3,12.7,'wool'],['Alley candles',-40.4,19.1,'candles']])parcel(...q);
   // Small stock on the existing book display, not another crate in a full lane.
   const bindery=new THREE.Group();bindery.name='Bookbinder leather and awl';bookTable.add(bindery);
   const td=bookTable.geometry.parameters;bindery.position.set(td.width/2-.23,td.height/2+.005,td.depth/2-.10);
@@ -79,65 +84,15 @@ export function addTownCulture({THREE,scene,grounding,groundedObjects,lit,well,w
   herb(samples,.62,.08,.10);block(samples,.62,.42,.03,.05,.07,.12,m.iron);fittings.push(samples);
   samples.traverse(o=>{if(o.isMesh)o.userData.walkSoft=true;});
   function wallMark(name,x,y,z,kind){const g=new THREE.Group();g.name=name;g.position.set(x,y,facade(x,y,z));root.add(g);fittings.push(g);
-    block(g,0,-.22,.02,.44,.44,.045,m.stone);ring(g,0,0,.058,.16,m.cut);if(kind==='nine')nine(g,0,-.07,.065);else{for(let i=0;i<8;i++){const a=i*.72;mesh(new THREE.SphereGeometry(.018,5,4),m.cut,g,Math.cos(a)*(.025+i*.014),Math.sin(a)*(.025+i*.014),.065);}}
-    g.traverse(o=>{if(o.isMesh)o.userData.walkSoft=true;});
+    block(g,0,-.22,.02,.44,.44,.045,m.stone);ring(g,0,0,.058,.16,m.cut);if(kind==='nine')nine(g,0,-.07,.065);else if(kind==='star'){for(let i=0;i<5;i++){const a=i*Math.PI*2/5,b=(i+2)*Math.PI*2/5;line(g,[Math.sin(a)*.12,Math.cos(a)*.12,.065],[Math.sin(b)*.12,Math.cos(b)*.12,.065],m.cut,.008);}}else if(kind==='knot'){for(const dx of [-.055,.055]){const r=ring(g,dx,0,.065,.09,m.cut);r.scale.y=.7;}}else{for(let i=0;i<8;i++){const a=i*.72;mesh(new THREE.SphereGeometry(.018,5,4),m.cut,g,Math.cos(a)*(.025+i*.014),Math.sin(a)*(.025+i*.014),.065);}}
+    g.traverse(o=>{if(o.isMesh)o.userData.walkSoft=true;});return g;
   }
-  wallMark('Traveller touchstone',-33.3,4.55,27.005,'nine');wallMark('Old alley spiral',-42.7,4.3,25.505,'spiral');
+  wallMark('Traveller touchstone',-32.9,4.55,27.005,'nine');wallMark('Old alley spiral',-42.7,4.3,25.505,'spiral');
   wallMark('Harbor circle',17.0,5.7,34.105,'nine');wallMark('Bookshop worn circle',-16.4,4.45,31.605,'spiral');
   // Small door rings and bells, fixed against existing timber doors.
   for(const [x,y,z]of [[-31.8,4.65,27.171],[-20.8,4.1,31.771],[-7.55,4.8,13.731]]){const g=new THREE.Group();g.position.set(x,y,facade(x,y,z));g.name='Door iron and small bell';root.add(g);block(g,0,-.13,0,.10,.29,.04,m.iron);ring(g,0,0,.05,.085,m.iron);bell(g,.18,.11,.05,.07);fittings.push(g);g.traverse(o=>{if(o.isMesh)o.userData.walkSoft=true;});}
   // Follow the already-grounded wells rather than guessing a terrace height.
   for(const w of [well,well106]){const b=new THREE.Box3().setFromObject(w,true),c=b.getCenter(new THREE.Vector3()),r=(b.max.x-b.min.x)/2;const g=new THREE.Group();g.name='Well circle and nine worn marks';g.position.set(c.x,b.max.y-.18,c.z+r+.025);root.add(g);ring(g,0,0,0,.12,m.cut);nine(g,0,-.045,.02);fittings.push(g);g.traverse(o=>{if(o.isMesh)o.userData.walkSoft=true;});}
-  for(const [x,y,z]of landings){const g=new THREE.Group();g.name='Cableway travellers bell';g.position.set(x,y,z);root.add(g);bell(g,0,0,0,.095);fittings.push(g);g.traverse(o=>{if(o.isMesh)o.userData.walkSoft=true;});}
-  return {root,goods,signs,fittings};
-}
-
-export function createMillrace({THREE,scene,water,wood,stone,iron,box}){
-  const root=new THREE.Group();root.name='Millrace and gravity-fed sluice';scene.add(root);
-  const waterParts=[],drops=[];
-  const slab=(x,y,z,w,h,d,ma)=>box(x,y,z,w,h,d,ma,root);
-  function flow(x,y,z,w,h,d){const o=slab(x,y,z,w,h,d,water);waterParts.push(o);return o;}
-  // The old canal lay below the terrace. An exposed millrace at the side of the
-  // existing mill carries water into the lower paddles, then a short tailrace
-  // exits at the quay edge into the harbor. No terrain or houses are cut away.
-  slab(21.05,3.5,28.2,1.15,1.82,7.8,stone);
-  flow(21.05,5.32,28.2,.88,.09,7.8);
-  for(const x of [20.52,21.58])slab(x,5.32,28.2,.14,.32,7.8,stone);
-  slab(21.05,6.05,22.95,1.0,.14,2.9,wood);
-  // This water is contained in an overhead trough; its solid underside provides
-  // head clearance, and it is not a water hazard on the walking floor below.
-  flow(21.05,6.19,22.95,.72,.07,2.9).userData.walkSoft=true;
-  for(const x of [20.59,21.51])slab(x,6.05,22.95,.10,.40,2.9,wood);
-  for(const z of [21.75,23.5]){for(const x of [20.63,21.47])slab(x,3.5,z,.09,2.55,.09,iron);}
-  const drop=flow(21.05,5.40,24.44,.72,.86,.09);drops.push(drop);
-  // A little header and timber gate make the stream's direction legible.
-  // A masonry header receives the old, covered town supply rather than
-  // leaving the upstream end of the timber trough suspended in empty space.
-  slab(21.05,3.5,21.0,1.30,2.69,1.15,stone);
-  for(const x of [20.43,21.67])slab(x,6.19,21.0,.12,.34,1.3,stone);
-  slab(21.05,6.19,20.40,1.36,.42,.12,stone);
-  flow(21.05,6.19,21.0,1.06,.07,1.10).userData.walkSoft=true;
-  slab(21.05,6.24,20.48,.42,.16,.035,iron);
-  slab(21.05,6.01,21.45,1.2,.12,.20,wood);slab(21.05,6.15,23.8,1.08,.08,.08,iron);
-  slab(21.05,5.43,31.7,1.2,.18,1.25,stone);
-  // A short descending wooden tailrace reaches the existing quay edge.
-  // Its solid trough lets pedestrians pass under the high end; the low end
-  // stays beside the water, away from the main quay promenade.
-  const chute=new THREE.Group();root.add(chute);
-  const fall=5.41-2.06,run=35.42-32.1,length=Math.hypot(fall,run);
-  chute.position.set(21.05,(5.41+2.06)/2,(32.1+35.42)/2);chute.rotation.x=Math.atan2(fall,run);
-  const part=(x,y,w,h,ma)=>{const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,length),ma);o.position.set(x,y,0);o.castShadow=o.receiveShadow=true;chute.add(o);return o;};
-  part(0,-.08,.98,.10,wood);for(const x of [-.44,.44])part(x,.075,.10,.30,wood);
-  const tailWater=part(0,0,.72,.06,water);tailWater.userData.walkSoft=true;waterParts.push(tailWater);
-  for(const x of [20.57,21.53])slab(x,1,35.50,.16,1.18,.35,stone);
-  slab(21.05,2.18,35.50,1.12,.18,.35,stone);
-  slab(21.05,1.97,35.48,.88,.06,.48,stone);flow(21.05,2.03,35.48,.72,.03,.48);
-  const outlet=flow(21.05,1.23,35.72,.72,.83,.085);drops.push(outlet);
-  const pool=new THREE.Mesh(new THREE.CylinderGeometry(.50,.50,.018,12),water);pool.position.set(21.05,1.239,35.95);root.add(pool);waterParts.push(pool);
-  // Sparse, low-poly flow flecks, animated separately from the rotating wheel.
-  const flecks=[],foam=new THREE.MeshStandardMaterial({color:0xa5b5ac,roughness:.85});
-  const ripple=new THREE.Mesh(new THREE.TorusGeometry(.26,.012,4,12),foam);ripple.rotation.x=Math.PI/2;ripple.position.set(21.05,1.246,35.89);root.add(ripple);ripple.userData.walkSoft=true;
-  for(let i=0;i<10;i++){const o=slab(21.05+(i%3-1)*.17,5.415,25+i*.58,.055,.012,.20,foam);flecks.push(o);o.userData.walkSoft=true;}
-  function update(t){flecks.forEach((o,i)=>{o.position.z=24.7+((i*.68+t*.7)%6.3);});}
-  return {root,waterParts,drops,update};
+  for(const [x,y,z]of landings){const g=new THREE.Group();g.name='Cableway travellers bell';g.position.set(x,y,z);root.add(g);bell(g,0,0,0,.095);fittings.push(g);landingBells.push(g);g.traverse(o=>{if(o.isMesh)o.userData.walkSoft=true;});}
+  return {root,goods,signs,fittings,landingBells,addGoods:parcel,addMark:wallMark,tools:{mesh,block,ring,line,materials:m}};
 }

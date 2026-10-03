@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v11.1 — Orlaithe miniature</title>
+<title>Bellmire v11.4 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:hidden;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -12,11 +12,12 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 .walk-ui{display:none}.walking .walk-ui{display:block}.walking .hint{display:none}.walk-help{position:fixed;z-index:21;left:14px;bottom:14px;max-width:calc(100vw - 28px);padding:9px 12px;background:#101923dd;border:1px solid #ffffff24;border-radius:12px;font-size:11px}.walk-help button{margin-left:8px}.walk-pad{position:fixed;z-index:22;left:12px;bottom:82px;grid-template-columns:repeat(3,42px);gap:4px;touch-action:none}.walking .walk-pad{display:none}.walk-pad button{width:42px;height:42px;padding:0;touch-action:none}.walking .toggle{display:block}.walking .panel.collapsed{width:auto}.walking .panel.collapsed .badge,.walking .panel.collapsed .sub,.walking .panel.collapsed .rows{display:none}.walking .panel.collapsed .title{font-size:14px}.walking canvas{touch-action:none;cursor:grab}.walking canvas:active{cursor:grabbing}@media(pointer:coarse){.walking #walkLook{display:none}.walking .walk-pad{display:grid}.walking .resident{display:none}.walk-help{font-size:10px;left:8px;bottom:8px}.walk-help button{padding:6px 8px}}
 .loading{position:fixed;inset:0;z-index:40;display:grid;place-items:center;background:#0b1115;font:20px Georgia,serif;letter-spacing:.22em}.loading.hide{display:none}#error{display:none;position:fixed;inset:0;z-index:50;place-items:center;background:#101820;padding:30px;text-align:center}#error.show{display:grid}
 @media(max-width:700px){.panel{left:8px;top:8px;width:auto;right:8px;padding:10px 12px}.title{font-size:16px}.badge,.sub{font-size:9px}.toggle{display:block}.panel.collapsed{right:auto;width:auto}.panel.collapsed .badge,.panel.collapsed .sub,.panel.collapsed .rows{display:none}.panel.collapsed .title{font-size:14px}.panel.collapsed .toggle{margin-left:8px}.row{gap:5px;margin-top:7px}button,select{padding:7px 9px;font-size:11px}.resident{right:8px;top:auto;bottom:8px;padding:7px 9px}.hint{display:none}}
+.inspect-prompt{position:fixed;z-index:24;right:14px;bottom:65px;background:#202b24ed;color:#ded4bb;max-width:260px;font-size:12px}.inspection-card{position:fixed;z-index:24;right:14px;bottom:112px;width:min(290px,calc(100vw - 28px));padding:12px 14px;background:#18241eef;border:1px solid #b5a57855;border-radius:10px;color:#ded4bb;font-size:12px;line-height:1.7}.inspection-card p{margin:6px 0 9px}.inspection-card button{font-size:11px;padding:4px 9px}.inspect-prompt[hidden],.inspection-card[hidden]{display:none}@media(pointer:coarse){.inspect-prompt{bottom:78px;right:10px;max-width:200px}.inspection-card{bottom:128px;right:10px;width:min(260px,calc(100vw - 175px))}}
 </style></head>
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v11.1</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v11.4</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
 <div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="streetwalk">路地散歩</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="tavern">酒場</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">ケーブルカー</button><button data-v="resident">住人</button><button data-v="catview">猫</button></div>
 <div class="row"><button id="walk">歩行</button><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div></div></div>
@@ -31,7 +32,11 @@ import * as THREE from 'three';
 import {createWalkingSystem} from './walking.js';
 import {createGroundingSystem} from './grounding.js';
 import {createResidentScale} from './resident-scale.js';
-import {addTownCulture,createMillrace} from './culture.js';
+import {addTownCulture} from './culture.js';
+import {createMillrace} from './waterways.js';
+import {addLifeDetails} from './life-details.js';
+import {createInspectionTargets} from './inspection-targets.js';
+import {createInspectionSystem} from './interaction.js';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
 import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
@@ -124,9 +129,10 @@ for(const x of [-31.7,-31,-30.3]){const loaf=new THREE.Mesh(new THREE.SphereGeom
 });
 const bakeLamp=new THREE.PointLight(0xffb45f,.8,7);bakeLamp.position.set(-31,5.1,27.8);scene.add(bakeLamp);
 // bookshop: projecting sign, narrow display table and stacked book blocks
+let bookDisplay;
 box(-18,4.8,32.05,.12,2.2,.12,v8Iron,shopLife);box(-17.25,6.55,32.05,1.35,.72,.14,v8Wood,shopLife);
 groundAssembly(shopLife,()=>{
-box(-18,3.55,32.45,3.5,.72,.8,v8Wood,shopLife);
+bookDisplay=box(-18,3.55,32.45,3.5,.72,.8,v8Wood,shopLife);
 const bookMats=[M(0x6d4b43,.9),M(0x4d5a4c,.9),M(0x6a5c3e,.9)];
 for(let i=0;i<7;i++) box(-19.2+i*.4,4.27,32.45,.34,.10+(i%2)*.08,.48,bookMats[i%3],shopLife);
 
@@ -797,7 +803,8 @@ box(0,1.03,40.5,74,.20,10.5,water101,waterfront101);
 // broken quay edge with gaps to the piers
 for(const q of [[-31,35,10],[-20.45,35,1.3],[-14.4,35,3.8],[-5,35,6],[6.6,35,5.2],[15.3,35,5],[22,35,8],[33,35,5]])box(q[0],1.14,q[1],q[2],.55,.32,stone101,waterfront101);
 // two piers extending visibly into water
-for(const x of [-18,11]){for(let i=0;i<7;i++)harborSupports.push(box(x,1.22,35.8+i*1.06,3.4,.16,1.02,dock101,waterfront101));for(const z of [36,42.6])for(const dx of [-1.35,1.35])box(x+dx,.55,z,.20,1.55,.20,dockDark101,waterfront101);}
+let inspectionMooring;
+for(const x of [-18,11]){for(let i=0;i<7;i++)harborSupports.push(box(x,1.22,35.8+i*1.06,3.4,.16,1.02,dock101,waterfront101));for(const z of [36,42.6])for(const dx of [-1.35,1.35]){const post=box(x+dx,.55,z,.20,1.55,.20,dockDark101,waterfront101);if(x===11&&z===36&&dx<0)inspectionMooring=post;}}
 // cargo and mooring clutter
 for(const q of [[-18.7,36.1],[-17.3,36.4],[10.3,36],[11.7,36.4]])landHarborObject(box(q[0],1.38,q[1],1.05,.72,.9,dock101,waterfront101),harborLevels.quay);
 for(const q of [[-21.7,39],[-14.5,42],[7.1,39.5],[15,42.2]])box(q[0],1.15,q[1],.22,1.45,.22,dockDark101,waterfront101);
@@ -888,8 +895,9 @@ for(const q of [[-4.25,2.65],[-3.35,2.35],[-2.45,2.72]])box(q[0],q[1],18.18,.62,
 
 });
 // low stone well with timber crossbar
+let squareWell;
 groundAssembly(square106,()=>{
-const well106=new THREE.Mesh(new THREE.CylinderGeometry(1.05,1.18,.82,10),stone106);well106.position.set(8.2,.9,17.3);square106.add(well106);
+squareWell=new THREE.Mesh(new THREE.CylinderGeometry(1.05,1.18,.82,10),stone106);squareWell.position.set(8.2,.9,17.3);square106.add(squareWell);
 for(const dx of [-1.25,1.25])box(8.2+dx,.49,17.3,.14,2.96,.14,dark106,square106);box(8.2,3.45,17.3,2.75,.15,.15,wood106,square106);
 
 });
@@ -1020,7 +1028,7 @@ const clock=new THREE.Clock();let previousFrame=0;function animate(){requestAnim
 routes.forEach((r,i)=>{const phase=t*r.s+i,u=(Math.sin(phase)+1)/2,forward=Math.cos(phase)>=0;r.p.position.lerpVectors(r.a,r.b,u);r.p.lookAt(forward?r.b:r.a);const swing=Math.sin(t*5+i)*.48;r.p.userData.legs[0].rotation.x=swing;r.p.userData.legs[1].rotation.x=-swing;r.p.userData.arms[0].rotation.x=-swing*.7;r.p.userData.arms[1].rotation.x=swing*.7;grounding.actor(r.p,r.p.userData.legs)});
 const ru=(Math.sin(t*.11)+1)/2,rForward=Math.cos(t*.11)>=0;residentV8.position.lerpVectors(new THREE.Vector3(-1,3.5,18),new THREE.Vector3(5,3.5,18),ru);residentV8.rotation.y=rForward?Math.PI/2:-Math.PI/2;const rs=Math.sin(t*4.8)*.42;residentLegs[0].rotation.x=rs;residentLegs[1].rotation.x=-rs;residentArms[0].rotation.x=-rs*.65;residentArms[1].rotation.x=rs*.65;grounding.actor(residentV8,residentLegs);
 const raw=(Math.sin(t*.115)+1)/2,cu=raw<.08?0:raw>.92?1:(raw-.08)/.84;walkPath(catPath,cu,_catPos);cat.position.copy(_catPos);cat.rotation.y=Math.cos(t*.115)>=0?0:Math.PI;const cs=Math.sin(t*7.5)*.5;catLegs[0].rotation.z=cs;catLegs[1].rotation.z=-cs;catLegs[2].rotation.z=-cs;catLegs[3].rotation.z=cs;tail.rotation.z=.15+Math.sin(t*2.2)*.18;grounding.actor(cat,catLegs);
-smoke.forEach((q,i)=>{const u=(t*.09+i/smoke.length)%1;const cs=chimneySources[i%chimneySources.length];q.position.set(cs[0]+Math.sin(t*.4+i)*.45,cs[1]+u*12,cs[2]+Math.cos(t*.35+i)*.35);q.scale.setScalar(.5+u*2.3);q.material.opacity=.14*(1-u)});if(rain.visible){const p=rg.attributes.position.array;for(let i=0;i<N;i++){p[i*3+1]-=.48;if(p[i*3+1]<0)p[i*3+1]=65}rg.attributes.position.needsUpdate=true}if(!walking.active&&view==='catview'&&!followMode){const cp=cat.position.clone();camera.position.lerp(cp.clone().add(new THREE.Vector3(-4.2,2.5,4.6)),.08);controls.target.lerp(cp.clone().add(new THREE.Vector3(0,.65,0)),.10);}if(!walking.active&&view==='drone'&&!followMode){camera.position.set(Math.sin(t*.07)*52,29+Math.sin(t*.11)*4,Math.cos(t*.07)*52);camera.lookAt(-8,6,-4)}if(!walking.active&&view==='train'&&!followMode){camera.position.copy(train.position).add(new THREE.Vector3(7.5,5.5,7));controls.target.copy(train.position).add(new THREE.Vector3(0,1.2,0));camera.lookAt(controls.target)}if(followMode){const p=residents[followIdx],d=new THREE.Vector3();p.getWorldDirection(d);camera.position.lerp(p.position.clone().add(new THREE.Vector3(0,2.8,0)).add(d.multiplyScalar(-4.5)),.07);camera.lookAt(p.position.clone().add(new THREE.Vector3(0,1.4,0)))}if(walking.active)walking.update(dt);else controls.update();composer.render()}
+smoke.forEach((q,i)=>{const u=(t*.09+i/smoke.length)%1;const cs=chimneySources[i%chimneySources.length];q.position.set(cs[0]+Math.sin(t*.4+i)*.45,cs[1]+u*12,cs[2]+Math.cos(t*.35+i)*.35);q.scale.setScalar(.5+u*2.3);q.material.opacity=.14*(1-u)});if(rain.visible){const p=rg.attributes.position.array;for(let i=0;i<N;i++){p[i*3+1]-=.48;if(p[i*3+1]<0)p[i*3+1]=65}rg.attributes.position.needsUpdate=true}if(!walking.active&&view==='catview'&&!followMode){const cp=cat.position.clone();camera.position.lerp(cp.clone().add(new THREE.Vector3(-4.2,2.5,4.6)),.08);controls.target.lerp(cp.clone().add(new THREE.Vector3(0,.65,0)),.10);}if(!walking.active&&view==='drone'&&!followMode){camera.position.set(Math.sin(t*.07)*52,29+Math.sin(t*.11)*4,Math.cos(t*.07)*52);camera.lookAt(-8,6,-4)}if(!walking.active&&view==='train'&&!followMode){camera.position.copy(train.position).add(new THREE.Vector3(7.5,5.5,7));controls.target.copy(train.position).add(new THREE.Vector3(0,1.2,0));camera.lookAt(controls.target)}if(followMode){const p=residents[followIdx],d=new THREE.Vector3();p.getWorldDirection(d);camera.position.lerp(p.position.clone().add(new THREE.Vector3(0,2.8,0)).add(d.multiplyScalar(-4.5)),.07);camera.lookAt(p.position.clone().add(new THREE.Vector3(0,1.4,0)))}if(walking.active)walking.update(dt);else controls.update();inspections.update(dt);composer.render()}
 // Add v10.8+ construction above this finalization point. Preserve the legacy
 // checkpoints; retire intentionally replaced meshes explicitly instead of
 // extending geometry filters to newly built waterfront groups.
@@ -1063,10 +1071,10 @@ const grounding=createGroundingSystem({THREE,scene,objects:groundedObjects,
     clearLane(new THREE.Vector3(22.65,4.15,24.6),new THREE.Vector3(34.6,4.15,24.6),.3,1.8),
     clearLane(new THREE.Vector3(34.6,4.15,24.6),new THREE.Vector3(34.6,4.15,32.3),.3,1.8)]});
 grounding.placeAll();
-const squareWell=square106.children.flatMap(g=>g.children).find(o=>o.geometry?.parameters.radiusTop===1.05);
 const culture=addTownCulture({THREE,scene,grounding,groundedObjects,lit,well,well106:squareWell,
-  bookTable:shopLife.children.flatMap(g=>g.children).find(o=>o.geometry?.parameters.width===3.5&&o.geometry.parameters.height===.72),
+  bookTable:bookDisplay,
   landings:[[39.88,lowerLandingY+.58,12.6],[39.88,upperLandingY+.58,-26.7]]});
+const lifeDetails=addLifeDetails({THREE,culture,lit});
 const walking=createWalkingSystem({THREE,scene,camera,controls,canvas:renderer.domElement,
   terrain:[...townGround,cliffSkirts[1]],surfaces:harborSupports,
   surfaceMaterials:[path,v8Stone,stone101],dynamicObjects:[train],
@@ -1075,6 +1083,11 @@ const walking=createWalkingSystem({THREE,scene,camera,controls,canvas:renderer.d
   trackBounds:new THREE.Box3(new THREE.Vector3(42.15,1,-28.8),new THREE.Vector3(44.85,9,14)),
   spawn:new THREE.Vector3(0,harborLevels.quay,32)
 });
+const inspectTargets=createInspectionTargets({culture,well:squareWell,
+  moorings:inspectionMooring,
+  wheel,millrace,landings:culture.landingBells[0],details:lifeDetails});
+const inspections=createInspectionSystem({THREE,scene,camera,walking,targets:inspectTargets,
+  ignored:[...residents,residentV8,cat,...smoke,train,axle]});
 walk.onclick=()=>{
   if(walking.active){walking.leave();setView(view);return}
   followMode=false;follow.classList.remove('active');
