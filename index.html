@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v10.8 — Orlaithe miniature</title>
+<title>Bellmire v10.9 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:hidden;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -15,9 +15,9 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v10.8</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v10.9</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
-<div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="streetwalk">路地散歩</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="tavern">酒場</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">列車</button><button data-v="resident">住人</button><button data-v="catview">猫</button></div>
+<div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="streetwalk">路地散歩</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="tavern">酒場</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">ケーブルカー</button><button data-v="resident">住人</button><button data-v="catview">猫</button></div>
 <div class="row"><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div></div></div>
 <div class="resident">追跡 <select id="residentSel"><option value="0">パン屋</option><option value="1">本屋</option><option value="2">旅人</option><option value="3">吟遊詩人</option></select></div>
 <div class="hint">ドラッグ：回転　ホイール：ズーム　右ドラッグ：移動</div>
@@ -639,8 +639,94 @@ for(let i=0;i<12;i++){
 }
 wheel.position.set(21.05,3.75,27);wheel.rotation.y=Math.PI/2;scene.add(wheel);
 const axle=new THREE.Mesh(new THREE.CylinderGeometry(.32,.32,3.0,12),metal);axle.rotation.z=Math.PI/2;axle.position.set(21.05,3.75,27);scene.add(axle);
-for(let z=-42;z<44;z+=3){box(44,.35,z,.25,.25,2.4,metal);box(48,.35,z,.25,.25,2.4,metal)}
-const train=new THREE.Group();for(let i=0;i<3;i++){const c=box(0,0,i*8,3.2,3.2,7.5,M(0x53675e),train);c.position.y=1.6}train.position.set(46,1,-35);scene.add(train);
+// v10.9: a short goods/passenger cableway along the east terrace edge.
+// Keep the old `train` view key; reserve the inner streets and waterfront for
+// future human/cat walking modes. All new transport geometry lives in this group.
+const cableway=new THREE.Group();cableway.name='Bellmire cableway';scene.add(cableway);
+const cableStops={lower:new THREE.Vector3(43.5,1.22,12),upper:new THREE.Vector3(43.5,5.54,-26.5)};
+const cableDirection=cableStops.upper.clone().sub(cableStops.lower).normalize();
+const cableLength=cableStops.lower.distanceTo(cableStops.upper);
+const cableSlope=Math.atan2(cableStops.upper.y-cableStops.lower.y,cableStops.lower.z-cableStops.upper.z);
+const cableTrack=new THREE.Group();cableway.add(cableTrack);
+cableTrack.position.copy(cableStops.lower).addScaledVector(cableDirection,-1.5);cableTrack.rotation.x=cableSlope;
+const cableRailLength=cableLength+3;
+for(const x of [-.62,.62])box(x,-.06,-cableRailLength/2,.09,.12,cableRailLength,v8Iron,cableTrack);
+for(let i=0;i<=26;i++)box(0,-.16,-i*cableRailLength/26,1.65,.10,.22,v8Wood,cableTrack);
+const haulRope=new THREE.Mesh(new THREE.CylinderGeometry(.025,.025,cableRailLength,6),wood);
+haulRope.rotation.x=Math.PI/2;haulRope.position.set(0,.025,-cableRailLength/2);cableTrack.add(haulRope);
+// Small stone piers carry the timber track, leaving the side lane open.
+for(let i=0;i<=8;i++){
+  const p=cableStops.lower.clone().lerp(cableStops.upper,i/8);
+  box(p.x,1,p.z,.65,p.y-.16-1,.70,stone2,cableway);
+  box(p.x,p.y-.22,p.z,1.72,.06,.38,v8Wood,cableway);
+}
+const cableLantern=M(0xe6b56e,.9);cableLantern.emissive.set(0xff9a42);cableLantern.emissiveIntensity=.65;lit.push(cableLantern);
+function cableLamp(x,y,z,parent){
+  box(x,y,z,.06,.12,.06,v8Copper,parent);
+  const glow=new THREE.Mesh(new THREE.SphereGeometry(.105,7,5),cableLantern);glow.position.set(x,y+.20,z);parent.add(glow);
+  for(const dx of [-.11,.11])box(x+dx,y+.10,z,.025,.23,.025,v8Iron,parent);
+  box(x,y+.34,z,.28,.035,.22,v8Copper,parent);
+}
+function cableLanding(stop){
+  const floor=stop.y+.66*Math.cos(cableSlope),landing=new THREE.Group();cableway.add(landing);
+  landing.position.set(41.2,0,stop.z);
+  box(0,floor-.18,0,2.8,.18,3.4,v8Wood,landing);
+  for(const x of [-1.15,1.15])for(const z of [-1.35,1.35])box(x,1,z,.22,floor-.18-1,.22,stone2,landing);
+  // Rails on the outer edge only: the boarding side and exit stay open.
+  for(const z of [-1.4,1.4])box(-1.32,floor,z,.08,.80,.08,v8Wood,landing);
+  box(-1.32,floor+.65,0,.08,.08,2.8,v8Wood,landing);
+  cableLamp(-1.32,floor+.85,1.35,landing);
+  return floor;
+}
+const lowerLandingY=cableLanding(cableStops.lower),upperLandingY=cableLanding(cableStops.upper);
+// Lower steps lead west into the side lane, clear of the house at (37,16).
+for(let i=0;i<3;i++)box(39.575-i*.45,1,11.7,.45,Math.max(.015,lowerLandingY-1-(i+1)*.29),1.2,stone,cableway);
+// Upper exit goes around the north side of the existing hillside homes.
+box(41.2,upperLandingY-.16,-28.4,1.2,.16,1.4,v8Wood,cableway);
+box(39.6,upperLandingY-.16,-29,4.4,.16,1.2,v8Wood,cableway);
+for(const x of [38.0,41.2])box(x,1,-29,.24,upperLandingY-.16-1,.24,stone2,cableway);
+// Hand-operated winding drum: no boiler, engine, chimney or industrial gantry.
+box(43.5,1,-28.2,1.05,cableStops.upper.y-.12-1,.85,stone2,cableway);
+const windingDrum=new THREE.Mesh(new THREE.CylinderGeometry(.24,.24,.65,8),v8Wood);
+windingDrum.rotation.z=Math.PI/2;windingDrum.position.set(43.5,cableStops.upper.y+.45,-28.2);cableway.add(windingDrum);
+for(const x of [43.05,43.95])box(x,cableStops.upper.y-.12,-28.2,.12,.72,.12,v8Iron,cableway);
+box(43.98,cableStops.upper.y+.45,-28.2,.06,.32,.06,v8Copper,cableway);
+// One compact wooden car replaces the three large coaches, retaining transport.
+const train=new THREE.Group();train.name='Wooden cable car';train.rotation.x=cableSlope;cableway.add(train);
+for(let i=0;i<6;i++)box(0,.52,-1.05+i*.42,1.8,.14,.40,wood,train);
+for(const x of [-.62,.62])for(const z of [-.8,.8]){
+  const wheel=new THREE.Mesh(new THREE.CylinderGeometry(.23,.23,.14,8),v8Iron);
+  wheel.rotation.z=Math.PI/2;wheel.position.set(x,.29,z);train.add(wheel);
+}
+for(const x of [-.9,.9]){
+  box(x,.66,0,.10,.48,2.5,v8Wood,train);box(x,1.14,0,.12,.08,2.6,wood,train);
+  for(const z of [-1.16,1.16]){
+    box(x,.66,z,.09,1.55,.09,v8Wood,train);
+    const bolt=new THREE.Mesh(new THREE.SphereGeometry(.035,5,4),v8Copper);bolt.position.set(x,1.18,z);train.add(bolt);
+  }
+}
+for(const z of [-1.21,1.21])box(0,.66,z,1.7,.42,.08,wood,train);
+for(const x of [-.54,.54]){
+  const roofPanel=box(x,2.20,0,1.12,.08,2.8,v8Wood,train);roofPanel.rotation.z=x<0?.16:-.16;
+}
+// Boarding step, bench, small freight crates and a seated local passenger.
+box(-1.02,.47,-.5,.30,.10,.70,v8Wood,train);
+box(-.10,.82,-.66,1.05,.15,.48,wood,train);
+for(const x of [-.4,.2])box(x,.66,-.66,.08,.16,.30,v8Wood,train);
+box(.34,.66,.65,.55,.44,.60,wood,train);box(-.40,.66,.65,.45,.30,.48,v8Wood,train);
+for(const x of [.13,.55])box(x,.66,.65,.035,.44,.62,v8Iron,train);
+const rider=new THREE.Mesh(new THREE.CylinderGeometry(.20,.26,.60,7),v8Coat);rider.position.set(-.10,1.27,-.66);train.add(rider);
+const riderHead=new THREE.Mesh(new THREE.SphereGeometry(.18,7,5),v8Skin);riderHead.position.set(-.10,1.75,-.66);train.add(riderHead);
+for(const x of [-.22,.02])box(x,.72,-.30,.09,.24,.26,v8Boot,train);
+cableLamp(.65,1.50,1.15,train);
+function updateCableCar(t){
+  const phase=((t%48)+48)%48;
+  const ease=u=>u*u*(3-2*u);
+  const u=phase<3?0:phase<24?ease((phase-3)/21):phase<27?1:1-ease((phase-27)/21);
+  train.position.lerpVectors(cableStops.lower,cableStops.upper,u);
+}
+updateCableCar(0);
+
 
 // v10.1 — definitive south waterfront, inserted late so the stubborn foreground slab already exists
 const waterfront101=new THREE.Group();scene.add(waterfront101);
@@ -838,7 +924,7 @@ const chimneySources=[
 const smoke=[];for(let i=0;i<34;i++){const q=new THREE.Mesh(new THREE.SphereGeometry(.25+bellRand()*.35,7,5),new THREE.MeshBasicMaterial({color:0xc4c4b8,transparent:true,opacity:.12}));scene.add(q);smoke.push(q)}
 const N=1500,a=new Float32Array(N*3);for(let i=0;i<N;i++){a[i*3]=(bellRand()-.5)*120;a[i*3+1]=bellRand()*65;a[i*3+2]=(bellRand()-.5)*95}const rg=new THREE.BufferGeometry();rg.setAttribute('position',new THREE.BufferAttribute(a,3));const rain=new THREE.Points(rg,new THREE.PointsMaterial({color:0xc5d7de,size:.11,transparent:true,opacity:.6}));rain.visible=false;scene.add(rain);
 let view='overview',followMode=false,followIdx=0;
-const viewMap={overview:[[72,54,78],[-2,7,0]],alley:[[-15,6,36],[-9,5,23]],streetwalk:[[-34,4.4,34],[-18,3.5,24]],resident:[[-4,4.3,29],[-9,3.1,24]],catview:[[-25,3.3,16],[-20,2.0,18]],bakery:[[-39,7,34],[-31,4,24]],bookshop:[[-25,7,38],[-18,6,29]],inn:[[-49,11,11],[-39,8,-1]],tavern:[[-10,8,27],[-10,5.2,12.2]],orrery:[[15,17,12],[3,12,-3]],square:[[-31,6,16],[-24,2,7]],roofgarden:[[-38,18,-8],[-28,11,-18]],mill:[[33,10,39],[20,5,27]],archway:[[39,10,21],[28,5,9]],canal:[[31,7.5,38],[21,.7,27]],rooftop:[[-5,21,13],[-20,7,0]],belfry:[[-4,27,-17],[-13,23,-32]],drone:[[0,33,45],[-8,6,-5]],train:[[52,6,-27],[5,7,-10]]};
+const viewMap={overview:[[72,54,78],[-2,7,0]],alley:[[-15,6,36],[-9,5,23]],streetwalk:[[-34,4.4,34],[-18,3.5,24]],resident:[[-4,4.3,29],[-9,3.1,24]],catview:[[-25,3.3,16],[-20,2.0,18]],bakery:[[-39,7,34],[-31,4,24]],bookshop:[[-25,7,38],[-18,6,29]],inn:[[-49,11,11],[-39,8,-1]],tavern:[[-10,8,27],[-10,5.2,12.2]],orrery:[[15,17,12],[3,12,-3]],square:[[-31,6,16],[-24,2,7]],roofgarden:[[-38,18,-8],[-28,11,-18]],mill:[[33,10,39],[20,5,27]],archway:[[39,10,21],[28,5,9]],canal:[[31,7.5,38],[21,.7,27]],rooftop:[[-5,21,13],[-20,7,0]],belfry:[[-4,27,-17],[-13,23,-32]],drone:[[0,33,45],[-8,6,-5]],train:[[51,7,19],[43.5,2.5,12]]};
 function setView(v){view=v;followMode=false;document.getElementById('follow').classList.remove('active');const[p,t]=viewMap[v];camera.position.fromArray(p);controls.target.fromArray(t);controls.enabled=!['drone','train'].includes(v);document.querySelectorAll('#views button').forEach(b=>b.classList.toggle('active',b.dataset.v===v))}
 function setWeather(w){rain.visible=w==='rain';lit.forEach(m=>m.emissiveIntensity=w==='blackout'?0:.65);ovenGlow.intensity=w==='blackout'?0:2.2;const cfg={clear:[0x9eaaa3,.0018,1.35,1.85,1.02,.18],rain:[0x5d6b70,.010,.7,.38,.78,.30],fog:[0x929b96,.0145,.86,.48,.80,.38],blackout:[0x071017,.012,.12,.02,.48,.18],dawn:[0x5f6c7d,.009,.48,.42,.68,.34],night:[0x07111d,.010,.25,.05,.58,.55]}[w];scene.background.set(cfg[0]);scene.fog.color.set(cfg[0]);scene.fog.density=cfg[1];hemi.intensity=cfg[2];sun.intensity=cfg[3];renderer.toneMappingExposure=cfg[4];bloom.strength=cfg[5];sun.color.set(w==='dawn'?0xd58b62:0xffe2b5);document.querySelectorAll('#weather button').forEach(b=>b.classList.toggle('active',b.dataset.w===w))}
 document.getElementById('weather').onclick=e=>e.target.dataset.w&&setWeather(e.target.dataset.w);document.getElementById('views').onclick=e=>e.target.dataset.v&&setView(e.target.dataset.v);residentSel.onchange=e=>followIdx=+e.target.value;
@@ -847,11 +933,11 @@ follow.onclick=()=>{followMode=!followMode;follow.classList.toggle('active',foll
 const catPath=[new THREE.Vector3(-39,1.38,12.8),new THREE.Vector3(-36,1.38,12.8),new THREE.Vector3(-33,1.38,12.8),new THREE.Vector3(-30,1.38,12.8),new THREE.Vector3(-27,1.38,12.8)];
 function walkPath(points,u,out){const n=points.length-1,q=Math.min(n-.0001,u*n),i=Math.floor(q),f=q-i;out.lerpVectors(points[i],points[i+1],f);return points[Math.min(i+1,n)]}
 const _catPos=new THREE.Vector3();
-const clock=new THREE.Clock();function animate(){requestAnimationFrame(animate);const t=clock.getElapsedTime();if(wheel)wheel.rotation.z=-t*.22;if(orrery)orrery.rotation.y=t*.08;if(orrery)orrery.rotation.x=Math.sin(t*.05)*.12;train.position.z=((t*3.2)%95)-48;
+const clock=new THREE.Clock();function animate(){requestAnimationFrame(animate);const t=clock.getElapsedTime();if(wheel)wheel.rotation.z=-t*.22;if(orrery)orrery.rotation.y=t*.08;if(orrery)orrery.rotation.x=Math.sin(t*.05)*.12;updateCableCar(t);
 routes.forEach((r,i)=>{const phase=t*r.s+i,u=(Math.sin(phase)+1)/2,forward=Math.cos(phase)>=0;r.p.position.lerpVectors(r.a,r.b,u);r.p.lookAt(forward?r.b:r.a);r.p.position.y+=Math.abs(Math.sin(t*3.6+i))*.055;const swing=Math.sin(t*5+i)*.48;r.p.userData.legs[0].rotation.x=swing;r.p.userData.legs[1].rotation.x=-swing;r.p.userData.arms[0].rotation.x=-swing*.7;r.p.userData.arms[1].rotation.x=swing*.7});
 const ru=(Math.sin(t*.11)+1)/2,rForward=Math.cos(t*.11)>=0;residentV8.position.lerpVectors(new THREE.Vector3(-13,1.38,24),new THREE.Vector3(-4,1.38,24),ru);residentV8.rotation.y=rForward?Math.PI/2:-Math.PI/2;residentV8.position.y+=Math.abs(Math.sin(t*3.2))*.045;const rs=Math.sin(t*4.8)*.42;residentLegs[0].rotation.x=rs;residentLegs[1].rotation.x=-rs;residentArms[0].rotation.x=-rs*.65;residentArms[1].rotation.x=rs*.65;
 const raw=(Math.sin(t*.115)+1)/2,cu=raw<.08?0:raw>.92?1:(raw-.08)/.84,catTarget=walkPath(catPath,cu,_catPos);cat.position.copy(_catPos);const catDir=catTarget.clone().sub(cat.position);cat.rotation.y=Math.atan2(catDir.x,catDir.z)-Math.PI/2;cat.position.y+=Math.abs(Math.sin(t*5.5))*.035;const cs=Math.sin(t*7.5)*.5;catLegs[0].rotation.z=cs;catLegs[1].rotation.z=-cs;catLegs[2].rotation.z=-cs;catLegs[3].rotation.z=cs;tail.rotation.z=.15+Math.sin(t*2.2)*.18;
-smoke.forEach((q,i)=>{const u=(t*.09+i/smoke.length)%1;const cs=chimneySources[i%chimneySources.length];q.position.set(cs[0]+Math.sin(t*.4+i)*.45,cs[1]+u*12,cs[2]+Math.cos(t*.35+i)*.35);q.scale.setScalar(.5+u*2.3);q.material.opacity=.14*(1-u)});if(rain.visible){const p=rg.attributes.position.array;for(let i=0;i<N;i++){p[i*3+1]-=.48;if(p[i*3+1]<0)p[i*3+1]=65}rg.attributes.position.needsUpdate=true}if(view==='catview'&&!followMode){const cp=cat.position.clone();camera.position.lerp(cp.clone().add(new THREE.Vector3(-4.2,2.5,4.6)),.08);controls.target.lerp(cp.clone().add(new THREE.Vector3(0,.65,0)),.10);}if(view==='drone'&&!followMode){camera.position.set(Math.sin(t*.07)*52,29+Math.sin(t*.11)*4,Math.cos(t*.07)*52);camera.lookAt(-8,6,-4)}if(view==='train'&&!followMode){camera.position.set(52,5.7,train.position.z+7);camera.lookAt(3,6,train.position.z-4)}if(followMode){const p=residents[followIdx],d=new THREE.Vector3();p.getWorldDirection(d);camera.position.lerp(p.position.clone().add(new THREE.Vector3(0,2.8,0)).add(d.multiplyScalar(-4.5)),.07);camera.lookAt(p.position.clone().add(new THREE.Vector3(0,1.4,0)))}controls.update();composer.render()}
+smoke.forEach((q,i)=>{const u=(t*.09+i/smoke.length)%1;const cs=chimneySources[i%chimneySources.length];q.position.set(cs[0]+Math.sin(t*.4+i)*.45,cs[1]+u*12,cs[2]+Math.cos(t*.35+i)*.35);q.scale.setScalar(.5+u*2.3);q.material.opacity=.14*(1-u)});if(rain.visible){const p=rg.attributes.position.array;for(let i=0;i<N;i++){p[i*3+1]-=.48;if(p[i*3+1]<0)p[i*3+1]=65}rg.attributes.position.needsUpdate=true}if(view==='catview'&&!followMode){const cp=cat.position.clone();camera.position.lerp(cp.clone().add(new THREE.Vector3(-4.2,2.5,4.6)),.08);controls.target.lerp(cp.clone().add(new THREE.Vector3(0,.65,0)),.10);}if(view==='drone'&&!followMode){camera.position.set(Math.sin(t*.07)*52,29+Math.sin(t*.11)*4,Math.cos(t*.07)*52);camera.lookAt(-8,6,-4)}if(view==='train'&&!followMode){camera.position.copy(train.position).add(new THREE.Vector3(7.5,5.5,7));controls.target.copy(train.position).add(new THREE.Vector3(0,1.2,0));camera.lookAt(controls.target)}if(followMode){const p=residents[followIdx],d=new THREE.Vector3();p.getWorldDirection(d);camera.position.lerp(p.position.clone().add(new THREE.Vector3(0,2.8,0)).add(d.multiplyScalar(-4.5)),.07);camera.lookAt(p.position.clone().add(new THREE.Vector3(0,1.4,0)))}controls.update();composer.render()}
 // Add v10.8+ construction above this finalization point. Preserve the legacy
 // checkpoints; retire intentionally replaced meshes explicitly instead of
 // extending geometry filters to newly built waterfront groups.
