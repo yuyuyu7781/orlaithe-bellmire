@@ -30,7 +30,7 @@ export function applyStorybookSurfaces({THREE,scene,grounding,stone,wood,roof,gr
   }
   for(const kind of Object.keys(sets))wash(kind);
   function material(base,kind){let kinds=variants.get(base);if(!kinds){kinds=new Map();variants.set(base,kinds);}if(!kinds.has(kind)){
-    const m=base.clone();m.map=textures[kind];m.vertexColors=true;m.roughness=Math.max(base.roughness,kind==='wood'?.96:.94);m.color.lerp(new THREE.Color(surfacePalette[kind]),kind==='stone'?.12:.07);m.name='Storybook '+kind;m.userData={...base.userData,storybookKind:kind};kinds.set(kind,m);stats.materials++;
+    const m=base.clone();m.map=textures[kind];m.vertexColors=true;m.roughness=Math.max(base.roughness,kind==='wood'?.96:.94);m.color.lerp(new THREE.Color(surfacePalette[kind]),kind==='stone'?.12:.07);m.name='Storybook '+kind;m.userData={...base.userData,storybookKind:kind,storybookSource:base.uuid};kinds.set(kind,m);stats.materials++;
   }return kinds.get(kind);}
   scene.updateMatrixWorld(true);scene.traverse(o=>{if(o.isMesh)usage.set(o.geometry,(usage.get(o.geometry)??0)+1);});
   scene.traverse(o=>{

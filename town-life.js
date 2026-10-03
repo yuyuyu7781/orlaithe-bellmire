@@ -22,6 +22,8 @@ export function createTownLife({THREE,scene,lit,smoke,chimneySources}){
   for(const e of entries){const {material:m,seed,site,window}=e;let on=true,level=window?settings.window:settings.lantern;
    if(window&&state.period==='day'&&site==='home')on=seed>.30;
    if(window&&state.period==='morning'&&site==='home')on=seed>.48;
+   if(window&&state.period==='evening'&&site==='home')on=seed>.28;
+   if(window&&state.period==='evening'&&site==='baker')on=seed>.35;
    if(window&&state.period==='night')on=site==='tavern'||site==='inn'||seed>.52;
    if(window&&state.period==='night'&&['baker','bookseller','starmaker'].includes(site))on=seed>.83;
    if(window&&state.period==='morning'&&site==='baker')level=.72;
