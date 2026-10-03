@@ -30,6 +30,7 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 import * as THREE from 'three';
 import {createWalkingSystem} from './walking.js';
 import {createGroundingSystem} from './grounding.js';
+import {createResidentScale} from './resident-scale.js';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
 import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
@@ -56,6 +57,7 @@ for(let i=0;i<18;i++){const x=-48+bellRand()*62,z=-34+bellRand()*68,y=.2+bellRan
 
 // Register a whole vignette so goods, wheels and foliage keep their relative positions.
 const groundedObjects=[];
+const residentScale=createResidentScale(THREE);
 function groundAssembly(parent,build,options={}){
   const before=new Set(parent.children);build();
   const group=new THREE.Group();group.name='Grounded street detail';parent.add(group);
@@ -308,8 +310,8 @@ for(const q of [[2,3.5,8],[20,3.5,18]]){groundAssembly(squareLife,()=>{box(q[0],
 // v8.9 — visible street life: residents, carts and everyday objects
 const streetLife=new THREE.Group();scene.add(streetLife);
 const coat=[M(0x66584e,.96),M(0x58635b,.96),M(0x796353,.96),M(0x59606a,.96)];
-function resident(x,z,i){const g=new THREE.Group();const body=new THREE.Mesh(new THREE.CylinderGeometry(.24,.34,1.05,8),coat[i%coat.length]);body.position.y=.65;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.23,9,7),M(0xb58b6d,.96));head.position.y=1.42;g.add(head);g.position.set(x,3.5,z);streetLife.add(g);registerGrounded(g,{person:true})}
-[[7,10,0],[11,6,1],[17,12,2],[22,7,3],[-18,29,1],[-24,31,2]].forEach(q=>resident(...q));
+function resident(x,z,i){const g=new THREE.Group();const body=new THREE.Mesh(new THREE.CylinderGeometry(.24,.34,1.05,8),coat[i%coat.length]);body.position.y=.65;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.23,9,7),M(0xb58b6d,.96));head.position.y=1.42;g.add(head);g.position.set(x,3.5,z);streetLife.add(g);residentScale.normalize(g);registerGrounded(g,{person:true})}
+[[7,10,0],[10.5,6,1],[17,12,2],[22,7,3],[-18,29,1],[-24,31,2]].forEach(q=>resident(...q));
 // handcarts near market and shop lane
 for(const q of [[10,3.5,14],[20,3.5,10],[-21,3.5,29]]){groundAssembly(streetLife,()=>{box(q[0],q[1]+.55,q[2],1.65,.55,.95,v8Wood,streetLife);for(const dx of [-.62,.62]){const w=new THREE.Mesh(new THREE.TorusGeometry(.28,.08,7,12),v8Iron);w.rotation.y=Math.PI/2;w.position.set(q[0]+dx,q[1]+.32,q[2]+.52);streetLife.add(w)}box(q[0],q[1]+.62,q[2]-1.05,.12,.12,1.35,v8Wood,streetLife)});}
 // sacks and baskets clustered rather than evenly scattered
@@ -319,14 +321,14 @@ for(const q of [[8.5,3.72,5.0],[9.2,3.72,5.3],[18.5,3.72,4.5],[-26,3.72,30]]){co
 // v9.0 — market vignettes: pairs, vendor/customer, seated figures
 const marketStories=new THREE.Group();scene.add(marketStories);
 const storyCoats=[M(0x725c50,.98),M(0x4e6258,.98),M(0x776b55,.98),M(0x5e5967,.98),M(0x7a5547,.98)];
-function storyPerson(x,z,i,ry=0){const g=new THREE.Group();const body=new THREE.Mesh(new THREE.CylinderGeometry(.28,.38,1.15,8),storyCoats[i%storyCoats.length]);body.position.y=.7;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.25,9,7),M(0xbc8f70,.98));head.position.y=1.55;g.add(head);g.position.set(x,3.5,z);g.rotation.y=ry;marketStories.add(g);registerGrounded(g,{person:true});return g}
+function storyPerson(x,z,i,ry=0){const g=new THREE.Group();const body=new THREE.Mesh(new THREE.CylinderGeometry(.28,.38,1.15,8),storyCoats[i%storyCoats.length]);body.position.y=.7;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.25,9,7),M(0xbc8f70,.98));head.position.y=1.55;g.add(head);g.position.set(x,3.5,z);g.rotation.y=ry;marketStories.add(g);residentScale.normalize(g);registerGrounded(g,{person:true});return g}
 // two neighbours talking face-to-face
 storyPerson(5.8,11.5,0,.8);storyPerson(7.1,12.1,1,-2.2);
 // stall keeper and customer opposite one another
 storyPerson(8,4.7,2,0);storyPerson(8,7.0,3,Math.PI);
-storyPerson(13,6.7,4,Math.PI);storyPerson(14.1,9.2,1,.25);
+storyPerson(12.6,5.3,4,Math.PI);storyPerson(14.1,9.2,1,.25);
 // seated silhouettes by benches — lower body makes posture readable from above
-function sitter(x,z,i,ry=0){const g=storyPerson(x,z,i,ry);g.scale.y=.82;g.position.y=3.35;groundedObjects.find(q=>q.object===g).seat=true;return g}
+function sitter(x,z,i,ry=0){const g=storyPerson(x,z,i,ry);g.scale.y*=.82;g.userData.adultScale.posture="seated";g.position.y=3.35;groundedObjects.find(q=>q.object===g).seat=true;return g}
 sitter(4,11.8,3,Math.PI/2);sitter(15,15.8,0,-Math.PI/2);
 // crates beside vendors make each interaction read as commerce
 for(const q of [[7.0,3.75,5.1],[12.0,3.75,7.1],[17.0,3.75,4.2]]){groundAssembly(marketStories,()=>{box(q[0],q[1],q[2],.7,.5,.7,v8Wood,marketStories);box(q[0]+.8,q[1]-.08,q[2]+.25,.6,.35,.6,v8Wood,marketStories)});}
@@ -390,7 +392,7 @@ const wheelGeo=new THREE.TorusGeometry(.28,.07,6,12);for(const x of [11.75,12.75
 
 });
 // one worker keeps this corner from becoming another decorative set
-const worker=new THREE.Group();craftYard.add(worker);const body=new THREE.Mesh(new THREE.CylinderGeometry(.22,.28,.78,8),M(0x596052,.98));body.position.set(11.15,4.05,-7.0);worker.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.2,8,6),M(0xb98c68,.98));head.position.set(11.15,4.58,-7.0);worker.add(head);registerGrounded(worker,{person:true});
+const worker=new THREE.Group();craftYard.add(worker);const body=new THREE.Mesh(new THREE.CylinderGeometry(.22,.28,.78,8),M(0x596052,.98));body.position.set(11.15,4.05,-6.85);worker.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.2,8,6),M(0xb98c68,.98));head.position.set(11.15,4.58,-6.85);worker.add(head);residentScale.normalize(worker);registerGrounded(worker,{person:true});
 
 
 // v9.4 — hillside neighborhood: a whole readable residential pocket
@@ -410,7 +412,7 @@ const well=new THREE.Mesh(new THREE.CylinderGeometry(.72,.82,.65,12),v8Stone);we
 box(25.0,9.0,-27.8,.1,2.4,.1,v8Wood,hillQuarter);box(30.0,9.0,-28.1,.1,2.4,.1,v8Wood,hillQuarter);box(27.5,10.05,-27.95,5,.05,.05,v8Iron,hillQuarter);
 const hqCloth=[M(0xa89a7f,.95),M(0x7b8270,.95),M(0x8d6d63,.95)];for(let i=0;i<3;i++)box(26.1+i*1.35,9.15,-27.93,.82,.9,.05,hqCloth[i],hillQuarter);
 // residents make it clearly domestic rather than another landmark
-const hqSkin=M(0xb78b6b,.96),hqCoat=[M(0x66584d,.96),M(0x596459,.96)];for(const q of [[29,6.2,-20.2,0],[34,6.2,-21.3,1]]){groundAssembly(hillQuarter,()=>{const b=new THREE.Mesh(new THREE.CylinderGeometry(.24,.34,1.0,8),hqCoat[q[3]]);b.position.set(q[0],q[1]+.55,q[2]);hillQuarter.add(b);const hd=new THREE.Mesh(new THREE.SphereGeometry(.22,8,6),hqSkin);hd.position.set(q[0],q[1]+1.3,q[2]);hillQuarter.add(hd)});}
+const hqSkin=M(0xb78b6b,.96),hqCoat=[M(0x66584d,.96),M(0x596459,.96)];for(const q of [[29,6.2,-20.2,0],[34,6.2,-21.3,1]]){const personGroup=groundAssembly(hillQuarter,()=>{const b=new THREE.Mesh(new THREE.CylinderGeometry(.24,.34,1.0,8),hqCoat[q[3]]);b.position.set(q[0],q[1]+.55,q[2]);hillQuarter.add(b);const hd=new THREE.Mesh(new THREE.SphereGeometry(.22,8,6),hqSkin);hd.position.set(q[0],q[1]+1.3,q[2]);hillQuarter.add(hd)});residentScale.normalize(personGroup);}
 
 
 // v9.5 — riverside working quarter: sheds, bridge, dock and cargo
@@ -562,7 +564,7 @@ for(const x of [-10,-3,6,12]){box(x,harborLevels.workDeck,37.05,.16,2.0,.16,wfWo
 // a small moored skiff on the visible waterline
 const hull=harborBoat(-4,41.5,.12,wfWood2,wfWood);wheelFront.add(hull);
 // workers make the waterfront read as an active district
-const wfSkin=M(0xb88b69,.96),wfCoats=[M(0x5d665b,.96),M(0x68554b,.96),M(0x4d5c61,.96)];for(const q of [[-7,1,37.3,0],[0,1,38,1],[7.3,1,37.5,2]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.24,.34,1.0,8),wfCoats[q[3]]);b.position.set(q[0],harborLevels.workDeck+.5,q[2]);wheelFront.add(b);landHarborObject(b,harborLevels.workDeck);const hd=new THREE.Mesh(new THREE.SphereGeometry(.22,8,6),wfSkin);hd.position.set(q[0],harborLevels.workDeck+1.25,q[2]);wheelFront.add(hd)}
+const wfSkin=M(0xb88b69,.96),wfCoats=[M(0x5d665b,.96),M(0x68554b,.96),M(0x4d5c61,.96)];for(const q of [[-7,1,37.3,0],[0,1,38,1],[7.3,1,37.5,2]]){const personGroup=groundAssembly(wheelFront,()=>{const b=new THREE.Mesh(new THREE.CylinderGeometry(.24,.34,1.0,8),wfCoats[q[3]]);b.position.set(q[0],harborLevels.workDeck+.5,q[2]);wheelFront.add(b);const hd=new THREE.Mesh(new THREE.SphereGeometry(.22,8,6),wfSkin);hd.position.set(q[0],harborLevels.workDeck+1.25,q[2]);wheelFront.add(hd)});residentScale.normalize(personGroup);}
 // warm lanterns along the waterfront
 for(const q of [[-10,3.4,37.05],[-3,3.4,37.05],[6,3.4,37.05]]){const lm=new THREE.MeshStandardMaterial({color:0xe7b66e,emissive:0xff9a42,emissiveIntensity:1});const l=new THREE.Mesh(new THREE.SphereGeometry(.15,8,6),lm);l.position.set(...q);wheelFront.add(l);lit.push(lm)}
 
@@ -759,9 +761,11 @@ box(-.10,.82,-.66,1.05,.15,.48,wood,train);
 for(const x of [-.4,.2])box(x,.66,-.66,.08,.16,.30,v8Wood,train);
 box(.34,.66,.65,.55,.44,.60,wood,train);box(-.40,.66,.65,.45,.30,.48,v8Wood,train);
 for(const x of [.13,.55])box(x,.66,.65,.035,.44,.62,v8Iron,train);
-const rider=new THREE.Mesh(new THREE.CylinderGeometry(.20,.26,.60,7),v8Coat);rider.position.set(-.10,1.27,-.66);train.add(rider);
-const riderHead=new THREE.Mesh(new THREE.SphereGeometry(.18,7,5),v8Skin);riderHead.position.set(-.10,1.75,-.66);train.add(riderHead);
-for(const x of [-.22,.02])box(x,.72,-.30,.09,.24,.26,v8Boot,train);
+const cablePassenger=new THREE.Group();train.add(cablePassenger);
+const rider=new THREE.Mesh(new THREE.CylinderGeometry(.20,.26,.60,7),v8Coat);rider.position.set(-.10,1.27,-.66);cablePassenger.add(rider);
+const riderHead=new THREE.Mesh(new THREE.SphereGeometry(.18,7,5),v8Skin);riderHead.position.set(-.10,1.75,-.66);cablePassenger.add(riderHead);
+residentScale.normalize(cablePassenger,{head:riderHead,seated:true});
+for(const x of [-.22,.02])box(x,.66,-.30,.09,.24,.26,v8Boot,train);
 cableLamp(.65,1.50,1.15,train);
 function updateCableCar(t){
   const phase=((t%48)+48)%48;
@@ -808,7 +812,7 @@ const waterfront102=new THREE.Group();scene.add(waterfront102);
 const hull102=M(0x3b2920,.98),wood102=M(0x765038,.98),rope102=M(0x9b8869,.98),cloth102=M(0x766f58,.98),skin102=M(0xc79a72,.98),shirt102=M(0x445b55,.98),lamp102=M(0xe8b35d,.9);
 function boat102(x,z,r=0){const boat=harborBoat(x,z,r,hull102,wood102);waterfront102.add(boat);return boat;}
 boat102(-20.7,40.0,Math.PI/2+.06);boat102(14.0,40.4,Math.PI/2-.08);boat102(1.2,43.4,.06);
-function dockPerson102(x,z,c=shirt102){const g=new THREE.Group();g.position.set(x,1.22,z);waterfront102.add(g);const body=new THREE.Mesh(new THREE.CylinderGeometry(.23,.32,1.05,7),c);body.position.y=.55;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.23,8,7),skin102);head.position.y=1.28;g.add(head);landHarborObject(g,harborLevels.quay);return g;}
+function dockPerson102(x,z,c=shirt102){const g=new THREE.Group();g.position.set(x,1.22,z);waterfront102.add(g);const body=new THREE.Mesh(new THREE.CylinderGeometry(.23,.32,1.05,7),c);body.position.y=.55;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.23,8,7),skin102);head.position.y=1.28;g.add(head);residentScale.normalize(g);landHarborObject(g,harborLevels.quay);return g;}
 dockPerson102(-19,37.3);dockPerson102(-16.8,39.3,M(0x6d5141,.98));dockPerson102(10.2,37.2,M(0x4b5368,.98));dockPerson102(11.7,40.2,M(0x6c6245,.98));dockPerson102(28.7,34.7,M(0x465c4d,.98));
 // barrels, crates, rope coils and fish baskets
 for(const q of [[-25.4,34.7],[-22.8,34.3],[-13.8,34.3],[9.3,34.3],[14.8,34.3],[21.2,34.3],[30,34.3]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.35,.4,.72,8),wood102);b.position.set(q[0],1.55,q[1]);waterfront102.add(b);landHarborObject(b,harborLevels.quay);}
@@ -925,7 +929,7 @@ function person(c){
   const legs=[],arms=[];
   for(const xx of [-.22,.22]){const leg=new THREE.Mesh(new THREE.CylinderGeometry(.085,.10,.82,7),boot);leg.position.set(xx,.52,0);g.add(leg);legs.push(leg)}
   for(const xx of [-.43,.43]){const arm=new THREE.Mesh(new THREE.CylinderGeometry(.07,.085,.85,7),cloth);arm.position.set(xx,1.38,0);g.add(arm);arms.push(arm)}
-  g.userData={legs,arms};scene.add(g);residents.push(g);return g
+  g.userData={legs,arms};scene.add(g);residentScale.normalize(g,{head});residents.push(g);return g
 }
 const p0=person(0x7e4d35),p1=person(0x53695c),p2=person(0x6c6257),bard=person(0x2d5144);
 // Clear walking lanes; the grounding system supplies height and foot contact.
@@ -944,7 +948,7 @@ rv=new THREE.Mesh(new THREE.CylinderGeometry(.42,.48,.18,10),v8Wood);rv.position
 const residentLegs=[],residentArms=[];
 for(const xx of [-.22,.22]){rv=new THREE.Mesh(new THREE.CylinderGeometry(.09,.11,.9,7),v8Boot);rv.position.set(xx,.55,0);residentV8.add(rv);residentLegs.push(rv)}
 for(const xx of [-.52,.52]){rv=new THREE.Mesh(new THREE.CylinderGeometry(.08,.1,1.05,7),v8Coat);rv.position.set(xx,1.7,0);rv.rotation.z=xx<0?-.18:.18;residentV8.add(rv);residentArms.push(rv)}
-residentV8.position.set(-10,1.1,24);residentV8.scale.setScalar(1.25);scene.add(residentV8);
+residentV8.position.set(-10,1.1,24);scene.add(residentV8);residentScale.normalize(residentV8);
 // v6.1 cat — guaranteed definition before animation starts
 const cat=new THREE.Group();
 const catMat=M(0x393632,.9);
