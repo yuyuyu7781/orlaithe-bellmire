@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v11.4 — Orlaithe miniature</title>
+<title>Bellmire v11.5 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:hidden;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -13,11 +13,12 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 .loading{position:fixed;inset:0;z-index:40;display:grid;place-items:center;background:#0b1115;font:20px Georgia,serif;letter-spacing:.22em}.loading.hide{display:none}#error{display:none;position:fixed;inset:0;z-index:50;place-items:center;background:#101820;padding:30px;text-align:center}#error.show{display:grid}
 @media(max-width:700px){.panel{left:8px;top:8px;width:auto;right:8px;padding:10px 12px}.title{font-size:16px}.badge,.sub{font-size:9px}.toggle{display:block}.panel.collapsed{right:auto;width:auto}.panel.collapsed .badge,.panel.collapsed .sub,.panel.collapsed .rows{display:none}.panel.collapsed .title{font-size:14px}.panel.collapsed .toggle{margin-left:8px}.row{gap:5px;margin-top:7px}button,select{padding:7px 9px;font-size:11px}.resident{right:8px;top:auto;bottom:8px;padding:7px 9px}.hint{display:none}}
 .inspect-prompt{position:fixed;z-index:24;right:14px;bottom:65px;background:#202b24ed;color:#ded4bb;max-width:260px;font-size:12px}.inspection-card{position:fixed;z-index:24;right:14px;bottom:112px;width:min(290px,calc(100vw - 28px));padding:12px 14px;background:#18241eef;border:1px solid #b5a57855;border-radius:10px;color:#ded4bb;font-size:12px;line-height:1.7}.inspection-card p{margin:6px 0 9px}.inspection-card button{font-size:11px;padding:4px 9px}.inspect-prompt[hidden],.inspection-card[hidden]{display:none}@media(pointer:coarse){.inspect-prompt{bottom:78px;right:10px;max-width:200px}.inspection-card{bottom:128px;right:10px;width:min(260px,calc(100vw - 175px))}}
+.inspection-card.dialogue-card{background:#c9bd9eed;color:#352f26;border-color:#65594399;box-shadow:0 6px 20px #0004}.dialogue-card strong{font-family:Georgia,"Noto Serif JP",serif}.dialogue-card button{color:#352f26;border-color:#65594366;background:#51473410}.dialogue-portrait{float:left;width:58px;height:76px;margin:4px 12px 6px 0;border:1px solid #766a4e66;border-radius:28px 28px 3px 3px;background:#74684c12;overflow:hidden}.dialogue-portrait img{width:100%;height:100%;object-fit:contain}.portrait-silhouette{display:block;width:26px;height:42px;margin:22px auto 0;border-radius:50% 50% 18% 18%;background:#75694d30}.dialogue-card p{min-height:80px}.dialogue-card::after{content:"";display:block;clear:both}@media(pointer:coarse){.dialogue-portrait{width:42px;height:60px;margin-right:8px}.portrait-silhouette{width:22px;height:34px;margin-top:16px}}
 </style></head>
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v11.4</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v11.5</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
 <div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="streetwalk">路地散歩</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="tavern">酒場</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">ケーブルカー</button><button data-v="resident">住人</button><button data-v="catview">猫</button></div>
 <div class="row"><button id="walk">歩行</button><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div></div></div>
@@ -37,6 +38,7 @@ import {createMillrace} from './waterways.js';
 import {addLifeDetails} from './life-details.js';
 import {createInspectionTargets} from './inspection-targets.js';
 import {createInspectionSystem} from './interaction.js';
+import {createDialogueSystem,addBardDetails} from './dialogue.js';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
 import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
@@ -317,8 +319,8 @@ for(const q of [[2,3.5,8],[20,3.5,18]]){groundAssembly(squareLife,()=>{box(q[0],
 // v8.9 — visible street life: residents, carts and everyday objects
 const streetLife=new THREE.Group();scene.add(streetLife);
 const coat=[M(0x66584e,.96),M(0x58635b,.96),M(0x796353,.96),M(0x59606a,.96)];
-function resident(x,z,i){const g=new THREE.Group();const body=new THREE.Mesh(new THREE.CylinderGeometry(.24,.34,1.05,8),coat[i%coat.length]);body.position.y=.65;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.23,9,7),M(0xb58b6d,.96));head.position.y=1.42;g.add(head);g.position.set(x,3.5,z);streetLife.add(g);residentScale.normalize(g);registerGrounded(g,{person:true})}
-[[7,10,0],[10.5,6,1],[17,12,2],[22,7,3],[-18,29,1],[-24,31,2]].forEach(q=>resident(...q));
+function resident(x,z,i){const g=new THREE.Group();const body=new THREE.Mesh(new THREE.CylinderGeometry(.24,.34,1.05,8),coat[i%coat.length]);body.position.y=.65;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.23,9,7),M(0xb58b6d,.96));head.position.y=1.42;g.add(head);g.position.set(x,3.5,z);streetLife.add(g);residentScale.normalize(g);registerGrounded(g,{person:true});return g}
+const shopResidents=[[7,10,0],[10.5,6,1],[17,12,2],[22,7,3],[-18,29,1],[-24,31,2]].map(q=>resident(...q));
 // handcarts near market and shop lane
 for(const q of [[10,3.5,14],[20,3.5,10],[-21,3.5,29]]){groundAssembly(streetLife,()=>{box(q[0],q[1]+.55,q[2],1.65,.55,.95,v8Wood,streetLife);for(const dx of [-.62,.62]){const w=new THREE.Mesh(new THREE.TorusGeometry(.28,.08,7,12),v8Iron);w.rotation.y=Math.PI/2;w.position.set(q[0]+dx,q[1]+.32,q[2]+.52);streetLife.add(w)}box(q[0],q[1]+.62,q[2]-1.05,.12,.12,1.35,v8Wood,streetLife)});}
 // sacks and baskets clustered rather than evenly scattered
@@ -821,7 +823,7 @@ const hull102=M(0x3b2920,.98),wood102=M(0x765038,.98),rope102=M(0x9b8869,.98),cl
 function boat102(x,z,r=0){const boat=harborBoat(x,z,r,hull102,wood102);waterfront102.add(boat);return boat;}
 boat102(-20.7,40.0,Math.PI/2+.06);boat102(14.0,40.4,Math.PI/2-.08);boat102(1.2,43.4,.06);
 function dockPerson102(x,z,c=shirt102){const g=new THREE.Group();g.position.set(x,1.22,z);waterfront102.add(g);const body=new THREE.Mesh(new THREE.CylinderGeometry(.23,.32,1.05,7),c);body.position.y=.55;g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.23,8,7),skin102);head.position.y=1.28;g.add(head);residentScale.normalize(g);landHarborObject(g,harborLevels.quay);return g;}
-dockPerson102(-19,37.3);dockPerson102(-16.8,39.3,M(0x6d5141,.98));dockPerson102(10.2,37.2,M(0x4b5368,.98));dockPerson102(11.7,40.2,M(0x6c6245,.98));dockPerson102(28.7,34.7,M(0x465c4d,.98));
+const talkingDockWorker=dockPerson102(-19,37.3);dockPerson102(-16.8,39.3,M(0x6d5141,.98));dockPerson102(10.2,37.2,M(0x4b5368,.98));dockPerson102(11.7,40.2,M(0x6c6245,.98));dockPerson102(28.7,34.7,M(0x465c4d,.98));
 // barrels, crates, rope coils and fish baskets
 for(const q of [[-25.4,34.7],[-22.8,34.3],[-13.8,34.3],[9.3,34.3],[14.8,34.3],[21.2,34.3],[30,34.3]]){const b=new THREE.Mesh(new THREE.CylinderGeometry(.35,.4,.72,8),wood102);b.position.set(q[0],1.55,q[1]);waterfront102.add(b);landHarborObject(b,harborLevels.quay);}
 for(const q of [[-12.3,34.3],[1,34.3],[22.6,34.3],[25,34.3]])landHarborObject(box(q[0],1.48,q[1],1.05,.62,.9,wood102,waterfront102),harborLevels.quay);
@@ -941,6 +943,7 @@ function person(c){
   g.userData={legs,arms};scene.add(g);residentScale.normalize(g,{head});residents.push(g);return g
 }
 const p0=person(0x7e4d35),p1=person(0x53695c),p2=person(0x6c6257),bard=person(0x2d5144);
+addBardDetails({THREE,bard});
 // Clear walking lanes; the grounding system supplies height and foot contact.
 const routes=[
  {p:p0,a:new THREE.Vector3(-35,3.5,27.55),b:new THREE.Vector3(-24,3.5,27.55),s:.30},
@@ -1017,7 +1020,8 @@ pedestrianSteps(41.2,9.2,10.3,1,lowerLandingY,1,3);
 let view='overview',followMode=false,followIdx=0;
 const viewMap={overview:[[72,54,78],[-2,7,0]],alley:[[-15,6,36],[-9,5,23]],streetwalk:[[-34,4.4,34],[-18,3.5,24]],resident:[[-4,4.3,29],[-9,3.1,24]],catview:[[-25,3.3,16],[-20,2.0,18]],bakery:[[-39,7,34],[-31,4,24]],bookshop:[[-25,7,38],[-18,6,29]],inn:[[-49,11,11],[-39,8,-1]],tavern:[[-10,8,27],[-10,5.2,12.2]],orrery:[[15,17,12],[3,12,-3]],square:[[-31,6,16],[-24,2,7]],roofgarden:[[-38,18,-8],[-28,11,-18]],mill:[[33,10,39],[20,5,27]],archway:[[39,10,21],[28,5,9]],canal:[[31,7.5,38],[21,.7,27]],rooftop:[[-5,21,13],[-20,7,0]],belfry:[[-4,27,-17],[-13,23,-32]],drone:[[0,33,45],[-8,6,-5]],train:[[51,7,19],[43.5,2.5,12]]};
 function setView(v){if(walking.active)walking.leave();view=v;followMode=false;document.getElementById('follow').classList.remove('active');const[p,t]=viewMap[v];camera.position.fromArray(p);controls.target.fromArray(t);controls.enabled=!['drone','train'].includes(v);document.querySelectorAll('#views button').forEach(b=>b.classList.toggle('active',b.dataset.v===v))}
-function setWeather(w){rain.visible=w==='rain';lit.forEach(m=>m.emissiveIntensity=w==='blackout'?0:.65);ovenGlow.intensity=w==='blackout'?0:2.2;const cfg={clear:[0x9eaaa3,.0018,1.35,1.85,1.02,.18],rain:[0x5d6b70,.010,.7,.38,.78,.30],fog:[0x929b96,.0145,.86,.48,.80,.38],blackout:[0x071017,.012,.12,.02,.48,.18],dawn:[0x5f6c7d,.009,.48,.42,.68,.34],night:[0x07111d,.010,.25,.05,.58,.55]}[w];scene.background.set(cfg[0]);scene.fog.color.set(cfg[0]);scene.fog.density=cfg[1];hemi.intensity=cfg[2];sun.intensity=cfg[3];renderer.toneMappingExposure=cfg[4];bloom.strength=cfg[5];sun.color.set(w==='dawn'?0xd58b62:0xffe2b5);document.querySelectorAll('#weather button').forEach(b=>b.classList.toggle('active',b.dataset.w===w))}
+let currentWeather='clear';
+function setWeather(w){currentWeather=w;rain.visible=w==='rain';lit.forEach(m=>m.emissiveIntensity=w==='blackout'?0:.65);ovenGlow.intensity=w==='blackout'?0:2.2;const cfg={clear:[0x9eaaa3,.0018,1.35,1.85,1.02,.18],rain:[0x5d6b70,.010,.7,.38,.78,.30],fog:[0x929b96,.0145,.86,.48,.80,.38],blackout:[0x071017,.012,.12,.02,.48,.18],dawn:[0x5f6c7d,.009,.48,.42,.68,.34],night:[0x07111d,.010,.25,.05,.58,.55]}[w];scene.background.set(cfg[0]);scene.fog.color.set(cfg[0]);scene.fog.density=cfg[1];hemi.intensity=cfg[2];sun.intensity=cfg[3];renderer.toneMappingExposure=cfg[4];bloom.strength=cfg[5];sun.color.set(w==='dawn'?0xd58b62:0xffe2b5);document.querySelectorAll('#weather button').forEach(b=>b.classList.toggle('active',b.dataset.w===w))}
 document.getElementById('weather').onclick=e=>e.target.dataset.w&&setWeather(e.target.dataset.w);document.getElementById('views').onclick=e=>e.target.dataset.v&&setView(e.target.dataset.v);residentSel.onchange=e=>followIdx=+e.target.value;
 follow.onclick=()=>{if(walking.active){walking.leave();setView(view)}followMode=!followMode;follow.classList.toggle('active',followMode);controls.enabled=!followMode};fullscreen.onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen?.();toggle.onclick=()=>{panel.classList.toggle('collapsed');toggle.textContent=panel.classList.contains('collapsed')?'操作':'街を見る'};if(innerWidth<701)panel.classList.add('collapsed');
 // v8.2 movement helpers
@@ -1088,6 +1092,8 @@ const inspectTargets=createInspectionTargets({culture,well:squareWell,
   wheel,millrace,landings:culture.landingBells[0],details:lifeDetails});
 const inspections=createInspectionSystem({THREE,scene,camera,walking,targets:inspectTargets,
   ignored:[...residents,residentV8,cat,...smoke,train,axle]});
+const dialogue=createDialogueSystem({THREE,inspections,walking,getTime:()=>currentWeather,
+  actors:{baker:p0,bookseller:shopResidents[4],boatworker:talkingDockWorker,starmaker:shopResidents[1],greenBard:bard}});
 walk.onclick=()=>{
   if(walking.active){walking.leave();setView(view);return}
   followMode=false;follow.classList.remove('active');

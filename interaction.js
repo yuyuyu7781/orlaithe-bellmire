@@ -32,9 +32,13 @@ export function createInspectionSystem({THREE,scene,camera,walking,targets,ignor
   const prompt=document.createElement('button'),card=document.createElement('aside'),title=document.createElement('strong'),text=document.createElement('p'),close=document.createElement('button');
   prompt.id='inspectPrompt';prompt.className='inspect-prompt';prompt.hidden=true;prompt.setAttribute('aria-keyshortcuts','E');prompt.setAttribute('aria-controls','inspectionCard');
   card.id='inspectionCard';card.className='inspection-card';card.hidden=true;card.setAttribute('role','status');card.setAttribute('aria-live','polite');close.textContent='閉じる';close.setAttribute('aria-label','説明を閉じる');card.append(title,text,close);document.body.append(prompt,card);
+  const content=document.createElement('div');card.insertBefore(content,text);
   let selected=null,opened=null,elapsed=0;
-  function dismiss(){opened=null;card.hidden=true;}
-  handlers.set('inspect',entry=>{title.textContent=entry.label;text.textContent=entry.text;opened=entry;card.hidden=false;});
+  function dismiss(){opened=null;card.hidden=true;content.replaceChildren();}
+  function present(entry,{label=entry.label,text:message=entry.text,kind=entry.kind,extra=null}={}){
+    title.textContent=label;text.textContent=message;content.replaceChildren(...(extra?[extra]:[]));card.classList.toggle('dialogue-card',kind==='talk');opened=entry;card.hidden=false;
+  }
+  handlers.set('inspect',entry=>present(entry));
   function activate(){update(.2);if(!selected||!walking.active)return false;const handle=handlers.get(selected.kind);if(!handle)return false;handle(selected);return true;}
   function update(dt){
     if(!walking.active){selected=null;prompt.hidden=true;dismiss();elapsed=0;return;}
@@ -48,5 +52,5 @@ export function createInspectionSystem({THREE,scene,camera,walking,targets,ignor
   }
   const click=e=>{e.stopPropagation();activate();};prompt.addEventListener('click',click);close.addEventListener('click',dismiss);document.addEventListener('keydown',key);
   function destroy(){document.removeEventListener('keydown',key);prompt.remove();card.remove();}
-  return {resolver,handlers,activate,update,dismiss,destroy,get selected(){return selected},get opened(){return opened}};
+  return {resolver,handlers,present,activate,update,dismiss,destroy,get selected(){return selected},get opened(){return opened}};
 }
