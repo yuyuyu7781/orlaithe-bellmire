@@ -112,7 +112,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   function look(dx,dy){state.yaw-=dx*.003;state.pitch=THREE.MathUtils.clamp(state.pitch-dy*.003,-1.25,1.25)}
   function updateCamera(dt){
     eyeY=THREE.MathUtils.lerp(eyeY,state.feet.y+state.profile.eyeHeight,1-Math.exp(-18*dt));
-    eyeY=Math.max(eyeY,state.feet.y+Math.min(.22,state.profile.eyeHeight));
+    eyeY=Math.max(eyeY,state.feet.y+Math.min(state.profile.id==='cat'?.12:.22,state.profile.eyeHeight));
     camera.position.set(state.feet.x,eyeY,state.feet.z);
     euler.set(state.pitch,state.yaw,0);camera.quaternion.setFromEuler(euler);
   }

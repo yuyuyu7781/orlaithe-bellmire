@@ -18,5 +18,12 @@ export function createInspectionTargets({culture,well,moorings,wheel,millrace,la
     ['market-wool',culture.goods.find(o=>o.name==='Square wool'),'広場の羊毛','羊毛には、丘で干した草の匂いが残っている。染める色は、家ごとに少し違う。',[0,.55,0]],
     ['star-chart',details.chart,'古い星図','円の外には、道にも似た細い線がある。旅人の書き込みは、消さずに残すらしい。']
   ];
-  return specs.map(([id,object,label,text,localPoint])=>{if(!object)throw Error('Missing inspect object: '+id);return {id,kind:'inspect',object,label,text,localPoint,range:id==='orrery'?4.2:3.8,profiles:['human']};});
+  const catText={
+    well:'縁の石はひんやりしている。桶が動くたび、底の方で音が丸く返る。',
+    'travel-stone':'何人もの手の匂いが重なっている。浅い溝には、昼の温もりが少し残っている。',
+    moorings:'濡れた縄と、魚籠の匂い。杭の陰は、風が弱い。',
+    mill:'低い水音に、木がきしむ音が混ざる。輪の下へは、近づきすぎない方がよさそうだ。',
+    'market-wool':'乾いた草と羊の匂い。籠の間には、鼻先ほどの隙間がある。'
+  };
+  return specs.map(([id,object,label,text,localPoint])=>{if(!object)throw Error('Missing inspect object: '+id);return {id,kind:'inspect',object,label,text,localPoint,range:id==='orrery'?4.2:3.8,profiles:catText[id]?['human','cat']:['human'],textByProfile:catText[id]?{cat:catText[id]}:undefined};});
 }

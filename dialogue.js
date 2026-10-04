@@ -9,20 +9,22 @@ export function createDialogueSystem({THREE,inspections,walking,actors,getTime=(
     const b=new THREE.Box3().setFromObject(object,true),point=b.getCenter(new THREE.Vector3());
     point.y=b.min.y+(b.max.y-b.min.y)*.80;
     // Local coordinates track moving residents and corrected terrain contact.
-    const localPoint=object.worldToLocal(point).toArray();
-    const entry={id:'talk:'+character.id,kind:'talk',verb:'話す',object,localPoint,
-      label:character.name+'（'+character.role+'）',range:3.1,profiles:['human'],contactPoint:[0,0,0],levelTolerance:.65,character};
+    const localPoint=object.worldToLocal(point.clone()).toArray();
+    const catPoint=point.clone();catPoint.y=b.min.y+Math.min(1.45,(b.max.y-b.min.y)*.80);
+    const localPoints={cat:object.worldToLocal(catPoint).toArray()};
+    const entry={id:'talk:'+character.id,kind:'talk',verb:'話す',object,localPoint,localPoints,
+      label:character.name+'（'+character.role+'）',range:3.1,profiles:['human','cat'],contactPoint:[0,0,0],levelTolerance:.65,character};
     unregister.push(inspections.resolver.register(entry));entries.push(entry);
   }
   function speak(entry){
-    const character=entry.character,index=turns.get(character.id)??0;
+    const character=entry.character,profile=walking.state.profile.id,key=profile==='human'?character.id:character.id+':'+profile,index=turns.get(key)??0;
     const time=getTime(),turn=selectDialogueTurn(character,{profile:walking.state.profile.id,time,index}),text=turn.text;
     const image=selectPortrait(character,{expression:turn.expression,time});
     const portrait=document.createElement('div');portrait.className='dialogue-portrait';
     if(image?.src){const img=document.createElement('img');img.alt=image.alt??character.name;img.src=image.src;img.onerror=()=>{img.remove();placeholder();};portrait.append(img);}
     else placeholder();
     function placeholder(){const span=document.createElement('span');span.className='portrait-silhouette';span.setAttribute('aria-hidden','true');portrait.append(span);portrait.setAttribute('aria-label',character.name+'の肖像（未設定）');}
-    inspections.present(entry,{label:entry.label,text,kind:'talk',extra:portrait});turns.set(character.id,index+1);
+    inspections.present(entry,{label:entry.label,text,kind:'talk',extra:portrait});turns.set(key,index+1);
   }
   inspections.handlers.set('talk',speak);
   return {characters,entries,turns,destroy(){unregister.forEach(fn=>fn());inspections.handlers.delete('talk');if(inspections.opened?.kind==='talk')inspections.dismiss();}};

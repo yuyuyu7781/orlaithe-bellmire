@@ -21,3 +21,10 @@ for(const p of Object.values(weatherProfiles)){assert.ok(periodSettings[p.period
 for(let z=-60;z<60;z+=.25){const d=districtWeights(0,z),n=districtWeights(0,z+.001);assert.ok(Math.abs(d.upper+d.middle+d.harbor-1)<1e-9);for(const k of Object.keys(d)){assert.ok(d[k]>=0&&d[k]<=1);assert.ok(Math.abs(d[k]-n[k])<.001);}}
 assert.ok(waterInfluence(21,5,28)>.9);assert.equal(waterInfluence(-30,5,0),0);
 console.log('PASS dialogue/portrait compatibility, expression and night variants, actor/time fallback, six weather profiles and continuous district/water settings');
+
+// Alternate actor content must not silently fall back to human explanations.
+for(const c of characters){assert.ok(c.lines.cat.default.length);assert.notEqual(selectDialogue(c,{profile:'cat'}),selectDialogue(c,{profile:'human'}));assert.equal(selectPortrait(c),null);}
+const finn=characters.find(c=>c.id==='greenBard');
+assert.match(selectDialogue(finn,{profile:'cat',time:'night',index:0}),/そちらで歩いて/);
+assert.notEqual(selectDialogue(finn,{profile:'cat',index:0}),selectDialogue(finn,{profile:'cat',index:1}));
+console.log('PASS five feline reactions / Finn first encounter across periods / portrait remains unset');

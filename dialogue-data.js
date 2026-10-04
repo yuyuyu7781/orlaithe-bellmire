@@ -27,10 +27,19 @@ const timedLines={
 };
 for(const character of characters)Object.assign(character.lines.human,timedLines[character.id]);
 
+const felineLines={
+ baker:{default:['そこは粉だらけになるよ。籠の横なら、まだ温かいからね。'],night:['今夜の窯はおしまい。暖かい石の方で休んでおいで。']},
+ bookseller:{default:['また本の上に乗るつもりかい。開いた頁だけは、空けておいておくれ。']},
+ boatworker:{default:['魚なら今日はまだないぞ。縄で遊ぶのは、荷が下りてからだ。'],night:['もう魚籠は空だよ。桟橋の端へは行きすぎるな。']},
+ starmaker:{default:['君には星より、あの小さな光の方が気になるかな。真鍮は冷たいから、鼻を近づけすぎないで。']},
+ greenBard:{first:['今日は、そちらで歩いているんだね。ここなら、水音も近くに聞こえる。'],default:['この段の端は、昼間の温もりが残っているよ。少し休んでいく？'],night:['今夜は、低い音の方がよく聞こえるね。弦をひとつ、ゆるめてみようか。']}
+};
+for(const character of characters)Object.assign(character.lines.cat,felineLines[character.id]);
+
 export function selectDialogueTurn(character,{profile='human',time='clear',index=0}={}){
  const period=['morning','day','evening','night'].includes(time)?time:periodForWeather(time);
  const actor=character.lines[profile]??character.lines.human;
- const lines=actor[time]?.length?actor[time]:actor[period]?.length?actor[period]:actor.default?.length?actor.default:character.lines.human.default;
+ const lines=index===0&&actor.first?.length?actor.first:actor[time]?.length?actor[time]:actor[period]?.length?actor[period]:actor.default?.length?actor.default:character.lines.human.default;
  const turn=lines[index%lines.length];return typeof turn==='string'?{text:turn,expression:'default'}:{expression:'default',...turn};
 }
 export function selectDialogue(character,options){return selectDialogueTurn(character,options).text;}
