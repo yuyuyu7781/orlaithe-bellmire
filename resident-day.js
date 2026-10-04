@@ -27,7 +27,7 @@ export function createResidentDay({THREE,walking,grounding,residentLife,townLife
    if(walking.active&&walking.state.feet.distanceTo(e.feet)<.72&&Math.abs(walking.state.feet.y-e.feet.y)<.5){e.pause+=stepTime;e.record.activity='listening';place(e);continue;}
    const neighbor=entries.find(other=>other!==e&&other.visible&&!other.inside&&other.feet.distanceTo(e.feet)<.60&&other.index<e.index);
    if(neighbor){if(e.feet.distanceTo(nodes[e.route.at(-1)].point)<1.15){e.cursor=e.route.length;arrive(e);if(!e.inside){e.currentState=neighbor.currentState='talking';e.record.activity=neighbor.record.activity='conversation';}}else e.wait=.25;place(e);continue;}
-   if(distance2<.006){e.feet.copy(target);e.node=e.route[e.cursor++];if(e.cursor%70===0)e.wait=.5+e.index*.11;place(e);continue;}
+   if(distance2<.006){const floor=walking.canStandTownAs('human',target.x,target.z,e.feet.y);if(floor===null){e.wait=.4;place(e);continue;}e.feet.set(target.x,floor,target.z);e.node=e.route[e.cursor++];if(e.cursor%70===0)e.wait=.5+e.index*.11;place(e);continue;}
    const n=Math.max(1,Math.ceil(move/.06));let advanced=false;
    for(let j=0;j<n;j++){const x=e.feet.x+delta.x/distance2*move/n,z=e.feet.z+delta.z/distance2*move/n,y=walking.canStandTownAs('human',x,z,e.feet.y);if(y===null){e.wait=.4;break;}e.feet.set(x,y,z);advanced=true;}
    if(advanced){e.record.object.rotation.y=Math.atan2(delta.x,delta.z);e.record.walkPhase=(e.record.walkPhase??0)+move*6;e.record.activity='walking';e.currentState=e.destination==='home'&&period==='night'?'goingHome':'walking';}

@@ -1,3 +1,4 @@
+import {townEventDefinitions} from './shop-data.js';
 // Small, lazy rooms share the town's renderer and walking profiles. Furniture
 // defines visible collision; unopened rooms have no meshes or animation work.
 export function buildInterior({THREE,shop}){
@@ -8,6 +9,7 @@ export function buildInterior({THREE,shop}){
  function mesh(geometry,m,p,solid=true){const o=new THREE.Mesh(geometry,m);o.position.fromArray(p);root.add(o);o.receiveShadow=false;o.castShadow=false;if(solid)obstacles.push({object:o,bounds:new THREE.Box3(),isFloor:false});return o;}
  const box=(x,y,z,w,h,d,m,solid=true)=>mesh(new THREE.BoxGeometry(w,h,d),m,[x,y+h/2,z],solid);
  const cylinder=(x,y,z,r,h,m,solid=true)=>mesh(new THREE.CylinderGeometry(r,r,h,8),m,[x,y+h/2,z],solid);
+ function floor(x,y,z,w,d){const o=box(x,y-.16,z,w,.16,d,wood,false);supports.push(o);obstacles.push({object:o,bounds:new THREE.Box3(),isFloor:true});return o;}
  function lamp(x,y,z){box(x,y,z,.12,.08,.12,dark,false);box(x,y+.08,z,.17,.25,.17,glow,false);box(x,y+.33,z,.23,.06,.23,wood,false);}
  function table(x,z,w=1.35,d=.75,h=.83){for(const dx of [-w/2+.09,w/2-.09])for(const dz of [-d/2+.09,d/2-.09])box(x+dx,0,z+dz,.09,h,.09,wood);return box(x,h,z,w,.10,d,wood);}
  function shelf(x,z,books=false){box(x,0,z,1.65,2.25,.48,wood);for(let j=0;j<3;j++){box(x,.42+j*.62,z+.26,1.52,.08,.12,linen,false);for(let k=0;k<5;k++)if(books){box(x-.58+k*.28,.5+j*.62,z+.29,.17,.34+.05*(k%2),.10,k%2?accent:paper,false);}else{cylinder(x-.56+k*.28,.50+j*.62,z+.28,.09,.12,linen,false);}}}
@@ -35,6 +37,7 @@ export function buildInterior({THREE,shop}){
  }else if(shop.id==='bookshop'){
   shelf(-2.5,-4,true);shelf(-.4,-4,true);shelf(1.7,-4,true);shelf(-2.5,-2.5,true);
   table(2.35,-1.9,1.15,.8);lamp(2.35,.93,-1.9);for(let i=0;i<4;i++)box(2.15,.94+i*.035,-1.8,.32,.03,.26,i%2?paper:accent,false);
+  notice('hidden-book','棚脇の薄い本','紙の匂いが、棚の隙間からする。薄い本が一冊、奥へ滑り込んでいた。',[-1.35,.10,.12]);Object.assign(inspect.at(-1),{kind:'town-event',profiles:['cat'],event:townEventDefinitions.find(e=>e.id==='missing-folio')});
   notice('ledger','机の紙束','紙の端には、何人もの指の跡がある。書きかけの頁は閉じずに置かれている。',[2.3,1,-1.8]);
  }else if(shop.id==='inn'){
   box(1.8,0,-2.3,2.5,.96,.70,wood);lamp(1.8,.96,-2.3);stack(-2.8,-3.6);stack(-2,-3.6);
