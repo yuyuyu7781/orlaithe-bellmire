@@ -2,7 +2,7 @@
 // No route AI, second clock, per-frame searches or new resident models.
 export function createResidentDay({THREE,walking,grounding,residentLife,townLife,shopSystem}){
  const records=residentLife.records.filter(r=>!r.id&&!r.moving&&!r.seated).slice(0,8);
- const entries=records.map((record,i)=>({record,index:i,parent:record.object.parent,position:record.object.position.clone(),rotation:record.object.rotation.clone(),visible:record.object.visible,feet:new THREE.Box3().setFromObject(record.object,true).min.y}));
+ const entries=records.map((record,i)=>({record,index:i,parent:record.object.parent,position:record.object.position.clone(),rotation:record.object.rotation.clone(),visible:record.object.visible}));
  let period=townLife.state.period,lastRoom=undefined;const changes=[];
  function place(e,point,angle){const o=e.record.object;o.position.copy(o.parent.worldToLocal(point.clone()));o.rotation.set(0,angle,0);o.updateWorldMatrix(true,true);o.position.y+=point.y-new THREE.Box3().setFromObject(o,true).min.y;}
  function safe(p){for(const [dx,dz]of [[0,0],[.35,0],[-.35,0],[0,.35],[0,-.35],[.6,.6],[-.6,-.6]]){const x=p.x+dx,z=p.z+dz,y=grounding.heightAt(x,z);if(y!==null&&walking.canStandAs('human',x,z,y)!==null)return new THREE.Vector3(x,y,z);}return null;}

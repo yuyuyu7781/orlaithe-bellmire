@@ -1,0 +1,824 @@
+{
+  "version": "14.3–14.8",
+  "baselineCommit": "c5298def8f5e427afbddba24f3e041f8cd16e1c6",
+  "browser": "Chromium / software WebGL; not a physical smartphone benchmark",
+  "walking": {
+    "routes": [
+      {
+        "from": "square",
+        "to": "bakery",
+        "samples": 1127,
+        "maxEyeDelta": 0.06176738668342319,
+        "feet": [
+          -25.965,
+          3.5,
+          27
+        ]
+      },
+      {
+        "from": "square",
+        "to": "bookshop",
+        "samples": 925,
+        "maxEyeDelta": 0.06176738668342319,
+        "feet": [
+          -13.865000095367431,
+          1.592000003814697,
+          32.399999904632566
+        ]
+      },
+      {
+        "from": "square",
+        "to": "inn",
+        "samples": 1775,
+        "maxEyeDelta": 0.07025682957107104,
+        "feet": [
+          -32.965,
+          6.249999976158142,
+          2.5
+        ]
+      },
+      {
+        "from": "square",
+        "to": "tavern",
+        "samples": 257,
+        "maxEyeDelta": 0,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "square",
+        "to": "orrery",
+        "samples": 1134,
+        "maxEyeDelta": 0.07025682977865699,
+        "feet": [
+          3,
+          6.249999976158142,
+          1.7850000000000001
+        ]
+      },
+      {
+        "from": "market",
+        "to": "tavern",
+        "samples": 709,
+        "maxEyeDelta": 0,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "market",
+        "to": "bakery",
+        "samples": 1579,
+        "maxEyeDelta": 0.06176738668342319,
+        "feet": [
+          -25.965,
+          3.5,
+          27
+        ]
+      },
+      {
+        "from": "harbor",
+        "to": "tavern",
+        "samples": 569,
+        "maxEyeDelta": 0.061767353332156105,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "harbor",
+        "to": "market",
+        "samples": 764,
+        "maxEyeDelta": 0.061767353332156105,
+        "feet": [
+          19.566,
+          3.5,
+          15.586
+        ]
+      },
+      {
+        "from": "harbor",
+        "to": "bakery",
+        "samples": 815,
+        "maxEyeDelta": 0.061705388020860674,
+        "feet": [
+          -25.965,
+          3.5,
+          27
+        ]
+      },
+      {
+        "from": "mill",
+        "to": "tavern",
+        "samples": 2365,
+        "maxEyeDelta": 0.08155342164849166,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "mill",
+        "to": "harbor",
+        "samples": 1962,
+        "maxEyeDelta": 0.08155342164849166,
+        "feet": [
+          0,
+          1.3799999976158142,
+          31.99840000000012
+        ]
+      },
+      {
+        "from": "orrery",
+        "to": "tavern",
+        "samples": 1029,
+        "maxEyeDelta": 0.07291144348578982,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "cable",
+        "to": "square",
+        "samples": 2228,
+        "maxEyeDelta": 0.08408657486396764,
+        "feet": [
+          2.849999999999999,
+          3.5,
+          18.500000000000128
+        ]
+      },
+      {
+        "from": "belfry",
+        "to": "square",
+        "samples": 988,
+        "maxEyeDelta": 0.0778443175526764,
+        "feet": [
+          2.849999999999999,
+          3.5,
+          18.500000000000128
+        ]
+      },
+      {
+        "from": "straight-tavern-lane",
+        "to": "tavern",
+        "samples": 168,
+        "maxEyeDelta": 0,
+        "feet": [
+          -5.365,
+          3.5,
+          12.3
+        ]
+      }
+    ],
+    "lane": {
+      "tested": 520,
+      "valid": 520
+    }
+  },
+  "dailyLife": [
+    {
+      "time": "morning",
+      "day": {
+        "scheduled": 8,
+        "period": "morning",
+        "outsideVisible": 8,
+        "addedResidents": 0
+      },
+      "changes": [
+        {
+          "index": 0,
+          "activity": "sweeping",
+          "visible": true,
+          "position": [
+            6.2,
+            3.5,
+            10.2
+          ]
+        },
+        {
+          "index": 1,
+          "activity": "carrying",
+          "visible": true,
+          "position": [
+            17.8,
+            3.5,
+            12.2
+          ]
+        },
+        {
+          "index": 2,
+          "activity": "sweeping",
+          "visible": true,
+          "position": [
+            21.2,
+            3.5,
+            7.9
+          ]
+        },
+        {
+          "index": 3,
+          "activity": "carrying",
+          "visible": true,
+          "position": [
+            -27.031088913245537,
+            1.0000000000000004,
+            29.25
+          ]
+        },
+        {
+          "index": 4,
+          "activity": "sweeping",
+          "visible": true,
+          "position": [
+            5.949999999999999,
+            3.5000000000000004,
+            12.299999999999999
+          ]
+        },
+        {
+          "index": 5,
+          "activity": "carrying",
+          "visible": true,
+          "position": [
+            7.8999999999999995,
+            3.5,
+            12.299999999999999
+          ]
+        },
+        {
+          "index": 6,
+          "activity": "sweeping",
+          "visible": true,
+          "position": [
+            8,
+            6.249999976158142,
+            4.7
+          ]
+        },
+        {
+          "index": 7,
+          "activity": "carrying",
+          "visible": true,
+          "position": [
+            9.294974746830583,
+            3.5000000000000004,
+            7.694974746830583
+          ]
+        }
+      ],
+      "lights": {
+        "windows": 261,
+        "litWindows": 141,
+        "lamps": 46,
+        "pointLights": 12
+      }
+    },
+    {
+      "time": "day",
+      "day": {
+        "scheduled": 8,
+        "period": "day",
+        "outsideVisible": 8,
+        "addedResidents": 0
+      },
+      "changes": [
+        {
+          "index": 0,
+          "activity": "browsing",
+          "visible": true,
+          "position": [
+            7,
+            3.5000000000000004,
+            10
+          ]
+        },
+        {
+          "index": 1,
+          "activity": "sweeping",
+          "visible": true,
+          "position": [
+            17,
+            3.5000000000000004,
+            12
+          ]
+        },
+        {
+          "index": 2,
+          "activity": "resting",
+          "visible": true,
+          "position": [
+            22,
+            3.5000000000000004,
+            7.7
+          ]
+        },
+        {
+          "index": 3,
+          "activity": "carrying",
+          "visible": true,
+          "position": [
+            -27.031088913245537,
+            1.0000000000000004,
+            29.25
+          ]
+        },
+        {
+          "index": 4,
+          "activity": "browsing",
+          "visible": true,
+          "position": [
+            5.8,
+            3.500000000000001,
+            11.5
+          ]
+        },
+        {
+          "index": 5,
+          "activity": "conversation",
+          "visible": true,
+          "position": [
+            7.1,
+            3.5000000000000004,
+            12.1
+          ]
+        },
+        {
+          "index": 6,
+          "activity": "sweeping",
+          "visible": true,
+          "position": [
+            8,
+            6.249999976158142,
+            4.7
+          ]
+        },
+        {
+          "index": 7,
+          "activity": "resting",
+          "visible": true,
+          "position": [
+            8.494974746830584,
+            3.500000000000001,
+            7.494974746830583
+          ]
+        }
+      ],
+      "lights": {
+        "windows": 261,
+        "litWindows": 172,
+        "lamps": 46,
+        "pointLights": 12
+      }
+    },
+    {
+      "time": "evening",
+      "day": {
+        "scheduled": 8,
+        "period": "evening",
+        "outsideVisible": 8,
+        "addedResidents": 0
+      },
+      "changes": [
+        {
+          "index": 0,
+          "activity": "carrying",
+          "visible": true,
+          "position": [
+            -5.1,
+            3.5,
+            15.55
+          ]
+        },
+        {
+          "index": 1,
+          "activity": "conversation",
+          "visible": true,
+          "position": [
+            -4.1499999999999995,
+            3.5,
+            16.45
+          ]
+        },
+        {
+          "index": 2,
+          "activity": "carrying",
+          "visible": true,
+          "position": [
+            22,
+            3.5000000000000004,
+            7.7
+          ]
+        },
+        {
+          "index": 3,
+          "activity": "conversation",
+          "visible": true,
+          "position": [
+            -27.031088913245537,
+            1.0000000000000004,
+            29.25
+          ]
+        },
+        {
+          "index": 4,
+          "activity": "carrying",
+          "visible": true,
+          "position": [
+            5.8,
+            3.500000000000001,
+            11.5
+          ]
+        },
+        {
+          "index": 5,
+          "activity": "conversation",
+          "visible": true,
+          "position": [
+            7.1,
+            3.5000000000000004,
+            12.1
+          ]
+        },
+        {
+          "index": 6,
+          "activity": "carrying",
+          "visible": true,
+          "position": [
+            8,
+            6.249999976158142,
+            4.7
+          ]
+        },
+        {
+          "index": 7,
+          "activity": "conversation",
+          "visible": true,
+          "position": [
+            8.494974746830584,
+            3.500000000000001,
+            7.494974746830583
+          ]
+        }
+      ],
+      "lights": {
+        "windows": 261,
+        "litWindows": 178,
+        "lamps": 46,
+        "pointLights": 12
+      }
+    },
+    {
+      "time": "night",
+      "day": {
+        "scheduled": 8,
+        "period": "night",
+        "outsideVisible": 2,
+        "addedResidents": 0
+      },
+      "changes": [
+        {
+          "index": 0,
+          "activity": "resting",
+          "visible": true,
+          "position": [
+            -5.1,
+            3.5,
+            15.55
+          ]
+        },
+        {
+          "index": 1,
+          "activity": "resting",
+          "visible": true,
+          "position": [
+            -33.8,
+            6.249999976158142,
+            4.1
+          ]
+        },
+        {
+          "index": 2,
+          "activity": "resting",
+          "visible": false,
+          "position": [
+            22,
+            3.5000000000000004,
+            7.7
+          ]
+        },
+        {
+          "index": 3,
+          "activity": "resting",
+          "visible": false,
+          "position": [
+            -27.031088913245537,
+            1.0000000000000004,
+            29.25
+          ]
+        },
+        {
+          "index": 4,
+          "activity": "resting",
+          "visible": false,
+          "position": [
+            5.8,
+            3.500000000000001,
+            11.5
+          ]
+        },
+        {
+          "index": 5,
+          "activity": "resting",
+          "visible": false,
+          "position": [
+            7.1,
+            3.5000000000000004,
+            12.1
+          ]
+        },
+        {
+          "index": 6,
+          "activity": "resting",
+          "visible": false,
+          "position": [
+            8,
+            6.249999976158142,
+            4.7
+          ]
+        },
+        {
+          "index": 7,
+          "activity": "resting",
+          "visible": false,
+          "position": [
+            8.494974746830584,
+            3.500000000000001,
+            7.494974746830583
+          ]
+        }
+      ],
+      "lights": {
+        "windows": 261,
+        "litWindows": 86,
+        "lamps": 46,
+        "pointLights": 12
+      }
+    }
+  ],
+  "eventOperations": [
+    {
+      "id": "delayed-grain",
+      "profile": "human",
+      "text": "届いていない小麦袋\n\n荷札には袋が三つとある。並んでいるのは二つで、残りの場所だけきれいに空いている。\n\n閉じる"
+    },
+    {
+      "id": "missing-folio",
+      "profile": "human",
+      "text": "空いた本の包み\n\n紐だけが丸く残っている。誰かが本を読み終えたら、ここへ戻すつもりだったのだろう。\n\n閉じる"
+    },
+    {
+      "id": "cat-bread",
+      "profile": "cat",
+      "text": "袋の裏の匂い\n\n粉の匂いの奥に、冷めたパンの甘い匂いがある。小さな欠片が、袋の陰に転がっている。\n\n閉じる"
+    },
+    {
+      "id": "cat-ribbon",
+      "profile": "cat",
+      "text": "荷物の陰の紐\n\n箱の陰で、短い紐が風に動いている。人の手より、濡れた木の匂いが強い。\n\n閉じる"
+    }
+  ],
+  "catPassages": [
+    {
+      "id": "cat-route-market",
+      "humanBlocked": true,
+      "samples": 40,
+      "maxEyeDelta": 0,
+      "feet": [
+        19.565685424949237,
+        3.5,
+        17.545685424949237
+      ]
+    },
+    {
+      "id": "cat-route-harbor",
+      "humanBlocked": true,
+      "samples": 40,
+      "maxEyeDelta": 0,
+      "feet": [
+        26,
+        4.15,
+        31.48
+      ]
+    },
+    {
+      "id": "cat-route-bakery",
+      "humanBlocked": true,
+      "samples": 40,
+      "maxEyeDelta": 0,
+      "feet": [
+        -37.47820725201806,
+        3.5,
+        25.592293491784144
+      ]
+    }
+  ],
+  "performance": [
+    {
+      "baseline": true,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2841,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2574,
+          "triangles": 100685,
+          "ms": 15,
+          "textures": 18,
+          "programs": 19
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2841,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34316,
+          "ms": 7,
+          "textures": 18,
+          "programs": 19
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2841,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2574,
+          "triangles": 100685,
+          "ms": 27.899999976158142,
+          "textures": 18,
+          "programs": 19
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2841,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34316,
+          "ms": 8.199999988079071,
+          "textures": 18,
+          "programs": 19
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2841,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2560,
+          "triangles": 100671,
+          "ms": 23.5,
+          "textures": 18,
+          "programs": 28
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2841,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 140,
+          "triangles": 34302,
+          "ms": 8.700000017881393,
+          "textures": 18,
+          "programs": 28
+        }
+      ],
+      "median": 30.69999998807907
+    },
+    {
+      "baseline": false,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2579,
+          "triangles": 101349,
+          "ms": 26.400000005960464,
+          "textures": 18,
+          "programs": 19
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34580,
+          "ms": 7.199999988079071,
+          "textures": 18,
+          "programs": 19
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2579,
+          "triangles": 101349,
+          "ms": 50.099999994039536,
+          "textures": 18,
+          "programs": 19
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34580,
+          "ms": 2.4000000059604645,
+          "textures": 18,
+          "programs": 19
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2565,
+          "triangles": 101335,
+          "ms": 12.900000005960464,
+          "textures": 18,
+          "programs": 28
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 140,
+          "triangles": 34566,
+          "ms": 6.0999999940395355,
+          "textures": 18,
+          "programs": 28
+        }
+      ],
+      "median": 34.70000001788139
+    }
+  ],
+  "functionalChecks": [
+    "5 shops entry/exit in human and cat mode",
+    "5 human and 5 cat conversations with official portraits",
+    "14 original human and 5 original cat inspection targets preserved",
+    "6 weather profiles",
+    "19 cameras",
+    "resident follow",
+    "resident/cat/wheel/cable animation",
+    "390×844 touch navigation, minimap, arrival, entry, dialogue, exit, Mobile quality",
+    "resident contact/idle/hidden and indoor fixture",
+    "Native four-period selector with panel expanded; daytime eight / nighttime two scheduled people outdoors",
+    "Final gait and idle update: all 19 cameras, six weather, follow and animation smoke passed"
+  ],
+  "notes": [
+    "Full daily path AI and persistent quests are not implemented",
+    "Rumors and discoveries use existing interaction/data hooks",
+    "Interior rooms are lazy and only the active room is shown"
+  ]
+}

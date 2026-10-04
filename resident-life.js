@@ -56,7 +56,7 @@ export function createResidentLife({THREE,scene,camera=null,residentScale,actors
   if(role.prop==='rope'){for(let i=0;i<4;i++)add('ball',prop,[(i%2?1:-1)*.075/sx,Math.floor(i/2)*.045/sy,0],[.11/sx,.036/sy,.095/sz],0x978265);}
   if(role.prop==='crate'){add('block',prop,[0,-.02/sy,0],[.40/sx,.28/sy,.29/sz],0x8c7354);for(const x of [-.15,.15])add('block',prop,[x/sx,-.02/sy,.15/sz],[.035/sx,.28/sy,.025/sz],0x5e4c39);}
   if(role.prop==='broom'){prop.position.x=.32/sx;add('limb',prop,[0,-.25/sy,0],[.028/sx,.88/sy,.028/sz],0x877051);add('block',prop,[0,-.72/sy,0],[.23/sx,.10/sy,.08/sz],0xaca07a);}
-  const record={object:o,head,body,baseBody:body.rotation.clone(),baseHead:head.rotation.clone(),arms,feet,variation,role,id,moving:!!motion,seated:entry.seated,prop,scale:{sx,sy,sz},lastTime:null};records.push(record);o.userData.residentLife={role:id??role.activity,posture:role.posture,heightFactor:variation.height,shoulderFactor:variation.shoulders};
+  const record={object:o,head,body,baseBody:body.rotation.clone(),baseHead:head.rotation.clone(),arms,feet,variation,role,id,moving:!!motion,seated:entry.seated,prop,scale:{sx,sy,sz},lastTime:null};records.push(record);o.userData.residentLife={role:id??role.activity,posture:role.posture,heightFactor:variation.height,shoulderFactor:variation.shoulders,gaitSpeed:.92+variation.seed*.16,gaitAmplitude:.94+variation.seed*.12};
   o.updateWorldMatrix(true,true);
   // No terrain re-placement: maintain each original foot/seat world height.
   if(!entry.seated){const contact=new THREE.Box3().setFromObject(feet[0]??o,true).min.y;o.position.y+=(b.min.y-contact)/(o.parent?.getWorldScale(new THREE.Vector3()).y??1);}
@@ -75,13 +75,13 @@ export function createResidentLife({THREE,scene,camera=null,residentScale,actors
     body.rotation.z=r.baseBody.z+weight+breath*.008*quiet;body.rotation.x=r.baseBody.x+(role.posture==='working'?.035:role.posture==='thoughtful'?.015:-.009)+Math.sin(time*.63+v.phase)*.006*quiet;
     head.rotation.y=r.baseHead.y+look*.16*quiet;head.rotation.x=r.baseHead.x+(role.activity==='reading'||role.activity==='measuring'?.055:0)+breath*.025*quiet;
    }
-   arms.forEach((arm,i)=>{const sign=i?1:-1;arm.rotation.z=(role.prop?-sign*.21:sign*.10)+Math.sin(time*.7+v.phase+i)*.012*quiet;if(role.prop)arm.rotation.x=-1.04+Math.sin(time*.57+v.phase)*.035*quiet;else if(!r.moving)arm.rotation.x=Math.sin(time*.61+v.phase+i)*.04*quiet;});
+   if(pose){arms.forEach((arm,i)=>{const sign=i?1:-1;arm.rotation.z=(role.prop?-sign*.21:sign*.10)+Math.sin(time*.7+v.phase+i)*.012*quiet;if(role.prop)arm.rotation.x=-1.04+Math.sin(time*.57+v.phase)*.035*quiet;else if(!r.moving)arm.rotation.x=Math.sin(time*.61+v.phase+i)*.04*quiet;});
    const action=r.activity??role.activity,swing=Math.sin(time*1.2+v.phase)*quiet;
    if(action==='sweeping'){arms.forEach((a,i)=>{a.rotation.x=-.65+swing*.16;a.rotation.z=i?.12:-.24;});r.prop.rotation.x=swing*.13;}
    else if(action==='rope'){arms.forEach((a,i)=>a.rotation.x=-.92+Math.sin(time*.8+v.phase+i)*.13*quiet);}
    else if(action==='conversation'&&!r.moving){arms[0].rotation.x=-.25+Math.max(0,swing)*.18;head.rotation.y=r.baseHead.y+.25+Math.sin(time*.4+v.phase)*.08;}
    else if(action==='browsing'||action==='well'){head.rotation.x=r.baseHead.x+.10+breathValue(time,v.phase)*quiet;}
-   r.prop.rotation.z=Math.sin(time*.57+v.phase)*.025*quiet;
+   r.prop.rotation.z=Math.sin(time*.57+v.phase)*.025*quiet;}
    o.updateWorldMatrix(true,true);
    o.getWorldPosition(sphere.center);sphere.center.y+=.85;if(!camera||frustum.intersectsSphere(sphere))active.add(o);
   }
