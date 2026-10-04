@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v12.4 — Orlaithe miniature</title>
+<title>Bellmire v12.5 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:auto;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -18,11 +18,12 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v12.4</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v12.5</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
+<div class="row"><button id="walk">人間で歩く</button><button id="catWalk">猫で歩く</button><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div>
 <div class="row"><label>時刻 <select id="timePeriod" aria-label="街の時間帯"><option value="morning">朝</option><option value="day" selected>昼</option><option value="evening">夕</option><option value="night">夜</option></select></label></div>
-<div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="streetwalk">路地散歩</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="tavern">酒場</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">ケーブルカー</button><button data-v="resident">住人</button><button data-v="catview">猫</button></div>
-<div class="row"><button id="walk">歩行</button><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div></div></div>
+<div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="streetwalk">路地散歩</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="tavern">酒場</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">ケーブルカー</button><button data-v="resident">住人</button><button data-v="catview">猫を眺める</button></div>
+</div></div>
 <div class="resident">追跡 <select id="residentSel"><option value="0">パン屋</option><option value="1">本屋</option><option value="2">旅人</option><option value="3">吟遊詩人</option></select></div>
 <div class="hint">ドラッグ：回転　ホイール：ズーム　右ドラッグ：移動</div>
 <div class="walk-ui walk-help"><span id="walkHint">WASD / 矢印キーで移動 · 画面をドラッグして見回す</span><button id="walkLook">マウスで見回す</button><button id="walkExit">街を見る</button></div>
@@ -43,6 +44,7 @@ import {createDialogueSystem,addBardDetails} from './dialogue.js';
 import {catModelSettings,catViewSettings} from './cat-settings.js';
 import {applyStorybookSurfaces} from './storybook.js';
 import {createAtmosphere} from './atmosphere.js';
+import {createCatPassages} from './cat-passages.js';
 import {enrichBackstreets} from './backstreets.js';
 import {createTownLife} from './town-life.js';
 import {addMiniatureGoods,enrichMiniature} from './miniature.js';
@@ -1086,6 +1088,7 @@ const walking=createWalkingSystem({THREE,scene,camera,controls,canvas:renderer.d
   trackBounds:new THREE.Box3(new THREE.Vector3(42.15,1,-28.8),new THREE.Vector3(44.85,9,14)),
   spawn:new THREE.Vector3(0,harborLevels.quay,32)
 });
+const catPassages=createCatPassages({THREE,scene,walking,grounding,groundedObjects,box,wood,cloth:v87Canvas});
 const inspectTargets=createInspectionTargets({culture,well:squareWell,
   moorings:inspectionMooring,
   wheel,millrace,landings:culture.landingBells[0],details:lifeDetails});
@@ -1116,12 +1119,12 @@ townLife.onChange(harborDetails.applyTime);harborDetails.applyTime(townLife.stat
 const atmosphere=createAtmosphere({THREE,scene,camera,renderer,bloom,hemi,sun,dynamicRoots:[train,wheel,cat,...residents,residentV8]});
 townLife.onChange(state=>atmosphere.applyPeriod(state.period));
 document.getElementById('timePeriod').onchange=e=>{townLife.setPeriod(e.target.value);inspections.dismiss();};
-walk.onclick=()=>{
-  if(walking.active){walking.leave();setView(view);return}
-  followMode=false;follow.classList.remove('active');
-  document.querySelectorAll('#views button').forEach(b=>b.classList.remove('active'));
-  walking.enter('human');
-};
+function enterWalk(profile){
+  if(walking.active&&walking.state.profile.id===profile){walking.leave();inspections.dismiss();setView(view);return;}
+  followMode=false;follow.classList.remove('active');inspections.dismiss();
+  document.querySelectorAll('#views button').forEach(b=>b.classList.remove('active'));walking.enter(profile);
+}
+walk.onclick=()=>enterWalk('human');document.getElementById('catWalk').onclick=()=>enterWalk('cat');
 walkExit.onclick=()=>{walking.leave();setView(view)};
 setView('overview');setWeather('clear');animate();addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight)});loading.classList.add('hide');
 </script></body></html>

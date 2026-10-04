@@ -1,7 +1,8 @@
 // Walking is separate from the miniature's view/animation system. Future actors
 // can supply their own dimensions and ground policy without changing input/UI.
 export const walkingProfiles={
-  human:{id:'human',eyeHeight:1.65,height:1.8,radius:.24,footRadius:.16,speed:3.2,stepUp:.38,stepDown:.42}
+  human:{id:'human',eyeHeight:1.65,height:1.8,radius:.24,footRadius:.16,speed:3.2,stepUp:.38,stepDown:.42,fov:46},
+  cat:{id:'cat',eyeHeight:.32,height:.52,radius:.13,footRadius:.085,speed:3.8,stepUp:.40,stepDown:.42,fov:60}
 };
 
 export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,surfaces,
@@ -12,7 +13,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   const upAxis=new THREE.Vector3(0,1,0),direction=new THREE.Vector3(),euler=new THREE.Euler(0,0,0,'YXZ');
   const dynamicBounds=dynamicObjects.map(object=>({object,bounds:new THREE.Box3()}));
   const terrainSet=new Set(terrain),surfaceSet=new Set(surfaces),ignored=new Set(ignoredObjects);
-  let eyeY=spawn.y+state.profile.eyeHeight,lastPointer=null,savedNear=camera.near,panelWasCollapsed=false;
+  let eyeY=spawn.y+state.profile.eyeHeight,lastPointer=null,savedNear=camera.near,savedFov=camera.fov,panelWasCollapsed=false;
   const hint=document.getElementById('walkHint'),lookButton=document.getElementById('walkLook');
   const visible=o=>{for(let p=o;p;p=p.parent)if(!p.visible)return false;return true};
   const contains=(b,x,z)=>x>=b.min.x-.001&&x<=b.max.x+.001&&z>=b.min.z-.001&&z<=b.max.z+.001;
@@ -46,24 +47,29 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
         const key=x+','+z;if(!cells.has(key))cells.set(key,[]);cells.get(key).push(o);
       }
   }
-  function nearby(x,z){
-    const found=new Set(),r=state.profile.radius;
+  function registerObstacle(object){
+    object.updateWorldMatrix(true,true);const o={bounds:new THREE.Box3().setFromObject(object,true),isFloor:false,round:null};obstacles.push(o);
+    for(let x=Math.floor(o.bounds.min.x/cellSize);x<=Math.floor(o.bounds.max.x/cellSize);x++)for(let z=Math.floor(o.bounds.min.z/cellSize);z<=Math.floor(o.bounds.max.z/cellSize);z++){const key=x+','+z;if(!cells.has(key))cells.set(key,[]);cells.get(key).push(o);}
+    return o;
+  }
+  function nearby(x,z,profile=state.profile){
+    const found=new Set(),r=profile.radius;
     for(let ix=Math.floor((x-r)/cellSize);ix<=Math.floor((x+r)/cellSize);ix++)
       for(let iz=Math.floor((z-r)/cellSize);iz<=Math.floor((z+r)/cellSize);iz++)
         for(const o of cells.get(ix+','+iz)||[])found.add(o);
     return found;
   }
-  function groundAt(x,z,currentY){
+  function groundAt(x,z,currentY,profile=state.profile){
     let y=-Infinity;
     for(const b of ground)if(contains(b,x,z))y=Math.max(y,b.max.y);
     if(!Number.isFinite(y))return null;
     // Bridge only the tiny seams between existing dock planks, not open water.
-    for(const b of floors)if(x>=b.min.x-.025&&x<=b.max.x+.025&&z>=b.min.z-.025&&z<=b.max.z+.025&&b.max.y<=currentY+state.profile.stepUp+.001)y=Math.max(y,b.max.y);
+    for(const b of floors)if(x>=b.min.x-.025&&x<=b.max.x+.025&&z>=b.min.z-.025&&z<=b.max.z+.025&&b.max.y<=currentY+profile.stepUp+.001)y=Math.max(y,b.max.y);
     for(const b of waterZones)if(contains(b,x,z)&&b.max.y>=y-.04)return null;
     return y;
   }
-  function intersectsBody(bounds,x,z,feetY,isFloor=false,round=null){
-    const p=state.profile;
+  function intersectsBody(bounds,x,z,feetY,isFloor=false,round=null,profile=state.profile){
+    const p=profile;
     if(bounds.max.y<=feetY+.06||bounds.min.y>=feetY+p.height-.02)return false;
     if(isFloor&&bounds.max.y<=feetY+p.stepUp+.001)return false;
     if(round){
@@ -74,16 +80,16 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     const dz=z-Math.max(bounds.min.z,Math.min(z,bounds.max.z));
     return dx*dx+dz*dz<p.radius*p.radius;
   }
-  function canStand(x,z,currentY){
-    const p=state.profile,foot=p.footRadius??p.radius,y=groundAt(x,z,currentY);
+  function canStand(x,z,currentY,profile=state.profile){
+    const p=profile,foot=p.footRadius??p.radius,y=groundAt(x,z,currentY,p);
     if(y===null||y-currentY>p.stepUp+.001||currentY-y>p.stepDown+.001)return null;
     // Check both feet, separately from shoulder clearance at walls/props.
     for(const [dx,dz] of [[foot,0],[-foot,0],[0,foot],[0,-foot]]){
-      const edge=groundAt(x+dx,z+dz,y);
+      const edge=groundAt(x+dx,z+dz,y,p);
       if(edge===null||Math.abs(edge-y)>Math.max(p.stepUp,p.stepDown)+.001)return null;
     }
-    for(const o of nearby(x,z))if(intersectsBody(o.bounds,x,z,y,o.isFloor,o.round))return null;
-    for(const o of dynamicBounds)if(intersectsBody(o.bounds,x,z,y))return null;
+    for(const o of nearby(x,z,p))if(intersectsBody(o.bounds,x,z,y,o.isFloor,o.round,p))return null;
+    for(const o of dynamicBounds)if(intersectsBody(o.bounds,x,z,y,false,null,p))return null;
     return y;
   }
   function refreshDynamic(){for(const o of dynamicBounds){o.object.updateWorldMatrix(true,true);o.bounds.setFromObject(o.object,true)}}
@@ -100,31 +106,39 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     }
   }
   function clearInput(){input.keys.clear();input.touch.clear();input.forward=input.right=0;lastPointer=null;document.querySelectorAll('[data-move]').forEach(b=>b.classList.remove('active'))}
-  function updateHint(){hint.textContent=document.pointerLockElement===canvas?
+  function updateHint(){hint.dataset.profile=state.profile.id;hint.textContent=(state.profile.id==='cat'?'猫 · ':'人間 · ')+( document.pointerLockElement===canvas?
     'WASD / 矢印キーで移動 · マウスで見回す · Escでマウス解除':
-    matchMedia('(pointer:coarse)').matches?'左下の矢印で移動 · 画面をドラッグして見回す':'WASD / 矢印キーで移動 · 画面をドラッグして見回す'}
+    matchMedia('(pointer:coarse)').matches?'左下の矢印で移動 · 画面をドラッグして見回す':'WASD / 矢印キーで移動 · 画面をドラッグして見回す')}
   function look(dx,dy){state.yaw-=dx*.003;state.pitch=THREE.MathUtils.clamp(state.pitch-dy*.003,-1.25,1.25)}
   function updateCamera(dt){
     eyeY=THREE.MathUtils.lerp(eyeY,state.feet.y+state.profile.eyeHeight,1-Math.exp(-18*dt));
+    eyeY=Math.max(eyeY,state.feet.y+Math.min(.22,state.profile.eyeHeight));
     camera.position.set(state.feet.x,eyeY,state.feet.z);
     euler.set(state.pitch,state.yaw,0);camera.quaternion.setFromEuler(euler);
   }
-  function enter(profile='human'){
-    if(!walkingProfiles[profile])return;
-    state.profile=walkingProfiles[profile];refreshDynamic();
-    // Re-enter at the last valid location; first entry starts on the harbor approach.
-    if(canStand(state.feet.x,state.feet.z,state.feet.y)===null)state.feet.copy(spawn);
-    state.active=true;clearInput();savedNear=camera.near;camera.near=.06;camera.updateProjectionMatrix();
-    controls.enabled=false;eyeY=state.feet.y+state.profile.eyeHeight;updateCamera(0);
-    document.body.classList.add('walking');document.getElementById('walk').classList.add('active');
-    const panel=document.getElementById('panel');panelWasCollapsed=panel.classList.contains('collapsed');panel.classList.add('collapsed');document.getElementById('toggle').textContent='操作';
-    updateHint();
+  const lastLocations=new Map();
+  function canStandAs(id,x,z,y){const profile=walkingProfiles[id];return profile?canStand(x,z,y,profile):null;}
+  function safeLocation(profile){
+    let y=canStand(state.feet.x,state.feet.z,state.feet.y,profile);if(y!==null)return new THREE.Vector3(state.feet.x,y,state.feet.z);
+    // A cat in a low passage cannot become a person inside the table/wall.
+    for(let r=.25;r<=3;r+=.25)for(let i=0;i<16;i++){const x=state.feet.x+Math.sin(i*Math.PI/8)*r,z=state.feet.z+Math.cos(i*Math.PI/8)*r;y=canStand(x,z,state.feet.y,profile);if(y!==null)return new THREE.Vector3(x,y,z);}
+    const previous=lastLocations.get(profile.id);if(previous&&canStand(previous.x,previous.z,previous.y,profile)!==null)return previous.clone();
+    if(canStand(spawn.x,spawn.z,spawn.y,profile)===null)throw Error('No safe walking spawn');return spawn.clone();
+  }
+  function enter(id='human'){
+    const profile=walkingProfiles[id];if(!profile)return;
+    const wasActive=state.active;if(wasActive)lastLocations.set(state.profile.id,state.feet.clone());refreshDynamic();const feet=safeLocation(profile);
+    if(!wasActive){savedNear=camera.near;savedFov=camera.fov;const panel=document.getElementById('panel');panelWasCollapsed=panel.classList.contains('collapsed');}
+    state.profile=profile;state.feet.copy(feet);state.active=true;clearInput();camera.near=id==='cat'?.035:.06;camera.fov=profile.fov;camera.updateProjectionMatrix();
+    controls.enabled=false;eyeY=state.feet.y+profile.eyeHeight;updateCamera(0);
+    document.body.classList.add('walking');document.body.classList.toggle('cat-walking',id==='cat');document.getElementById('walk').classList.toggle('active',id==='human');document.getElementById('catWalk')?.classList.toggle('active',id==='cat');
+    document.getElementById('panel').classList.add('collapsed');document.getElementById('toggle').textContent='操作';updateHint();
   }
   function leave(){
     if(!state.active)return;
-    state.active=false;clearInput();if(document.pointerLockElement===canvas)document.exitPointerLock();
-    camera.near=savedNear;camera.updateProjectionMatrix();
-    document.body.classList.remove('walking');document.getElementById('walk').classList.remove('active');
+    lastLocations.set(state.profile.id,state.feet.clone());state.active=false;clearInput();if(document.pointerLockElement===canvas)document.exitPointerLock();
+    camera.near=savedNear;camera.fov=savedFov;camera.updateProjectionMatrix();
+    document.body.classList.remove('walking','cat-walking');document.getElementById('catWalk')?.classList.remove('active');document.getElementById('walk').classList.remove('active');
     document.getElementById('panel').classList.toggle('collapsed',panelWasCollapsed);document.getElementById('toggle').textContent=panelWasCollapsed?'操作':'街を見る';
   }
   function update(dt){
@@ -169,6 +183,6 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     for(const event of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(event,up);
   }
   // Read-only world data also supports route validation and future actor policies.
-  return {get active(){return state.active},state,input,enter,leave,update,groundAt,canStand,
+  return {get active(){return state.active},state,input,enter,leave,update,groundAt,canStand,canStandAs,registerObstacle,profiles:walkingProfiles,lastLocations,
     world:{ground,floors,obstacles,waterZones},refreshDynamic};
 }
