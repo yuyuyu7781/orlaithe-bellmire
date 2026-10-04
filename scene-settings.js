@@ -1,11 +1,11 @@
 // Shared art direction and time vocabulary. No model coordinates are changed.
 export const weatherProfiles={
- clear:{sky:0x9fa99e,fog:0x9fa99e,density:.0060,air:true,hemi:1.82,sun:1.58,exposure:1.08,bloom:.14,sunColor:0xffe5c0,period:'day'},
+ clear:{sky:0xa5afaa,fog:0xa5afaa,density:.0063,air:true,hemi:1.45,sun:2.05,exposure:1.08,bloom:.14,sunColor:0xffe5c0,period:'day'},
  rain:{sky:0x5d6b70,fog:0x687575,density:.0105,air:false,hemi:.80,sun:.34,exposure:.80,bloom:.20,sunColor:0xc6cec5,period:'day'},
  fog:{sky:0x929b96,fog:0x929b96,density:.0145,air:false,hemi:.94,sun:.43,exposure:.82,bloom:.22,sunColor:0xd9d8be,period:'day'},
  blackout:{sky:0x071017,fog:0x071017,density:.012,air:false,hemi:.12,sun:.02,exposure:.48,bloom:.12,sunColor:0xb3bfba,period:'night'},
- dawn:{sky:0x727b7d,fog:0x8e9388,density:.0075,air:true,hemi:.63,sun:.44,exposure:.79,bloom:.21,sunColor:0xe1b68b,period:'morning'},
- night:{sky:0x142024,fog:0x253031,density:.0080,air:true,hemi:.72,sun:.12,exposure:.90,bloom:.23,sunColor:0xb8c8c2,period:'night'}
+ dawn:{sky:0x7c8b8b,fog:0x9da091,density:.0075,air:true,hemi:.95,sun:.92,exposure:1.02,bloom:.18,sunColor:0xffce98,period:'morning'},
+ night:{sky:0x142024,fog:0x253031,density:.0070,air:true,hemi:1.05,sun:.18,exposure:1.00,bloom:.20,sunColor:0xb8c8c2,period:'night'}
 };
 export const periodSettings={
  morning:{marketActivity:.65,shops:{baker:true,bookseller:false,boatworker:true,starmaker:false},window:.54,lantern:.58},
@@ -22,3 +22,7 @@ export function waterInfluence(x,y,z){
  const quay=smooth(29,38,z)*(1-smooth(3,8,y));return Math.max(inlet,quay);
 }
 export function periodForWeather(weather){return weatherProfiles[weather]?.period??'day';}
+
+// Shared v12.2 lighting policy; reuse the existing sun and shadow map.
+export const artLighting={skyTint:0xe3e4db,groundTint:0x958371,shadowExtent:65,shadowFar:180,minCasterWidth:2.2,minCasterHeight:1.2};
+export const waterPalette={tint:0x5c7376,tintAmount:.28};

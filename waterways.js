@@ -44,8 +44,13 @@ export function createMillrace({THREE,scene,water,wood,stone,iron,box}){
   const flecks=[],foam=new THREE.MeshStandardMaterial({color:0xa5b5ac,roughness:.85});
   const ripple=new THREE.Mesh(new THREE.TorusGeometry(.26,.012,4,12),foam);ripple.rotation.x=Math.PI/2;ripple.position.set(21.05,1.246,35.89);root.add(ripple);ripple.userData.walkSoft=true;
   for(let i=0;i<10;i++){const o=slab(21.05+(i%3-1)*.17,5.415,25+i*.58,.055,.012,.20,foam);flecks.push(o);o.userData.walkSoft=true;}
+  // The existing drop is the delivery point, not a new water source. Two
+  // narrow moving highlights connect its lip to the wheel's lower millrace.
+  const deliveryFlecks=[];
+  for(let i=0;i<2;i++){const o=slab(21.05+(i?-.16:.16),5.50,24.495,.035,.12,.012,foam);o.userData.walkSoft=true;deliveryFlecks.push(o);}
+  const impact=new THREE.Mesh(new THREE.TorusGeometry(.20,.012,4,12),foam);impact.rotation.x=Math.PI/2;impact.scale.x=1.4;impact.position.set(21.05,5.425,24.57);impact.userData.walkSoft=true;root.add(impact);
   const upstream=createUpstream({THREE,root,water,wood,stone,iron,box,waterParts});
-  function update(t){upstream.update(t);flecks.forEach((o,i)=>{o.position.z=24.7+((i*.68+t*.7)%6.3);});}
+  function update(t){upstream.update(t);deliveryFlecks.forEach((o,i)=>{o.position.y=6.17-((t*.8+i*.36)%.67);});flecks.forEach((o,i)=>{o.position.z=24.7+((i*.68+t*.7)%6.3);});}
   return {root,waterParts,drops,update,upstream};
 }
 

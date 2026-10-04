@@ -29,8 +29,8 @@ export function enrichMiniature({THREE,scene,walking,grounding,lit,wallMaterials
  const shells=walls.filter(w=>!walls.some(q=>q!==w&&q.b.containsBox(w.b)&&q.b.getSize(new THREE.Vector3()).length()>w.b.getSize(new THREE.Vector3()).length()+.01));
  let windows=0,planters=0,awnings=0,pavers=0,coping=0;const faces=[];
  for(const {object,b}of shells){const c=b.getCenter(new THREE.Vector3()),size=b.getSize(new THREE.Vector3()),d=districtWeights(c.x,c.z),seed=(Math.sin(c.x*1.37+c.z*2.1)+1)/2;
-  const target=new THREE.Color(0xe0d9c3).lerp(new THREE.Color(0xc7cec5),d.upper*.14).lerp(new THREE.Color(0xc8baa4),d.harbor*.19);
-  const m=object.material.clone();m.color.lerp(target,.64+seed*.06);object.material=m;
+  const target=new THREE.Color(0xe7dfcc).lerp(new THREE.Color(0xc7cec5),d.upper*.14).lerp(new THREE.Color(0xc8baa4),d.harbor*.19);
+  const m=object.material.clone();m.color.lerp(target,.76+seed*.045);object.material=m;
   // At most three additional windows, one per exposed side: no repeated grids.
   for(const [side,angle,x,z,width]of [['east',Math.PI/2,b.max.x,c.z,size.z],['west',-Math.PI/2,b.min.x,c.z,size.z],['north',Math.PI,c.x,b.min.z,size.x]]){
    const normal=new THREE.Vector3(Math.sin(angle),0,Math.cos(angle));const p=new THREE.Vector3(x,Math.max(b.min.y+size.y*(.53+seed*.05),(grounding.heightAt(x+normal.x*.3,z+normal.z*.3)??b.min.y)+2.15),z).addScaledVector(normal,.030);

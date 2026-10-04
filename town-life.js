@@ -15,7 +15,10 @@ export function createTownLife({THREE,scene,lit,smoke,chimneySources}){
   const p=o.getWorldPosition(new THREE.Vector3()),g=o.geometry.parameters??{},window=o.geometry.type==='BoxGeometry'&&g.width>=.3&&g.height>=.3&&g.depth<=.16;
   const m=o.material.clone();o.material=m;lit.push(m);if(window){m.emissiveMap=glowMap;m.needsUpdate=true;}
   const seed=(Math.sin(Math.floor(p.x/4)*17.1+Math.floor(p.z/4)*9.7+Math.floor(p.y/3)*3.1)+1)/2;
-  entries.push({object:o,material:m,color:m.color.clone(),site:siteAt(p),window,seed});
+  const site=siteAt(p);
+  // A restrained cream/amber range, stable per opening and shop role.
+  m.emissive.set(['inn','tavern'].includes(site)?0xffb56b:0xffc58a).lerp(new THREE.Color(0xffd7a5),seed*.32);
+  entries.push({object:o,material:m,color:m.color.clone(),site,window,seed});
  });
  function update(){const settings=periodSettings[state.period],off=state.weather==='blackout';state.marketActivity=settings.marketActivity;state.openShops={...settings.shops};
   for(const material of lit)material.emissiveIntensity=0;

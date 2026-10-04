@@ -59,9 +59,9 @@ export function applyStorybookSurfaces({THREE,scene,grounding,stone,wood,roof,gr
       if(kind==='ground'){const damp=(1+grain)*.025;r*=1-damp;g*=1-damp*.66;bl*=1-damp;}
       normal.transformDirection(o.matrixWorld);
       const facing=normal.dot(lightDirection),warm=Math.max(0,facing),cool=Math.max(0,-facing);
-      r*=1+district.middle*.018-district.harbor*.028+warm*.022-cool*.012;
-      g*=1+district.upper*.012+district.middle*.012-district.harbor*.015+warm*.012;
-      bl*=1+district.upper*.024-district.harbor*.004-warm*.008+cool*.015;
+      r*=1+district.middle*.018-district.harbor*.028+warm*.035-cool*.030;
+      g*=1+district.upper*.012+district.middle*.012-district.harbor*.015+warm*.018;
+      bl*=1+district.upper*.024-district.harbor*.004-warm*.008+cool*.022;
       colors[i*3]=r;colors[i*3+1]=g;colors[i*3+2]=bl;
       // World-sized courses prevent giant blocks on a long, otherwise bare wall.
       if((kind==='stone'||kind==='ground')&&geometry.attributes.uv){const n=normal,uv=geometry.attributes.uv;if(Math.abs(n.y)>.7)uv.setXY(i,world.x/4,world.z/4);else if(Math.abs(n.x)>.7)uv.setXY(i,world.z/4,world.y/4);else uv.setXY(i,world.x/4,world.y/4);}
