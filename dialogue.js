@@ -1,3 +1,4 @@
+import {createPortraitView} from './portrait-ui.js';
 import {characters,selectDialogueTurn,selectPortrait} from './dialogue-data.js';
 
 // Shares proximity/input and small card with inspection; content stays separate.
@@ -20,11 +21,8 @@ export function createDialogueSystem({THREE,inspections,walking,actors,getTime=(
     const character=entry.character,profile=walking.state.profile.id,key=profile==='human'?character.id:character.id+':'+profile,index=turns.get(key)??0;
     const time=getTime(),turn=selectDialogueTurn(character,{profile:walking.state.profile.id,time,index}),text=turn.text;
     const image=selectPortrait(character,{expression:turn.expression,time});
-    const portrait=document.createElement('div');portrait.className='dialogue-portrait';
-    if(image?.src){const img=document.createElement('img');img.alt=image.alt??character.name;img.src=image.src;img.onerror=()=>{img.remove();placeholder();};portrait.append(img);}
-    else placeholder();
-    function placeholder(){const span=document.createElement('span');span.className='portrait-silhouette';span.setAttribute('aria-hidden','true');portrait.append(span);portrait.setAttribute('aria-label',character.name+'の肖像（未設定）');}
-    inspections.present(entry,{label:entry.label,text,kind:'talk',extra:portrait});turns.set(key,index+1);
+    const portrait=createPortraitView(character,{image,time,expression:turn.expression});
+    inspections.present(entry,{label:portrait.profile.displayName,text,kind:'talk',extra:portrait.element});turns.set(key,index+1);
   }
   inspections.handlers.set('talk',speak);
   return {characters,entries,turns,destroy(){unregister.forEach(fn=>fn());inspections.handlers.delete('talk');if(inspections.opened?.kind==='talk')inspections.dismiss();}};

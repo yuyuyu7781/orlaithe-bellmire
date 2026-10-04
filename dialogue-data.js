@@ -1,3 +1,4 @@
+import {portraitProfile} from './portrait-profiles.js';
 import {periodForWeather} from './scene-settings.js';
 
 // Stable character identities; illustrations and alternate actor/time lines
@@ -15,6 +16,9 @@ export const characters=[
     identity:{recurring:true,gender:'male',appearance:'若く中性的。年齢は定かでない。緑の外套と木の弦楽器を持つ、穏やかな旅人。'},
     lines:{human:{default:['こんにちは。今は弦を張り直しているところ。水音に負けないくらいで、ちょうどいいんだ。','ここの鐘は、歌の間に入ってくるね。少し待ってから続きを弾くと、うまく収まることがあるよ。']},cat:{}}}
 ];
+
+// Merge the display/art profile into the established character identity.
+for(const character of characters)character.visualProfile=portraitProfile(character);
 
 // Defaults remain the v11.5 conversations; a small number of time-specific lines
 // make the current five residents aware of the day's work without a full AI.
@@ -43,8 +47,13 @@ export function selectDialogueTurn(character,{profile='human',time='clear',index
  const turn=lines[index%lines.length];return typeof turn==='string'?{text:turn,expression:'default'}:{expression:'default',...turn};
 }
 export function selectDialogue(character,options){return selectDialogueTurn(character,options).text;}
+// Extend the original flat fields; existing image strings and {src, alt} work.
+// Optional portraits.periods[period][expression] and portraits.expressions allow
+// future morning/evening/thinking variants without introducing another identity.
 export function selectPortrait(character,{expression='default',time='day'}={}){
+ const period=['morning','day','evening','night'].includes(time)?time:periodForWeather(time);
  const key={happy:'portraitHappy',serious:'portraitSerious',night:'portraitNight',default:'portraitDefault'}[expression];
- const candidate=(expression!=='default'?character[key]:null)??((time==='night'||time==='blackout')?character.portraitNight:null)??character.portraitDefault??character.portrait;
+ const variants=character.portraits;
+ const candidate=variants?.periods?.[period]?.[expression]??(expression!=='default'?variants?.expressions?.[expression]??character[key]:null)??(period==='night'?character.portraitNight:null)??variants?.periods?.[period]?.default??variants?.expressions?.default??character.portraitDefault??character.portrait;
  if(typeof candidate==='string')return {src:candidate,alt:character.name};return candidate;
 }

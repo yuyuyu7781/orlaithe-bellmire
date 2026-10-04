@@ -1,0 +1,28 @@
+/* Conversation styling only. Inspection cards and 3D rendering stay separate. */
+.inspection-card.dialogue-card{width:min(420px,calc(100vw - 28px));max-height:calc(100dvh - 190px);overflow:auto;display:grid;grid-template-columns:126px minmax(0,1fr);gap:8px 14px;background:#e3d9c1f5;color:#3e392d;border:1px solid #8c7d6166;border-radius:7px;box-shadow:0 8px 24px #13181030,inset 0 0 24px #a88c5115;padding:16px;animation:conversation-arrive .16s ease-out}
+.dialogue-card[hidden]{display:none!important}
+.dialogue-card>strong{grid-column:2;grid-row:1;font:18px Georgia,"Noto Serif JP",serif;letter-spacing:.04em;align-self:end;overflow-wrap:anywhere}
+.dialogue-card>div,.dialogue-visual{display:contents}
+.dialogue-portrait{grid-column:1;grid-row:1 / span 4;width:126px;height:174px;position:relative;overflow:hidden;background:var(--portrait-paper,#e6dcc5);border:1px solid #8c7c5b40;border-radius:40% 40% 5px 5px;box-shadow:inset 0 0 20px #6a624c0c;align-self:start}
+.portrait-placeholder{height:100%;background:radial-gradient(ellipse at 23% 37%,var(--portrait-wash,#9ba88e) 0,transparent 56%),radial-gradient(ellipse at 82% 81%,#bba57b35,transparent 60%)}
+.portrait-placeholder[hidden]{display:none}
+.portrait-placeholder svg{width:100%;height:100%;opacity:.90}
+.portrait-caption{position:absolute;bottom:4px;left:0;width:100%;text-align:center;font-size:8px;letter-spacing:.14em;color:var(--portrait-ink,#514d40);opacity:.7}
+.dialogue-portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .18s ease}
+.dialogue-portrait[data-state="image"] img{opacity:1}
+.dialogue-details{grid-column:2;grid-row:2;font-size:10px;line-height:1.6}
+.dialogue-role{color:#79664a;letter-spacing:.09em}
+.dialogue-intro{margin-top:3px;color:#655f50}
+.dialogue-card>p{grid-column:2;grid-row:3;margin:2px 0 6px;font-size:12px;line-height:1.85;overflow-wrap:anywhere}
+.dialogue-card>button{grid-column:2;grid-row:4;justify-self:start;color:#49402f;border-color:#79694d66;background:#a18c6210;padding:5px 12px}
+.dialogue-visual[data-period="morning"] .dialogue-portrait{filter:brightness(1.035)}
+.dialogue-visual[data-period="evening"] .dialogue-portrait,.dialogue-visual[data-period="night"] .dialogue-portrait{box-shadow:inset 10px 0 26px #e9b86e25;background-image:linear-gradient(110deg,#edc38135,#53665d15)}
+.dialogue-visual[data-period="night"] .dialogue-portrait img{filter:brightness(.95) sepia(.08)}
+/* Future cat subjects can use the same presenter with a smaller, simpler card.
+   Player cat mode remains independent of the conversation subject's identity. */
+.dialogue-visual[data-subject="cat"] .dialogue-portrait{height:132px;border-radius:8px}
+@keyframes conversation-arrive{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){.inspection-card.dialogue-card{right:10px;bottom:180px;width:min(340px,calc(100vw - 20px));padding:12px;grid-template-columns:86px minmax(0,1fr);gap:7px 12px;max-height:calc(100dvh - 260px)}.dialogue-portrait{width:86px;height:118px;grid-row:1 / span 2}.dialogue-card>strong{font-size:17px}.dialogue-card>p{grid-column:1 / -1;grid-row:3}.dialogue-card>button{grid-column:1 / -1;grid-row:4}.dialogue-details{align-self:start}}
+@media(prefers-reduced-motion:reduce){.inspection-card.dialogue-card{animation:none}.dialogue-portrait img{transition:none}}
+.inspection-card.dialogue-card>button:hover{color:#352f26;background:#a18c6225;border-color:#79694d88}
+.inspection-card.dialogue-card>button:focus-visible{outline:2px solid #79694d;outline-offset:3px}

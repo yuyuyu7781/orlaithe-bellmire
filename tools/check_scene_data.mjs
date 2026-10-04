@@ -28,3 +28,11 @@ const finn=characters.find(c=>c.id==='greenBard');
 assert.match(selectDialogue(finn,{profile:'cat',time:'night',index:0}),/そちらで歩いて/);
 assert.notEqual(selectDialogue(finn,{profile:'cat',index:0}),selectDialogue(finn,{profile:'cat',index:1}));
 console.log('PASS five feline reactions / Finn first encounter across periods / portrait remains unset');
+
+for(const c of characters){assert.ok(c.visualProfile.portraitDirection);assert.ok(c.visualProfile.intro);assert.equal(c.visualProfile.displayName,c.name);assert.equal(c.visualProfile.subjectKind,'person');}
+const variants={...c,portraits:{expressions:{default:'generic.png',thinking:'thinking.png'},periods:{morning:{default:'morning.png'},night:{happy:'night-smile.png'}}}};
+assert.equal(selectPortrait(variants,{time:'morning'}).src,'morning.png');
+assert.equal(selectPortrait(variants,{time:'night'}).src,'night');
+assert.equal(selectPortrait(variants,{time:'night',expression:'happy'}).src,'night-smile.png');
+assert.equal(selectPortrait(variants,{expression:'thinking'}).src,'thinking.png');
+console.log('PASS five visual profiles / legacy images / period-expression precedence');
