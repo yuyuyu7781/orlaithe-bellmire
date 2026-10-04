@@ -902,12 +902,13 @@ port105.children.forEach(o=>{
 // v10.6 town square character: notice board, well, benches, planters and market clutter
 const square106=new THREE.Group();scene.add(square106);
 const wood106=M(0x5f402d,.98),dark106=M(0x2b2d27,.98),stone106=M(0x777466,.98),paper106=M(0xc7b38a,.96),green106=M(0x526443,.98),warm106=M(0xe8b25c,.9);
-// notice board near the square edge
-groundAssembly(square106,()=>{
-box(-5,1.65,18.3,.14,2.7,.14,dark106,square106);box(-1.8,1.65,18.3,.14,2.7,.14,dark106,square106);box(-3.4,2.45,18.3,3.45,1.65,.16,wood106,square106);
-for(const q of [[-4.25,2.65],[-3.35,2.35],[-2.45,2.72]])box(q[0],q[1],18.18,.62,.52,.035,paper106,square106);
+// The old transverse notice board blocked the apparent tavern lane at head
+// height. Keep its notices beside the east wall, with a real 1.2m clear lane.
+const squareNotice=new THREE.Group();squareNotice.name='Wall-side square notices';scene.add(squareNotice);
+for(const z of [18.80,21.40])box(-5.66,4.85,z,.14,2.7,.14,dark106,squareNotice);
+box(-5.66,5.05,20.10,2.85,1.45,.12,wood106,squareNotice).rotation.y=Math.PI/2;
+for(const q of [[19.30,5.20],[20.10,4.94],[20.90,5.25]])box(-5.58,q[1],q[0],.035,.52,.62,paper106,squareNotice);
 
-});
 // low stone well with timber crossbar
 let squareWell;
 groundAssembly(square106,()=>{

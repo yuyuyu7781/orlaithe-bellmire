@@ -98,3 +98,7 @@ Five shops are entered, their five conversation characters spoken to with both
 human and cat modes, official portraits displayed, then exited. Shared resident
 details render only for visible indoor people. Smartphone-width touch tests
 cover map controls, arrival, bakery entry, portrait conversation and return.
+
+## v14.3 — 酒場の直進路
+
+広場西側の掲示板が x=-5.46〜-2.01、z=18.31〜18.47、y=4.30〜5.95 を横切り、人間（半径0.24m、身長1.8m）が x=-4 の見えている路地で止まっていた。掲示板を隣の建物東壁（x=-5.66、z=20.10）へ90度向けて移設。掲示内容は残し、建物と猫専用路地は変更しない。主路地幅1.2m、入口の停止余白1.2m、蹴上げ0.25m以下という既存基準を維持する。衝突を無効化せず、掲示板の実形状を移動して路地を開く。
