@@ -28,7 +28,7 @@ export function enrichMiniature({THREE,scene,walking,grounding,lit,wallMaterials
  scene.traverse(o=>{if(!o.isMesh||inside(o)||o.isInstancedMesh)return;const g=o.geometry.parameters??{},b=new THREE.Box3().setFromObject(o,true);occupied.push({object:o,b});if(wallMaterials.some(m=>m===o.material||m.uuid===o.material.userData.storybookSource)&&g.width>=3&&g.width<16&&g.depth>=3&&g.depth<16&&g.height>=3)walls.push({object:o,b});});
  // Keep the outermost shell where historical layers share the same frontage.
  const shells=walls.filter(w=>!walls.some(q=>q!==w&&q.b.containsBox(w.b)&&q.b.getSize(new THREE.Vector3()).length()>w.b.getSize(new THREE.Vector3()).length()+.01));
- let windows=0,planters=0,awnings=0,pavers=0,coping=0,shutters=0,lattices=0,bays=0,roundVents=0,householdDetails=0,existingWindowsFramed=0;const faces=[],roles={};
+ let windows=0,planters=0,awnings=0,pavers=0,coping=0,shutters=0,lattices=0,bays=0,roundVents=0,householdDetails=0,existingWindowsFramed=0,railWindows=0,shopVines=0;const faces=[],roles={};
  for(const {object,b}of shells){const c=b.getCenter(new THREE.Vector3()),size=b.getSize(new THREE.Vector3()),d=districtWeights(c.x,c.z),seed=(Math.sin(c.x*1.37+c.z*2.1)+1)/2;
   const target=new THREE.Color(0xeee5d2).lerp(new THREE.Color(0xc7cec5),d.upper*.12).lerp(new THREE.Color(0xc8baa4),d.harbor*.16);
   const m=object.material.clone();m.color.lerp(target,.76+seed*.045);object.material=m;
@@ -59,6 +59,19 @@ export function enrichMiniature({THREE,scene,walking,grounding,lit,wallMaterials
     if(role==='harbor'){piece([w*.65,-h*.25,.05],[.22,.32,.045],frame);for(let i=0;i<3;i++)piece([w*.65-.07+i*.07,-h*.25,.08],[.015,.26,.025],linen);householdDetails++;}
    }
    if(side==='north'&&role==='upper'&&seed>.68&&p.y+h/2+.55<b.max.y-.2&&clearFitting([0,h/2+.55,.04],[.34,.34,.07])){const v=new THREE.Vector3(0,h/2+.55,.04).applyAxisAngle(new THREE.Vector3(0,1,0),angle).add(p);batch.add('ring',frame,v.toArray(),[.32,.32,.08],angle);piece([0,h/2+.55,.035],[.21,.035,.045],frame);roundVents++;}
+   // A few shallow Juliet rails reuse the existing window, frames and batch.
+   // Above human heads, with a checked projection; never another door/collider.
+   const outsideFloor=grounding.heightAt(p.x+normal.x*.4,p.z+normal.z*.4);
+   if(railWindows<6&&side==='east'&&['inn','home','harbor'].includes(role)&&seed>.72&&outsideFloor!==null&&p.y-h/2>outsideFloor+2.2&&clearFitting([0,-h/2+.20,.22],[w+.24,.43,.32])){
+    piece([0,-h/2-.04,.17],[w+.24,.065,.34],frame);
+    piece([0,-h/2+.34,.32],[w+.24,.045,.045],frame);
+    for(const x of [-w/2,0,w/2])piece([x,-h/2+.15,.32],[.035,.36,.035],frame);
+    railWindows++;
+   }
+   if(shopVines<5&&side==='west'&&['bakery','inn','tavern'].includes(role)&&clearFitting([w*.72,0,.025],[.18,h+.2,.06])){
+    for(let i=0;i<5;i++)piece([w*.72+Math.sin(i)*.04,-h*.5+i*h*.23,.025],[.10,.14,.035],green);
+    shopVines++;
+   }
    if(side==='east'&&seed>.5){piece([0,h/2+.20,.13],[w+.38,.085,.50],frame);awnings++;}
    if(side==='west'&&seed>.36&&d.upper<.75){const pp=new THREE.Vector3(-w*.22,-h/2+.075,.19).applyAxisAngle(new THREE.Vector3(0,1,0),angle).add(p);batch.add('pot',pot,pp.toArray(),[.24,.30,.24]);for(let i=0;i<4;i++)batch.add('leaf',green,[pp.x+Math.sin(i*2.4)*.08,pp.y+.23+i*.035,pp.z+Math.cos(i*2.4)*.07],[.12,.17,.10]);planters++;}
    // Small wall-rooted vine, attached beside a few windows, not across the lane.
@@ -93,5 +106,5 @@ export function enrichMiniature({THREE,scene,walking,grounding,lit,wallMaterials
  }
  // Low coping on existing street-side parapets, not a new barrier.
  for(const [x,z,dx,dz,count]of [[-29,35.22,1,0,10],[-7,35.22,1,0,10],[24,35.22,1,0,8]])for(let i=0;i<count;i++){const px=x+i*dx,pz=z+i*dz,y=grounding.heightAt(px,pz);if(y===null)continue;batch.add('block',sill,[px,y+.009,pz],[.94,.018,.20],0,new THREE.Color(0xffffff).multiplyScalar(.90+(i%3)*.035));coping++;}
- const details=batch.finish();return{...details,faces,shells,materials:{frame,sill,green,pot,paving},stats:{buildings:shells.length,windows,planters,awnings,pavers,coping,shutters,lattices,bays,roundVents,householdDetails,existingWindowsFramed,roles,instances:details.instances,batches:details.batches}};
+ const details=batch.finish();return{...details,faces,shells,materials:{frame,sill,green,pot,paving},stats:{buildings:shells.length,windows,planters,awnings,pavers,coping,shutters,lattices,bays,roundVents,householdDetails,existingWindowsFramed,railWindows,shopVines,roles,instances:details.instances,batches:details.batches}};
 }
