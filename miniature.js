@@ -29,7 +29,7 @@ export function enrichMiniature({THREE,scene,walking,grounding,lit,wallMaterials
  const shells=walls.filter(w=>!walls.some(q=>q!==w&&q.b.containsBox(w.b)&&q.b.getSize(new THREE.Vector3()).length()>w.b.getSize(new THREE.Vector3()).length()+.01));
  let windows=0,planters=0,awnings=0,pavers=0,coping=0;const faces=[];
  for(const {object,b}of shells){const c=b.getCenter(new THREE.Vector3()),size=b.getSize(new THREE.Vector3()),d=districtWeights(c.x,c.z),seed=(Math.sin(c.x*1.37+c.z*2.1)+1)/2;
-  const target=new THREE.Color(0xe7dfcc).lerp(new THREE.Color(0xc7cec5),d.upper*.14).lerp(new THREE.Color(0xc8baa4),d.harbor*.19);
+  const target=new THREE.Color(0xeee5d2).lerp(new THREE.Color(0xc7cec5),d.upper*.12).lerp(new THREE.Color(0xc8baa4),d.harbor*.16);
   const m=object.material.clone();m.color.lerp(target,.76+seed*.045);object.material=m;
   // At most three additional windows, one per exposed side: no repeated grids.
   for(const [side,angle,x,z,width]of [['east',Math.PI/2,b.max.x,c.z,size.z],['west',-Math.PI/2,b.min.x,c.z,size.z],['north',Math.PI,c.x,b.min.z,size.x]]){
@@ -48,7 +48,7 @@ export function enrichMiniature({THREE,scene,walking,grounding,lit,wallMaterials
    if(side==='north'&&seed>.7&&d.upper<.7)for(let i=0;i<6;i++){const v=new THREE.Vector3(w*.7+Math.sin(i)*.10,-h*.6+i*.16,-.010).applyAxisAngle(new THREE.Vector3(0,1,0),angle).add(p);batch.add('leaf',green,v.toArray(),[.12,.16,.075],angle);}
   }
  }
- const roofSet=new Set(roofMaterials);scene.traverse(o=>{if(!o.isMesh||inside(o)||!roofSet.has(o.material))return;const p=o.getWorldPosition(new THREE.Vector3()),seed=(Math.sin(p.x*.31+p.z*.59)+1)/2,m=o.material.clone();m.color.lerp(new THREE.Color(0x365e55).lerp(new THREE.Color(0x496556),seed),.48);o.material=m;});
+ const roofSet=new Set(roofMaterials);scene.traverse(o=>{if(!o.isMesh||inside(o)||!roofSet.has(o.material))return;const p=o.getWorldPosition(new THREE.Vector3()),seed=(Math.sin(p.x*.31+p.z*.59)+1)/2,m=o.material.clone();m.color.lerp(new THREE.Color(0x315951).lerp(new THREE.Color(0x466559),seed),.58);o.material=m;});
  // Samples are accepted only on existing, walkable horizontal surfaces. Stone
  // tops remain within 12mm of them, with no collision or terrain changes.
  for(const [cx,cz,rx,rz]of [[7,19,3,2],[-32.5,28.7,2.4,1],[-18,33.4,2,1.2],[0,32,3,1],[-9,34,2,1],[16.3,16.8,1.8,1.1],[-5,-15,2,1]]){

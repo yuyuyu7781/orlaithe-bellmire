@@ -51,17 +51,17 @@ export function applyStorybookSurfaces({THREE,scene,grounding,stone,wood,roof,gr
       const foot=(pos.getY(i)-b.min.y)/height,edge=1-Math.min(1,foot*3);
       const grain=Math.sin(world.x*.83+world.z*.61)*Math.cos(world.z*.47-world.y*.31);
       const facet=Math.sin(normal.x*2.1+normal.z*3.2+seed);
-      let value=1+seed*.022+grain*.018+facet*.016;
+      let value=1+seed*.025+grain*.022+facet*.024;
       let r=value,g=value,bl=value;
       if(kind==='roof'){r*=.97+seed*.018;g*=1.012;bl*=.98;}
-      if(kind==='stone'){const stain=edge*(.035+wet*.040);r*=1-stain;g*=1-stain*.5;bl*=1-stain*.95;}
+      if(kind==='stone'){const stain=edge*(.030+wet*.047);r*=1-stain;g*=1-stain*.5;bl*=1-stain*.95;}
       if(kind==='wood'){const damp=.012+wet*.043;r*=1-damp;g*=1-damp*.88;bl*=1-damp*.8;value=1-edge*.026;r*=value;g*=value;bl*=value;}
       if(kind==='ground'){const damp=(1+grain)*.025;r*=1-damp;g*=1-damp*.66;bl*=1-damp;}
       normal.transformDirection(o.matrixWorld);
       const facing=normal.dot(lightDirection),warm=Math.max(0,facing),cool=Math.max(0,-facing);
-      r*=1+district.middle*.018-district.harbor*.028+warm*.035-cool*.030;
+      r*=1+district.middle*.018-district.harbor*.028+warm*.042-cool*.025;
       g*=1+district.upper*.012+district.middle*.012-district.harbor*.015+warm*.018;
-      bl*=1+district.upper*.024-district.harbor*.004-warm*.008+cool*.022;
+      bl*=1+district.upper*.024-district.harbor*.004-warm*.008+cool*.025;
       colors[i*3]=r;colors[i*3+1]=g;colors[i*3+2]=bl;
       // World-sized courses prevent giant blocks on a long, otherwise bare wall.
       if((kind==='stone'||kind==='ground')&&geometry.attributes.uv){const n=normal,uv=geometry.attributes.uv;if(Math.abs(n.y)>.7)uv.setXY(i,world.x/4,world.z/4);else if(Math.abs(n.x)>.7)uv.setXY(i,world.z/4,world.y/4);else uv.setXY(i,world.x/4,world.y/4);}
