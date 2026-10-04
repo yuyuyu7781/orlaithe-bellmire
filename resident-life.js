@@ -1,4 +1,4 @@
-import {residentLifeSettings,residentRoles,residentVariation} from './resident-life-settings.js';
+import {residentLifeSettings,residentRoles,residentVariation,everydayResidentRole} from './resident-life-settings.js';
 
 // The existing roots, routes, ground anchors and dialogue identities remain the
 // source of truth. Only bodies and joint-local poses change. Small accessories
@@ -21,7 +21,7 @@ export function createResidentLife({THREE,scene,camera=null,residentScale,actors
  residentScale.residents.forEach((entry,index)=>{
   const o=entry.object,head=entry.head,body=o.children.find(c=>c.geometry?.type==='CylinderGeometry');if(!head||!body)return;
   o.updateWorldMatrix(true,true);const b=new THREE.Box3().setFromObject(o,true),base=o.worldToLocal(new THREE.Vector3(o.getWorldPosition(world).x,b.min.y,o.getWorldPosition(world).z)).y;
-  const variation=residentVariation(index),id=identity.get(o),motion=movingMap.get(o),place=o.getWorldPosition(new THREE.Vector3()),role=residentRoles[id]??{activity:entry.seated?'resting':place.z>32?'harbor':place.z<0?'quiet':'market',posture:entry.seated?'seated':index%5===0?'working':index%3===0?'relaxed':'listening',prop:entry.seated?'book':place.z>32?(index%2?'rope':'parcel'):index%7===2?'parcel':null,hair:[0x51483b,0x6a5140,0x746c59][index%3],accent:body.material.color.getHex()};
+  const variation=residentVariation(index),id=identity.get(o),motion=movingMap.get(o),place=o.getWorldPosition(new THREE.Vector3()),role=residentRoles[id]??everydayResidentRole(entry,index,place,body.material.color.getHex());
   // Feet remain at the same contact point; variation is only +/- 2.2 percent.
   if(!entry.seated)o.scale.y*=variation.height;
   const scale=o.getWorldScale(new THREE.Vector3()),sx=scale.x,sy=scale.y,sz=scale.z;
@@ -39,6 +39,9 @@ export function createResidentLife({THREE,scene,camera=null,residentScale,actors
   if(chin>top-.02/sy)add('limb',o,[0,(top+chin)/2,0],[.13/sx,(chin-top+.065/sy),.13/sz],head.material.color.getHex());
   add('hair',head,[0,radius*.15,0],[radius*1.01,radius*1.035,radius*1.01],role.hair);
   if(id==='greenBard'||id==='starmaker')add('ball',head,[0,-radius*.25,-radius*.55],[radius*.80,radius*.91,radius*.40],role.hair);
+  if(id==='baker')add('ball',head,[0,radius*.35,-radius*.78],[radius*.44,radius*.43,radius*.42],role.hair);
+  if(id==='bookseller')for(const sign of [-1,1])add('block',head,[sign*radius*.36,radius*.10,radius*.98],[radius*.43,radius*.20,radius*.065],0x696453);
+  if(id==='boatworker')add('hair',head,[0,-radius*.58,radius*.12],[radius*.74,radius*.33,radius*.80],role.hair);
   add('ball',head,[0,-radius*.10,radius*.94],[radius*.12,radius*.16,radius*.15],head.material.color.getHex());
   for(const sign of [-1,1])add('block',head,[sign*radius*.36,radius*.10,radius*.92],[radius*.084,radius*.084,radius*.036],0x514536);
   const arms=[];
@@ -51,6 +54,8 @@ export function createResidentLife({THREE,scene,camera=null,residentScale,actors
   if(role.prop==='basket'){add('limb',prop,[0,-.10/sy,0],[.36/sx,.22/sy,.30/sz],0x987b54);for(const x of [-.08,.07])add('ball',prop,[x/sx,.015/sy,0],[.09/sx,.06/sy,.075/sz],0xc49a63);}
   if(role.prop==='parcel'){add('block',prop,[0,-.04/sy,0],[.34/sx,.23/sy,.24/sz],0xa09375);add('block',prop,[0,-.04/sy,.126/sz],[.022/sx,.23/sy,.012/sz],0x6e6049);}
   if(role.prop==='rope'){for(let i=0;i<4;i++)add('ball',prop,[(i%2?1:-1)*.075/sx,Math.floor(i/2)*.045/sy,0],[.11/sx,.036/sy,.095/sz],0x978265);}
+  if(role.prop==='crate'){add('block',prop,[0,-.02/sy,0],[.40/sx,.28/sy,.29/sz],0x8c7354);for(const x of [-.15,.15])add('block',prop,[x/sx,-.02/sy,.15/sz],[.035/sx,.28/sy,.025/sz],0x5e4c39);}
+  if(role.prop==='broom'){prop.position.x=.32/sx;add('limb',prop,[0,-.25/sy,0],[.028/sx,.88/sy,.028/sz],0x877051);add('block',prop,[0,-.72/sy,0],[.23/sx,.10/sy,.08/sz],0xaca07a);}
   const record={object:o,head,body,baseBody:body.rotation.clone(),baseHead:head.rotation.clone(),arms,feet,variation,role,id,moving:!!motion,seated:entry.seated,prop,scale:{sx,sy,sz},lastTime:null};records.push(record);o.userData.residentLife={role:id??role.activity,posture:role.posture,heightFactor:variation.height,shoulderFactor:variation.shoulders};
   o.updateWorldMatrix(true,true);
   // No terrain re-placement: maintain each original foot/seat world height.
@@ -58,6 +63,7 @@ export function createResidentLife({THREE,scene,camera=null,residentScale,actors
  });
  const owners=new Set(records.map(r=>r.object));for(const list of parts.values())for(const p of list){for(let o=p.node;o;o=o.parent)if(owners.has(o)){p.owner=o;break;}}
  const batches=[];for(const [kind,list]of parts){if(!list.length)continue;const mesh=new THREE.InstancedMesh(geometries[kind],material,list.length);mesh.name='Resident '+kind+' details';mesh.userData.walkSoft=true;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);mesh.frustumCulled=false;list.forEach((p,i)=>mesh.setColorAt(i,p.color));mesh.instanceColor.setUsage(THREE.DynamicDrawUsage);root.add(mesh);batches.push({mesh,list});}
+ function breathValue(t,phase){return Math.sin(t*.7+phase)*.025;}
  function visible(o){for(let p=o;p;p=p.parent)if(!p.visible)return false;return true;}
  function update(time,{force=false}={}){
   const pose=force||Math.abs(time-lastPose)>=1/residentLifeSettings.idleRate;if(pose)lastPose=time;
@@ -70,6 +76,11 @@ export function createResidentLife({THREE,scene,camera=null,residentScale,actors
     head.rotation.y=r.baseHead.y+look*.16*quiet;head.rotation.x=r.baseHead.x+(role.activity==='reading'||role.activity==='measuring'?.055:0)+breath*.025*quiet;
    }
    arms.forEach((arm,i)=>{const sign=i?1:-1;arm.rotation.z=(role.prop?-sign*.21:sign*.10)+Math.sin(time*.7+v.phase+i)*.012*quiet;if(role.prop)arm.rotation.x=-1.04+Math.sin(time*.57+v.phase)*.035*quiet;else if(!r.moving)arm.rotation.x=Math.sin(time*.61+v.phase+i)*.04*quiet;});
+   const action=r.activity??role.activity,swing=Math.sin(time*1.2+v.phase)*quiet;
+   if(action==='sweeping'){arms.forEach((a,i)=>{a.rotation.x=-.65+swing*.16;a.rotation.z=i?.12:-.24;});r.prop.rotation.x=swing*.13;}
+   else if(action==='rope'){arms.forEach((a,i)=>a.rotation.x=-.92+Math.sin(time*.8+v.phase+i)*.13*quiet);}
+   else if(action==='conversation'&&!r.moving){arms[0].rotation.x=-.25+Math.max(0,swing)*.18;head.rotation.y=r.baseHead.y+.25+Math.sin(time*.4+v.phase)*.08;}
+   else if(action==='browsing'||action==='well'){head.rotation.x=r.baseHead.x+.10+breathValue(time,v.phase)*quiet;}
    r.prop.rotation.z=Math.sin(time*.57+v.phase)*.025*quiet;
    o.updateWorldMatrix(true,true);
    o.getWorldPosition(sphere.center);sphere.center.y+=.85;if(!camera||frustum.intersectsSphere(sphere))active.add(o);
@@ -80,5 +91,5 @@ export function createResidentLife({THREE,scene,camera=null,residentScale,actors
   root.visible=true;for(const {mesh,list}of batches){let count=0;for(const p of list)if(active.has(p.owner)&&visible(p.node)){mesh.setMatrixAt(count,p.node.matrixWorld);mesh.setColorAt(count,p.color);count++;}mesh.count=count;mesh.visible=count>0;mesh.instanceMatrix.needsUpdate=true;mesh.instanceColor.needsUpdate=true;}
  }
  update(0,{force:true});
- return {root,records,update,setPeriod(value){period=value;},stats:{residents:records.length,standing:records.filter(r=>!r.seated).length,seated:records.filter(r=>r.seated).length,heldProps:records.filter(r=>r.role.prop).length,detailInstances:[...parts.values()].reduce((n,p)=>n+p.length,0),detailBatches:batches.length,contactMeshes:records.filter(r=>!r.seated&&!r.moving).length,addedLights:0}};
+ return {root,records,update,setPeriod(value){period=value;},stats:{residents:records.length,standing:records.filter(r=>!r.seated).length,seated:records.filter(r=>r.seated).length,heldProps:records.filter(r=>r.role.prop).length,detailInstances:[...parts.values()].reduce((n,p)=>n+p.length,0),detailBatches:batches.length,contactMeshes:records.filter(r=>!r.seated&&!r.moving).length,addedLights:0,activities:[...new Set(records.map(r=>r.role.activity))]}};
 }
