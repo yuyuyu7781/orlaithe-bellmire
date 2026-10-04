@@ -3,7 +3,7 @@ import {characters,selectDialogue,selectDialogueTurn,selectPortrait} from '../di
 import {weatherProfiles,periodSettings,districtWeights,waterInfluence} from '../scene-settings.js';
 
 assert.equal(characters.length,5);
-for(const c of characters){assert.equal(selectPortrait(c),null);assert.equal(typeof selectDialogue(c),'string');assert.ok(c.lines.human.default.length>=2);}
+for(const c of characters){if(c.id!=='greenBard')assert.equal(selectPortrait(c),null);assert.equal(typeof selectDialogue(c),'string');assert.ok(c.lines.human.default.length>=2);}
 const c={name:'test',portrait:{src:'legacy'},portraitDefault:{src:'default'},portraitHappy:{src:'happy'},portraitSerious:{src:'serious'},portraitNight:{src:'night'},lines:{human:{default:['old line'],night:[{text:'closing time',expression:'serious'}]},cat:{night:['feline night']}}};
 assert.equal(selectPortrait(c,{time:'night'}).src,'night');
 assert.equal(selectPortrait(c,{time:'night',expression:'happy'}).src,'happy');
@@ -23,11 +23,11 @@ assert.ok(waterInfluence(21,5,28)>.9);assert.equal(waterInfluence(-30,5,0),0);
 console.log('PASS dialogue/portrait compatibility, expression and night variants, actor/time fallback, six weather profiles and continuous district/water settings');
 
 // Alternate actor content must not silently fall back to human explanations.
-for(const c of characters){assert.ok(c.lines.cat.default.length);assert.notEqual(selectDialogue(c,{profile:'cat'}),selectDialogue(c,{profile:'human'}));assert.equal(selectPortrait(c),null);}
+for(const c of characters){assert.ok(c.lines.cat.default.length);assert.notEqual(selectDialogue(c,{profile:'cat'}),selectDialogue(c,{profile:'human'}));if(c.id!=='greenBard')assert.equal(selectPortrait(c),null);}
 const finn=characters.find(c=>c.id==='greenBard');
 assert.match(selectDialogue(finn,{profile:'cat',time:'night',index:0}),/そちらで歩いて/);
 assert.notEqual(selectDialogue(finn,{profile:'cat',index:0}),selectDialogue(finn,{profile:'cat',index:1}));
-console.log('PASS five feline reactions / Finn first encounter across periods / portrait remains unset');
+console.log('PASS five feline reactions / Finn first encounter across periods / other portraits remain unset');
 
 for(const c of characters){assert.ok(c.visualProfile.portraitDirection);assert.ok(c.visualProfile.intro);assert.equal(c.visualProfile.displayName,c.name);assert.equal(c.visualProfile.subjectKind,'person');}
 const variants={...c,portraits:{expressions:{default:'generic.png',thinking:'thinking.png'},periods:{morning:{default:'morning.png'},night:{happy:'night-smile.png'}}}};
@@ -36,3 +36,9 @@ assert.equal(selectPortrait(variants,{time:'night'}).src,'night');
 assert.equal(selectPortrait(variants,{time:'night',expression:'happy'}).src,'night-smile.png');
 assert.equal(selectPortrait(variants,{expression:'thinking'}).src,'thinking.png');
 console.log('PASS five visual profiles / legacy images / period-expression precedence');
+
+assert.equal(selectPortrait(finn).src,'./assets/portraits/finn-default.png');
+assert.equal(selectPortrait(finn,{time:'night'}).src,selectPortrait(finn).src);
+assert.equal(selectPortrait(finn,{expression:'happy'}).src,selectPortrait(finn).src);
+assert.equal(finn.portraitHappy,null);assert.equal(finn.portraitNight,null);
+console.log('PASS Finn default image / missing expression-night variants use default / other four unchanged');

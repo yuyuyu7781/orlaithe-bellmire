@@ -12,7 +12,7 @@ export const characters=[
     lines:{human:{default:['今日は水が静かだ。こういう日は荷ほどきが早い。終わったら、網のほつれを直さないとな。','この縄はまだ使えるよ。九つ結んだ印より、手に馴染むかどうかの方が大事さ。']},cat:{}}},
   {id:'starmaker',name:'ネッサ',role:'天球儀店の職人',portrait:null,portraitDefault:null,portraitHappy:null,portraitSerious:null,portraitNight:null,
     lines:{human:{default:['星は同じところにある。でも、見る人間の方が動いている。だから、この円を少しずつ直すんです。','真鍮を磨くと、指まで光ってしまって。夕方には、また布で包んでおきます。']},cat:{}}},
-  {id:'greenBard',name:'フィン',role:'緑の吟遊詩人',portrait:null,portraitDefault:null,portraitHappy:null,portraitSerious:null,portraitNight:null,
+  {id:'greenBard',name:'フィン',role:'緑の吟遊詩人',portrait:null,portraitDefault:{src:'./assets/portraits/finn-default.png',alt:'フィン — 長い髪と深緑の外套をまとった吟遊詩人の水彩肖像',fit:'contain',objectPosition:'50% 35%'},portraitHappy:null,portraitSerious:null,portraitNight:null,
     identity:{recurring:true,gender:'male',appearance:'若く中性的。年齢は定かでない。緑の外套と木の弦楽器を持つ、穏やかな旅人。'},
     lines:{human:{default:['こんにちは。今は弦を張り直しているところ。水音に負けないくらいで、ちょうどいいんだ。','ここの鐘は、歌の間に入ってくるね。少し待ってから続きを弾くと、うまく収まることがあるよ。']},cat:{}}}
 ];
