@@ -3,7 +3,7 @@ import {characters,selectDialogueTurn,selectPortrait} from './dialogue-data.js';
 
 // Shares proximity/input and small card with inspection; content stays separate.
 export function createDialogueSystem({THREE,inspections,walking,actors,getTime=()=> 'clear',getLocation=()=> 'town'}){
-  const turns=new Map(),entries=[],unregister=[];
+  const turns=new Map(),entries=[],unregister=[],conversationLog=[];
   for(const character of characters){
     const object=actors[character.id];if(!object)throw Error('Missing dialogue actor: '+character.id);
     object.updateWorldMatrix(true,true);
@@ -19,13 +19,15 @@ export function createDialogueSystem({THREE,inspections,walking,actors,getTime=(
   }
   function speak(entry){
     const character=entry.character,profile=walking.state.profile.id,key=profile==='human'?character.id:character.id+':'+profile,index=turns.get(key)??0;
-    const time=getTime(),turn=selectDialogueTurn(character,{profile:walking.state.profile.id,time,index,location:getLocation(character.id)}),text=turn.text;
+    const time=getTime(),location=getLocation(character.id),turn=selectDialogueTurn(character,{profile:walking.state.profile.id,time,index,location}),text=turn.text;
     const image=selectPortrait(character,{expression:turn.expression,time});
     const portrait=createPortraitView(character,{image,time,expression:turn.expression});
+    portrait.element.dataset.conversationMode=profile;portrait.element.dataset.portraitVariant=turn.expression;portrait.element.dataset.dialogueVariant=profile+':'+location+':'+time;
+    conversationLog.push({speaker:character.name,speakerId:character.id,text,time,timestamp:new Date().toISOString(),playerMode:profile,location,portraitVariant:turn.expression,dialogueVariant:portrait.element.dataset.dialogueVariant});if(conversationLog.length>100)conversationLog.shift();
     inspections.present(entry,{label:portrait.profile.displayName,text,kind:'talk',extra:portrait.element});turns.set(key,index+1);
   }
   inspections.handlers.set('talk',speak);
-  return {characters,entries,turns,destroy(){unregister.forEach(fn=>fn());inspections.handlers.delete('talk');if(inspections.opened?.kind==='talk')inspections.dismiss();}};
+  return {characters,entries,turns,get conversationLog(){return conversationLog.map(entry=>({...entry}));},clearConversationLog(){conversationLog.length=0;},destroy(){unregister.forEach(fn=>fn());inspections.handlers.delete('talk');if(inspections.opened?.kind==='talk')inspections.dismiss();}};
 }
 
 // A modest traveller's cape and wooden strings; no new resident/height change.

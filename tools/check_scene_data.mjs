@@ -44,6 +44,6 @@ assert.equal(finn.portraitHappy,null);assert.equal(finn.portraitNight,null);
 console.log('PASS Finn default image / missing expression-night variants use default / Finn portrait unchanged');
 
 const portraitFiles={baker:'moira',bookseller:'evan',boatworker:'blanc',starmaker:'nerissa',greenBard:'finn'};
-for(const person of characters){assert.equal(selectPortrait(person).src,'./assets/portraits/'+portraitFiles[person.id]+'-default.png');assert.equal(selectPortrait(person).fit,'contain');assert.equal(person.portraitNight,null);assert.equal(person.portraitHappy,null);}
+for(const person of characters){assert.equal(selectPortrait(person).src,'./assets/portraits/'+portraitFiles[person.id]+'-default.png');assert.equal(selectPortrait(person).fit,'cover');assert.equal(person.portraitNight,null);assert.equal(person.portraitHappy,null);}
 assert.equal(characters.find(c=>c.id==='starmaker').name,'ネリッサ');
 console.log('PASS five official portraits / Nerissa name with stable starmaker id / alternate fields remain available');

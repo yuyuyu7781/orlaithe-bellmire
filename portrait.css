@@ -42,3 +42,8 @@
 @media(max-width:600px){.inspection-card.dialogue-card{width:min(420px,calc(100vw - 20px));padding:16px;grid-template-columns:106px minmax(0,1fr);gap:9px 14px;bottom:170px;max-height:calc(100dvh - 210px)}.dialogue-portrait{width:106px;height:146px;grid-row:1 / span 2}.dialogue-card>strong{font-size:20px}.dialogue-card>p{font-size:14px;line-height:1.9}.dialogue-details{font-size:11px}}
 @media(max-width:360px){.inspection-card.dialogue-card{grid-template-columns:minmax(0,1fr)}.dialogue-portrait{grid-column:1;grid-row:1;justify-self:center;width:110px;height:151px}.dialogue-card>strong{grid-column:1;grid-row:2}.dialogue-details{grid-column:1;grid-row:3}.dialogue-card>p{grid-row:4}.dialogue-card>button{grid-row:5}}
 @media(max-height:500px) and (min-width:361px){.inspection-card.dialogue-card{bottom:12px;max-height:calc(100dvh - 24px);grid-template-columns:106px minmax(0,1fr);padding:12px;width:min(480px,calc(100vw - 24px))}.dialogue-portrait{width:106px;height:146px;grid-row:1 / span 4}.dialogue-card>p,.dialogue-card>button{grid-column:2}.dialogue-card>strong{font-size:20px}.dialogue-card>p{font-size:14px}}
+.inspection-card.dialogue-card.conversation-closing{animation:conversation-depart .11s ease-in forwards;pointer-events:none}
+@keyframes conversation-depart{to{opacity:0;transform:translateY(3px)}}
+@media(prefers-reduced-motion:reduce){.inspection-card.dialogue-card.conversation-closing{animation:none}}
+.dialogue-details{min-width:0;overflow-wrap:anywhere}
+.inspection-card.dialogue-card{overscroll-behavior:contain}

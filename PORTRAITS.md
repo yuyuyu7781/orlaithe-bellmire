@@ -20,8 +20,8 @@
 character.portraitDefault = {
   src: './assets/portraits/moira-default.webp',
   alt: 'モイラの水彩肖像',
-  objectPosition: '50% 35%',
-  fit: 'contain' // 省略時はcover
+  framing: { objectPositionX: 50, objectPositionY: 30, zoom: 1 },
+  fit: 'cover' // アーチ内を満たす。人物別focusはprofileで管理
 };
 character.portraitNight = './assets/portraits/moira-night.webp';
 character.portraitHappy = './assets/portraits/moira-smile.webp';
@@ -55,13 +55,13 @@ PC/タッチ画面で5人×昼/夜、画像なし・画像あり・破損画像�
 
 ## フィンの正式な通常肖像
 
-`assets/portraits/finn-default.png` は提供されたZIP内のPNGをそのまま保存したもの。フィンの既存`portraitDefault`へ登録し、`fit: 'contain'` / `objectPosition: '50% 35%'`で顔・髪・深緑の外套を収める。共通UIや他の4人の設定は変更しない。表情・夜差分が未設定ならこの通常画像を使い、読み込み失敗時は従来の人物別仮カードへ戻る。
+`assets/portraits/finn-default.png` は提供されたZIP内のPNGをそのまま保存したもの。フィンの既存`portraitDefault`へ登録し、人物別の`framing`設定で顔・髪・深緑の外套を収める。共通UIや他の4人の設定は変更しない。表情・夜差分が未設定ならこの通常画像を使い、読み込み失敗時は従来の人物別仮カードへ戻る。
 
 正式肖像の検証: PC 960×640とタッチ画面390×844で、人間/猫それぞれ実際に徒歩でフィンへ接近し、E/タップによる会話、画像表示、閉じる、再会話、帰路を確認。画像の読み込み失敗時にも仮カードへ戻る。天候6種、19視点、追跡、井戸を調べる操作、住民/猫/水車/ケーブルカーのアニメーションとWebGLも正常。
 
 ## 5人の正式な通常肖像
 
-通常画像は、フィンに加えて以下の4人にも登録した。提供PNGは再描画・切り抜き・変換を行わず保存。全員の表示は既存の`contain`と`50% 35%`を使い、顔・髪型・衣装・職業の小道具を収める。通常・表情・時間帯の選択と読み込み失敗時のフォールバックは従来の仕組みを使う。
+通常画像は、フィンに加えて以下の4人にも登録した。提供PNGは再描画・切り抜き・変換を行わず保存。全員の表示はv13.3の`cover`と人物別focusを使い、顔・髪型・衣装・職業の小道具を収める。通常・表情・時間帯の選択と読み込み失敗時のフォールバックは従来の仕組みを使う。
 
 | 内部ID | 表示名 | 通常画像 |
 |---|---|---|
@@ -74,3 +74,30 @@ PC/タッチ画面で5人×昼/夜、画像なし・画像あり・破損画像�
 ネリッサは表示名・プロフィール・資料の表記を統一し、既存の`starmaker` IDを維持。プロフィール制作方向も4人の年齢帯、髪・衣装、生活感を明記した。ネリッサは黒髪ストレート・深紺・真鍮、天体と機械に親しむ店主として、フィンとは区別する。3Dモデル・台詞・歩行判定・UI構造・フィンの画像と設定は変更しない。
 
 4人登録時の確認: PC 960×640／タッチ画面390×844 × 人間／猫 × 4人の計16通りで、実際の徒歩接近、E／タップ会話、正式画像、閉じる、再会話、帰路を確認。両画面で4人の画像読み込み失敗時の仮カードとフィンの正式画像も確認した。フィンのPNGと既存設定は不変。天候6種・19カメラ・追跡・住民/猫/水車/ケーブルカーのアニメーション・WebGLは正常で、人間14対象／猫5対象の調査登録も維持している。旧名の表記は関連コード・資料から統一した。環境設定は変更しない。
+
+## v13.3–v13.5 framing and presentation
+The existing profiles, image selection and arched fallback cards are reused.
+Official files are unchanged. `portraitFraming(profile, image, variant)` merges
+profile `framing`, `framing.variants[variant]`, then image `framing`; `mobile`
+overrides apply below 600px. Positions are percentages; zoom is clamped to
+1–1.4 so cover never reveals an empty border. Default focus/zoom:
+Moira 50/32/1.06, Evan 50/29/1.03, Bran 50/35/1,
+Nerissa 51/28/1.03, Finn 50/26/1. Mobile: Y 30/27/33/26/24,
+zoom 1.04/1.02/1/1.02/1 respectively. Future image variants may override
+these without changing character identity or the image-selection contract.
+Paper changes gently at evening/night; image colors are not filtered.
+Conversation cards retain ESC/E/tap, 44px close buttons and reduced-motion support.
+A close takes 110ms, cancels safely on reopening, and releases interaction state
+immediately. Narrow screens retain the portrait above speech; below 360px the
+whole card stacks. Short landscape screens keep a compact side illustration.
+
+Validation: `node tools/check_portrait_framing.mjs`,
+`node tools/check_scene_data.mjs`, and `node tools/check_shop_data.mjs`.
+Chromium checks exercised real human/cat conversations with all five characters,
+shop entries/exits and hours, 19 cameras, six weather states, tracking, animations,
+WebGL and all three quality settings. A separate presenter fixture checked all
+five subjects × two player modes × four viewports (1200×800, 768×1024,
+390×844, 844×390) × loaded/missing/failed images, plus long text, rapid reopening,
+reduced motion and the bounded/copy-safe log. Mobile checks simulate viewport and
+touch input; real phone performance remains unmeasured. This change adds no 3D
+meshes, lights, image assets, postprocessing or environment configuration.

@@ -33,10 +33,14 @@ export function createInspectionSystem({THREE,scene,camera,walking,targets,ignor
   prompt.id='inspectPrompt';prompt.className='inspect-prompt';prompt.hidden=true;prompt.setAttribute('aria-keyshortcuts','E');prompt.setAttribute('aria-controls','inspectionCard');
   card.id='inspectionCard';card.className='inspection-card';card.hidden=true;card.setAttribute('role','status');card.setAttribute('aria-live','polite');close.textContent='閉じる';close.setAttribute('aria-label','説明を閉じる');card.append(title,text,close);document.body.append(prompt,card);
   const content=document.createElement('div');card.insertBefore(content,text);
-  let selected=null,opened=null,openedProfile=null,elapsed=0;
-  function dismiss(){opened=null;openedProfile=null;card.hidden=true;content.replaceChildren();}
+  let selected=null,opened=null,openedProfile=null,elapsed=0,closeTimer=null;
+  function dismiss(){const animate=opened?.kind==='talk'&&!matchMedia('(prefers-reduced-motion:reduce)').matches;
+    opened=null;openedProfile=null;
+    if(closeTimer!==null)return;
+    const finish=()=>{card.hidden=true;card.classList.remove('conversation-closing');card.inert=false;content.replaceChildren();closeTimer=null;};
+    if(animate){card.classList.add('conversation-closing');card.inert=true;closeTimer=setTimeout(finish,110);}else finish();}
   function present(entry,{label=entry.label,text:message=entry.text,kind=entry.kind,extra=null}={}){
-    title.textContent=label;text.textContent=message;content.replaceChildren(...(extra?[extra]:[]));card.classList.toggle('dialogue-card',kind==='talk');opened=entry;openedProfile=walking.state.profile.id;card.hidden=false;
+    clearTimeout(closeTimer);closeTimer=null;card.classList.remove('conversation-closing');card.inert=false;card.dataset.period=extra?.dataset.period??'day';card.dataset.conversationMode=extra?.dataset.conversationMode??'';close.setAttribute('aria-label',kind==='talk'?'会話を閉じる':'説明を閉じる');title.textContent=label;text.textContent=message;content.replaceChildren(...(extra?[extra]:[]));card.classList.toggle('dialogue-card',kind==='talk');opened=entry;openedProfile=walking.state.profile.id;card.hidden=false;
   }
   handlers.set('inspect',entry=>present(entry,{text:entry.textByProfile?.[walking.state.profile.id]??entry.text}));
   function activate(){update(.2);if(!selected||!walking.active)return false;const handle=handlers.get(selected.kind);if(!handle)return false;handle(selected);return true;}
@@ -52,6 +56,6 @@ export function createInspectionSystem({THREE,scene,camera,walking,targets,ignor
     if(e.code==='KeyE'){if(activate())e.preventDefault();}else if(e.code==='Escape')dismiss();
   }
   const click=e=>{e.stopPropagation();activate();};prompt.addEventListener('click',click);close.addEventListener('click',dismiss);document.addEventListener('keydown',key);
-  function destroy(){document.removeEventListener('keydown',key);prompt.remove();card.remove();}
+  function destroy(){clearTimeout(closeTimer);document.removeEventListener('keydown',key);prompt.remove();card.remove();}
   return {resolver,handlers,present,activate,update,dismiss,destroy,get selected(){return selected},get opened(){return opened}};
 }

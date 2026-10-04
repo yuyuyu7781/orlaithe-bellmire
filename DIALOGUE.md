@@ -42,3 +42,11 @@ Location-specific introductions precede the existing time/actor lines; each
 fourth human conversation may use a short `rumorPool` entry. Inspect/enter/exit
 remain separate kinds sharing proximity, facing, sight and E/tap handling. See
 [INTERIORS.md](INTERIORS.md) for shop hours, walking policies and future hooks.
+
+## Conversation record groundwork (v13.5)
+`dialogue.conversationLog` returns copies of the latest 100 spoken lines for the
+current session, with speaker/name/id, text, time period, ISO timestamp,
+playerMode, location, portraitVariant and dialogueVariant. It is not persisted
+and adds no log UI. `clearConversationLog()` clears it. Inspection text never
+enters this log. Presentation also exposes conversationMode and variant metadata,
+without changing the human/cat lines, first encounters or portrait selectors.
