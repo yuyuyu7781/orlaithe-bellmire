@@ -13,7 +13,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   surfaceMaterials,dynamicObjects,ignoredObjects,waterMaterials,trackBounds,spawn}){
   const state={active:false,profile:walkingProfiles.human,feet:spawn.clone(),yaw:-Math.PI*.83,pitch:-.05};
   const input={keys:new Set(),touch:new Set(),forward:0,right:0};
-  const ground=[],floors=[],obstacles=[],waterZones=[];
+  const ground=[],floors=[],obstacles=[],waterZones=[],catSteps=[];let jumpState=null;
   const upAxis=new THREE.Vector3(0,1,0),direction=new THREE.Vector3(),euler=new THREE.Euler(0,0,0,'YXZ');
   const dynamicBounds=dynamicObjects.map(object=>({object,bounds:new THREE.Box3()}));
   const terrainSet=new Set(terrain),surfaceSet=new Set(surfaces),ignored=new Set(ignoredObjects);
@@ -82,6 +82,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     if(!Number.isFinite(y))return null;
     // Bridge only the tiny seams between existing dock planks, not open water.
     for(const b of floors)if(x>=b.min.x-.025&&x<=b.max.x+.025&&z>=b.min.z-.025&&z<=b.max.z+.025&&b.max.y<=currentY+profile.stepUp+.001)y=Math.max(y,b.max.y);
+    if(profile.id==='cat')for(const step of catSteps){const b=step.bounds;if(contains(b,x,z)&&b.max.y<=currentY+profile.stepUp+.001)y=Math.max(y,b.max.y);}
     for(const b of waterZones)if(contains(b,x,z)&&b.max.y>=y-.04)return null;
     return y;
   }
@@ -123,6 +124,15 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
       if(y!==null){state.feet.z+=dz;state.feet.y=y}
     }
   }
+  function registerCatStep(object){object.updateWorldMatrix(true,true);const entry={object,bounds:new THREE.Box3().setFromObject(object,true)};catSteps.push(entry);object.userData.catStep=true;return entry;}
+  function jump(){if(!state.active||state.profile.id!=='cat'||jumpState)return false;refreshDynamic();const p={...state.profile,stepUp:1.05,stepDown:1.05},forward=new THREE.Vector3(-Math.sin(state.yaw),0,-Math.cos(state.yaw));
+    const candidates=catSteps.map(step=>({step,point:step.bounds.getCenter(new THREE.Vector3()).setY(step.bounds.max.y)})).filter(q=>{const delta=q.point.clone().sub(state.feet);return Math.hypot(delta.x,delta.z)<1.35&&delta.y>=-.95&&delta.y<=.90&&delta.clone().setY(0).normalize().dot(forward)>.15;}).sort((a,b)=>a.point.distanceTo(state.feet)-b.point.distanceTo(state.feet));
+    candidates.push({step:null,point:state.feet.clone().addScaledVector(forward,.55)});
+    for(const q of candidates){const y=canStand(q.point.x,q.point.z,state.feet.y,p);if(y===null)continue;q.point.y=y;if(Math.abs(y-state.feet.y)>.95)continue;let clear=true;
+      for(let i=1;i<=12;i++){const t=i/12,pos=state.feet.clone().lerp(q.point,t);pos.y+=Math.sin(Math.PI*t)*.30;if(groundAt(pos.x,pos.z,state.feet.y,p)===null){clear=false;break;}for(const o of nearby(pos.x,pos.z,p)){let belongs=false;for(let a=o.object;a;a=a.parent)if(a===q.step?.object)belongs=true;if(!belongs&&!o.disabled&&intersectsBody(o.bounds,pos.x,pos.z,pos.y,o.isFloor,o.round,p)){clear=false;break;}}if(!clear)break;}
+      if(clear){jumpState={from:state.feet.clone(),to:q.point.clone(),elapsed:0,duration:.42};clearInput();return true;}
+    }return false;
+  }
   function clearInput(){input.keys.clear();input.touch.clear();input.forward=input.right=0;lastPointer=null;document.querySelectorAll('[data-move]').forEach(b=>b.classList.remove('active'))}
   function updateHint(){hint.dataset.profile=state.profile.id;hint.textContent=(state.profile.id==='cat'?'猫 · ':'人間 · ')+( document.pointerLockElement===canvas?
     'WASD / 矢印キーで移動 · マウスで見回す · Escでマウス解除':
@@ -151,7 +161,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     const profile=walkingProfiles[id];if(!profile)return;
     const wasActive=state.active;if(wasActive)lastLocations.set(state.profile.id,state.feet.clone());refreshDynamic();const feet=safeLocation(profile);
     if(!wasActive){savedNear=camera.near;savedFov=camera.fov;const panel=document.getElementById('panel');panelWasCollapsed=panel.classList.contains('collapsed');}
-    state.profile=profile;state.feet.copy(feet);state.active=true;clearInput();camera.near=id==='cat'?.035:.06;camera.fov=profile.fov;camera.updateProjectionMatrix();
+    jumpState=null;state.profile=profile;state.feet.copy(feet);state.active=true;clearInput();camera.near=id==='cat'?.035:.06;camera.fov=profile.fov;camera.updateProjectionMatrix();
     controls.enabled=false;eyeY=state.feet.y+profile.eyeHeight;updateCamera(0);
     document.body.classList.add('walking');document.body.classList.toggle('cat-walking',id==='cat');document.getElementById('walk').classList.toggle('active',id==='human');document.getElementById('catWalk')?.classList.toggle('active',id==='cat');
     document.getElementById('panel').classList.add('collapsed');document.getElementById('toggle').textContent='操作';updateHint();
@@ -159,7 +169,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   function leave(){
     if(!state.active)return;
     for(const fn of leaveListeners)fn();
-    lastLocations.set(state.profile.id,state.feet.clone());state.active=false;clearInput();if(document.pointerLockElement===canvas)document.exitPointerLock();
+    jumpState=null;lastLocations.set(state.profile.id,state.feet.clone());state.active=false;clearInput();if(document.pointerLockElement===canvas)document.exitPointerLock();
     camera.near=savedNear;camera.fov=savedFov;camera.updateProjectionMatrix();
     document.body.classList.remove('walking','cat-walking');document.getElementById('catWalk')?.classList.remove('active');document.getElementById('walk').classList.remove('active');
     document.getElementById('panel').classList.toggle('collapsed',panelWasCollapsed);document.getElementById('toggle').textContent=panelWasCollapsed?'操作':'街を見る';
@@ -167,6 +177,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   function update(dt){
     if(!state.active)return;
     refreshDynamic();dt=Math.min(.05,Math.max(0,dt));
+    if(jumpState){jumpState.elapsed+=dt;const t=Math.min(1,jumpState.elapsed/jumpState.duration);state.feet.copy(jumpState.from).lerp(jumpState.to,t);state.feet.y+=Math.sin(Math.PI*t)*.30;updateCamera(dt);if(t===1)jumpState=null;return;}
     const pressed=(...codes)=>codes.some(c=>input.keys.has(c)||input.touch.has(c));
     input.forward=Number(pressed('KeyW','ArrowUp','forward'))-Number(pressed('KeyS','ArrowDown','backward'));
     input.right=Number(pressed('KeyD','ArrowRight','right'))-Number(pressed('KeyA','ArrowLeft','left'));
@@ -177,6 +188,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   const movementKeys=new Set(['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight']);
   addEventListener('keydown',e=>{
     if(!state.active||/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName))return;
+    if(e.code==='Space'&&state.profile.id==='cat'&&!e.repeat){e.preventDefault();jump();}
     if(movementKeys.has(e.code)){e.preventDefault();input.keys.add(e.code)}
   });
   addEventListener('keyup',e=>input.keys.delete(e.code));
@@ -214,6 +226,6 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     return {walkable:support!==null,floor,blockers:blocked.map(o=>({name:o.object?.name||o.object?.geometry?.type||'track',min:o.bounds.min.toArray(),max:o.bounds.max.toArray()})),profile:id};
   }
   // Read-only world data also supports route validation and future actor policies.
-  return {get active(){return state.active},state,input,enter,leave,update,groundAt,canStand,canStandAs,registerObstacle,refreshObstacle,setArea,relocate,onLeave(fn){leaveListeners.add(fn);return()=>leaveListeners.delete(fn);},profiles:walkingProfiles,lastLocations,
+  return {get active(){return state.active},state,input,enter,leave,update,groundAt,canStand,canStandAs,registerObstacle,refreshObstacle,registerCatStep,jump,catSteps,get jumping(){return !!jumpState;},setArea,relocate,onLeave(fn){leaveListeners.add(fn);return()=>leaveListeners.delete(fn);},profiles:walkingProfiles,lastLocations,
     world:{ground,floors,obstacles,waterZones},refreshDynamic,inspectClearance,canStandTownAs,canStandActor};
 }

@@ -50,7 +50,7 @@ export function buildInterior({THREE,shop}){
   // Corridor and two small bedrooms; each side doorway has a 1.1m opening.
   box(1.7,3.2,0,3.4,2.85,.12,wall);
   for(const z of [-3.65,-.7,.7,3.65])box(-.1,3.2,z,.12,2.85,1.0,wall);
-  for(const z of [-2,2]){box(2.25,3.2,z,1.2,.42,1.8,wood);box(2.25,3.62,z,1.1,.12,1.7,linen,false);box(2.25,3.75,z-.6,.7,.13,.35,paper,false);for(const dx of [-.20,.20])for(const dz of [-.20,.20])box(.8+dx,3.2,z+dz,.06,.75,.06,wood);box(.8,3.95,z,.55,.08,.55,wood);box(3.40,4.15,z,.025,1,.70,glow,false);box(1.0,3.2,z+1.05,.60,.35,.45,wood);}
+  for(const z of [-2,2]){box(2.25,3.2,z,1.2,.42,1.8,wood);box(2.25,3.62,z,1.1,.12,1.7,linen,false);box(2.25,3.75,z-.6,.7,.13,.35,paper,false);for(const dx of [-.20,.20])for(const dz of [-.20,.20])box(.8+dx,3.2,(z<0?-3.55:3.55)+dz,.06,.75,.06,wood);box(.8,3.95,z<0?-3.55:3.55,.55,.08,.55,wood);box(3.40,4.15,z,.025,1,.70,glow,false);box(1.0,3.2,z+1.05,.60,.35,.45,wood);}
   notice('upstairs','宿の客室','荷物置きには、旅人が結び直した紐が残っている。窓の下では港の音が少し遠い。',[-1,4.0,-1]);
 
   notice('guestbook','宿帳','名前の横に、小さな円を添える旅人がいる。受付の灯りは、遅い到着にも残されている。',[1.8,1.05,-2.3]);

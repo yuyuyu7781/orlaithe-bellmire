@@ -59,6 +59,7 @@ import {enrichBackstreets} from './backstreets.js';
 import {createQualitySystem} from './quality.js';
 import {createResidentDay} from './resident-day.js';
 import {createTownEvents} from './town-events.js';
+import {addCatExploration} from './cat-exploration.js';
 import {createTownLife} from './town-life.js';
 import {addMiniatureGoods,enrichMiniature} from './miniature.js';
 import {addHarborGoods,enrichHarbor,buildSkiff} from './harbor-details.js';
@@ -1147,6 +1148,7 @@ townLife.onChange(state=>residentLife.setPeriod(state.period));residentLife.setP
 const shopSystem=createShopSystem({THREE,scene,walking,grounding,miniature,inspections,dialogue,townLife,onExit:()=>{atmosphere.apply(townLife.state.weather);atmosphere.applyPeriod(townLife.state.period);atmosphere.refreshShadows();quality.update(2);}});
 const residentDay=createResidentDay({THREE,walking,grounding,residentLife,townLife,shopSystem,camera,getQuality:()=>quality.current});
 const townEvents=createTownEvents({THREE,scene,culture,inspectTargets,inspections,walking,townLife,shopSystem,dialogue});
+const catExploration=addCatExploration({THREE,walking,grounding,inspections,shopSystem});
 const navigation=createNavigation({walking,shopSystem});
 const minimap=createMinimap({walking,shopSystem,inspections,navigation,buildings:miniature.shells,roads:Object.values(townRoads)});
 for(const shop of shopSystem.shops){if(shop.actor){const character=dialogue.characters.find(c=>c.id===shop.actor);character.locationLines={...character.locationLines,[shop.id]:{human:[shop.inside],cat:[shop.catInside]}};}}
