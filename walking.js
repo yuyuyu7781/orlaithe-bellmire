@@ -134,6 +134,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     euler.set(state.pitch,state.yaw,0);camera.quaternion.setFromEuler(euler);
   }
   const lastLocations=new Map();
+  function canStandTownAs(id,x,z,y){const saved=area;try{area=null;return canStandAs(id,x,z,y);}finally{area=saved;}}
   function canStandAs(id,x,z,y){const profile=walkingProfiles[id];return profile?canStand(x,z,y,profile):null;}
   function safeLocation(profile){
     let y=canStand(state.feet.x,state.feet.z,state.feet.y,profile);if(y!==null)return new THREE.Vector3(state.feet.x,y,state.feet.z);
@@ -212,5 +213,5 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   }
   // Read-only world data also supports route validation and future actor policies.
   return {get active(){return state.active},state,input,enter,leave,update,groundAt,canStand,canStandAs,registerObstacle,refreshObstacle,setArea,relocate,onLeave(fn){leaveListeners.add(fn);return()=>leaveListeners.delete(fn);},profiles:walkingProfiles,lastLocations,
-    world:{ground,floors,obstacles,waterZones},refreshDynamic,inspectClearance};
+    world:{ground,floors,obstacles,waterZones},refreshDynamic,inspectClearance,canStandTownAs};
 }
