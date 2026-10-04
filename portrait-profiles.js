@@ -1,5 +1,20 @@
 // Display/art direction only. Existing character identities, dialogue and 3D
 // actors remain in dialogue-data.js. These are provisional cards, not final art.
+const framing={
+ baker:{objectPositionX:50,objectPositionY:32,zoom:1.06,mobile:{objectPositionY:30,zoom:1.04}},
+ bookseller:{objectPositionX:50,objectPositionY:29,zoom:1.03,mobile:{objectPositionY:27,zoom:1.02}},
+ boatworker:{objectPositionX:50,objectPositionY:35,zoom:1,mobile:{objectPositionY:33,zoom:1}},
+ starmaker:{objectPositionX:51,objectPositionY:28,zoom:1.03,mobile:{objectPositionY:26,zoom:1.02}},
+ greenBard:{objectPositionX:50,objectPositionY:26,zoom:1,mobile:{objectPositionY:24,zoom:1}}
+};
+// Image definitions may override framing for future expressions/night artwork.
+export function portraitFraming(profile,image={},variant='default'){
+ const base={objectPositionX:50,objectPositionY:35,zoom:1,...profile.framing};
+ const normal={...base,...base.variants?.[variant],...image.framing};
+ const mobile={...normal,...normal.mobile,...image.framing?.mobile};
+ const safe=value=>({objectPositionX:Math.max(0,Math.min(100,Number.isFinite(value.objectPositionX)?value.objectPositionX:50)),objectPositionY:Math.max(0,Math.min(100,Number.isFinite(value.objectPositionY)?value.objectPositionY:35)),zoom:Math.max(1,Math.min(1.4,Number.isFinite(value.zoom)?value.zoom:1))});
+ return {normal:safe(normal),mobile:safe(mobile)};
+}
 const profiles={
  baker:{mood:'親しみと朝の温もり',impression:'働き者の、穏やかな包容力',intro:'窯の温もりを袖に残したパン屋。',portraitDirection:'40代前後。丸みのある顔、そばかす、栗色〜赤茶の髪。生成りのブラウスとくすんだ赤茶のエプロン。健康的で親しみやすく、パン屋らしい生活感。胸上、朝の窯の柔らかな反射。',palette:{paper:'#e7dbc0',wash:'#c19a76',cloth:'#95654c',hair:'#685247',ink:'#514438'},motif:'loaf'},
  bookseller:{mood:'静かで思慮深い',impression:'古い頁と過ごす、控えめな親切',intro:'頁の折り目まで覚えている古書店主。',portraitDirection:'40代半ば。細めの顔、やや長い鼻、灰褐色〜焦げ茶の髪と少し寝癖、眼鏡も可。痩せ型、茶・灰・深緑の服。古書店主らしい静けさと生活感。胸上、紙色の余白と低い琥珀の灯り。',palette:{paper:'#e1dcc9',wash:'#9ba99e',cloth:'#526b65',hair:'#625b50',ink:'#454d47'},motif:'book'},
@@ -9,5 +24,5 @@ const profiles={
 };
 export function portraitProfile(character){
  const defaults={paper:'#e4ddc9',wash:'#a3ae98',cloth:'#63765f',hair:'#685c4c',ink:'#4d5145'},direction=profiles[character.id]??{},existing=character.visualProfile??{};
- return {displayName:character.name,role:character.role,subjectKind:'person',...direction,...existing,palette:{...defaults,...direction.palette,...existing.palette}};
+ return {displayName:character.name,role:character.role,subjectKind:'person',framing:framing[character.id],...direction,...existing,palette:{...defaults,...direction.palette,...existing.palette}};
 }

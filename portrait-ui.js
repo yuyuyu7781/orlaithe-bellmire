@@ -1,4 +1,4 @@
-import {portraitProfile} from './portrait-profiles.js';
+import {portraitProfile,portraitFraming} from './portrait-profiles.js';
 import {periodForWeather} from './scene-settings.js';
 
 export function portraitPeriod(time){return ['morning','day','evening','night'].includes(time)?time:periodForWeather(time);}
@@ -31,7 +31,7 @@ export function createPortraitView(character,{image,time='day',expression='defau
  const fallback=document.createElement('div');fallback.className='portrait-placeholder';fallback.append(silhouette(profile));
  const caption=document.createElement('small');caption.className='portrait-caption';caption.textContent='肖像の下描き';fallback.append(caption);frame.append(fallback);
  frame.setAttribute('role','img');frame.setAttribute('aria-label',profile.displayName+'の仮の肖像・'+(profile.mood??profile.role));
- if(image?.src){const img=document.createElement('img');img.alt=image.alt??profile.displayName+'の肖像';img.decoding='async';img.style.objectFit=image.fit==='contain'?'contain':'cover';img.style.objectPosition=image.objectPosition??'50% 35%';
+ if(image?.src){const img=document.createElement('img');img.alt=image.alt??profile.displayName+'の肖像';img.decoding='async';img.style.objectFit='cover';const focus=portraitFraming(profile,image,expression);for(const [device,values]of Object.entries(focus)){img.style.setProperty('--focus-'+device,values.objectPositionX+'% '+values.objectPositionY+'%');img.style.setProperty('--zoom-'+device,values.zoom);}
   img.onload=()=>{if(!img.naturalWidth)return;frame.dataset.state='image';fallback.hidden=true;frame.removeAttribute('role');frame.removeAttribute('aria-label');};
   img.onerror=()=>{img.remove();fallback.hidden=false;frame.dataset.state='fallback';};frame.append(img);img.src=image.src;
  }

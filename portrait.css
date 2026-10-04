@@ -26,3 +26,6 @@
 @media(prefers-reduced-motion:reduce){.inspection-card.dialogue-card{animation:none}.dialogue-portrait img{transition:none}}
 .inspection-card.dialogue-card>button:hover{color:#352f26;background:#a18c6225;border-color:#79694d88}
 .inspection-card.dialogue-card>button:focus-visible{outline:2px solid #79694d;outline-offset:3px}
+
+.dialogue-portrait img{object-position:var(--focus-normal,50% 35%);transform:scale(var(--zoom-normal,1));transform-origin:var(--focus-normal,50% 35%)}
+@media(max-width:600px){.dialogue-portrait img{object-position:var(--focus-mobile,50% 35%);transform:scale(var(--zoom-mobile,1));transform-origin:var(--focus-mobile,50% 35%)}}
