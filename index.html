@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v12.3 — Orlaithe miniature</title>
+<title>Bellmire v12.4 — Orlaithe miniature</title>
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
-.panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:hidden;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:auto;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
 button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-radius:999px;padding:7px 11px;font-size:12px}button{cursor:pointer}button:hover,button.active{background:#d8c8a526;color:#fff;border-color:#e5d5b850}.toggle{display:none;margin-left:auto}
 .resident{position:fixed;z-index:20;right:14px;top:14px;padding:9px 11px;background:#101923dd;border:1px solid #ffffff20;border-radius:14px;backdrop-filter:blur(12px);font-size:12px}.hint{position:fixed;z-index:10;right:12px;bottom:10px;background:#101923c9;border:1px solid #ffffff18;border-radius:10px;padding:7px 9px;font-size:10px;opacity:.75}
 .walk-ui{display:none}.walking .walk-ui{display:block}.walking .hint{display:none}.walk-help{position:fixed;z-index:21;left:14px;bottom:14px;max-width:calc(100vw - 28px);padding:9px 12px;background:#101923dd;border:1px solid #ffffff24;border-radius:12px;font-size:11px}.walk-help button{margin-left:8px}.walk-pad{position:fixed;z-index:22;left:12px;bottom:82px;grid-template-columns:repeat(3,42px);gap:4px;touch-action:none}.walking .walk-pad{display:none}.walk-pad button{width:42px;height:42px;padding:0;touch-action:none}.walking .toggle{display:block}.walking .panel.collapsed{width:auto}.walking .panel.collapsed .badge,.walking .panel.collapsed .sub,.walking .panel.collapsed .rows{display:none}.walking .panel.collapsed .title{font-size:14px}.walking canvas{touch-action:none;cursor:grab}.walking canvas:active{cursor:grabbing}@media(pointer:coarse){.walking #walkLook{display:none}.walking .walk-pad{display:grid}.walking .resident{display:none}.walk-help{font-size:10px;left:8px;bottom:8px}.walk-help button{padding:6px 8px}}
@@ -18,8 +18,9 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v12.3</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v12.4</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
+<div class="row"><label>時刻 <select id="timePeriod" aria-label="街の時間帯"><option value="morning">朝</option><option value="day" selected>昼</option><option value="evening">夕</option><option value="night">夜</option></select></label></div>
 <div class="row" id="views"><button data-v="overview" class="active">全景</button><button data-v="alley">路地</button><button data-v="streetwalk">路地散歩</button><button data-v="bakery">パン屋</button><button data-v="bookshop">古書店</button><button data-v="inn">宿屋</button><button data-v="tavern">酒場</button><button data-v="orrery">天球儀店</button><button data-v="square">井戸広場</button><button data-v="roofgarden">屋根庭</button><button data-v="mill">水車小屋</button><button data-v="archway">アーチ路地</button><button data-v="canal">水路</button><button data-v="rooftop">屋上</button><button data-v="belfry">鐘楼</button><button data-v="drone">ドローン</button><button data-v="train">ケーブルカー</button><button data-v="resident">住人</button><button data-v="catview">猫</button></div>
 <div class="row"><button id="walk">歩行</button><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div></div></div>
 <div class="resident">追跡 <select id="residentSel"><option value="0">パン屋</option><option value="1">本屋</option><option value="2">旅人</option><option value="3">吟遊詩人</option></select></div>
@@ -1014,7 +1015,7 @@ pedestrianSteps(41.2,9.2,10.3,1,lowerLandingY,1,3);
 let view='overview',followMode=false,followIdx=0;
 const viewMap={overview:[[72,54,78],[-2,7,0]],alley:[[-15,6,36],[-9,5,23]],streetwalk:[[-34,4.4,34],[-18,3.5,24]],resident:[[-4,4.3,29],[-9,3.1,24]],catview:[[-25,3.3,16],[-20,2.0,18]],bakery:[[-39,7,34],[-31,4,24]],bookshop:[[-25,7,38],[-18,6,29]],inn:[[-49,11,11],[-39,8,-1]],tavern:[[-10,8,27],[-10,5.2,12.2]],orrery:[[15,17,12],[3,12,-3]],square:[[-31,6,16],[-24,2,7]],roofgarden:[[-38,18,-8],[-28,11,-18]],mill:[[33,10,39],[20,5,27]],archway:[[39,10,21],[28,5,9]],canal:[[34,19,36],[21,6.5,24]],rooftop:[[-5,21,13],[-20,7,0]],belfry:[[-4,27,-17],[-13,23,-32]],drone:[[0,33,45],[-8,6,-5]],train:[[51,7,19],[43.5,2.5,12]]};
 function setView(v){if(walking.active)walking.leave();view=v;followMode=false;document.getElementById('follow').classList.remove('active');const[p,t]=viewMap[v];camera.position.fromArray(p);controls.target.fromArray(t);controls.enabled=!['drone','train'].includes(v);document.querySelectorAll('#views button').forEach(b=>b.classList.toggle('active',b.dataset.v===v))}
-function setWeather(w){rain.visible=w==='rain';atmosphere.apply(w);townLife.setWeather(w);document.querySelectorAll('#weather button').forEach(b=>b.classList.toggle('active',b.dataset.w===w))}
+function setWeather(w){rain.visible=w==='rain';atmosphere.apply(w);townLife.setWeather(w);document.getElementById("timePeriod").value=townLife.state.period;document.querySelectorAll('#weather button').forEach(b=>b.classList.toggle('active',b.dataset.w===w))}
 document.getElementById('weather').onclick=e=>e.target.dataset.w&&setWeather(e.target.dataset.w);document.getElementById('views').onclick=e=>e.target.dataset.v&&setView(e.target.dataset.v);residentSel.onchange=e=>followIdx=+e.target.value;
 follow.onclick=()=>{if(walking.active){walking.leave();setView(view)}followMode=!followMode;follow.classList.toggle('active',followMode);controls.enabled=!followMode};fullscreen.onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen?.();toggle.onclick=()=>{panel.classList.toggle('collapsed');toggle.textContent=panel.classList.contains('collapsed')?'操作':'街を見る'};if(innerWidth<701)panel.classList.add('collapsed');
 // v8.2 movement helpers
@@ -1110,9 +1111,11 @@ const backstreets=enrichBackstreets({THREE,scene,miniature,walking,grounding});
 const harborDetails=enrichHarbor({THREE,scene,grounding,walking,supports:harborSupports,water,water101,lit,
   ignored:[...residentScale.residents.map(q=>q.object),cat,...smoke,orrery]});
 inspections.resolver.refreshOccluders();
-const townLife=createTownLife({THREE,scene,lit,smoke,chimneySources});
+const townLife=createTownLife({THREE,scene,lit,smoke,chimneySources,buildings:miniature.shells});
 townLife.onChange(harborDetails.applyTime);harborDetails.applyTime(townLife.state);
 const atmosphere=createAtmosphere({THREE,scene,camera,renderer,bloom,hemi,sun,dynamicRoots:[train,wheel,cat,...residents,residentV8]});
+townLife.onChange(state=>atmosphere.applyPeriod(state.period));
+document.getElementById('timePeriod').onchange=e=>{townLife.setPeriod(e.target.value);inspections.dismiss();};
 walk.onclick=()=>{
   if(walking.active){walking.leave();setView(view);return}
   followMode=false;follow.classList.remove('active');

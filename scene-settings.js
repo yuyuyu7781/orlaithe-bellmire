@@ -26,3 +26,5 @@ export function periodForWeather(weather){return weatherProfiles[weather]?.perio
 // Shared v12.2 lighting policy; reuse the existing sun and shadow map.
 export const artLighting={skyTint:0xe3e4db,groundTint:0x958371,shadowExtent:65,shadowFar:180,minCasterWidth:2.2,minCasterHeight:1.2};
 export const waterPalette={tint:0x5c7376,tintAmount:.28};
+
+export const timeAtmosphere={morning:weatherProfiles.dawn,day:weatherProfiles.clear,night:weatherProfiles.night,evening:{sky:0x77847b,fog:0x899186,density:.0068,air:true,hemi:.85,sun:1.05,exposure:.96,bloom:.20,sunColor:0xffd1a0,period:"evening"}};
