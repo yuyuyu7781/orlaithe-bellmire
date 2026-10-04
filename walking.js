@@ -34,7 +34,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     const round=(object.geometry.type==='SphereGeometry'||
       (object.geometry.type==='CylinderGeometry'&&Math.abs(up.y)>.99))?
       {x:(bounds.min.x+bounds.max.x)/2,z:(bounds.min.z+bounds.max.z)/2,rx:size.x/2,rz:size.z/2}:null;
-    obstacles.push({bounds,isFloor,round});
+    obstacles.push({object,bounds,isFloor,round});
   });
   obstacles.push({bounds:trackBounds,isFloor:false});
 
@@ -48,10 +48,21 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
       }
   }
   function registerObstacle(object){
-    object.updateWorldMatrix(true,true);const o={bounds:new THREE.Box3().setFromObject(object,true),isFloor:false,round:null};obstacles.push(o);
+    object.updateWorldMatrix(true,true);const o={object,bounds:new THREE.Box3().setFromObject(object,true),isFloor:false,round:null};obstacles.push(o);
     for(let x=Math.floor(o.bounds.min.x/cellSize);x<=Math.floor(o.bounds.max.x/cellSize);x++)for(let z=Math.floor(o.bounds.min.z/cellSize);z<=Math.floor(o.bounds.max.z/cellSize);z++){const key=x+','+z;if(!cells.has(key))cells.set(key,[]);cells.get(key).push(o);}
     return o;
   }
+  function refreshObstacle(root){
+    const moved=obstacles.filter(o=>{for(let p=o.object;p;p=p.parent)if(p===root)return true;return false;});
+    for(const [key,list] of cells){const kept=list.filter(o=>!moved.includes(o));if(kept.length)cells.set(key,kept);else cells.delete(key);}
+    root.updateWorldMatrix(true,true);
+    for(const o of moved){o.bounds.setFromObject(o.object,true);if(o.round){const b=o.bounds;o.round={x:(b.min.x+b.max.x)/2,z:(b.min.z+b.max.z)/2,rx:(b.max.x-b.min.x)/2,rz:(b.max.z-b.min.z)/2};}
+      for(let x=Math.floor(o.bounds.min.x/cellSize);x<=Math.floor(o.bounds.max.x/cellSize);x++)for(let z=Math.floor(o.bounds.min.z/cellSize);z<=Math.floor(o.bounds.max.z/cellSize);z++){const key=x+','+z;if(!cells.has(key))cells.set(key,[]);cells.get(key).push(o);}
+    }return moved.length;
+  }
+  let area=null;const leaveListeners=new Set();
+  function setArea(policy=null){area=policy;state.area=policy?.id??'town';}
+  function relocate(feet,{yaw=state.yaw,pitch=0}={}){const y=canStand(feet.x,feet.z,feet.y);if(y===null)throw Error('Unsafe walking destination');state.feet.set(feet.x,y,feet.z);state.yaw=yaw;state.pitch=pitch;clearInput();eyeY=y+state.profile.eyeHeight;updateCamera(0);}
   function nearby(x,z,profile=state.profile){
     const found=new Set(),r=profile.radius;
     for(let ix=Math.floor((x-r)/cellSize);ix<=Math.floor((x+r)/cellSize);ix++)
@@ -60,6 +71,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     return found;
   }
   function groundAt(x,z,currentY,profile=state.profile){
+    if(area)return area.groundAt(x,z,currentY,profile);
     let y=-Infinity;
     for(const b of ground)if(contains(b,x,z))y=Math.max(y,b.max.y);
     if(!Number.isFinite(y))return null;
@@ -88,7 +100,8 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
       const edge=groundAt(x+dx,z+dz,y,p);
       if(edge===null||Math.abs(edge-y)>Math.max(p.stepUp,p.stepDown)+.001)return null;
     }
-    for(const o of nearby(x,z,p))if(intersectsBody(o.bounds,x,z,y,o.isFloor,o.round,p))return null;
+    if(area){for(const o of area.obstacles)if(intersectsBody(o.bounds,x,z,y,o.isFloor,o.round,p))return null;return y;}
+    for(const o of nearby(x,z,p))if(!o.disabled&&intersectsBody(o.bounds,x,z,y,o.isFloor,o.round,p))return null;
     for(const o of dynamicBounds)if(intersectsBody(o.bounds,x,z,y,false,null,p))return null;
     return y;
   }
@@ -123,6 +136,8 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     // A cat in a low passage cannot become a person inside the table/wall.
     for(let r=.25;r<=3;r+=.25)for(let i=0;i<16;i++){const x=state.feet.x+Math.sin(i*Math.PI/8)*r,z=state.feet.z+Math.cos(i*Math.PI/8)*r;y=canStand(x,z,state.feet.y,profile);if(y!==null)return new THREE.Vector3(x,y,z);}
     const previous=lastLocations.get(profile.id);if(previous&&canStand(previous.x,previous.z,previous.y,profile)!==null)return previous.clone();
+    const fallback=area?.spawn??spawn;
+    if(canStand(fallback.x,fallback.z,fallback.y,profile)!==null)return fallback.clone();
     if(canStand(spawn.x,spawn.z,spawn.y,profile)===null)throw Error('No safe walking spawn');return spawn.clone();
   }
   function enter(id='human'){
@@ -136,6 +151,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   }
   function leave(){
     if(!state.active)return;
+    for(const fn of leaveListeners)fn();
     lastLocations.set(state.profile.id,state.feet.clone());state.active=false;clearInput();if(document.pointerLockElement===canvas)document.exitPointerLock();
     camera.near=savedNear;camera.fov=savedFov;camera.updateProjectionMatrix();
     document.body.classList.remove('walking','cat-walking');document.getElementById('catWalk')?.classList.remove('active');document.getElementById('walk').classList.remove('active');
@@ -183,6 +199,6 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     for(const event of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(event,up);
   }
   // Read-only world data also supports route validation and future actor policies.
-  return {get active(){return state.active},state,input,enter,leave,update,groundAt,canStand,canStandAs,registerObstacle,profiles:walkingProfiles,lastLocations,
+  return {get active(){return state.active},state,input,enter,leave,update,groundAt,canStand,canStandAs,registerObstacle,refreshObstacle,setArea,relocate,onLeave(fn){leaveListeners.add(fn);return()=>leaveListeners.delete(fn);},profiles:walkingProfiles,lastLocations,
     world:{ground,floors,obstacles,waterZones},refreshDynamic};
 }

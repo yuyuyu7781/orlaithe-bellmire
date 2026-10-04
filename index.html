@@ -33,6 +33,7 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
 <script type="module">
 import * as THREE from 'three';
+import {clearHumanRoutes} from './human-routes.js';
 import {createWalkingSystem} from './walking.js';
 import {createGroundingSystem} from './grounding.js';
 import {createResidentScale} from './resident-scale.js';
@@ -1091,6 +1092,7 @@ const walking=createWalkingSystem({THREE,scene,camera,controls,canvas:renderer.d
   spawn:new THREE.Vector3(0,harborLevels.quay,32)
 });
 const catPassages=createCatPassages({THREE,scene,walking,grounding,groundedObjects,box,wood,cloth:v87Canvas});
+const humanRoutes=clearHumanRoutes({THREE,walking,grounding,catPassages});
 const inspectTargets=createInspectionTargets({culture,well:squareWell,
   moorings:inspectionMooring,
   wheel,millrace,landings:culture.landingBells[0],details:lifeDetails});
