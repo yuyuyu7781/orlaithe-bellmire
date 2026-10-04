@@ -17,7 +17,7 @@ export function createResidentDay({THREE,walking,grounding,residentLife,townLife
  function refreshRoom(){const room=shopSystem.current;lastRoom=room?.shop.id??null;for(const e of entries){const o=e.record.object;if(o.parent!==e.parent)e.parent.attach(o);if(room){o.visible=e.inside===room.shop.id;if(o.visible){const p=new THREE.Vector3(198.2+e.index*.42,0,2.5-e.index*.33);if(walking.canStandAs('human',p.x,p.z,0)!==null){room.root.attach(o);o.position.copy(room.root.worldToLocal(p.add(new THREE.Vector3(0,e.offset,0))));}else o.visible=false;}}else place(e);}}
  townLife.onChange(state=>{if(state.period===period)return;period=state.period;entries.forEach(request);if(shopSystem.current)refreshRoom();});
  for(const e of entries){request(e);place(e);} // Initial scene placement only, never a time-change teleport.
- function update(dt=.016){time+=Math.min(.1,Math.max(0,dt));if((shopSystem.current?.shop.id??null)!==lastRoom)refreshRoom();if(shopSystem.current)return;
+ function update(dt=.016){time+=Math.min(.1,Math.max(0,dt));if((shopSystem.current?.shop.id??null)!==lastRoom)refreshRoom();if(shopSystem.current)return;walking.refreshDynamic();
   counters.updated=counters.near=counters.mid=counters.far=0;
   for(const e of entries){const distance=camera?camera.position.distanceTo(e.feet):0,tier=distance<18?'near':distance<42?'mid':'far';counters[tier]++;e.elapsed+=Math.min(.1,Math.max(0,dt));const rate=tier==='near'?0:tier==='mid'?.10:getQuality()==='mobile'?.5:.25;if(e.elapsed<rate)continue;const stepTime=Math.min(.5,e.elapsed);e.elapsed=0;counters.updated++;
    if(e.inside||!e.visible){place(e);continue;}if(e.wait>0){e.wait-=stepTime;place(e);continue;}

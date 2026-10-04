@@ -64,6 +64,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
       for(let x=Math.floor(o.bounds.min.x/cellSize);x<=Math.floor(o.bounds.max.x/cellSize);x++)for(let z=Math.floor(o.bounds.min.z/cellSize);z<=Math.floor(o.bounds.max.z/cellSize);z++){const key=x+','+z;if(!cells.has(key))cells.set(key,[]);cells.get(key).push(o);}
     }return moved.length;
   }
+  let actorIgnore=null;
   let area=null;const leaveListeners=new Set();
   function setArea(policy=null){area=policy;state.area=policy?.id??'town';}
   function relocate(feet,{yaw=state.yaw,pitch=0}={}){const y=canStand(feet.x,feet.z,feet.y);if(y===null)throw Error('Unsafe walking destination');state.feet.set(feet.x,y,feet.z);state.yaw=yaw;state.pitch=pitch;clearInput();eyeY=y+state.profile.eyeHeight;updateCamera(0);}
@@ -106,7 +107,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     }
     if(area){for(const o of area.obstacles)if(intersectsBody(o.bounds,x,z,y,o.isFloor,o.round,p))return null;}
     else for(const o of nearby(x,z,p))if(!o.disabled&&intersectsBody(o.bounds,x,z,y,o.isFloor,o.round,p))return null;
-    for(const o of dynamicBounds)if(visible(o.object)&&intersectsBody(o.bounds,x,z,y,false,null,p))return null;
+    for(const o of dynamicBounds)if(o.object!==actorIgnore&&visible(o.object)&&intersectsBody(o.bounds,x,z,y,false,null,p))return null;
     return y;
   }
   function refreshDynamic(){for(const o of dynamicBounds){if(!visible(o.object)){o.bounds.makeEmpty();continue;}o.object.updateWorldMatrix(true,true);o.bounds.setFromObject(o.object,true)}}
@@ -134,6 +135,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     euler.set(state.pitch,state.yaw,0);camera.quaternion.setFromEuler(euler);
   }
   const lastLocations=new Map();
+  function canStandActor(id,x,z,y,object){const saved=actorIgnore;try{actorIgnore=object;return canStandAs(id,x,z,y);}finally{actorIgnore=saved;}}
   function canStandTownAs(id,x,z,y){const saved=area;try{area=null;return canStandAs(id,x,z,y);}finally{area=saved;}}
   function canStandAs(id,x,z,y){const profile=walkingProfiles[id];return profile?canStand(x,z,y,profile):null;}
   function safeLocation(profile){
@@ -213,5 +215,5 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   }
   // Read-only world data also supports route validation and future actor policies.
   return {get active(){return state.active},state,input,enter,leave,update,groundAt,canStand,canStandAs,registerObstacle,refreshObstacle,setArea,relocate,onLeave(fn){leaveListeners.add(fn);return()=>leaveListeners.delete(fn);},profiles:walkingProfiles,lastLocations,
-    world:{ground,floors,obstacles,waterZones},refreshDynamic,inspectClearance,canStandTownAs};
+    world:{ground,floors,obstacles,waterZones},refreshDynamic,inspectClearance,canStandTownAs,canStandActor};
 }
