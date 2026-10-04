@@ -24,10 +24,15 @@ export const rumorPools={
  starmaker:['九つ目の鐘だけ、少し違って聞こえると言う人がいるんです。'],
  greenBard:['宿の人が、小さな落とし物を預かっているらしいよ。急ぐものでもなさそうだ。']
 };
-// Reserved, inactive hooks: no quest UI, timers, sound download or side effects.
+// Small observations, not quests. The existing interaction system presents them.
 export const townEventDefinitions=[
- {id:'delayed-grain',kind:'delivery-delay',area:'harbor',enabled:false,rumorIds:['baker']},
- {id:'inn-keepsake',kind:'lost-item',area:'inn',enabled:false,profiles:['human','cat'],rumorIds:['greenBard']}
+ {id:'delayed-grain',kind:'delivery-delay',area:'bakery',enabled:true,periods:['morning','day'],source:'Bakery wheat delivery',rumorIds:['baker'],label:'届いていない小麦袋',text:'荷札には袋が三つとある。並んでいるのは二つで、残りの場所だけきれいに空いている。',rumor:'小麦袋が一つ、まだ港に来ていないんだ。今朝の分は足りるけれどね。'},
+ {id:'unaddressed-crate',kind:'cargo',area:'harbor',enabled:true,source:'Harbor sailcloth',rumorIds:['boatworker'],label:'裏返った荷札',text:'木札は裏返っている。送り先の字は潮に薄れ、円の印だけが残った。',rumor:'送り先の読めない箱が一つある。荷主が戻れば、すぐ分かるだろう。'},
+ {id:'missing-folio',kind:'missing-book',area:'bookshop',enabled:true,source:'Bookshop wrapped folios',rumorIds:['bookseller'],label:'空いた本の包み',text:'紐だけが丸く残っている。誰かが本を読み終えたら、ここへ戻すつもりだったのだろう。',rumor:'薄い本が一冊、棚から見当たらないんです。たいてい窓辺で見つかるのですが。'},
+ {id:'upstream-stone',kind:'water-mark',area:'mill',enabled:true,source:'leat',rumorIds:['starmaker'],label:'水路の丸い石',text:'上流の溝に、丸い石がひとつ挟まっている。濡れると、細い九本の線が浮かぶ。',rumor:'上流の石に線があるそうです。水が乾くと、数えにくくなるとか。'},
+ {id:'ninth-bell',kind:'rumor',area:'tavern',enabled:true,periods:['evening','night'],source:'Tavern cooperage',rumorIds:['greenBard'],label:'酒場の置き杯',text:'片付けられていない杯が二つ。九つ目の鐘の話は、今夜も結論が出なかったらしい。',rumor:'九つ目の鐘は、帰るのを忘れた人にだけ違って聞こえる、と誰かが言っていたよ。'},
+ {id:'cat-bread',kind:'cat-discovery',area:'bakery',enabled:true,profiles:['cat'],source:'Bakery flour and wool',label:'袋の裏の匂い',text:'粉の匂いの奥に、冷めたパンの甘い匂いがある。小さな欠片が、袋の陰に転がっている。'},
+ {id:'cat-ribbon',kind:'cat-discovery',area:'harbor',enabled:true,profiles:['cat'],source:'Harbor herbs',label:'荷物の陰の紐',text:'箱の陰で、短い紐が風に動いている。人の手より、濡れた木の匂いが強い。'}
 ];
 export const soundAnchors=[
  {id:'harbor-water',area:'town',kind:'water',position:[0,1.38,38],src:null},

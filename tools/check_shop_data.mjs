@@ -17,5 +17,5 @@ assert.equal(selectDialogueTurn(sample,{location:'bakery',profile:'cat',index:1}
 assert.equal(selectDialogueTurn(sample,{location:'bakery',index:3}).text,'quiet rumor');
 assert.ok(!selectDialogueTurn(sample,{location:'bakery',profile:'cat',index:3}).text.includes('quiet rumor'));
 assert.equal(selectDialogueTurn(sample,{location:'town',index:0}).text,selectDialogueTurn(base,{index:0}).text);
-assert.ok(townEventDefinitions.every(e=>!e.enabled));assert.ok(soundAnchors.every(s=>s.src===null));
+assert.equal(townEventDefinitions.filter(e=>e.enabled).length,7);assert.equal(townEventDefinitions.filter(e=>e.profiles?.length===1&&e.profiles[0]==='cat').length,2);assert.ok(townEventDefinitions.every(e=>e.id&&e.source&&e.text));assert.ok(soundAnchors.every(s=>s.src===null));
 console.log('PASS five shop schedules / five daily placements / location and actor dialogue / occasional rumors / unchanged portraits / inactive event and audio hooks');
