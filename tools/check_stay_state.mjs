@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {createStayState,validateStay,SAVE_KEY} from '../stay-state.js';
+import {rememberedDialogue,rememberConversation} from '../dialogue-memory.js';
+const map=new Map(),storage={getItem:k=>map.get(k)??null,setItem:(k,v)=>map.set(k,v)};
+const a=createStayState({storage});assert.equal(a.data.currentDay,1);a.data.currentDay=2;a.data.events['missing-folio']={state:'resolved',resolvedDay:1};rememberConversation(a,{id:'greenBard',name:'フィン'},'cat');a.note('stone','水に濡れると、九本の線が見えた。');a.flush();
+const b=createStayState({storage});assert.equal(b.data.currentDay,2);assert.equal(b.data.events['missing-folio'].state,'resolved');assert.equal(b.data.memories.greenBard.cat.visits,1);assert.equal(b.data.journal.length,2);
+b.data.currentDay=3;assert.match(rememberedDialogue(b,{id:'greenBard'},{profile:'human',index:0}),/低いところ/);assert.equal(rememberedDialogue(b,{id:'baker'},{profile:'human',index:0}),null);b.flush();
+const checked=validateStay({version:1,currentDay:NaN,dayPhase:'future',events:{fake:{state:'resolved'},'upstream-stone':{state:'unknown'}},journal:[{id:'x',text:'<script>text</script>',day:-3}]});assert.equal(checked.currentDay,1);assert.equal(checked.dayPhase,'day');assert.equal(Object.keys(checked.events).length,0);assert.equal(checked.journal[0].day,1);
+map.set(SAVE_KEY,'{broken');assert.equal(createStayState({storage}).data.currentDay,1);
+const newer='{"version":999,"currentDay":8}';map.set(SAVE_KEY,newer);const future=createStayState({storage});future.changed();assert.equal(future.flush(),false);assert.equal(map.get(SAVE_KEY),newer);
+const denied=createStayState({storage:{getItem(){throw Error('blocked')},setItem(){throw Error('blocked')}}});denied.note('safe','保存できなくても、このページでは暮らせる。');assert.equal(denied.flush(),false);assert.equal(denied.data.journal.length,1);
+console.log('PASS versioned restore / malformed-newer-denied storage / bounded defaults / separate human-cat memories / Finn next-day continuity');

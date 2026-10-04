@@ -1,10 +1,11 @@
+import {rememberedDialogue,rememberConversation} from './dialogue-memory.js';
 import {createPortraitView} from './portrait-ui.js';
 import {characters,selectDialogueTurn,selectPortrait} from './dialogue-data.js';
 
 // Shares proximity/input and small card with inspection; content stays separate.
-export function createDialogueSystem({THREE,inspections,walking,actors,getTime=()=> 'clear',getLocation=()=> 'town'}){
+export function createDialogueSystem({THREE,inspections,walking,actors,getTime=()=> 'clear',getLocation=()=> 'town',stay=null}){
   const turns=new Map(),entries=[],unregister=[],conversationLog=[],listeners=new Set();
-  for(const character of characters){
+  for(const character of characters){for(const profile of ['human','cat']){const key=profile==='human'?character.id:character.id+':cat';turns.set(key,stay?.data.memories[character.id]?.[profile]?.visits??0);}
     const object=actors[character.id];if(!object)throw Error('Missing dialogue actor: '+character.id);
     object.updateWorldMatrix(true,true);
     const b=new THREE.Box3().setFromObject(object,true),point=b.getCenter(new THREE.Vector3());
@@ -19,12 +20,12 @@ export function createDialogueSystem({THREE,inspections,walking,actors,getTime=(
   }
   function speak(entry){
     const character=entry.character,profile=walking.state.profile.id,key=profile==='human'?character.id:character.id+':'+profile,index=turns.get(key)??0;
-    const time=getTime(),location=getLocation(character.id),turn=selectDialogueTurn(character,{profile:walking.state.profile.id,time,index,location});const text=character.eventReply?.({profile,time,index,location})??turn.text;
+    const time=getTime(),location=getLocation(character.id),turn=selectDialogueTurn(character,{profile:walking.state.profile.id,time,index,location});const text=character.eventReply?.({profile,time,index,location})??rememberedDialogue(stay,character,{profile,index,time,location})??turn.text;
     const image=selectPortrait(character,{expression:turn.expression,time});
     const portrait=createPortraitView(character,{image,time,expression:turn.expression});
     portrait.element.dataset.conversationMode=profile;portrait.element.dataset.portraitVariant=turn.expression;portrait.element.dataset.dialogueVariant=profile+':'+location+':'+time;
-    conversationLog.push({speaker:character.name,speakerId:character.id,text,time,timestamp:new Date().toISOString(),playerMode:profile,location,portraitVariant:turn.expression,dialogueVariant:portrait.element.dataset.dialogueVariant});if(conversationLog.length>100)conversationLog.shift();
-    inspections.present(entry,{label:portrait.profile.displayName,text,kind:'talk',extra:portrait.element});turns.set(key,index+1);for(const fn of listeners)fn({character,text,profile,time,location});
+    conversationLog.push({day:stay?.data.currentDay??1,speaker:character.name,speakerId:character.id,text,time,timestamp:new Date().toISOString(),playerMode:profile,location,portraitVariant:turn.expression,dialogueVariant:portrait.element.dataset.dialogueVariant});if(conversationLog.length>100)conversationLog.shift();
+    inspections.present(entry,{label:portrait.profile.displayName,text,kind:'talk',extra:portrait.element});turns.set(key,index+1);rememberConversation(stay,character,profile);for(const fn of listeners)fn({character,text,profile,time,location});
   }
   inspections.handlers.set('talk',speak);
   return {characters,entries,turns,onSpeak(fn){listeners.add(fn);return()=>listeners.delete(fn);},get conversationLog(){return conversationLog.map(entry=>({...entry}));},clearConversationLog(){conversationLog.length=0;},destroy(){unregister.forEach(fn=>fn());inspections.handlers.delete('talk');if(inspections.opened?.kind==='talk')inspections.dismiss();}};

@@ -3,7 +3,7 @@ import {townEventDefinitions} from './shop-data.js';
 // defines visible collision; unopened rooms have no meshes or animation work.
 export function buildInterior({THREE,shop}){
  const root=new THREE.Group();root.name=shop.name+' 室内';root.position.set(200,0,0);
- const supports=[],workstations=[],beds=[],obstacles=[],inspect=[],catRoutes=[],materials={};
+ const supports=[],workstations=[],beds=[],hiddenBookObjects=[],obstacles=[],inspect=[],catRoutes=[],materials={};
  const material=(key,color,emissive=0)=>materials[key]??=new THREE.MeshStandardMaterial({color,roughness:1,emissive,emissiveIntensity:emissive?.5:0});
  const wall=material('wall',shop.palette.wall),wood=material('wood',shop.palette.wood),dark=material('dark',0x45423b),linen=material('linen',0xc7b796),accent=material('accent',shop.palette.accent),paper=material('paper',0xd0c5a7),brass=material('brass',0xa58b54),glow=material('glow',0xeac38c,0xffbd75),stone=material('stone',0x8c8473);
  function mesh(geometry,m,p,solid=true){const o=new THREE.Mesh(geometry,m);o.position.fromArray(p);root.add(o);o.receiveShadow=false;o.castShadow=false;if(solid)obstacles.push({object:o,bounds:new THREE.Box3(),isFloor:false});return o;}
@@ -37,7 +37,7 @@ export function buildInterior({THREE,shop}){
  }else if(shop.id==='bookshop'){
   shelf(-2.5,-4,true);shelf(-.4,-4,true);shelf(1.7,-4,true);shelf(-2.5,-2.5,true);
   table(2.35,-1.9,1.15,.8);lamp(2.35,.93,-1.9);for(let i=0;i<4;i++)box(2.15,.94+i*.035,-1.8,.32,.03,.26,i%2?paper:accent,false);
-  box(-1.35,.013,.12,.25,.025,.17,paper,false);box(-1.47,.013,.12,.025,.030,.17,accent,false);
+  hiddenBookObjects.push(box(-1.35,.013,.12,.25,.025,.17,paper,false),box(-1.47,.013,.12,.025,.030,.17,accent,false));
   notice('hidden-book','棚脇の薄い本','紙の匂いが、棚の隙間からする。薄い本が一冊、奥へ滑り込んでいた。',[-1.35,.10,.12]);Object.assign(inspect.at(-1),{kind:'town-event',profiles:['cat'],event:townEventDefinitions.find(e=>e.id==='missing-folio')});
   notice('ledger','机の紙束','紙の端には、何人もの指の跡がある。書きかけの頁は閉じずに置かれている。',[2.3,1,-1.8]);
  }else if(shop.id==='inn'){
@@ -81,5 +81,5 @@ export function buildInterior({THREE,shop}){
  root.updateMatrixWorld(true);for(const o of obstacles)o.bounds.setFromObject(o.object,true);
  const bounds=new THREE.Box3(new THREE.Vector3(196.58,0,-4.32),new THREE.Vector3(203.42,0,4.32));
  const policy={id:shop.id,spawn:new THREE.Vector3(200,0,2.7),obstacles,groundAt(x,z,currentY=0,profile={stepUp:.38}){if(x<bounds.min.x||x>bounds.max.x||z<bounds.min.z||z>bounds.max.z)return null;let y=0;for(const o of supports){const b=obstacles.find(q=>q.object===o).bounds;if(x>=b.min.x-.001&&x<=b.max.x+.001&&z>=b.min.z-.001&&z<=b.max.z+.001&&b.max.y<=currentY+profile.stepUp+.001)y=Math.max(y,b.max.y);}return y;}};
- return {root,policy,door,inspect,catRoutes,npcPosition,workstations,beds,ambient,materials,shop,exit:[200,0,3.05],stats:{meshes:root.children.filter(o=>o.isMesh).length,obstacles:obstacles.length}};
+ return {root,policy,door,inspect,catRoutes,npcPosition,workstations,beds,hiddenBookObjects,ambient,materials,shop,exit:[200,0,3.05],stats:{meshes:root.children.filter(o=>o.isMesh).length,obstacles:obstacles.length}};
 }
