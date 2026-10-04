@@ -4,8 +4,8 @@ import {shopLighting,periodIndex} from './shop-lighting.js';
 import {batchWindowLights} from './window-lighting.js';
 
 // One event-driven clock supplies lighting and the data-driven shop hours.
-export function createTownLife({THREE,scene,lit,smoke,chimneySources,buildings=[]}){
- const state={weather:'clear',period:'day',marketActivity:1,openShops:{}},listeners=new Set(),entries=[],points=[];
+export function createTownLife({THREE,scene,lit,smoke,chimneySources,buildings=[],stay=null}){
+ const state={weather:stay?.data.weather??'clear',period:stay?.data.dayPhase??'day',dayIndex:stay?.data.currentDay??1,dayPhase:stay?.data.dayPhase??'day',dayStart:stay?.data.dayStart??1,marketActivity:1,openShops:{}},listeners=new Set(),entries=[],points=[];
  const litSet=new Set(lit),visible=o=>{for(let p=o;p;p=p.parent)if(!p.visible)return false;return true;};
  const sites=[['baker',-31,27],['bookseller',-18,32],['inn',-39,3],['tavern',-10,12],['starmaker',3,-3]];
  function siteAt(p){let nearest='home',best=7;for(const [name,x,z]of sites){const d=Math.hypot(p.x-x,p.z-z);if(d<best){best=d;nearest=name;}}return nearest==='home'&&p.z>32?'harbor':nearest;}
@@ -28,7 +28,7 @@ export function createTownLife({THREE,scene,lit,smoke,chimneySources,buildings=[
  });
  for(const [key,group]of homes){group.sort((a,b)=>a.position.y-b.position.y||a.position.x-b.position.x||a.position.z-b.position.z);const seed=hash(key);group.forEach((e,i)=>Object.assign(e,{homeIndex:i,homeCount:group.length,homeMode:Math.floor(seed*5),homeChoice:Math.floor(seed*43)%group.length,homeUpper:group.at(-1).position.y}));}
  const windowBatch=batchWindowLights({THREE,scene,entries,glowMap});
- function update(){const settings=periodSettings[state.period],off=state.weather==='blackout',pi=periodIndex[state.period];state.marketActivity=settings.marketActivity;state.openShops={...settings.shops,...Object.fromEntries(shops.map(s=>[s.site,isShopOpen(s,state.period)]))};
+ function update(){state.dayPhase=state.period;if(stay){const d=stay.data,changed=d.dayPhase!==state.period||d.weather!==state.weather;d.dayPhase=state.period;d.weather=state.weather;if(changed){if(d.weatherHistory.at(-1)?.weather!==state.weather){d.weatherHistory.push({day:state.dayIndex,weather:state.weather});if(d.weatherHistory.length>30)d.weatherHistory.shift();}stay.changed();}}const settings=periodSettings[state.period],off=state.weather==='blackout',pi=periodIndex[state.period];state.marketActivity=settings.marketActivity;state.openShops={...settings.shops,...Object.fromEntries(shops.map(s=>[s.site,isShopOpen(s,state.period)]))};
   for(const material of lit)material.emissiveIntensity=0;
   for(const e of entries){const {material:m,seed,site,window}=e,role=shopLighting[site];let on=true,level=window?settings.window:settings.lantern;
    if(role){level=(window?role.windows:role.lamps)[pi];on=window?seed<role.coverage[pi]:!(site==='harbor'&&state.period==='night'&&seed<.25);m.emissive.set(role.color).lerp(new THREE.Color(0xffd7a5),seed*.12);}
@@ -44,8 +44,9 @@ export function createTownLife({THREE,scene,lit,smoke,chimneySources,buildings=[
   smoke.forEach((o,i)=>{const q=chimneySources[i%chimneySources.length],site=siteAt(new THREE.Vector3(q[0],q[1],q[2]));let factor={morning:.85,day:.65,evening:.45,night:.25}[state.period];if(site==='baker')factor={morning:1.08,day:.72,evening:.18,night:.08}[state.period];o.userData.lifeSmokeFactor=factor*(state.weather==='rain'?.75:1);});
   for(const fn of listeners)fn({...state,openShops:{...state.openShops}});
  }
+ function dayAdvance(){state.dayIndex=Math.min(9999,state.dayIndex+1);state.dayStart=state.dayIndex;if(stay){stay.data.currentDay=state.dayIndex;stay.data.dayStart=state.dayStart;stay.changed();}setPeriod('morning');return state.dayIndex;}
  function setPeriod(period){if(!periodSettings[period])throw Error('Unknown time period: '+period);state.period=period;update();}
  function setWeather(weather){state.weather=weather;state.period=periodForWeather(weather);update();}
  update();
- return {state,entries,points,glowMap,windowBatch,homes,setPeriod,setWeather,onChange(fn){listeners.add(fn);return()=>listeners.delete(fn);},get stats(){return {windows:entries.filter(e=>e.window).length,litWindows:entries.filter(e=>e.window&&e.material.emissiveIntensity>0).length,lamps:entries.filter(e=>!e.window).length,pointLights:points.length};}};
+ return {state,entries,points,glowMap,windowBatch,homes,setPeriod,setWeather,dayAdvance,onChange(fn){listeners.add(fn);return()=>listeners.delete(fn);},get stats(){return {windows:entries.filter(e=>e.window).length,litWindows:entries.filter(e=>e.window&&e.material.emissiveIntensity>0).length,lamps:entries.filter(e=>!e.window).length,pointLights:points.length};}};
 }

@@ -2,7 +2,7 @@ import {shops,isShopOpen,shopStatus,dailyLocations,rumorPools,townEventDefinitio
 import {buildInterior} from './interiors.js';
 
 export function createShopSystem({THREE,scene,walking,grounding,miniature,inspections,dialogue,townLife,onExit=()=>{}}){
- const rooms=new Map(),entrances=[],actors=new Map(dialogue.entries.map(e=>[e.character.id,e.object]));
+ const roomListeners=new Set(),rooms=new Map(),entrances=[],actors=new Map(dialogue.entries.map(e=>[e.character.id,e.object]));
  const originals=new Map([...actors].map(([id,o])=>[id,{parent:o.parent,position:o.position.clone(),rotation:o.rotation.clone(),visible:o.visible}]));
  const townRoots=[...scene.children],savedVisibility=new Map(),outdoorPoints=[];scene.traverse(o=>{if(o.isPointLight)outdoorPoints.push(o);});let workTime=0;const workerStates=new Map();let current=null,returnPoint=null,returnYaw=0,savedBackground=null,savedFog=null;
  const label=document.createElement('div');label.className='room-label';label.hidden=true;document.body.append(label);
@@ -41,7 +41,7 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
  function characterLocation(id){const place=locationFor(id);return current&&place===current.shop.id?current.shop.id:'town';}
  function getRoom(shop){if(rooms.has(shop.id))return rooms.get(shop.id);const room=buildInterior({THREE,shop});rooms.set(shop.id,room);room.root.visible=false;
   for(const target of room.inspect)inspections.resolver.register(target);
-  const exit={id:'exit:'+shop.id,kind:'exit',verb:'外へ出る',label:shop.name+'の出口',object:room.door,localPoint:[0,1.08,0],localPoints:{cat:[0,.32,0]},range:2.1,profiles:['human','cat'],enabled:()=>current===room};inspections.resolver.register(exit);
+  const exit={id:'exit:'+shop.id,kind:'exit',verb:'外へ出る',label:shop.name+'の出口',object:room.door,localPoint:[0,1.08,0],localPoints:{cat:[0,.32,0]},range:2.1,profiles:['human','cat'],enabled:()=>current===room};inspections.resolver.register(exit);for(const fn of roomListeners)fn(room);
   return room;}
  function enter(shop){if(!walking.active||current)return false;if(!isShopOpen(shop,townLife.state.period)){inspections.present(entrances.find(e=>e.shop===shop),{text:'今は閉まっている。扉の向こうでは、静かに次の仕事を待っている。'});return false;}
   const room=getRoom(shop);returnPoint=walking.state.feet.clone();returnYaw=walking.state.yaw;savedBackground=scene.background;savedFog=scene.fog;
@@ -80,5 +80,5 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
  townLife.onChange(applyTime);applyTime();
  function update(dt=.016){workTime=Math.min(.05,dt);updateActors();updateAppearance();if(current)for(const o of outdoorPoints)o.visible=false;}
  function trackingPoint(object){const id=[...actors].find(([,o])=>o===object)?.[0],place=id&&locationFor(id),door=entrances.find(e=>e.shop.id===place);return !object.visible&&door?door.object.getWorldPosition(new THREE.Vector3()):object.getWorldPosition(new THREE.Vector3());}
- return {shops,rooms,entrances,enter,exit,update,locationFor,characterLocation,trackingPoint,events:townEventDefinitions,soundAnchors,workerStates,get current(){return current},get stats(){return{builtRooms:rooms.size,visibleRooms:[...rooms.values()].filter(r=>r.root.visible).length,active:current?.shop.id??'town',activeMeshes:current?.stats.meshes??0};}};
+ return {onRoom(fn){roomListeners.add(fn);for(const r of rooms.values())fn(r);return()=>roomListeners.delete(fn);},shops,rooms,entrances,enter,exit,update,locationFor,characterLocation,trackingPoint,events:townEventDefinitions,soundAnchors,workerStates,get current(){return current},get stats(){return{builtRooms:rooms.size,visibleRooms:[...rooms.values()].filter(r=>r.root.visible).length,active:current?.shop.id??'town',activeMeshes:current?.stats.meshes??0};}};
 }

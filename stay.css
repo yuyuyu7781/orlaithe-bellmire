@@ -1,0 +1,4 @@
+.stay-day{font:12px Georgia,serif;color:#d6c9a9;align-self:center;margin-right:3px;white-space:nowrap}
+.stay-dialog{background:#eee1c5;color:#493e30;border:1px solid #9c8667;border-radius:12px;padding:22px;width:min(370px,calc(100vw - 28px));box-shadow:0 16px 50px #0007;font-size:14px;line-height:1.8}
+.stay-dialog::backdrop{background:#0e171e88}.stay-dialog h2{font:20px Georgia,serif;margin:0 0 10px}.stay-dialog button{color:#493e30;background:#b5a18326;border-color:#9c866777;min-height:44px;margin:5px 5px 0 0;font-size:13px}
+.rest-shade{position:fixed;inset:0;background:#111619;z-index:80}.rest-shade[hidden]{display:none}

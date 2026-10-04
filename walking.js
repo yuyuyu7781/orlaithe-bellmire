@@ -127,7 +127,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   }
   function registerCatStep(object){object.updateWorldMatrix(true,true);const entry={object,bounds:new THREE.Box3().setFromObject(object,true)};catSteps.push(entry);object.userData.catStep=true;return entry;}
   function jumpPoint(from,to,t){const horizontal=Math.max(0,Math.min(1,(t-.22)/.56)),apex=Math.max(from.y,to.y)+.22,p=from.clone().lerp(to,horizontal);p.y=t<.22?from.y+(apex-from.y)*Math.sin(t/.22*Math.PI/2):t>.78?apex+(to.y-apex)*(1-Math.cos((t-.78)/.22*Math.PI/2)):apex+Math.sin((t-.22)/.56*Math.PI)*.03;return p;}
-  function jump(){if(!state.active||state.profile.id!=='cat'||jumpState)return false;refreshDynamic();const p={...state.profile,stepUp:1.05,stepDown:1.05},forward=new THREE.Vector3(-Math.sin(state.yaw),0,-Math.cos(state.yaw));
+  function jump(){if(state.inputBlocked||!state.active||state.profile.id!=='cat'||jumpState)return false;refreshDynamic();const p={...state.profile,stepUp:1.05,stepDown:1.05},forward=new THREE.Vector3(-Math.sin(state.yaw),0,-Math.cos(state.yaw));
     const candidates=catSteps.map(step=>({step,point:step.bounds.getCenter(new THREE.Vector3()).setY(step.bounds.max.y)})).filter(q=>{const delta=q.point.clone().sub(state.feet);return Math.hypot(delta.x,delta.z)<1.35&&delta.y>=-.95&&delta.y<=.90&&delta.clone().setY(0).normalize().dot(forward)>.15;}).sort((a,b)=>a.point.distanceTo(state.feet)-b.point.distanceTo(state.feet));
     candidates.push({step:null,point:state.feet.clone().addScaledVector(forward,.55)});
     for(const q of candidates){const y=canStand(q.point.x,q.point.z,state.feet.y,p);if(y===null)continue;q.point.y=y;if(Math.abs(y-state.feet.y)>.95)continue;let clear=true;
@@ -176,8 +176,11 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     document.body.classList.remove('walking','cat-walking');document.getElementById('catWalk')?.classList.remove('active');document.getElementById('walk').classList.remove('active');
     document.getElementById('panel').classList.toggle('collapsed',panelWasCollapsed);document.getElementById('toggle').textContent=panelWasCollapsed?'操作':'街を見る';
   }
+  const inputBlocks=new Set();
+  function setInputBlocked(reason,blocked){if(blocked)inputBlocks.add(reason);else inputBlocks.delete(reason);state.inputBlocked=inputBlocks.size>0;clearInput();}
   function update(dt){
     if(!state.active)return;
+    if(state.inputBlocked){clearInput();return;}
     refreshDynamic();dt=Math.min(.05,Math.max(0,dt));
     if(jumpState){jumpState.elapsed+=dt;const t=Math.min(1,jumpState.elapsed/jumpState.duration);state.feet.copy(jumpPoint(jumpState.from,jumpState.to,t));updateCamera(dt);if(t===1)jumpState=null;return;}
     const pressed=(...codes)=>codes.some(c=>input.keys.has(c)||input.touch.has(c));
@@ -189,7 +192,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   }
   const movementKeys=new Set(['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight']);
   addEventListener('keydown',e=>{
-    if(!state.active||/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName))return;
+    if(!state.active||state.inputBlocked||/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName))return;
     if(e.code==='Space'&&state.profile.id==='cat'&&!e.repeat){e.preventDefault();jump();}
     if(movementKeys.has(e.code)){e.preventDefault();input.keys.add(e.code)}
   });
@@ -228,6 +231,6 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     return {walkable:support!==null,floor,blockers:blocked.map(o=>({name:o.object?.name||o.object?.geometry?.type||'track',min:o.bounds.min.toArray(),max:o.bounds.max.toArray()})),profile:id};
   }
   // Read-only world data also supports route validation and future actor policies.
-  return {get active(){return state.active},state,input,enter,leave,update,groundAt,canStand,canStandAs,registerObstacle,refreshObstacle,registerCatStep,jump,catSteps,get jumping(){return !!jumpState;},setArea,relocate,onLeave(fn){leaveListeners.add(fn);return()=>leaveListeners.delete(fn);},profiles:walkingProfiles,lastLocations,
+  return {get active(){return state.active},state,input,setInputBlocked,enter,leave,update,groundAt,canStand,canStandAs,registerObstacle,refreshObstacle,registerCatStep,jump,catSteps,get jumping(){return !!jumpState;},setArea,relocate,onLeave(fn){leaveListeners.add(fn);return()=>leaveListeners.delete(fn);},profiles:walkingProfiles,lastLocations,
     world:{ground,floors,obstacles,waterZones},refreshDynamic,inspectClearance,canStandTownAs,canStandActor,registerDynamicObject};
 }

@@ -3,7 +3,7 @@ import {townEventDefinitions} from './shop-data.js';
 // defines visible collision; unopened rooms have no meshes or animation work.
 export function buildInterior({THREE,shop}){
  const root=new THREE.Group();root.name=shop.name+' 室内';root.position.set(200,0,0);
- const supports=[],workstations=[],obstacles=[],inspect=[],catRoutes=[],materials={};
+ const supports=[],workstations=[],beds=[],obstacles=[],inspect=[],catRoutes=[],materials={};
  const material=(key,color,emissive=0)=>materials[key]??=new THREE.MeshStandardMaterial({color,roughness:1,emissive,emissiveIntensity:emissive?.5:0});
  const wall=material('wall',shop.palette.wall),wood=material('wood',shop.palette.wood),dark=material('dark',0x45423b),linen=material('linen',0xc7b796),accent=material('accent',shop.palette.accent),paper=material('paper',0xd0c5a7),brass=material('brass',0xa58b54),glow=material('glow',0xeac38c,0xffbd75),stone=material('stone',0x8c8473);
  function mesh(geometry,m,p,solid=true){const o=new THREE.Mesh(geometry,m);o.position.fromArray(p);root.add(o);o.receiveShadow=false;o.castShadow=false;if(solid)obstacles.push({object:o,bounds:new THREE.Box3(),isFloor:false});return o;}
@@ -51,7 +51,7 @@ export function buildInterior({THREE,shop}){
   // Corridor and two small bedrooms; each side doorway has a 1.1m opening.
   box(1.7,3.2,0,3.4,2.85,.12,wall);
   for(const z of [-3.65,-.7,.7,3.65])box(-.1,3.2,z,.12,2.85,1.0,wall);
-  for(const z of [-2,2]){box(2.25,3.2,z,1.2,.42,1.8,wood);box(2.25,3.62,z,1.1,.12,1.7,linen,false);box(2.25,3.75,z-.6,.7,.13,.35,paper,false);for(const dx of [-.20,.20])for(const dz of [-.20,.20])box(.8+dx,3.2,(z<0?-3.55:3.55)+dz,.06,.75,.06,wood);box(.8,3.95,z<0?-3.55:3.55,.55,.08,.55,wood);box(3.40,4.15,z,.025,1,.70,glow,false);box(1.0,3.2,z+1.05,.60,.35,.45,wood);}
+  for(const z of [-2,2]){const bed=box(2.25,3.2,z,1.2,.42,1.8,wood);beds.push({object:bed,localPoint:[-.25,.6,0],wake:[200.7,3.2,z],room:z<0?'north':'south'});box(2.25,3.62,z,1.1,.12,1.7,linen,false);box(2.25,3.75,z-.6,.7,.13,.35,paper,false);for(const dx of [-.20,.20])for(const dz of [-.20,.20])box(.8+dx,3.2,(z<0?-3.55:3.55)+dz,.06,.75,.06,wood);box(.8,3.95,z<0?-3.55:3.55,.55,.08,.55,wood);box(3.40,4.15,z,.025,1,.70,glow,false);box(1.0,3.2,z+1.05,.60,.35,.45,wood);}
   notice('upstairs','宿の客室','荷物置きには、旅人が結び直した紐が残っている。窓の下では港の音が少し遠い。',[-1,4.0,-1]);
 
   notice('guestbook','宿帳','名前の横に、小さな円を添える旅人がいる。受付の灯りは、遅い到着にも残されている。',[1.8,1.05,-2.3]);
@@ -81,5 +81,5 @@ export function buildInterior({THREE,shop}){
  root.updateMatrixWorld(true);for(const o of obstacles)o.bounds.setFromObject(o.object,true);
  const bounds=new THREE.Box3(new THREE.Vector3(196.58,0,-4.32),new THREE.Vector3(203.42,0,4.32));
  const policy={id:shop.id,spawn:new THREE.Vector3(200,0,2.7),obstacles,groundAt(x,z,currentY=0,profile={stepUp:.38}){if(x<bounds.min.x||x>bounds.max.x||z<bounds.min.z||z>bounds.max.z)return null;let y=0;for(const o of supports){const b=obstacles.find(q=>q.object===o).bounds;if(x>=b.min.x-.001&&x<=b.max.x+.001&&z>=b.min.z-.001&&z<=b.max.z+.001&&b.max.y<=currentY+profile.stepUp+.001)y=Math.max(y,b.max.y);}return y;}};
- return {root,policy,door,inspect,catRoutes,npcPosition,workstations,ambient,materials,shop,exit:[200,0,3.05],stats:{meshes:root.children.filter(o=>o.isMesh).length,obstacles:obstacles.length}};
+ return {root,policy,door,inspect,catRoutes,npcPosition,workstations,beds,ambient,materials,shop,exit:[200,0,3.05],stats:{meshes:root.children.filter(o=>o.isMesh).length,obstacles:obstacles.length}};
 }
