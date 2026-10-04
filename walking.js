@@ -202,7 +202,15 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     button.addEventListener('pointerdown',e=>{if(!state.active)return;e.preventDefault();button.setPointerCapture(e.pointerId);input.touch.add(button.dataset.move);button.classList.add('active')});
     for(const event of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(event,up);
   }
+  // Debug/authoring diagnostics use the same feet/body policy as real movement.
+  // They never open an invisible corridor or change a collider.
+  function inspectClearance(x,z,y,id='human'){
+    const profile=walkingProfiles[id];if(!profile)throw Error('Unknown walking profile');
+    const floor=groundAt(x,z,y,profile),support=canStand(x,z,y,profile);
+    const blocked=floor===null?[]:[...nearby(x,z,profile)].filter(o=>!o.disabled&&intersectsBody(o.bounds,x,z,floor,o.isFloor,o.round,profile));
+    return {walkable:support!==null,floor,blockers:blocked.map(o=>({name:o.object?.name||o.object?.geometry?.type||'track',min:o.bounds.min.toArray(),max:o.bounds.max.toArray()})),profile:id};
+  }
   // Read-only world data also supports route validation and future actor policies.
   return {get active(){return state.active},state,input,enter,leave,update,groundAt,canStand,canStandAs,registerObstacle,refreshObstacle,setArea,relocate,onLeave(fn){leaveListeners.add(fn);return()=>leaveListeners.delete(fn);},profiles:walkingProfiles,lastLocations,
-    world:{ground,floors,obstacles,waterZones},refreshDynamic};
+    world:{ground,floors,obstacles,waterZones},refreshDynamic,inspectClearance};
 }
