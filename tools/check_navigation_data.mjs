@@ -13,3 +13,9 @@ for(const [position,yaw] of [[[0,0,-10],0],[[10,0,0],-Math.PI/2],[[-10,0,0],Math
 assert.equal(destinationReading({x:0,y:3.5,z:0},0,{position:[0,1.38,0]}).arrived,false);
 assert.equal(destinationReading({x:0,y:3.5,z:0},0,{position:[.8,3.5,0]}).arrived,true);
 console.log('PASS visible human lane standard / cat profile separation / copied entrance targets / heading conventions / terrace-safe arrival');
+const {readFileSync}=await import('node:fs');
+const report=JSON.parse(readFileSync(new URL('./walking-reachability.json',import.meta.url)));
+assert.equal(report.checks.length,30);
+assert.equal(new Set(report.checks.map(c=>c.source+':'+c.id)).size,30);
+for(const source of ['square','harbor','market'])assert.equal(report.checks.filter(c=>c.source===source).length,10);
+console.log('PASS recorded plaza-harbor-market matrix: 3 starts × 10 destinations');

@@ -8,7 +8,7 @@ export function createNavigation({walking,shopSystem,panel=document.getElementBy
  const state={selected:null,mapOpen:false};
  const tools=document.createElement('div');tools.className='travel-tools';
  const toggle=document.createElement('button');toggle.textContent='行先';toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-controls','destinationChoices');
- const choices=document.createElement('label');choices.id='destinationChoices';choices.hidden=true;choices.textContent='行先 ';
+ const choices=document.createElement('label');choices.id='destinationChoices';choices.hidden=true;choices.setAttribute('aria-label','行先を選ぶ');
  const select=document.createElement('select');select.id='destinationSelect';select.setAttribute('aria-label','徒歩の行先');
  select.add(new Option('案内なし',''));for(const d of destinations)select.add(new Option(d.name,d.id));choices.append(select);
  const stop=document.createElement('button');stop.textContent='案内終了';stop.hidden=true;
@@ -19,7 +19,7 @@ export function createNavigation({walking,shopSystem,panel=document.getElementBy
  tools.append(toggle,choices,stop);panel.append(tools,guide,notice);
  let elapsed=0,noticeUntil=0;
  function choose(id){state.selected=destinations.find(d=>d.id===id)??null;select.value=state.selected?.id??'';stop.hidden=!state.selected;notice.hidden=true;update(1);}
- toggle.onclick=()=>{choices.hidden=!choices.hidden;toggle.setAttribute('aria-expanded',String(!choices.hidden));};select.onchange=()=>choose(select.value);stop.onclick=()=>choose('');
+ toggle.onclick=()=>{choices.hidden=!choices.hidden;toggle.setAttribute('aria-expanded',String(!choices.hidden));};select.onchange=()=>{choose(select.value);choices.hidden=true;toggle.setAttribute('aria-expanded','false');};stop.onclick=()=>choose('');
  function update(dt){elapsed+=dt;if(elapsed<.2)return;elapsed=0;const target=state.selected,room=shopSystem.current;
   guide.hidden=!target||!walking.active||!!room;
   if(!notice.hidden&&performance.now()>noticeUntil)notice.hidden=true;

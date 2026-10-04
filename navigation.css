@@ -18,3 +18,4 @@
 .town-map button:focus-visible,.travel-tools button:focus-visible,.travel-tools select:focus-visible{outline:2px solid #ac936b;outline-offset:2px}
 @media(max-width:600px){.town-map{right:10px;top:auto;bottom:235px;padding:8px;max-width:calc(100vw - 20px)}.town-map button{min-height:44px}}
 @media(max-height:500px){.town-map{top:70px;bottom:auto;right:10px;max-height:calc(100dvh - 82px);overflow:auto}.town-map-heading{font-size:10px}}
+@media(min-width:601px) and (max-width:900px) and (min-height:501px){.town-map{top:auto;bottom:180px}}

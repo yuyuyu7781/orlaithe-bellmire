@@ -26,3 +26,57 @@ teleportation is not used to establish reachability. The plaza, harbor and marke
 are connected by real streets, and some routes share these street junctions.
 The old cached route toward the market met a visible worktable at its corner;
 the verified market route passes around it rather than through its geometry.
+
+## Reachability and navigation (v13.7–v13.8)
+Thirty real walking checks passed: plaza, harbor and market each to bakery,
+bookshop, inn, tavern, orrery shop, mill, harbor, plaza, cable-car stop and belfry.
+Five store entrances were reached on foot, entered with E and exited normally.
+The recorded feet/endpoints are in tools/walking-reachability.json. Route tests
+include market → bookshop/bakery, harbor → market/mill, and mill → harbor on
+return journeys. They establish connectivity, not shortest-route optimization.
+
+The left panel's 行先 menu uses shopSystem.entrances[].approach, with actual
+walking floor height, and five verified landmark feet positions. The small arrow
+and distance are explicitly directional/straight-line hints, not autopilot.
+Arrival requires the same elevation and proximity to an entrance/landmark;
+entering the selected store also finishes navigation. Cat mode uses the same
+compass/map without forcing the human path or disabling its shortcuts.
+
+地図 toggles a compact paper map, with optional enlargement. Existing building
+bounds and destination data generate the marks; town-roads.js provides simplified
+strokes of checked streets. It is an approximate city map, not a precise GPS
+route. The map hides during conversations/inspections, indoors and outside walking
+mode, while preserving the user's visibility choice for returning outside.
+
+Navigation updates at most 5Hz, visible maps at 4Hz, with canvas DPR capped at 2.
+Closed/indoor maps do not draw. No second WebGL camera/pass, downloaded textures,
+new lights or shaders are added. The only new 3D pieces are ten stair treads.
+Browser viewport/touch tests do not replace real-device mobile performance tests.
+
+Final checks: Chromium passed human navigation arrival at all ten destinations,
+all three cat passages (cat can cross; human clearance fails as intended),
+PC/tablet/mobile portrait and landscape map bounds, touch 390×844 map controls,
+and entry → portrait conversation → exit. The destination menu folds after
+selection so keyboard walking can resume without a focused hidden select.
+The map retains its choice while hidden and reappears after leaving a room.
+Six weather modes, 19 cameras, tracking and animations passed their browser
+smoke check; scene/shop/portrait/navigation data checks passed too.
+
+At the harbor walking start, map closed/open WebGL measurements were identical:
+High and Standard 145 draw calls / 27,192 triangles; Mobile 131 / 27,178.
+These are one camera sample, not overall town counts or real-phone frame rates.
+Full pathfinding, per-turn routing, and navigation inside rooms remain future
+work. Indoor maps are intentionally hidden; the compass does not force a route.
+
+The wider reservations initially left the old bookshop canopy and one work stall
+without a valid placement candidate. This was caught by comparing the previous
+main snapshot, not ignored as an existing warning. The canopy is explicitly
+seeded beside the bookshop lane with its posts on the quay; the complete stall
+moves to an unobstructed dry area of the east working deck at (31,37.5).
+Neither is removed or rescaled. All registered grounding candidates resolve,
+and the thirty walking cases are repeated after these final placements.
+
+`tools/check_grounding_clearance.mjs` also verifies, using an isolated Three.js
+fixture, that an overhead canopy does not create an imaginary wall while real
+posts still keep their collision clearance. No other placement uses the opt-in
+`precisePassages` setting. Grounding checks ended with zero unresolved entries.
