@@ -7,7 +7,7 @@ export const qualityPresets={
 export function createQualitySystem({THREE,scene,camera,renderer,composer,bloom,sun}){
  const points=[];scene.traverse(o=>{if(o.isPointLight)points.push({object:o,position:o.getWorldPosition(new THREE.Vector3())});});
  let current='standard',elapsed=0;
- function refreshLights(){const budget=qualityPresets[current].pointLights,chosen=new Set([...points].sort((a,b)=>a.position.distanceToSquared(camera.position)-b.position.distanceToSquared(camera.position)).slice(0,budget).map(p=>p.object));for(const p of points)p.object.visible=chosen.has(p.object);}
+ function refreshLights(){const budget=qualityPresets[current].pointLights,chosen=new Set(points.filter(p=>!p.object.userData.inactiveArea).sort((a,b)=>a.position.distanceToSquared(camera.position)-b.position.distanceToSquared(camera.position)).slice(0,budget).map(p=>p.object));for(const p of points)p.object.visible=chosen.has(p.object);}
  function set(id){const p=qualityPresets[id];if(!p)throw Error('Unknown quality: '+id);current=id;
   renderer.setPixelRatio(Math.min(devicePixelRatio,p.pixelRatio));composer.setPixelRatio(renderer.getPixelRatio());
   if(sun.shadow.mapSize.x!==p.shadowSize){sun.shadow.map?.dispose();sun.shadow.map=null;sun.shadow.mapSize.set(p.shadowSize,p.shadowSize);sun.shadow.needsUpdate=true;}

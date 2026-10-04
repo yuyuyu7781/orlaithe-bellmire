@@ -1,8 +1,9 @@
+import {shops,isShopOpen} from './shop-data.js';
 import {periodSettings,periodForWeather} from './scene-settings.js';
 import {shopLighting,periodIndex} from './shop-lighting.js';
 import {batchWindowLights} from './window-lighting.js';
 
-// A small event-driven clock foundation: no resident teleportation or new lights.
+// One event-driven clock supplies lighting and the data-driven shop hours.
 export function createTownLife({THREE,scene,lit,smoke,chimneySources,buildings=[]}){
  const state={weather:'clear',period:'day',marketActivity:1,openShops:{}},listeners=new Set(),entries=[],points=[];
  const litSet=new Set(lit),visible=o=>{for(let p=o;p;p=p.parent)if(!p.visible)return false;return true;};
@@ -27,7 +28,7 @@ export function createTownLife({THREE,scene,lit,smoke,chimneySources,buildings=[
  });
  for(const [key,group]of homes){group.sort((a,b)=>a.position.y-b.position.y||a.position.x-b.position.x||a.position.z-b.position.z);const seed=hash(key);group.forEach((e,i)=>Object.assign(e,{homeIndex:i,homeCount:group.length,homeMode:Math.floor(seed*5),homeChoice:Math.floor(seed*43)%group.length,homeUpper:group.at(-1).position.y}));}
  const windowBatch=batchWindowLights({THREE,scene,entries,glowMap});
- function update(){const settings=periodSettings[state.period],off=state.weather==='blackout',pi=periodIndex[state.period];state.marketActivity=settings.marketActivity;state.openShops={...settings.shops};
+ function update(){const settings=periodSettings[state.period],off=state.weather==='blackout',pi=periodIndex[state.period];state.marketActivity=settings.marketActivity;state.openShops={...settings.shops,...Object.fromEntries(shops.map(s=>[s.site,isShopOpen(s,state.period)]))};
   for(const material of lit)material.emissiveIntensity=0;
   for(const e of entries){const {material:m,seed,site,window}=e,role=shopLighting[site];let on=true,level=window?settings.window:settings.lantern;
    if(role){level=(window?role.windows:role.lamps)[pi];on=window?seed<role.coverage[pi]:!(site==='harbor'&&state.period==='night'&&seed<.25);m.emissive.set(role.color).lerp(new THREE.Color(0xffd7a5),seed*.12);}

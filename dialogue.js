@@ -2,7 +2,7 @@ import {createPortraitView} from './portrait-ui.js';
 import {characters,selectDialogueTurn,selectPortrait} from './dialogue-data.js';
 
 // Shares proximity/input and small card with inspection; content stays separate.
-export function createDialogueSystem({THREE,inspections,walking,actors,getTime=()=> 'clear'}){
+export function createDialogueSystem({THREE,inspections,walking,actors,getTime=()=> 'clear',getLocation=()=> 'town'}){
   const turns=new Map(),entries=[],unregister=[];
   for(const character of characters){
     const object=actors[character.id];if(!object)throw Error('Missing dialogue actor: '+character.id);
@@ -19,7 +19,7 @@ export function createDialogueSystem({THREE,inspections,walking,actors,getTime=(
   }
   function speak(entry){
     const character=entry.character,profile=walking.state.profile.id,key=profile==='human'?character.id:character.id+':'+profile,index=turns.get(key)??0;
-    const time=getTime(),turn=selectDialogueTurn(character,{profile:walking.state.profile.id,time,index}),text=turn.text;
+    const time=getTime(),turn=selectDialogueTurn(character,{profile:walking.state.profile.id,time,index,location:getLocation(character.id)}),text=turn.text;
     const image=selectPortrait(character,{expression:turn.expression,time});
     const portrait=createPortraitView(character,{image,time,expression:turn.expression});
     inspections.present(entry,{label:portrait.profile.displayName,text,kind:'talk',extra:portrait.element});turns.set(key,index+1);

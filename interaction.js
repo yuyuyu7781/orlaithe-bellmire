@@ -12,11 +12,11 @@ export function createInteractionResolver({THREE,camera,scene,targets=[],ignored
   function position(entry,out=new THREE.Vector3(),profile='human'){entry.object.updateWorldMatrix(true,false);return entry.object.localToWorld(out.fromArray(entry.localPoints?.[profile]??entry.localPoint??[0,0,0]));}
   function resolve(actor){camera.getWorldDirection(direction);const options=[];
     for(const entry of entries.values()){
-      if(!visible(entry.object)||!entry.profiles.includes(actor.profile))continue;
+      if((entry.enabled&&!entry.enabled(actor))||!visible(entry.object)||!entry.profiles.includes(actor.profile))continue;
       position(entry,point,actor.profile);if(entry.contactPoint){const contact=entry.object.localToWorld(new THREE.Vector3().fromArray(entry.contactPoint));if(Math.abs(contact.y-actor.feet.y)>(entry.levelTolerance??.65))continue;}const delta=point.clone().sub(camera.position),distance=delta.length(),horizontal=Math.hypot(point.x-actor.feet.x,point.z-actor.feet.z);
       if(horizontal>entry.range||Math.abs(delta.y)>5.2||distance<.01)continue;
       const facing=direction.dot(delta.clone().normalize());if(facing<.20)continue;
-      options.push({entry,point:point.clone(),distance,score:horizontal+(1-facing)*1.5});
+      options.push({entry,point:point.clone(),distance,score:horizontal+(1-facing)*1.5+(entry.priority??0)});
     }
     options.sort((a,b)=>a.score-b.score);
     for(const candidate of options){ray.set(camera.position,candidate.point.clone().sub(camera.position).normalize());ray.far=candidate.distance-.06;
