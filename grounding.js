@@ -41,32 +41,36 @@ export function createGroundingSystem({THREE,scene,objects,terrain,surfaces,
   }
   // Use a footprint, not just the group origin: origins in old layers may be
   // absolute, scaled or rotated, and a single centre could straddle a cliff.
-  function candidate(original,dx,dz){
+  function candidate(original,dx,dz,parts=null){
     const b=original.clone().translate(new THREE.Vector3(dx,0,dz));
     const x=(b.min.x+b.max.x)/2,z=(b.min.z+b.max.z)/2;
     const rx=(b.max.x-b.min.x)*.5,rz=(b.max.z-b.min.z)*.5;
     const heights=[[x,z],[x-rx,z-rz],[x+rx,z-rz],[x-rx,z+rz],[x+rx,z+rz]].map(p=>heightAt(...p));
     if(heights.some(h=>h===null)||Math.max(...heights)-Math.min(...heights)>.025)return null;
     const y=Math.max(...heights);b.translate(new THREE.Vector3(0,y-b.min.y,0));
-    if(intersects(b,buildings)||intersects(b,passages))return null;
+    // A canopy's empty space must not reserve an imaginary solid wall.
+    // Opt-in assemblies check their real posts/roof against walking passages.
+    const routeParts=parts?parts.map(p=>p.clone().translate(new THREE.Vector3(dx,y-original.min.y,dz))):[b];
+    if(intersects(b,buildings)||routeParts.some(p=>intersects(p,passages)))return null;
     return {b,y,dx,dz};
   }
   function place(entry){
     const {object,seat=false}=entry;if(!visible(object))return;
-    const original=bounds(object);
+    const original=bounds(object),parts=entry.precisePassages?[]:null;
+    if(parts)object.traverse(o=>{if(o.isMesh&&visible(o))parts.push(bounds(o));});
     // Seated silhouettes contact the existing bench seat rather than its floor.
     if(seat){
       const y=heightAt((original.min.x+original.max.x)/2,(original.min.z+original.max.z)/2);
       if(y!==null)translate(object,0,y+.58-original.min.y,0);
       object.userData.grounding={seat:true};return;
     }
-    let best=candidate(original,0,0);
+    let best=candidate(original,0,0,parts);
     if(!best){
       // Small, deterministic local adjustments keep clutter beside its shop,
       // while pulling an accidentally submerged object back onto a dry bank.
       for(let radius=.35;radius<=8&&!best;radius+=.35){
         for(let i=0;i<24;i++){
-          const a=i*Math.PI/12,c=candidate(original,Math.cos(a)*radius,Math.sin(a)*radius);
+          const a=i*Math.PI/12,c=candidate(original,Math.cos(a)*radius,Math.sin(a)*radius,parts);
           if(c){best=c;break;}
         }
       }
