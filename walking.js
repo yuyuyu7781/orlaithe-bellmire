@@ -108,10 +108,11 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     }
     if(area){for(const o of area.obstacles)if(intersectsBody(o.bounds,x,z,y,o.isFloor,o.round,p))return null;}
     else for(const o of nearby(x,z,p))if(!o.disabled&&intersectsBody(o.bounds,x,z,y,o.isFloor,o.round,p))return null;
-    for(const o of dynamicBounds)if(o.object!==actorIgnore&&visible(o.object)&&intersectsBody(o.bounds,x,z,y,false,null,p))return null;
+    for(const o of dynamicBounds)if(o.object!==actorIgnore&&visible(o.object)&&intersectsBody(o.bounds,x,z,y,false,o.round??null,p))return null;
     return y;
   }
-  function refreshDynamic(){for(const o of dynamicBounds){if(!visible(o.object)){o.bounds.makeEmpty();continue;}o.object.updateWorldMatrix(true,true);o.bounds.setFromObject(o.object,true)}}
+  function registerDynamicObject(object){if(dynamicBounds.some(e=>e.object===object))return;for(const o of obstacles)for(let p=o.object;p;p=p.parent)if(p===object){o.disabled=true;break;}object.updateWorldMatrix(true,true);const bounds=new THREE.Box3().setFromObject(object,true),position=object.getWorldPosition(new THREE.Vector3());dynamicBounds.push({object,bounds,bodyRadius:.23,footOffset:bounds.min.y-position.y,bodyHeight:1.8});refreshDynamic();}
+  function refreshDynamic(){for(const o of dynamicBounds){if(!visible(o.object)){o.bounds.makeEmpty();continue;}if(o.bodyRadius){const p=o.object.getWorldPosition(new THREE.Vector3()),y=p.y+o.footOffset;o.round={x:p.x,z:p.z,rx:o.bodyRadius,rz:o.bodyRadius};o.bounds.min.set(p.x-o.bodyRadius,y,p.z-o.bodyRadius);o.bounds.max.set(p.x+o.bodyRadius,y+o.bodyHeight,p.z+o.bodyRadius);}else{o.object.updateWorldMatrix(true,true);o.bounds.setFromObject(o.object,true);}}}
   function move(dx,dz){
     // Small substeps prevent wall/water tunnelling, even after a slow frame.
     const count=Math.max(1,Math.ceil(Math.hypot(dx,dz)/.08));dx/=count;dz/=count;
@@ -147,7 +148,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   }
   const lastLocations=new Map();
   function canStandActor(id,x,z,y,object){const saved=actorIgnore;try{actorIgnore=object;return canStandAs(id,x,z,y);}finally{actorIgnore=saved;}}
-  function canStandTownAs(id,x,z,y){const saved=area;try{area=null;return canStandAs(id,x,z,y);}finally{area=saved;}}
+  function canStandTownAs(id,x,z,y,object=null){const saved=area,old=actorIgnore;try{area=null;actorIgnore=object;return canStandAs(id,x,z,y);}finally{area=saved;actorIgnore=old;}}
   function canStandAs(id,x,z,y){const profile=walkingProfiles[id];return profile?canStand(x,z,y,profile):null;}
   function safeLocation(profile){
     let y=canStand(state.feet.x,state.feet.z,state.feet.y,profile);if(y!==null)return new THREE.Vector3(state.feet.x,y,state.feet.z);
@@ -223,10 +224,10 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   function inspectClearance(x,z,y,id='human'){
     const profile=walkingProfiles[id];if(!profile)throw Error('Unknown walking profile');
     const floor=groundAt(x,z,y,profile),support=canStand(x,z,y,profile);
-    const blocked=floor===null?[]:[...nearby(x,z,profile)].filter(o=>!o.disabled&&intersectsBody(o.bounds,x,z,floor,o.isFloor,o.round,profile));
+    const blocked=floor===null?[]:[...nearby(x,z,profile),...dynamicBounds.filter(o=>visible(o.object))].filter(o=>!o.disabled&&intersectsBody(o.bounds,x,z,floor,o.isFloor,o.round,profile));
     return {walkable:support!==null,floor,blockers:blocked.map(o=>({name:o.object?.name||o.object?.geometry?.type||'track',min:o.bounds.min.toArray(),max:o.bounds.max.toArray()})),profile:id};
   }
   // Read-only world data also supports route validation and future actor policies.
   return {get active(){return state.active},state,input,enter,leave,update,groundAt,canStand,canStandAs,registerObstacle,refreshObstacle,registerCatStep,jump,catSteps,get jumping(){return !!jumpState;},setArea,relocate,onLeave(fn){leaveListeners.add(fn);return()=>leaveListeners.delete(fn);},profiles:walkingProfiles,lastLocations,
-    world:{ground,floors,obstacles,waterZones},refreshDynamic,inspectClearance,canStandTownAs,canStandActor};
+    world:{ground,floors,obstacles,waterZones},refreshDynamic,inspectClearance,canStandTownAs,canStandActor,registerDynamicObject};
 }

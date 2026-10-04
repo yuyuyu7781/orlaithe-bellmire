@@ -1,0 +1,683 @@
+{
+  "version": "v15.5",
+  "baseline": "0f3dfae6afb0c47de8e9eb7bbca1df540da25ea7",
+  "browser": "Chromium with software WebGL / 960x640 and 390x844 touch emulation",
+  "realPhoneTested": false,
+  "movement": {
+    "scheduled": 8,
+    "clockTeleports": 0,
+    "transitions": [
+      {
+        "period": "day",
+        "inside": 0,
+        "updated": 14400,
+        "states": [
+          "working",
+          "working",
+          "working",
+          "working",
+          "working",
+          "working",
+          "working",
+          "working"
+        ]
+      },
+      {
+        "period": "evening",
+        "inside": 4,
+        "updated": 14400,
+        "states": [
+          "inside",
+          "inside",
+          "inside",
+          "inside",
+          "working",
+          "working",
+          "working",
+          "working"
+        ]
+      },
+      {
+        "period": "night",
+        "inside": 4,
+        "updated": 14400,
+        "states": [
+          "inside",
+          "inside",
+          "inside",
+          "inside",
+          "resting",
+          "resting",
+          "resting",
+          "resting"
+        ]
+      },
+      {
+        "period": "morning",
+        "inside": 0,
+        "updated": 14400,
+        "states": [
+          "working",
+          "working",
+          "working",
+          "working",
+          "working",
+          "working",
+          "working",
+          "working"
+        ]
+      }
+    ],
+    "catSteps": 5
+  },
+  "scenario": {
+    "morning": {
+      "grain": {
+        "state": "heard",
+        "heardAt": "morning",
+        "noticedAt": null,
+        "resolvedAt": null
+      },
+      "shop": "bakery",
+      "work": 1
+    },
+    "noon": {
+      "grain": {
+        "state": "noticed",
+        "heardAt": "morning",
+        "noticedAt": "morning",
+        "resolvedAt": null
+      },
+      "events": [
+        "unaddressed-crate"
+      ]
+    },
+    "evening": {
+      "stats": {
+        "scheduled": 8,
+        "period": "evening",
+        "outsideVisible": 4,
+        "walking": 0,
+        "inside": 4,
+        "addedResidents": 0,
+        "pathRequests": 24,
+        "updated": 5,
+        "near": 2,
+        "mid": 6,
+        "far": 0
+      },
+      "states": [
+        "inside",
+        "inside",
+        "inside",
+        "inside",
+        "working",
+        "working",
+        "working",
+        "working"
+      ],
+      "grain": {
+        "state": "resolved",
+        "heardAt": "morning",
+        "noticedAt": "morning",
+        "resolvedAt": "evening"
+      }
+    },
+    "night": {
+      "indoors": 3,
+      "stats": {
+        "scheduled": 8,
+        "period": "night",
+        "outsideVisible": 0,
+        "walking": 0,
+        "inside": 4,
+        "addedResidents": 0,
+        "pathRequests": 29,
+        "updated": 4,
+        "near": 4,
+        "mid": 4,
+        "far": 0
+      }
+    },
+    "cat": {
+      "book": {
+        "state": "resolved",
+        "heardAt": null,
+        "noticedAt": "day",
+        "resolvedAt": "day"
+      },
+      "text": "エヴァン\n肖像の下描き\n古書店主\n頁の折り目まで覚えている古書店主。\n\nあの本を見つけたのは君かい。棚の下は、君の方がよく知っているね。\n\n閉じる"
+    },
+    "audio": {
+      "silent": true,
+      "stats": {
+        "zones": 10,
+        "configured": 0,
+        "enabled": false,
+        "contexts": 0
+      },
+      "triggers": [
+        {
+          "id": "morningBell",
+          "period": "morning"
+        },
+        {
+          "id": "eveningBell",
+          "period": "evening"
+        },
+        {
+          "id": "nightBell",
+          "period": "night"
+        }
+      ]
+    }
+  },
+  "humanRoutes": {
+    "routes": [
+      {
+        "from": "square",
+        "to": "bakery",
+        "samples": 111,
+        "maxEyeDelta": 0.060357203871458154,
+        "feet": [
+          -25.965,
+          3.5,
+          27
+        ],
+        "detour": true
+      },
+      {
+        "from": "square",
+        "to": "bookshop",
+        "samples": 925,
+        "maxEyeDelta": 0.06176738668342319,
+        "feet": [
+          -13.865000095367431,
+          1.592000003814697,
+          32.399999904632566
+        ]
+      },
+      {
+        "from": "square",
+        "to": "inn",
+        "samples": 1775,
+        "maxEyeDelta": 0.07025682957107104,
+        "feet": [
+          -32.965,
+          6.249999976158142,
+          2.5
+        ]
+      },
+      {
+        "from": "square",
+        "to": "tavern",
+        "samples": 257,
+        "maxEyeDelta": 0,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "square",
+        "to": "orrery",
+        "samples": 1134,
+        "maxEyeDelta": 0.07025682977865699,
+        "feet": [
+          3,
+          6.249999976158142,
+          1.7850000000000001
+        ]
+      },
+      {
+        "from": "market",
+        "to": "tavern",
+        "samples": 709,
+        "maxEyeDelta": 0,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "market",
+        "to": "bakery",
+        "samples": 109,
+        "maxEyeDelta": 0.06035715661406016,
+        "feet": [
+          -25.965,
+          3.5,
+          27
+        ],
+        "detour": true
+      },
+      {
+        "from": "harbor",
+        "to": "tavern",
+        "samples": 569,
+        "maxEyeDelta": 0.061767353332156105,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "harbor",
+        "to": "market",
+        "samples": 764,
+        "maxEyeDelta": 0.061767353332156105,
+        "feet": [
+          19.566,
+          3.5,
+          15.586
+        ]
+      },
+      {
+        "from": "harbor",
+        "to": "bakery",
+        "samples": 108,
+        "maxEyeDelta": 0.061117489830788685,
+        "feet": [
+          -25.965,
+          3.5,
+          27
+        ],
+        "detour": true
+      },
+      {
+        "from": "mill",
+        "to": "tavern",
+        "samples": 2365,
+        "maxEyeDelta": 0.08155342164849166,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "mill",
+        "to": "harbor",
+        "samples": 1962,
+        "maxEyeDelta": 0.08155342164849166,
+        "feet": [
+          0,
+          1.3799999976158142,
+          31.99840000000012
+        ]
+      },
+      {
+        "from": "orrery",
+        "to": "tavern",
+        "samples": 1029,
+        "maxEyeDelta": 0.07291144348578982,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "cable",
+        "to": "square",
+        "samples": 2228,
+        "maxEyeDelta": 0.08408657486396764,
+        "feet": [
+          2.849999999999999,
+          3.5,
+          18.500000000000128
+        ]
+      },
+      {
+        "from": "belfry",
+        "to": "square",
+        "samples": 988,
+        "maxEyeDelta": 0.0778443175526764,
+        "feet": [
+          2.849999999999999,
+          3.5,
+          18.500000000000128
+        ]
+      },
+      {
+        "from": "straight-tavern-lane",
+        "to": "tavern",
+        "samples": 168,
+        "maxEyeDelta": 0,
+        "feet": [
+          -5.365,
+          3.5,
+          12.3
+        ]
+      }
+    ],
+    "lane": {
+      "tested": 520,
+      "valid": 520
+    }
+  },
+  "checks": {
+    "catJumpNativeSpaceSafeLandings": 5,
+    "catTouchJumpControl": true,
+    "innHumanStairsUpDownAndGuestRooms": 2,
+    "fiveOfficialPortraitsHumanCat": true,
+    "mobileTavernWalkTapEnterTalkCloseExit": true,
+    "cameras": 19,
+    "weather": 6,
+    "humanOriginalInspectionTargets": 14,
+    "followAndAnimations": true,
+    "webglErrors": 0
+  },
+  "initialOutdoorPerformance": [
+    {
+      "baseline": true,
+      "samples": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2579,
+          "triangles": 101349,
+          "ms": 14.400000005960464,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 26.69999998807907
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34580,
+          "ms": 1.5999999940395355,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 1.9000000059604645
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2579,
+          "triangles": 101349,
+          "ms": 12.199999988079071,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 30.69999998807907
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34580,
+          "ms": 1.699999988079071,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 15
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2565,
+          "triangles": 101335,
+          "ms": 25.099999994039536,
+          "textures": 18,
+          "programs": 28,
+          "p95Ms": 30.30000001192093
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 140,
+          "triangles": 34566,
+          "ms": 1.9000000059604645,
+          "textures": 18,
+          "programs": 28,
+          "p95Ms": 3.5
+        }
+      ]
+    },
+    {
+      "baseline": false,
+      "samples": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2579,
+          "triangles": 101349,
+          "ms": 12.900000005960464,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 36.29999998211861
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34580,
+          "ms": 1.800000011920929,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 6.4000000059604645
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2579,
+          "triangles": 101349,
+          "ms": 10.599999994039536,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 18.900000005960464
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34580,
+          "ms": 1.4000000059604645,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 2
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2565,
+          "triangles": 101335,
+          "ms": 13.699999988079071,
+          "textures": 18,
+          "programs": 28,
+          "p95Ms": 29.19999998807907
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 140,
+          "triangles": 34566,
+          "ms": 1.5,
+          "textures": 18,
+          "programs": 28,
+          "p95Ms": 1.7999999821186066
+        }
+      ]
+    }
+  ],
+  "simulationUpdates": [
+    {
+      "quality": "high",
+      "view": "overview",
+      "medianMs": 0.20000001788139343,
+      "p95Ms": 0.7999999821186066,
+      "averageUpdated": 0.48,
+      "stats": {
+        "scheduled": 8,
+        "period": "day",
+        "outsideVisible": 8,
+        "walking": 7,
+        "inside": 0,
+        "addedResidents": 0,
+        "pathRequests": 8,
+        "updated": 0,
+        "near": 0,
+        "mid": 0,
+        "far": 8
+      }
+    },
+    {
+      "quality": "high",
+      "view": "alley",
+      "medianMs": 0.5,
+      "p95Ms": 0.800000011920929,
+      "averageUpdated": 3.685,
+      "stats": {
+        "scheduled": 8,
+        "period": "day",
+        "outsideVisible": 8,
+        "walking": 3,
+        "inside": 0,
+        "addedResidents": 0,
+        "pathRequests": 8,
+        "updated": 3,
+        "near": 3,
+        "mid": 5,
+        "far": 0
+      }
+    },
+    {
+      "quality": "standard",
+      "view": "overview",
+      "medianMs": 0.19999998807907104,
+      "p95Ms": 0.5,
+      "averageUpdated": 0.48,
+      "stats": {
+        "scheduled": 8,
+        "period": "day",
+        "outsideVisible": 8,
+        "walking": 3,
+        "inside": 0,
+        "addedResidents": 0,
+        "pathRequests": 8,
+        "updated": 0,
+        "near": 0,
+        "mid": 0,
+        "far": 8
+      }
+    },
+    {
+      "quality": "standard",
+      "view": "alley",
+      "medianMs": 0.5,
+      "p95Ms": 0.800000011920929,
+      "averageUpdated": 3.725,
+      "stats": {
+        "scheduled": 8,
+        "period": "day",
+        "outsideVisible": 8,
+        "walking": 1,
+        "inside": 0,
+        "addedResidents": 0,
+        "pathRequests": 8,
+        "updated": 3,
+        "near": 3,
+        "mid": 5,
+        "far": 0
+      }
+    },
+    {
+      "quality": "mobile",
+      "view": "overview",
+      "medianMs": 0.19999998807907104,
+      "p95Ms": 0.5,
+      "averageUpdated": 0.24,
+      "stats": {
+        "scheduled": 8,
+        "period": "day",
+        "outsideVisible": 8,
+        "walking": 0,
+        "inside": 0,
+        "addedResidents": 0,
+        "pathRequests": 8,
+        "updated": 0,
+        "near": 0,
+        "mid": 0,
+        "far": 8
+      }
+    },
+    {
+      "quality": "mobile",
+      "view": "alley",
+      "medianMs": 0.5,
+      "p95Ms": 0.7999999821186066,
+      "averageUpdated": 3.725,
+      "stats": {
+        "scheduled": 8,
+        "period": "day",
+        "outsideVisible": 8,
+        "walking": 0,
+        "inside": 0,
+        "addedResidents": 0,
+        "pathRequests": 8,
+        "updated": 3,
+        "near": 3,
+        "mid": 5,
+        "far": 0
+      }
+    }
+  ],
+  "limitations": [
+    "Main five characters retain existing outdoor schedule placement; eight general residents use continuous street routes.",
+    "Outdoor simulation pauses while the player is indoors.",
+    "Events persist for the current page only.",
+    "Audio sources and footstep playback are not supplied.",
+    "Software timing is not a phone FPS guarantee."
+  ]
+}

@@ -37,6 +37,7 @@ export function buildInterior({THREE,shop}){
  }else if(shop.id==='bookshop'){
   shelf(-2.5,-4,true);shelf(-.4,-4,true);shelf(1.7,-4,true);shelf(-2.5,-2.5,true);
   table(2.35,-1.9,1.15,.8);lamp(2.35,.93,-1.9);for(let i=0;i<4;i++)box(2.15,.94+i*.035,-1.8,.32,.03,.26,i%2?paper:accent,false);
+  box(-1.35,.013,.12,.25,.025,.17,paper,false);box(-1.47,.013,.12,.025,.030,.17,accent,false);
   notice('hidden-book','棚脇の薄い本','紙の匂いが、棚の隙間からする。薄い本が一冊、奥へ滑り込んでいた。',[-1.35,.10,.12]);Object.assign(inspect.at(-1),{kind:'town-event',profiles:['cat'],event:townEventDefinitions.find(e=>e.id==='missing-folio')});
   notice('ledger','机の紙束','紙の端には、何人もの指の跡がある。書きかけの頁は閉じずに置かれている。',[2.3,1,-1.8]);
  }else if(shop.id==='inn'){

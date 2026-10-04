@@ -1122,7 +1122,7 @@ const inspectTargets=createInspectionTargets({culture,well:squareWell,
 const inspections=createInspectionSystem({THREE,scene,camera,walking,targets:inspectTargets,
   ignored:[...residents,residentV8,cat,...smoke,train,axle]});
 const dialogueActors={baker:p0,bookseller:shopResidents[4],boatworker:talkingDockWorker,starmaker:shopResidents[1],greenBard:bard};
-const residentLife=createResidentLife({THREE,scene,camera,residentScale,actors:dialogueActors,seatedWithBoots:[cablePassenger],
+const residentLife=createResidentLife({THREE,scene,camera,getQuality:()=>document.getElementById('qualitySelect').value,residentScale,actors:dialogueActors,seatedWithBoots:[cablePassenger],
   moving:[...residents.map(object=>({object,feet:object.userData.legs,arms:object.userData.arms})),{object:residentV8,feet:residentLegs,arms:residentArms}]});
 const dialogue=createDialogueSystem({THREE,inspections,walking,getTime:()=>townLife.state.period,getLocation:id=>shopSystem.characterLocation(id),
   actors:dialogueActors});

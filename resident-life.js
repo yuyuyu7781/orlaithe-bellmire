@@ -3,7 +3,7 @@ import {residentLifeSettings,residentRoles,residentVariation,everydayResidentRol
 // The existing roots, routes, ground anchors and dialogue identities remain the
 // source of truth. Only bodies and joint-local poses change. Small accessories
 // share four dynamic instance batches instead of hundreds of separate draws.
-export function createResidentLife({THREE,scene,camera=null,residentScale,actors,moving=[],seatedWithBoots=[]}){
+export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'standard',residentScale,actors,moving=[],seatedWithBoots=[]}){
  const root=new THREE.Group();root.name='Resident living details';scene.add(root);
  const material=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.98}),geometries={
   block:new THREE.BoxGeometry(1,1,1),ball:new THREE.SphereGeometry(1,6,4),
@@ -67,17 +67,19 @@ export function createResidentLife({THREE,scene,camera=null,residentScale,actors
  function breathValue(t,phase){return Math.sin(t*.7+phase)*.025;}
  function visible(o){for(let p=o;p;p=p.parent)if(!p.visible)return false;return true;}
  function update(time,{force=false}={}){
-  const pose=force||Math.abs(time-lastPose)>=1/residentLifeSettings.idleRate;if(pose)lastPose=time;
+  const poseTick=force||Math.abs(time-lastPose)>=1/residentLifeSettings.idleRate;if(poseTick)lastPose=time;
   const quiet=period==='night'?.55:1;
   if(camera){camera.updateMatrixWorld();frustum.setFromProjectionMatrix(projection.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse));}
   const active=new Set();
   for(const r of records){const {object:o,head,body,arms,variation:v,role}=r;if(!visible(o))continue;
+   o.getWorldPosition(sphere.center);sphere.center.y+=.85;const distance=camera?camera.position.distanceTo(sphere.center):0,inView=!camera||frustum.intersectsSphere(sphere),interval=distance<18&&inView?1/residentLifeSettings.idleRate:distance<42&&inView?.25:getQuality()==='mobile'?2:1;
+   const pose=force||(poseTick&&Math.abs(time-(r.lastTime??-Infinity))>=interval);if(pose)r.lastTime=time;
    if(pose&&r.footRest){const p=r.feet[0].geometry.attributes.position,walking=['walking','goingHome'].includes(r.currentState);for(let i=0;i<p.count;i++){const k=i*3,sign=r.footRest[k]<0?-1:1,swing=walking?Math.sin((r.walkPhase??time*4)+sign*Math.PI/2):0;p.array[k]=r.footRest[k];p.array[k+1]=r.footRest[k+1]+Math.max(0,swing)*.045;p.array[k+2]=r.footRest[k+2]+swing*.10;}p.needsUpdate=true;}
    if(pose){const breath=Math.sin(time*.85+v.phase),look=Math.sin(time*.31+v.phase),weight=(v.seed-.5)*.045;
     body.rotation.z=r.baseBody.z+weight+breath*.008*quiet;body.rotation.x=r.baseBody.x+(role.posture==='working'?.035:role.posture==='thoughtful'?.015:-.009)+Math.sin(time*.63+v.phase)*.006*quiet;
     head.rotation.y=r.baseHead.y+look*.16*quiet;head.rotation.x=r.baseHead.x+(role.activity==='reading'||role.activity==='measuring'?.055:0)+breath*.025*quiet;
    }
-   if(pose){arms.forEach((arm,i)=>{const sign=i?1:-1;arm.rotation.z=(role.prop?-sign*.21:sign*.10)+Math.sin(time*.7+v.phase+i)*.012*quiet;if(role.prop)arm.rotation.x=-1.04+Math.sin(time*.57+v.phase)*.035*quiet;else if(!r.moving)arm.rotation.x=Math.sin(time*.61+v.phase+i)*.04*quiet;});
+   if(pose){arms.forEach((arm,i)=>{const sign=i?1:-1;arm.rotation.z=(role.prop&&r.prop.visible?-sign*.21:sign*.10)+Math.sin(time*.7+v.phase+i)*.012*quiet;if(role.prop&&r.prop.visible)arm.rotation.x=-1.04+Math.sin(time*.57+v.phase)*.035*quiet;else if(!r.moving)arm.rotation.x=Math.sin(time*.61+v.phase+i)*.04*quiet;});
    const action=r.activity??role.activity,swing=Math.sin(time*1.2+v.phase)*quiet;
    if(action==='sweeping'){arms.forEach((a,i)=>{a.rotation.x=-.65+swing*.16;a.rotation.z=i?.12:-.24;});r.prop.rotation.x=swing*.13;}
    else if(action==='rope'){arms.forEach((a,i)=>a.rotation.x=-.92+Math.sin(time*.8+v.phase+i)*.13*quiet);}

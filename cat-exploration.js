@@ -1,7 +1,7 @@
 // Explicit low supports, selected once from already-grounded props. No world scale change.
 export function addCatExploration({THREE,walking,grounding,inspections,shopSystem}){
  const targets=[],used=new Set();
- for(const [x,z]of [[19,16],[-7,32],[25,35],[-26,28],[-6,14],[-15,33],[10,19]]){
+ for(const [x,z]of [[19,16],[-7,32],[25,35],[-6,14],[10,19]]){
   const candidates=grounding.objects.filter(e=>!e.person&&!e.seat&&!e.object.userData.catRouteId).map(e=>({object:e.object,b:new THREE.Box3().setFromObject(e.object,true)})).filter(q=>{const s=q.b.getSize(new THREE.Vector3()),p=q.b.getCenter(new THREE.Vector3());return s.y>=.25&&s.y<=.85&&Math.min(s.x,s.z)>=.45&&Math.max(s.x,s.z)<1.55&&!used.has(q.object)&&Math.hypot(p.x-x,p.z-z)<9;}).sort((a,b)=>a.b.getCenter(new THREE.Vector3()).distanceToSquared(new THREE.Vector3(x,a.b.getCenter(new THREE.Vector3()).y,z))-b.b.getCenter(new THREE.Vector3()).distanceToSquared(new THREE.Vector3(x,b.b.getCenter(new THREE.Vector3()).y,z)));
   const q=candidates.find(q=>{const p=q.b.getCenter(new THREE.Vector3()),y=grounding.heightAt(p.x,p.z);return y!==null&&Math.abs(q.b.min.y-y)<.10;});if(!q)continue;used.add(q.object);targets.push(walking.registerCatStep(q.object));
  }
