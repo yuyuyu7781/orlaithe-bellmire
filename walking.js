@@ -5,6 +5,10 @@ export const walkingProfiles={
   cat:{id:'cat',eyeHeight:.32,height:.52,radius:.13,footRadius:.085,speed:3.8,stepUp:.40,stepDown:.42,fov:60}
 };
 
+// Major lanes aim for 1.2m of visible width: 0.48m shoulders plus turning room.
+// Low cat passages are deliberately exempt; never globally shrink collision.
+export const humanRouteStandard={minimumWidth:1.2,landingDepth:1.2,maximumRiser:.25};
+
 export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,surfaces,
   surfaceMaterials,dynamicObjects,ignoredObjects,waterMaterials,trackBounds,spawn}){
   const state={active:false,profile:walkingProfiles.human,feet:spawn.clone(),yaw:-Math.PI*.83,pitch:-.05};
