@@ -3,13 +3,13 @@ import {residentLifeSettings,residentRoles,residentVariation} from './resident-l
 // The existing roots, routes, ground anchors and dialogue identities remain the
 // source of truth. Only bodies and joint-local poses change. Small accessories
 // share four dynamic instance batches instead of hundreds of separate draws.
-export function createResidentLife({THREE,scene,residentScale,actors,moving=[],seatedWithBoots=[]}){
+export function createResidentLife({THREE,scene,camera=null,residentScale,actors,moving=[],seatedWithBoots=[]}){
  const root=new THREE.Group();root.name='Resident living details';scene.add(root);
  const material=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.98}),geometries={
-  block:new THREE.BoxGeometry(1,1,1),ball:new THREE.SphereGeometry(1,7,5),
-  limb:new THREE.CylinderGeometry(.5,.5,1,6),hair:new THREE.SphereGeometry(1,8,5,0,Math.PI*2,0,1.45)
+  block:new THREE.BoxGeometry(1,1,1),ball:new THREE.SphereGeometry(1,6,4),
+  limb:new THREE.CylinderGeometry(.5,.5,1,6),hair:new THREE.SphereGeometry(1,8,4,0,Math.PI*2,0,1.45)
  },parts=new Map(Object.keys(geometries).map(k=>[k,[]])),records=[],movingMap=new Map(moving.map(q=>[q.object,q])),identity=new Map(Object.entries(actors).map(([id,o])=>[o,id]));
- const invisible=new THREE.Matrix4().makeScale(0,0,0),world=new THREE.Vector3();let lastPose=-Infinity,period='day';
+ const world=new THREE.Vector3(),frustum=new THREE.Frustum(),projection=new THREE.Matrix4(),sphere=new THREE.Sphere(new THREE.Vector3(),1.4);let lastPose=-Infinity,period='day';
  function add(kind,parent,position,size,color){const node=new THREE.Object3D();node.position.set(...position);node.scale.set(...size);parent.add(node);parts.get(kind).push({node,color:new THREE.Color(color),owner:parent});return node;}
  function contactLegs(parent,base,sx,sy,sz,color){const positions=[],normals=[],colors=[];
   const g=new THREE.BoxGeometry(1,1,1).toNonIndexed(),normalMatrix=new THREE.Matrix3(),matrix=new THREE.Matrix4(),v=new THREE.Vector3(),n=new THREE.Vector3();
@@ -56,11 +56,14 @@ export function createResidentLife({THREE,scene,residentScale,actors,moving=[],s
   // No terrain re-placement: maintain each original foot/seat world height.
   if(!entry.seated){const contact=new THREE.Box3().setFromObject(feet[0]??o,true).min.y;o.position.y+=(b.min.y-contact)/(o.parent?.getWorldScale(new THREE.Vector3()).y??1);}
  });
- const batches=[];for(const [kind,list]of parts){if(!list.length)continue;const mesh=new THREE.InstancedMesh(geometries[kind],material,list.length);mesh.name='Resident '+kind+' details';mesh.userData.walkSoft=true;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);mesh.frustumCulled=false;list.forEach((p,i)=>mesh.setColorAt(i,p.color));root.add(mesh);batches.push({mesh,list});}
+ const owners=new Set(records.map(r=>r.object));for(const list of parts.values())for(const p of list){for(let o=p.node;o;o=o.parent)if(owners.has(o)){p.owner=o;break;}}
+ const batches=[];for(const [kind,list]of parts){if(!list.length)continue;const mesh=new THREE.InstancedMesh(geometries[kind],material,list.length);mesh.name='Resident '+kind+' details';mesh.userData.walkSoft=true;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);mesh.frustumCulled=false;list.forEach((p,i)=>mesh.setColorAt(i,p.color));mesh.instanceColor.setUsage(THREE.DynamicDrawUsage);root.add(mesh);batches.push({mesh,list});}
  function visible(o){for(let p=o;p;p=p.parent)if(!p.visible)return false;return true;}
  function update(time,{force=false}={}){
   const pose=force||Math.abs(time-lastPose)>=1/residentLifeSettings.idleRate;if(pose)lastPose=time;
   const quiet=period==='night'?.55:1;
+  if(camera){camera.updateMatrixWorld();frustum.setFromProjectionMatrix(projection.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse));}
+  const active=new Set();
   for(const r of records){const {object:o,head,body,arms,variation:v,role}=r;if(!visible(o))continue;
    if(pose){const breath=Math.sin(time*.85+v.phase),look=Math.sin(time*.31+v.phase),weight=(v.seed-.5)*.045;
     body.rotation.z=r.baseBody.z+weight+breath*.008*quiet;body.rotation.x=r.baseBody.x+(role.posture==='working'?.035:role.posture==='thoughtful'?.015:-.009)+Math.sin(time*.63+v.phase)*.006*quiet;
@@ -69,10 +72,12 @@ export function createResidentLife({THREE,scene,residentScale,actors,moving=[],s
    arms.forEach((arm,i)=>{const sign=i?1:-1;arm.rotation.z=(role.prop?-sign*.21:sign*.10)+Math.sin(time*.7+v.phase+i)*.012*quiet;if(role.prop)arm.rotation.x=-1.04+Math.sin(time*.57+v.phase)*.035*quiet;else if(!r.moving)arm.rotation.x=Math.sin(time*.61+v.phase+i)*.04*quiet;});
    r.prop.rotation.z=Math.sin(time*.57+v.phase)*.025*quiet;
    o.updateWorldMatrix(true,true);
+   o.getWorldPosition(sphere.center);sphere.center.y+=.85;if(!camera||frustum.intersectsSphere(sphere))active.add(o);
   }
   // The shop system hides outdoor roots; the shared batch must still show the
-  // currently visible indoor actors. Hidden actors get zero-sized instances.
-  root.visible=true;for(const {mesh,list}of batches){for(let i=0;i<list.length;i++)mesh.setMatrixAt(i,visible(list[i].node)?list[i].node.matrixWorld:invisible);mesh.instanceMatrix.needsUpdate=true;}
+  // currently visible indoor actors. Compact only visible, in-view people into
+  // each draw so close-up/mobile views do not submit the whole town's details.
+  root.visible=true;for(const {mesh,list}of batches){let count=0;for(const p of list)if(active.has(p.owner)&&visible(p.node)){mesh.setMatrixAt(count,p.node.matrixWorld);mesh.setColorAt(count,p.color);count++;}mesh.count=count;mesh.visible=count>0;mesh.instanceMatrix.needsUpdate=true;mesh.instanceColor.needsUpdate=true;}
  }
  update(0,{force:true});
  return {root,records,update,setPeriod(value){period=value;},stats:{residents:records.length,standing:records.filter(r=>!r.seated).length,seated:records.filter(r=>r.seated).length,heldProps:records.filter(r=>r.role.prop).length,detailInstances:[...parts.values()].reduce((n,p)=>n+p.length,0),detailBatches:batches.length,contactMeshes:records.filter(r=>!r.seated&&!r.moving).length,addedLights:0}};

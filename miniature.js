@@ -28,7 +28,7 @@ export function enrichMiniature({THREE,scene,walking,grounding,lit,wallMaterials
  scene.traverse(o=>{if(!o.isMesh||inside(o)||o.isInstancedMesh)return;const g=o.geometry.parameters??{},b=new THREE.Box3().setFromObject(o,true);occupied.push({object:o,b});if(wallMaterials.some(m=>m===o.material||m.uuid===o.material.userData.storybookSource)&&g.width>=3&&g.width<16&&g.depth>=3&&g.depth<16&&g.height>=3)walls.push({object:o,b});});
  // Keep the outermost shell where historical layers share the same frontage.
  const shells=walls.filter(w=>!walls.some(q=>q!==w&&q.b.containsBox(w.b)&&q.b.getSize(new THREE.Vector3()).length()>w.b.getSize(new THREE.Vector3()).length()+.01));
- let windows=0,planters=0,awnings=0,pavers=0,coping=0,shutters=0,lattices=0,bays=0,roundVents=0,householdDetails=0;const faces=[],roles={};
+ let windows=0,planters=0,awnings=0,pavers=0,coping=0,shutters=0,lattices=0,bays=0,roundVents=0,householdDetails=0,existingWindowsFramed=0;const faces=[],roles={};
  for(const {object,b}of shells){const c=b.getCenter(new THREE.Vector3()),size=b.getSize(new THREE.Vector3()),d=districtWeights(c.x,c.z),seed=(Math.sin(c.x*1.37+c.z*2.1)+1)/2;
   const target=new THREE.Color(0xeee5d2).lerp(new THREE.Color(0xc7cec5),d.upper*.12).lerp(new THREE.Color(0xc8baa4),d.harbor*.16);
   const m=object.material.clone();m.color.lerp(target,.76+seed*.045);object.material=m;
@@ -65,6 +65,23 @@ export function enrichMiniature({THREE,scene,walking,grounding,lit,wallMaterials
    if(side==='north'&&seed>.7&&d.upper<.7)for(let i=0;i<6;i++){const v=new THREE.Vector3(w*.7+Math.sin(i)*.10,-h*.6+i*.16,-.010).applyAxisAngle(new THREE.Vector3(0,1,0),angle).add(p);batch.add('leaf',green,v.toArray(),[.12,.16,.075],angle);}
   }
  }
+ // Some historical front panes have no surrounds and read as glowing boards.
+ // Reuse those exact panes, adding at most 64 shallow surrounds to the same
+ // architectural batch. Do not add glass, alter door targets or duplicate trim.
+ const lightMaterials=new Set(lit),oldPanes=occupied.filter(q=>{const g=q.object.geometry.parameters??{};return lightMaterials.has(q.object.material)&&q.object.geometry.type==='BoxGeometry'&&g.width>=.30&&g.width<=1.6&&g.height>=.4&&g.height<=1.8&&g.depth<=.16;});
+ const shopDistance=q=>{const p=q.b.getCenter(new THREE.Vector3());return Math.min(...shops.map(s=>Math.hypot(p.x-s.center[0],p.z-s.center[1])));};oldPanes.sort((a,b)=>shopDistance(a)-shopDistance(b));
+ for(const {object:o,b}of oldPanes){if(existingWindowsFramed>=64)break;const p=b.getCenter(new THREE.Vector3()),shell=shells.find(s=>s.b.distanceToPoint(p)<.25);if(!shell)continue;
+  const g=o.geometry.parameters,scale=o.getWorldScale(new THREE.Vector3()),w=g.width*scale.x,h=g.height*scale.y,normal=new THREE.Vector3(0,0,1).applyQuaternion(o.getWorldQuaternion(new THREE.Quaternion()));if(Math.abs(normal.y)>.05)continue;
+  const c=shell.b.getCenter(new THREE.Vector3());if(normal.dot(p.clone().sub(c))<0)normal.negate();const angle=Math.atan2(normal.x,normal.z);
+  const floor=grounding.heightAt(p.x+normal.x*.25,p.z+normal.z*.25)??shell.b.min.y;if(b.min.y<floor+1.35)continue;
+  let added=0;const surround=(local,dimensions)=>{const v=new THREE.Vector3(...local).applyAxisAngle(new THREE.Vector3(0,1,0),angle).add(p),size=new THREE.Vector3(...dimensions);if(Math.abs(normal.x)>.7)[size.x,size.z]=[size.z,size.x];const bounds=new THREE.Box3().setFromCenterAndSize(v,size);
+   if(occupied.some(q=>q.object!==o&&(q.object.userData.storybookKind==='wood'||q.object.material.userData?.storybookKind==='wood')&&bounds.intersectsBox(q.b)))return;
+   batch.add('block',frame,v.toArray(),dimensions,angle);added++;
+  };
+  for(const x of [-w/2-.035,w/2+.035])surround([x,0,.035],[.07,h+.14,.08]);
+  for(const y of [-h/2-.035,h/2+.035])surround([0,y,.035],[w+.14,.07,.08]);
+  if(added)existingWindowsFramed++;
+ }
  const roofSet=new Set(roofMaterials);scene.traverse(o=>{if(!o.isMesh||inside(o)||!roofSet.has(o.material))return;const p=o.getWorldPosition(new THREE.Vector3()),seed=(Math.sin(p.x*.31+p.z*.59)+1)/2,m=o.material.clone();m.color.lerp(new THREE.Color(0x315951).lerp(new THREE.Color(0x466559),seed),.58);o.material=m;});
  // Samples are accepted only on existing, walkable horizontal surfaces. Stone
  // tops remain within 12mm of them, with no collision or terrain changes.
@@ -76,5 +93,5 @@ export function enrichMiniature({THREE,scene,walking,grounding,lit,wallMaterials
  }
  // Low coping on existing street-side parapets, not a new barrier.
  for(const [x,z,dx,dz,count]of [[-29,35.22,1,0,10],[-7,35.22,1,0,10],[24,35.22,1,0,8]])for(let i=0;i<count;i++){const px=x+i*dx,pz=z+i*dz,y=grounding.heightAt(px,pz);if(y===null)continue;batch.add('block',sill,[px,y+.009,pz],[.94,.018,.20],0,new THREE.Color(0xffffff).multiplyScalar(.90+(i%3)*.035));coping++;}
- const details=batch.finish();return{...details,faces,shells,materials:{frame,sill,green,pot,paving},stats:{buildings:shells.length,windows,planters,awnings,pavers,coping,shutters,lattices,bays,roundVents,householdDetails,roles,instances:details.instances,batches:details.batches}};
+ const details=batch.finish();return{...details,faces,shells,materials:{frame,sill,green,pot,paving},stats:{buildings:shells.length,windows,planters,awnings,pavers,coping,shutters,lattices,bays,roundVents,householdDetails,existingWindowsFramed,roles,instances:details.instances,batches:details.batches}};
 }

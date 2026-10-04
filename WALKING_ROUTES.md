@@ -80,3 +80,21 @@ and the thirty walking cases are repeated after these final placements.
 fixture, that an overhead canopy does not create an imaginary wall while real
 posts still keep their collision clearance. No other placement uses the opt-in
 `precisePassages` setting. Grounding checks ended with zero unresolved entries.
+
+## v14.2 regression after art and resident changes
+
+The three-start, ten-destination keyboard walking matrix passes again after the
+facade and resident changes. The final ten harbor routes are repeated after the
+bookshop barrel adjustment. Human/cat profiles, building coordinates, stair
+heights, shop entrance points and the three cat storage passages are retained.
+
+A comparison against v13.8 found a pre-existing cat-entry obstruction at the
+bookshop: a grounded barrel blocked the low door interaction point. It is seeded
+at (-14.8, 33.0), beside the frontage and clear of the main quay street. The
+complete barrel and hoops remain; no interaction ray is allowed through solids.
+Native cat entry now works, while the human door and navigation target stay put.
+
+Five shops are entered, their five conversation characters spoken to with both
+human and cat modes, official portraits displayed, then exited. Shared resident
+details render only for visible indoor people. Smartphone-width touch tests
+cover map controls, arrival, bakery entry, portrait conversation and return.

@@ -1,0 +1,161 @@
+{
+  "baseline": "211a818 (v13.8)",
+  "after": "v14.2 validated working tree",
+  "method": "Chromium software WebGL, 960x640, fixed clock 3s, warmed shadows, same overview and harbor walking camera; composer passes included. Counts are camera samples, not real-device FPS.",
+  "measurements": [
+    {
+      "version": "v13.8",
+      "samples": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "calls": 2546,
+          "triangles": 85641,
+          "meshes": 2811,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "textures": 18,
+          "programs": 19
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "calls": 145,
+          "triangles": 27192,
+          "meshes": 2811,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "textures": 18,
+          "programs": 19
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "calls": 2546,
+          "triangles": 85641,
+          "meshes": 2811,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "textures": 18,
+          "programs": 19
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "calls": 145,
+          "triangles": 27192,
+          "meshes": 2811,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "textures": 18,
+          "programs": 19
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "calls": 2532,
+          "triangles": 85627,
+          "meshes": 2811,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "textures": 18,
+          "programs": 28
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "calls": 131,
+          "triangles": 27178,
+          "meshes": 2811,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "textures": 18,
+          "programs": 28
+        }
+      ]
+    },
+    {
+      "version": "v14.2",
+      "samples": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "calls": 2574,
+          "triangles": 100685,
+          "meshes": 2841,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "textures": 18,
+          "programs": 19
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "calls": 154,
+          "triangles": 34316,
+          "meshes": 2841,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "textures": 18,
+          "programs": 19
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "calls": 2574,
+          "triangles": 100685,
+          "meshes": 2841,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "textures": 18,
+          "programs": 19
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "calls": 154,
+          "triangles": 34316,
+          "meshes": 2841,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "textures": 18,
+          "programs": 19
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "calls": 2560,
+          "triangles": 100671,
+          "meshes": 2841,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "textures": 18,
+          "programs": 28
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "calls": 140,
+          "triangles": 34302,
+          "meshes": 2841,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "textures": 18,
+          "programs": 28
+        }
+      ]
+    }
+  ]
+}
