@@ -4,7 +4,7 @@ import {buildInterior} from './interiors.js';
 export function createShopSystem({THREE,scene,walking,grounding,miniature,inspections,dialogue,townLife,onExit=()=>{}}){
  const rooms=new Map(),entrances=[],actors=new Map(dialogue.entries.map(e=>[e.character.id,e.object]));
  const originals=new Map([...actors].map(([id,o])=>[id,{parent:o.parent,position:o.position.clone(),rotation:o.rotation.clone(),visible:o.visible}]));
- const townRoots=[...scene.children],savedVisibility=new Map(),outdoorPoints=[];scene.traverse(o=>{if(o.isPointLight)outdoorPoints.push(o);});let current=null,returnPoint=null,returnYaw=0,savedBackground=null,savedFog=null;
+ const townRoots=[...scene.children],savedVisibility=new Map(),outdoorPoints=[];scene.traverse(o=>{if(o.isPointLight)outdoorPoints.push(o);});let workTime=0;const workerStates=new Map();let current=null,returnPoint=null,returnYaw=0,savedBackground=null,savedFog=null;
  const label=document.createElement('div');label.className='room-label';label.hidden=true;document.body.append(label);
  const wood=new THREE.MeshStandardMaterial({color:0x775b42,roughness:1}),iron=new THREE.MeshStandardMaterial({color:0x42463d,roughness:1});
  const distance=(a,b)=>Math.hypot(a.x-b.x,a.z-b.z);
@@ -59,7 +59,11 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
  function updateActors(){for(const [id,o]of actors){const place=locationFor(id);if(current){const here=place===current.shop.id;o.visible=here;if(!here)continue;
     if(o.parent!==current.root)current.root.attach(o);
     let p=current.npcPosition;if(id==='greenBard')p=[-2.5,0,2.7];else if(id==='boatworker')p=[1.1,0,-1.6];
-    const feet=new THREE.Vector3(...p).add(current.root.position);setActor(o,feet,0);o.visible=true;
+    const stations=current.workstations??[],key=current.shop.id+':'+id;let worker=workerStates.get(key);
+    if(!worker){worker={feet:new THREE.Vector3(...p).add(current.root.position),station:0,wait:4,currentState:'working'};workerStates.set(key,worker);}
+    const dt=workTime;worker.wait-=dt;if(stations.length&&worker.wait<=0){const target=new THREE.Vector3(...stations[worker.station%stations.length]).add(current.root.position),delta=target.clone().sub(worker.feet),d=Math.hypot(delta.x,delta.z);
+     if(d<.05){worker.station++;worker.wait=5+worker.station%3;worker.currentState='working';}else{const step=Math.min(.025,d),x=worker.feet.x+delta.x/d*step,z=worker.feet.z+delta.z/d*step,y=walking.canStandActor('human',x,z,worker.feet.y,o);if(y!==null){worker.feet.set(x,y,z);worker.currentState='walking';}else{worker.wait=2;worker.station++;worker.currentState='working';}}}
+    const feet=worker.feet;setActor(o,feet,stations.length?-.2:0);o.userData.shopWork={currentState:worker.currentState,station:worker.station};o.visible=true;
    }else{const initial=originals.get(id);if(o.parent!==initial.parent)initial.parent.attach(o);
     if(['private',...shops.map(s=>s.id)].includes(place)){o.visible=false;continue;}o.visible=initial.visible;
     if(id==='greenBard'&&place==='square')continue; // Keep his original walking animation at midday.
@@ -74,7 +78,7 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
  function applyTime(){for(const e of entrances){const open=isShopOpen(e.shop,townLife.state.period);e.verb=open?'入る':'閉まっている';e.label=e.shop.name+'（'+shopStatus(e.shop,townLife.state.period)+'）';e.latch.visible=!open;e.leaf.material=wood;}
   updateActors();updateAppearance();}
  townLife.onChange(applyTime);applyTime();
- function update(){updateActors();updateAppearance();if(current)for(const o of outdoorPoints)o.visible=false;}
+ function update(dt=.016){workTime=Math.min(.05,dt);updateActors();updateAppearance();if(current)for(const o of outdoorPoints)o.visible=false;}
  function trackingPoint(object){const id=[...actors].find(([,o])=>o===object)?.[0],place=id&&locationFor(id),door=entrances.find(e=>e.shop.id===place);return !object.visible&&door?door.object.getWorldPosition(new THREE.Vector3()):object.getWorldPosition(new THREE.Vector3());}
- return {shops,rooms,entrances,enter,exit,update,locationFor,characterLocation,trackingPoint,events:townEventDefinitions,soundAnchors,get current(){return current},get stats(){return{builtRooms:rooms.size,visibleRooms:[...rooms.values()].filter(r=>r.root.visible).length,active:current?.shop.id??'town',activeMeshes:current?.stats.meshes??0};}};
+ return {shops,rooms,entrances,enter,exit,update,locationFor,characterLocation,trackingPoint,events:townEventDefinitions,soundAnchors,workerStates,get current(){return current},get stats(){return{builtRooms:rooms.size,visibleRooms:[...rooms.values()].filter(r=>r.root.visible).length,active:current?.shop.id??'town',activeMeshes:current?.stats.meshes??0};}};
 }

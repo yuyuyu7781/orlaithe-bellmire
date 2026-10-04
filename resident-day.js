@@ -6,6 +6,7 @@ export function createResidentDay({THREE,walking,grounding,residentLife,townLife
  const key=p=>p.map(v=>v.toFixed(3)).join(',');
  for(const [id,path]of Object.entries(residentStreetPaths)){paths[id]=path.map(p=>{const k=key(p);if(!keys.has(k)){keys.set(k,nodes.length);nodes.push({point:new THREE.Vector3(...p),links:new Set()});}return keys.get(k);});for(let i=1;i<paths[id].length;i++){nodes[paths[id][i-1]].links.add(paths[id][i]);nodes[paths[id][i]].links.add(paths[id][i-1]);}}
  function route(start,end){if(start===end)return [];const open=[start],cost=new Map([[start,0]]),previous=new Map();while(open.length){open.sort((a,b)=>(cost.get(a)+nodes[a].point.distanceTo(nodes[end].point))-(cost.get(b)+nodes[b].point.distanceTo(nodes[end].point)));const n=open.shift();if(n===end){const out=[];for(let i=end;i!==start;i=previous.get(i))out.push(i);return out.reverse();}for(const next of nodes[n].links){const c=cost.get(n)+nodes[n].point.distanceTo(nodes[next].point);if(c<(cost.get(next)??Infinity)){cost.set(next,c);previous.set(next,n);if(!open.includes(next))open.push(next);}}}return [];}
+ paths.harbor=paths.bookshop.slice(0,60); // Work on the quay, away from the player spawn.
  const records=residentLife.records.filter(r=>!r.id&&!r.moving&&!r.seated).slice(0,8),dayPlaces=['market','square','harbor','bakery','bookshop','mill','market','square'];
  const entries=records.map((record,i)=>{const o=record.object;o.updateWorldMatrix(true,true);const home=paths[dayPlaces[i]][Math.max(0,paths[dayPlaces[i]].length-1-i*3)],point=nodes[home].point;
   const offset=o.getWorldPosition(new THREE.Vector3()).y-new THREE.Box3().setFromObject(o,true).min.y;
@@ -24,7 +25,8 @@ export function createResidentDay({THREE,walking,grounding,residentLife,townLife
    if(e.cursor>=e.route.length){arrive(e);place(e);continue;}
    const target=nodes[e.route[e.cursor]].point,delta=target.clone().sub(e.feet),distance2=Math.hypot(delta.x,delta.z),move=Math.min(distance2,e.speed*stepTime);
    if(walking.active&&walking.state.feet.distanceTo(e.feet)<.72&&Math.abs(walking.state.feet.y-e.feet.y)<.5){e.pause+=stepTime;e.record.activity='listening';place(e);continue;}
-   if(entries.some(other=>other!==e&&other.visible&&!other.inside&&other.feet.distanceTo(e.feet)<.45&&other.index<e.index)){e.wait=.25;place(e);continue;}
+   const neighbor=entries.find(other=>other!==e&&other.visible&&!other.inside&&other.feet.distanceTo(e.feet)<.60&&other.index<e.index);
+   if(neighbor){if(e.feet.distanceTo(nodes[e.route.at(-1)].point)<1.15){e.cursor=e.route.length;arrive(e);if(!e.inside){e.currentState=neighbor.currentState='talking';e.record.activity=neighbor.record.activity='conversation';}}else e.wait=.25;place(e);continue;}
    if(distance2<.006){e.feet.copy(target);e.node=e.route[e.cursor++];if(e.cursor%70===0)e.wait=.5+e.index*.11;place(e);continue;}
    const n=Math.max(1,Math.ceil(move/.06));let advanced=false;
    for(let j=0;j<n;j++){const x=e.feet.x+delta.x/distance2*move/n,z=e.feet.z+delta.z/distance2*move/n,y=walking.canStandTownAs('human',x,z,e.feet.y);if(y===null){e.wait=.4;break;}e.feet.set(x,y,z);advanced=true;}
