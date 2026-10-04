@@ -100,12 +100,12 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
       const edge=groundAt(x+dx,z+dz,y,p);
       if(edge===null||Math.abs(edge-y)>Math.max(p.stepUp,p.stepDown)+.001)return null;
     }
-    if(area){for(const o of area.obstacles)if(intersectsBody(o.bounds,x,z,y,o.isFloor,o.round,p))return null;return y;}
-    for(const o of nearby(x,z,p))if(!o.disabled&&intersectsBody(o.bounds,x,z,y,o.isFloor,o.round,p))return null;
-    for(const o of dynamicBounds)if(intersectsBody(o.bounds,x,z,y,false,null,p))return null;
+    if(area){for(const o of area.obstacles)if(intersectsBody(o.bounds,x,z,y,o.isFloor,o.round,p))return null;}
+    else for(const o of nearby(x,z,p))if(!o.disabled&&intersectsBody(o.bounds,x,z,y,o.isFloor,o.round,p))return null;
+    for(const o of dynamicBounds)if(visible(o.object)&&intersectsBody(o.bounds,x,z,y,false,null,p))return null;
     return y;
   }
-  function refreshDynamic(){for(const o of dynamicBounds){o.object.updateWorldMatrix(true,true);o.bounds.setFromObject(o.object,true)}}
+  function refreshDynamic(){for(const o of dynamicBounds){if(!visible(o.object)){o.bounds.makeEmpty();continue;}o.object.updateWorldMatrix(true,true);o.bounds.setFromObject(o.object,true)}}
   function move(dx,dz){
     // Small substeps prevent wall/water tunnelling, even after a slow frame.
     const count=Math.max(1,Math.ceil(Math.hypot(dx,dz)/.08));dx/=count;dz/=count;

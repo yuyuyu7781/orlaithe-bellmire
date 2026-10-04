@@ -24,7 +24,7 @@ export function createInteractionResolver({THREE,camera,scene,targets=[],ignored
     }
     return null;
   }
-  return {entries,register,position,resolve,refreshOccluders};
+  return {entries,register,position,resolve,refreshOccluders,isVisible:visible};
 }
 
 export function createInspectionSystem({THREE,scene,camera,walking,targets,ignored=[]}){
@@ -42,7 +42,7 @@ export function createInspectionSystem({THREE,scene,camera,walking,targets,ignor
   function activate(){update(.2);if(!selected||!walking.active)return false;const handle=handlers.get(selected.kind);if(!handle)return false;handle(selected);return true;}
   function update(dt){
     if(!walking.active){selected=null;prompt.hidden=true;dismiss();elapsed=0;return;}
-    if(opened&&openedProfile!==walking.state.profile.id)dismiss();
+    if(opened&&(openedProfile!==walking.state.profile.id||!resolver.isVisible(opened.object)||(opened.enabled&&!opened.enabled({feet:walking.state.feet,profile:walking.state.profile.id}))))dismiss();
     if(opened){const p=resolver.position(opened,undefined,walking.state.profile.id);if(Math.hypot(p.x-walking.state.feet.x,p.z-walking.state.feet.z)>opened.range+.8)dismiss();}
     elapsed+=dt;if(elapsed<.12)return;elapsed=0;
     selected=resolver.resolve({feet:walking.state.feet,profile:walking.state.profile.id??'human'});prompt.hidden=!selected;

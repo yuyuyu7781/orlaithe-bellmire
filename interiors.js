@@ -26,6 +26,7 @@ export function buildInterior({THREE,shop}){
  box(-3.405,1.16,-.9,.028,.88,.66,glow,false);for(const z of [-1.26,-.9,-.54])box(-3.38,1.12,z,.055,.99,.045,wood,false);for(const y of [1.12,1.58,2.08])box(-3.38,y,-.9,.06,.045,.78,wood,false);
  const npcPosition=[1.7,0,-2.7];
  if(shop.id==='bakery'){
+  npcPosition.splice(0,3,1.3,0,-2.6);
   box(1.9,0,-1.1,2.35,.90,.65,wood);shelf(-2.3,-4,false);shelf(.05,-4,false);
   box(2.6,0,-3.55,1.25,1.48,1.05,stone);box(2.6,.28,-2.99,.64,.62,.06,dark,false);box(2.6,.34,-2.94,.46,.17,.025,glow,false);
   for(const x of [-2.86,-2.30,-1.74]){const loaf=mesh(new THREE.SphereGeometry(.12,7,4),material('bread',0xbc935b),[x,.66,-3.65],false);loaf.scale.set(1.0,.65,1.5);}
@@ -46,6 +47,7 @@ export function buildInterior({THREE,shop}){
   npcPosition.splice(0,3,1.1,0,-1.6);
   notice('bar','酒場の木札','港から戻った人が、札を裏返していく。小さな傷の多い札ほど、手に馴染んでいる。',[0,1,-2.7]);
  }else{
+  npcPosition.splice(0,3,1.7,0,-2.95);
   shelf(-2.4,-4,false);table(1.9,-2,1.45,.9);table(-2.3,1,1.0,.70);lamp(2.3,.93,-2);
   box(-2.3,.95,1,.52,.008,.38,paper,false);box(1.6,.95,-2,.38,.015,.27,paper,false);
   cylinder(-2.3,1,1,.11,.30,brass,false);

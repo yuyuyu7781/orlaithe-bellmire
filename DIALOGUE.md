@@ -34,3 +34,11 @@ Chromium の WebGL で9エリアへキーボード操作で歩き、5人全員�
 スマホ相当の390px幅で、タップによる調べる／話す／閉じる、移動ボタンとの非重複、portrait画像の差し込み、人間／猫・時間帯の台詞選択と未設定時のフォールバックを検査しました。猫用の検査文はテストだけで、製品の猫専用台詞には含めません。
 
 既存1789メッシュの配置・形状・色、地上用品の接地、31人の身長帯、住民・猫の150秒分の接地と建物・小物との交差、19カメラ・天候6種・追跡・水車／住民／猫／ケーブルカーのアニメーションを確認しました。環境設定は変更していません。
+
+## v13.1 interiors and daily places
+
+The same five actors/portraits now use `shop-data.js` schedules and enterable rooms.
+Location-specific introductions precede the existing time/actor lines; each
+fourth human conversation may use a short `rumorPool` entry. Inspect/enter/exit
+remain separate kinds sharing proximity, facing, sight and E/tap handling. See
+[INTERIORS.md](INTERIORS.md) for shop hours, walking policies and future hooks.

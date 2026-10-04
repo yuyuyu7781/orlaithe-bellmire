@@ -4,7 +4,7 @@ import {buildInterior} from './interiors.js';
 export function createShopSystem({THREE,scene,walking,grounding,miniature,inspections,dialogue,townLife,onExit=()=>{}}){
  const rooms=new Map(),entrances=[],actors=new Map(dialogue.entries.map(e=>[e.character.id,e.object]));
  const originals=new Map([...actors].map(([id,o])=>[id,{parent:o.parent,position:o.position.clone(),rotation:o.rotation.clone(),visible:o.visible}]));
- const townRoots=[...scene.children],savedVisibility=new Map();let current=null,returnPoint=null,returnYaw=0,savedBackground=null,savedFog=null;
+ const townRoots=[...scene.children],savedVisibility=new Map(),outdoorPoints=[];scene.traverse(o=>{if(o.isPointLight)outdoorPoints.push(o);});let current=null,returnPoint=null,returnYaw=0,savedBackground=null,savedFog=null;
  const label=document.createElement('div');label.className='room-label';label.hidden=true;document.body.append(label);
  const wood=new THREE.MeshStandardMaterial({color:0x775b42,roughness:1}),iron=new THREE.MeshStandardMaterial({color:0x42463d,roughness:1});
  const distance=(a,b)=>Math.hypot(a.x-b.x,a.z-b.z);
@@ -39,17 +39,18 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
  for(const e of dialogue.entries){e.enabled=()=>{const place=locationFor(e.character.id);return current?place===current.shop.id:!['private',...shops.map(s=>s.id)].includes(place);};e.character.rumorPool=rumorPools[e.character.id]??[];}
  function locationFor(id){return dailyLocations[id]?.[townLife.state.period]??'town';}
  function characterLocation(id){const place=locationFor(id);return current&&place===current.shop.id?current.shop.id:'town';}
- function getRoom(shop){if(rooms.has(shop.id))return rooms.get(shop.id);const room=buildInterior({THREE,shop});rooms.set(shop.id,room);scene.add(room.root);room.root.visible=false;
+ function getRoom(shop){if(rooms.has(shop.id))return rooms.get(shop.id);const room=buildInterior({THREE,shop});rooms.set(shop.id,room);room.root.visible=false;
   for(const target of room.inspect)inspections.resolver.register(target);
   const exit={id:'exit:'+shop.id,kind:'exit',verb:'外へ出る',label:shop.name+'の出口',object:room.door,localPoint:[0,1.08,0],localPoints:{cat:[0,.32,0]},range:2.1,profiles:['human','cat'],enabled:()=>current===room};inspections.resolver.register(exit);
-  inspections.resolver.refreshOccluders();return room;}
+  return room;}
  function enter(shop){if(!walking.active||current)return false;if(!isShopOpen(shop,townLife.state.period)){inspections.present(entrances.find(e=>e.shop===shop),{text:'今は閉まっている。扉の向こうでは、静かに次の仕事を待っている。'});return false;}
   const room=getRoom(shop);returnPoint=walking.state.feet.clone();returnYaw=walking.state.yaw;savedBackground=scene.background;savedFog=scene.fog;
   for(const o of townRoots){savedVisibility.set(o,o.visible);if(!o.isLight||o.isPointLight)o.visible=false;if(o.isPointLight)o.userData.inactiveArea=true;}
-  current=room;room.root.visible=true;walking.setArea(room.policy);walking.relocate(room.policy.spawn,{yaw:0});inspections.dismiss();updateActors();updateAppearance();inspections.update(.2);return true;}
- function restoreActors(){for(const [id,o] of actors){const initial=originals.get(id);if(o.parent!==initial.parent)initial.parent.attach(o);o.visible=initial.visible;}}
- function exit(){if(!current)return false;inspections.dismiss();current.root.visible=false;restoreActors();for(const [o,v]of savedVisibility){o.visible=v;if(o.isPointLight)o.userData.inactiveArea=false;}savedVisibility.clear();scene.background=savedBackground;scene.fog=savedFog;onExit();
-  current=null;walking.setArea(null);const safe=safeNear(returnPoint,walking.state.profile.id)??new THREE.Vector3(0,1.38,32);walking.relocate(safe,{yaw:returnYaw+Math.PI});label.hidden=true;updateActors();inspections.update(.2);return true;}
+  for(const p of outdoorPoints){p.userData.inactiveArea=true;p.visible=false;}
+  current=room;scene.add(room.root);room.root.visible=true;walking.setArea(room.policy);walking.relocate(room.policy.spawn,{yaw:0});inspections.dismiss();updateActors();updateAppearance();inspections.resolver.refreshOccluders();inspections.update(.2);return true;}
+ function restoreActors(){for(const [id,o] of actors){const initial=originals.get(id);if(o.parent!==initial.parent)initial.parent.attach(o);o.position.copy(initial.position);o.rotation.copy(initial.rotation);o.visible=initial.visible;}}
+ function exit(){if(!current)return false;inspections.dismiss();current.root.visible=false;restoreActors();scene.remove(current.root);for(const [o,v]of savedVisibility){o.visible=v;if(o.isPointLight)o.userData.inactiveArea=false;}savedVisibility.clear();for(const p of outdoorPoints)p.userData.inactiveArea=false;scene.background=savedBackground;scene.fog=savedFog;
+  current=null;walking.setArea(null);const safe=safeNear(returnPoint,walking.state.profile.id)??new THREE.Vector3(0,1.38,32);walking.relocate(safe,{yaw:returnYaw+Math.PI});label.hidden=true;updateActors();onExit();inspections.update(.2);return true;}
  walking.onLeave(exit);
  inspections.handlers.set('enter',e=>enter(e.shop));inspections.handlers.set('exit',exit);
  const outdoorPositions={harbor:new THREE.Vector3(-19,1.38,37.32),waterfront:new THREE.Vector3(10,1.38,32),square:new THREE.Vector3(10,3.5,20)};
@@ -73,7 +74,7 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
  function applyTime(){for(const e of entrances){const open=isShopOpen(e.shop,townLife.state.period);e.verb=open?'入る':'閉まっている';e.label=e.shop.name+'（'+shopStatus(e.shop,townLife.state.period)+'）';e.latch.visible=!open;e.leaf.material=wood;}
   updateActors();updateAppearance();}
  townLife.onChange(applyTime);applyTime();
- function update(){updateActors();updateAppearance();if(current)for(const o of townRoots)if(o.isPointLight)o.visible=false;}
+ function update(){updateActors();updateAppearance();if(current)for(const o of outdoorPoints)o.visible=false;}
  function trackingPoint(object){const id=[...actors].find(([,o])=>o===object)?.[0],place=id&&locationFor(id),door=entrances.find(e=>e.shop.id===place);return !object.visible&&door?door.object.getWorldPosition(new THREE.Vector3()):object.getWorldPosition(new THREE.Vector3());}
  return {shops,rooms,entrances,enter,exit,update,locationFor,characterLocation,trackingPoint,events:townEventDefinitions,soundAnchors,get current(){return current},get stats(){return{builtRooms:rooms.size,visibleRooms:[...rooms.values()].filter(r=>r.root.visible).length,active:current?.shop.id??'town',activeMeshes:current?.stats.meshes??0};}};
 }

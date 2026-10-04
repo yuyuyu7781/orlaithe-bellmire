@@ -40,11 +40,15 @@ const felineLines={
 };
 for(const character of characters)Object.assign(character.lines.cat,felineLines[character.id]);
 
-export function selectDialogueTurn(character,{profile='human',time='clear',index=0}={}){
+export function selectDialogueTurn(character,{profile='human',time='clear',index=0,location='town'}={}){
  const period=['morning','day','evening','night'].includes(time)?time:periodForWeather(time);
  const actor=character.lines[profile]??character.lines.human;
  const lines=index===0&&actor.first?.length?actor.first:actor[time]?.length?actor[time]:actor[period]?.length?actor[period]:actor.default?.length?actor.default:character.lines.human.default;
- const turn=lines[index%lines.length];return typeof turn==='string'?{text:turn,expression:'default'}:{expression:'default',...turn};
+ const local=character.locationLines?.[location]?.[profile];
+ const chosen=local?.length?[...local,...lines]:lines;
+ const turn=chosen[index%chosen.length];
+ if(profile==='human'&&index>0&&index%4===3&&character.rumorPool?.length)return {text:character.rumorPool[Math.floor(index/4)%character.rumorPool.length],expression:'default'};
+ return typeof turn==='string'?{text:turn,expression:'default'}:{expression:'default',...turn};
 }
 export function selectDialogue(character,options){return selectDialogueTurn(character,options).text;}
 // Extend the original flat fields; existing image strings and {src, alt} work.

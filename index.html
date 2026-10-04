@@ -16,7 +16,7 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 .inspect-prompt{position:fixed;z-index:24;right:14px;bottom:65px;background:#202b24ed;color:#ded4bb;max-width:260px;font-size:12px}.inspection-card{position:fixed;z-index:24;right:14px;bottom:112px;width:min(290px,calc(100vw - 28px));padding:12px 14px;background:#18241eef;border:1px solid #b5a57855;border-radius:10px;color:#ded4bb;font-size:12px;line-height:1.7}.inspection-card p{margin:6px 0 9px}.inspection-card button{font-size:11px;padding:4px 9px}.inspect-prompt[hidden],.inspection-card[hidden]{display:none}@media(pointer:coarse){.inspect-prompt{bottom:78px;right:10px;max-width:200px}.inspection-card{bottom:128px;right:10px;width:min(260px,calc(100vw - 175px))}}
 
 
-.room-label{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:4;color:#eee5ce;background:#292c27dd;border:1px solid #a1926d88;border-radius:7px;padding:7px 13px;font:13px Georgia,serif;pointer-events:none}.room-label[hidden]{display:none}@media(max-width:700px){.room-label{top:56px;font-size:12px;white-space:nowrap}}
+.room-label{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:4;color:#eee5ce;background:#292c27dd;border:1px solid #a1926d88;border-radius:7px;padding:7px 13px;font:13px Georgia,serif;pointer-events:none}.room-label[hidden]{display:none}@media(max-width:700px){.room-label{top:68px;font-size:12px;white-space:nowrap}}
 </style></head>
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
@@ -1088,7 +1088,7 @@ const miniatureGoods=addMiniatureGoods(culture);
 const harborGoods=addHarborGoods(culture);
 const walking=createWalkingSystem({THREE,scene,camera,controls,canvas:renderer.domElement,
   terrain:[...townGround,cliffSkirts[1]],surfaces:harborSupports,
-  surfaceMaterials:[path,v8Stone,stone101],dynamicObjects:[train],
+  surfaceMaterials:[path,v8Stone,stone101],dynamicObjects:[train,p0,bard,shopResidents[4],talkingDockWorker,shopResidents[1]],
   ignoredObjects:[...residents,residentV8,cat,...smoke,wheel,orrery],
   waterMaterials:[water,water101],
   trackBounds:new THREE.Box3(new THREE.Vector3(42.15,1,-28.8),new THREE.Vector3(44.85,9,14)),
@@ -1122,7 +1122,7 @@ const harborDetails=enrichHarbor({THREE,scene,grounding,walking,supports:harborS
   ignored:[...residentScale.residents.map(q=>q.object),cat,...smoke,orrery]});
 inspections.resolver.refreshOccluders();
 const townLife=createTownLife({THREE,scene,lit,smoke,chimneySources,buildings:miniature.shells});
-const shopSystem=createShopSystem({THREE,scene,walking,grounding,miniature,inspections,dialogue,townLife,onExit:()=>{atmosphere.apply(townLife.state.weather);atmosphere.applyPeriod(townLife.state.period);quality.update(2);}});
+const shopSystem=createShopSystem({THREE,scene,walking,grounding,miniature,inspections,dialogue,townLife,onExit:()=>{atmosphere.apply(townLife.state.weather);atmosphere.applyPeriod(townLife.state.period);atmosphere.refreshShadows();quality.update(2);}});
 for(const shop of shopSystem.shops){if(shop.actor){const character=dialogue.characters.find(c=>c.id===shop.actor);character.locationLines={...character.locationLines,[shop.id]:{human:[shop.inside],cat:[shop.catInside]}};}}
 for(const id of ['boatworker','greenBard']){const c=dialogue.characters.find(c=>c.id===id);const tavern=shopSystem.shops.find(s=>s.id==='tavern');if(id==='boatworker')c.locationLines={tavern:{human:[tavern.inside],cat:[tavern.catInside]}};}
 inspections.resolver.refreshOccluders();

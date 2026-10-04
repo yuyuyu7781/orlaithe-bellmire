@@ -3,17 +3,17 @@
 export function clearHumanRoutes({THREE,walking,grounding,catPassages}){
  const changes=[],protectedRoots=new Set(catPassages.routes.map(r=>r.object));
  const belongs=(o,root)=>{for(let p=o;p;p=p.parent)if(p===root)return true;return false;};
- const regions=[['市場',19,16],['パン屋',-31,25],['古書店・港',-18,32],['宿屋',-39,3],['酒場',-10,12],['天球儀店',3,-3],['水車',21,27],['中層広場',0,18],['上層住宅',-8,-20]];
- const handled=new Set();
- for(const e of grounding.objects){if(changes.length>=7)break;const o=e.object;if(protectedRoots.has(o)||o.userData.catRouteId)continue;
+ const regions=[['市場',19,16,3.5],['パン屋',-31,25,3.5],['古書店・港',-18,32,1.38],['宿屋',-39,3,6.25],['酒場',-10,12,3.5],['天球儀店',3,-3,6.25],['水車',21,27,4.15],['中層広場',0,18,3.5],['上層住宅',-8,-20,9.3]];
+ const handled=new Set(),verifiedAreas=new Set(['市場','宿屋','酒場','水車']);
+ for(const e of grounding.objects){if(changes.length>=verifiedAreas.size)break;const o=e.object;if(e.person||e.seat||protectedRoots.has(o)||o.userData.catRouteId)continue;
   const b=new THREE.Box3().setFromObject(o,true),size=b.getSize(new THREE.Vector3()),c=b.getCenter(new THREE.Vector3());
   if(size.y<.25||size.y>1.3||Math.max(size.x,size.z)>1.7||Math.min(size.x,size.z)<.20)continue;
-  const region=[...regions].sort((a,d)=>Math.hypot(c.x-a[1],c.z-a[2])-Math.hypot(c.x-d[1],c.z-d[2]))[0];if(handled.has(region[0])||Math.hypot(c.x-region[1],c.z-region[2])>11)continue;
+  const region=[...regions].sort((a,d)=>Math.hypot(c.x-a[1],c.z-a[2])-Math.hypot(c.x-d[1],c.z-d[2]))[0];if(!verifiedAreas.has(region[0])||handled.has(region[0])||Math.hypot(c.x-region[1],c.z-region[2])>11)continue;
   const parts=walking.world.obstacles.filter(p=>belongs(p.object,o));if(!parts.length)continue;
   let gap=null;
   for(const [axis,side]of [['x',-1],['x',1],['z',-1],['z',1]]){
    for(let t=-.3;t<=.3;t+=.15){const x=axis==='x'?(side<0?b.min.x-.15:b.max.x+.15):c.x+t,z=axis==='z'?(side<0?b.min.z-.15:b.max.z+.15):c.z+t,y=grounding.heightAt(x,z);
-    if(y===null||walking.canStandAs('cat',x,z,y)===null||walking.canStandAs('human',x,z,y)!==null)continue;
+    if(y===null||Math.abs(y-region[3])>.10||walking.canStandAs('cat',x,z,y)===null||walking.canStandAs('human',x,z,y)!==null)continue;
     parts.forEach(p=>p.disabled=true);const opened=walking.canStandAs('human',x,z,y)!==null;parts.forEach(p=>p.disabled=false);
     if(opened){gap={x,y,z,axis,side};break;}
    }if(gap)break;
