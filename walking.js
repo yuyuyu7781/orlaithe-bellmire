@@ -125,11 +125,12 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     }
   }
   function registerCatStep(object){object.updateWorldMatrix(true,true);const entry={object,bounds:new THREE.Box3().setFromObject(object,true)};catSteps.push(entry);object.userData.catStep=true;return entry;}
+  function jumpPoint(from,to,t){const horizontal=Math.max(0,Math.min(1,(t-.22)/.56)),apex=Math.max(from.y,to.y)+.22,p=from.clone().lerp(to,horizontal);p.y=t<.22?from.y+(apex-from.y)*Math.sin(t/.22*Math.PI/2):t>.78?apex+(to.y-apex)*(1-Math.cos((t-.78)/.22*Math.PI/2)):apex+Math.sin((t-.22)/.56*Math.PI)*.03;return p;}
   function jump(){if(!state.active||state.profile.id!=='cat'||jumpState)return false;refreshDynamic();const p={...state.profile,stepUp:1.05,stepDown:1.05},forward=new THREE.Vector3(-Math.sin(state.yaw),0,-Math.cos(state.yaw));
     const candidates=catSteps.map(step=>({step,point:step.bounds.getCenter(new THREE.Vector3()).setY(step.bounds.max.y)})).filter(q=>{const delta=q.point.clone().sub(state.feet);return Math.hypot(delta.x,delta.z)<1.35&&delta.y>=-.95&&delta.y<=.90&&delta.clone().setY(0).normalize().dot(forward)>.15;}).sort((a,b)=>a.point.distanceTo(state.feet)-b.point.distanceTo(state.feet));
     candidates.push({step:null,point:state.feet.clone().addScaledVector(forward,.55)});
     for(const q of candidates){const y=canStand(q.point.x,q.point.z,state.feet.y,p);if(y===null)continue;q.point.y=y;if(Math.abs(y-state.feet.y)>.95)continue;let clear=true;
-      for(let i=1;i<=12;i++){const t=i/12,pos=state.feet.clone().lerp(q.point,t);pos.y+=Math.sin(Math.PI*t)*.30;if(groundAt(pos.x,pos.z,state.feet.y,p)===null){clear=false;break;}for(const o of nearby(pos.x,pos.z,p)){let belongs=false;for(let a=o.object;a;a=a.parent)if(a===q.step?.object)belongs=true;if(!belongs&&!o.disabled&&intersectsBody(o.bounds,pos.x,pos.z,pos.y,o.isFloor,o.round,p)){clear=false;break;}}if(!clear)break;}
+      for(let i=1;i<=12;i++){const t=i/12,pos=jumpPoint(state.feet,q.point,t);if(groundAt(pos.x,pos.z,state.feet.y,p)===null){clear=false;break;}for(const o of nearby(pos.x,pos.z,p)){let belongs=false;for(let a=o.object;a;a=a.parent)if(a===q.step?.object)belongs=true;if(!belongs&&!o.disabled&&intersectsBody(o.bounds,pos.x,pos.z,pos.y,o.isFloor,o.round,p)){clear=false;break;}}if(!clear)break;}
       if(clear){jumpState={from:state.feet.clone(),to:q.point.clone(),elapsed:0,duration:.42};clearInput();return true;}
     }return false;
   }
@@ -158,7 +159,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     if(canStand(spawn.x,spawn.z,spawn.y,profile)===null)throw Error('No safe walking spawn');return spawn.clone();
   }
   function enter(id='human'){
-    const profile=walkingProfiles[id];if(!profile)return;
+    const profile=walkingProfiles[id];if(!profile)return;if(jumpState){state.feet.copy(jumpState.from);jumpState=null;}
     const wasActive=state.active;if(wasActive)lastLocations.set(state.profile.id,state.feet.clone());refreshDynamic();const feet=safeLocation(profile);
     if(!wasActive){savedNear=camera.near;savedFov=camera.fov;const panel=document.getElementById('panel');panelWasCollapsed=panel.classList.contains('collapsed');}
     jumpState=null;state.profile=profile;state.feet.copy(feet);state.active=true;clearInput();camera.near=id==='cat'?.035:.06;camera.fov=profile.fov;camera.updateProjectionMatrix();
@@ -169,7 +170,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   function leave(){
     if(!state.active)return;
     for(const fn of leaveListeners)fn();
-    jumpState=null;lastLocations.set(state.profile.id,state.feet.clone());state.active=false;clearInput();if(document.pointerLockElement===canvas)document.exitPointerLock();
+    if(jumpState)state.feet.copy(jumpState.from);jumpState=null;lastLocations.set(state.profile.id,state.feet.clone());state.active=false;clearInput();if(document.pointerLockElement===canvas)document.exitPointerLock();
     camera.near=savedNear;camera.fov=savedFov;camera.updateProjectionMatrix();
     document.body.classList.remove('walking','cat-walking');document.getElementById('catWalk')?.classList.remove('active');document.getElementById('walk').classList.remove('active');
     document.getElementById('panel').classList.toggle('collapsed',panelWasCollapsed);document.getElementById('toggle').textContent=panelWasCollapsed?'操作':'街を見る';
@@ -177,7 +178,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   function update(dt){
     if(!state.active)return;
     refreshDynamic();dt=Math.min(.05,Math.max(0,dt));
-    if(jumpState){jumpState.elapsed+=dt;const t=Math.min(1,jumpState.elapsed/jumpState.duration);state.feet.copy(jumpState.from).lerp(jumpState.to,t);state.feet.y+=Math.sin(Math.PI*t)*.30;updateCamera(dt);if(t===1)jumpState=null;return;}
+    if(jumpState){jumpState.elapsed+=dt;const t=Math.min(1,jumpState.elapsed/jumpState.duration);state.feet.copy(jumpPoint(jumpState.from,jumpState.to,t));updateCamera(dt);if(t===1)jumpState=null;return;}
     const pressed=(...codes)=>codes.some(c=>input.keys.has(c)||input.touch.has(c));
     input.forward=Number(pressed('KeyW','ArrowUp','forward'))-Number(pressed('KeyS','ArrowDown','backward'));
     input.right=Number(pressed('KeyD','ArrowRight','right'))-Number(pressed('KeyA','ArrowLeft','left'));
