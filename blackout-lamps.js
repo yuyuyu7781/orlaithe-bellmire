@@ -18,7 +18,7 @@ export function createBlackoutLamps({THREE,scene,grounding,townLife,residentLife
  for(const r of residentLife.records.filter(r=>!r.id&&!r.moving&&!r.seated).slice(0,2)){
   const {sx,sy,sz}=r.scale,g=lantern(r.object,[.31/sx,r.prop.position.y-.06/sy,.26/sz],1);g.scale.set(1/sx,1/sy,1/sz);handLamps.push({object:g,record:r});
  }
- function apply(state){const off=state.weather==='blackout';root.visible=off;for(const {object,record}of handLamps)object.visible=off&&!record.seated;}
+ function apply(state){const off=state.weather==='blackout';for(const lamp of lamps)lamp.visible=off;for(const {object,record}of handLamps)object.visible=off&&!record.seated;}
  townLife.onChange(apply);apply(townLife.state);
  return {root,lamps,handLamps,apply,stats:{fixed:lamps.length,handheld:handLamps.length,addedLights:0}};
 }

@@ -3,7 +3,7 @@ export const weatherProfiles={
  clear:{sky:0xa5afaa,fog:0xa5afaa,density:.0067,air:true,hemi:1.52,sun:1.92,exposure:1.08,bloom:.14,sunColor:0xffe5c0,period:'day'},
  rain:{sky:0x5d6b70,fog:0x687575,density:.0078,air:true,hemi:.83,sun:.30,exposure:.83,bloom:.20,sunColor:0xc6cec5,period:'day'},
  fog:{sky:0x929b96,fog:0x929b96,density:.0145,air:false,hemi:.94,sun:.43,exposure:.82,bloom:.22,sunColor:0xd9d8be,period:'day'},
- blackout:{sky:0x071017,fog:0x071017,density:.012,air:false,hemi:.35,sun:.04,exposure:.72,bloom:.12,sunColor:0xb3bfba,period:'night'},
+ blackout:{sky:0x071017,fog:0x071017,density:.0078,air:true,hemi:.62,sun:.06,exposure:.92,bloom:.12,sunColor:0xb3bfba,period:'night'},
  dawn:{sky:0x536c83,fog:0x667b8e,density:.0072,air:true,hemi:.72,sun:.24,exposure:.86,bloom:.18,skyTint:0xc1d1e3,groundTint:0x858d98,sunColor:0xb9cbdc,period:'morning'},
  night:{sky:0x142024,fog:0x253031,density:.0070,air:true,hemi:1.05,sun:.18,exposure:1.00,bloom:.20,sunColor:0xb8c8c2,period:'night'}
 };

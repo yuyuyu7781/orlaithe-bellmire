@@ -3,7 +3,7 @@ import {soundAnchors} from './shop-data.js';
 export function createAmbientAudio({camera,walking,shopSystem,townLife}){
  const zones=[...soundAnchors,{id:'market',area:'town',kind:'market',position:[19,3.5,16],src:null}],gains=new Map(),sources=new Map(),triggers=[],listeners=new Set();let context=null,enabled=false,elapsed=0,period=townLife.state.period;
  for(const z of zones)gains.set(z.id,0);
- townLife.onChange(state=>{if(state.period===period)return;period=state.period;const id={morning:'morningBell',evening:'eveningBell',night:'nightBell'}[period];if(id){const trigger={id,period};triggers.push(trigger);if(triggers.length>24)triggers.shift();for(const fn of listeners)fn(trigger);}});
+ townLife.onChange(state=>{if(state.period===period)return;period=state.period;const id={morning:'morningBell',evening:'eveningBell',night:'nightBell'}[period];if(id){const trigger={id,period,day:state.dayIndex,weather:state.weather};triggers.push(trigger);if(triggers.length>24)triggers.shift();for(const fn of listeners)fn(trigger);}});
  function update(dt){elapsed+=dt;if(elapsed<.25)return;elapsed=0;const area=shopSystem.current?.shop.id??'town',p=camera.position;
   for(const z of zones){if(!z.position||z.area!==area){gains.set(z.id,0);continue;}const x=z.position[0]+(area==='town'?0:200),d=Math.hypot(p.x-x,p.y-z.position[1],p.z-z.position[2]);gains.set(z.id,Math.max(0,1-d/(z.radius??18))*(z.gain??.35));}
   if(context)for(const [id,node]of sources)node.gain.gain.setTargetAtTime(enabled?(gains.get(id)??0):0,context.currentTime,.12);
