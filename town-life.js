@@ -1,3 +1,4 @@
+import {townRhythm,seasonProfiles} from './town-calendar.js';
 import {shops,isShopOpen} from './shop-data.js';
 import {periodSettings,periodForWeather} from './scene-settings.js';
 import {shopLighting,periodIndex} from './shop-lighting.js';
@@ -5,7 +6,7 @@ import {batchWindowLights} from './window-lighting.js';
 
 // One event-driven clock supplies lighting and the data-driven shop hours.
 export function createTownLife({THREE,scene,lit,smoke,chimneySources,buildings=[],stay=null}){
- const state={weather:stay?.data.weather??'clear',period:stay?.data.dayPhase??'day',dayIndex:stay?.data.currentDay??1,dayPhase:stay?.data.dayPhase??'day',dayStart:stay?.data.dayStart??1,marketActivity:1,openShops:{}},listeners=new Set(),entries=[],points=[];
+ const state={weather:stay?.data.weather??'clear',period:stay?.data.dayPhase??'day',dayIndex:stay?.data.currentDay??1,dayPhase:stay?.data.dayPhase??'day',dayStart:stay?.data.dayStart??1,season:stay?.data.season??'spring',marketActivity:1,openShops:{}},listeners=new Set(),entries=[],points=[];
  const litSet=new Set(lit),visible=o=>{for(let p=o;p;p=p.parent)if(!p.visible)return false;return true;};
  const sites=[['baker',-31,27],['bookseller',-18,32],['inn',-39,3],['tavern',-10,12],['starmaker',3,-3]];
  function siteAt(p){let nearest='home',best=7;for(const [name,x,z]of sites){const d=Math.hypot(p.x-x,p.z-z);if(d<best){best=d;nearest=name;}}return nearest==='home'&&p.z>32?'harbor':nearest;}
@@ -28,7 +29,7 @@ export function createTownLife({THREE,scene,lit,smoke,chimneySources,buildings=[
  });
  for(const [key,group]of homes){group.sort((a,b)=>a.position.y-b.position.y||a.position.x-b.position.x||a.position.z-b.position.z);const seed=hash(key);group.forEach((e,i)=>Object.assign(e,{homeIndex:i,homeCount:group.length,homeMode:Math.floor(seed*5),homeChoice:Math.floor(seed*43)%group.length,homeUpper:group.at(-1).position.y}));}
  const windowBatch=batchWindowLights({THREE,scene,entries,glowMap});
- function update(){state.dayPhase=state.period;if(stay){const d=stay.data,changed=d.dayPhase!==state.period||d.weather!==state.weather;d.dayPhase=state.period;d.weather=state.weather;if(changed){if(d.weatherHistory.at(-1)?.weather!==state.weather||d.weatherHistory.at(-1)?.day!==state.dayIndex){d.weatherHistory.push({day:state.dayIndex,weather:state.weather});if(d.weatherHistory.length>30)d.weatherHistory.shift();}stay.changed();}}const settings=periodSettings[state.period],off=state.weather==='blackout',pi=periodIndex[state.period];state.marketActivity=settings.marketActivity*(state.weather==='rain'?.65:state.weather==='dawn'?.45:off?.30:1);state.openShops={...settings.shops,...Object.fromEntries(shops.map(s=>[s.site,isShopOpen(s,state.period)]))};
+ function update(){state.calendar=townRhythm(state.dayIndex,state.period,state.weather,state.season);state.dayPhase=state.period;if(stay){const d=stay.data,changed=d.dayPhase!==state.period||d.weather!==state.weather;d.dayPhase=state.period;d.weather=state.weather;d.season=state.season;if(changed){if(d.weatherHistory.at(-1)?.weather!==state.weather||d.weatherHistory.at(-1)?.day!==state.dayIndex){d.weatherHistory.push({day:state.dayIndex,weather:state.weather});if(d.weatherHistory.length>30)d.weatherHistory.shift();}stay.changed();}}const settings=periodSettings[state.period],off=state.weather==='blackout',pi=periodIndex[state.period];state.marketActivity=settings.marketActivity*(state.weather==='rain'?.65:state.weather==='dawn'?.45:off?.30:1)*state.calendar.marketMultiplier;state.openShops={...settings.shops,...Object.fromEntries(shops.map(s=>[s.site,isShopOpen(s,state.period)]))};
   for(const material of lit)material.emissiveIntensity=0;
   for(const e of entries){const {material:m,seed,site,window}=e,role=shopLighting[site];let on=true,level=window?settings.window:settings.lantern;
    if(role){level=(window?role.windows:role.lamps)[pi];on=window?seed<role.coverage[pi]:!(site==='harbor'&&state.period==='night'&&seed<.25);m.emissive.set(role.color).lerp(new THREE.Color(0xffd7a5),seed*.12);}
@@ -45,10 +46,11 @@ export function createTownLife({THREE,scene,lit,smoke,chimneySources,buildings=[
   for(const fn of listeners)fn({...state,openShops:{...state.openShops}});
  }
  let phaseElapsed=0;const phaseSeconds=240;
- function tick(dt,active=true){if(!active||state.period==='night')return;phaseElapsed+=Math.min(.1,Math.max(0,dt));if(phaseElapsed>=phaseSeconds)setPeriod(({morning:'day',day:'evening',evening:'night'})[state.period]);}
+ function tick(dt,active=true){if(!active||state.period==='night')return;phaseElapsed+=Math.min(.1,Math.max(0,dt));if(phaseElapsed>=phaseSeconds*seasonProfiles[state.season].dayLength)setPeriod(({morning:'day',day:'evening',evening:'night'})[state.period]);}
  function dayAdvance(){state.dayIndex=Math.min(9999,state.dayIndex+1);state.dayStart=state.dayIndex;if(stay){stay.data.currentDay=state.dayIndex;stay.data.dayStart=state.dayStart;stay.data.weatherHistory.push({day:state.dayIndex,weather:state.weather});if(stay.data.weatherHistory.length>30)stay.data.weatherHistory.shift();stay.changed();}setPeriod('morning');return state.dayIndex;}
+ function setSeason(season){if(!seasonProfiles[season])throw Error('Unknown season: '+season);state.season=season;if(stay){stay.data.season=season;stay.changed();}update();}
  function setPeriod(period){if(!periodSettings[period])throw Error('Unknown time period: '+period);phaseElapsed=0;state.period=period;update();}
  function setWeather(weather){phaseElapsed=0;state.weather=weather;state.period=periodForWeather(weather);update();}
  update();
- return {state,entries,points,glowMap,windowBatch,homes,setPeriod,setWeather,dayAdvance,tick,get phaseElapsed(){return phaseElapsed},phaseSeconds,onChange(fn){listeners.add(fn);return()=>listeners.delete(fn);},get stats(){return {windows:entries.filter(e=>e.window).length,litWindows:entries.filter(e=>e.window&&e.material.emissiveIntensity>0).length,lamps:entries.filter(e=>!e.window).length,pointLights:points.length};}};
+ return {state,entries,points,glowMap,windowBatch,homes,setSeason,setPeriod,setWeather,dayAdvance,tick,get phaseElapsed(){return phaseElapsed},phaseSeconds,onChange(fn){listeners.add(fn);return()=>listeners.delete(fn);},get stats(){return {windows:entries.filter(e=>e.window).length,litWindows:entries.filter(e=>e.window&&e.material.emissiveIntensity>0).length,lamps:entries.filter(e=>!e.window).length,pointLights:points.length};}};
 }
