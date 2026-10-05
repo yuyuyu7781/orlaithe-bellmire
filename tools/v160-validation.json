@@ -1,0 +1,248 @@
+{
+  "version": "v16.0",
+  "baseline": "840869753fd5330fa9157d109c63d227139316e4",
+  "browser": "Chromium software WebGL; 960×640, 390×844 touch, 844×390",
+  "realPhoneTested": false,
+  "nativeScenarios": {
+    "days": 3,
+    "innBedRests": 2,
+    "cancelTest": true,
+    "stairsAndSafeWake": true,
+    "day2ReloadPreserved": [
+      "day",
+      "event states",
+      "journal",
+      "human/cat memories",
+      "Finn flag"
+    ],
+    "day3StoneState": "noticed",
+    "grainState": "resolved",
+    "bookState": "resolved",
+    "shelfReturned": true,
+    "journalEntries": 13,
+    "dayDetailMeshesRecoloured": 18
+  },
+  "preserved": {
+    "humanWalkingRoutes": 16,
+    "tavernLaneSamples": 520,
+    "tavernLaneValid": 520,
+    "officialPortraitHumanCatConversations": 10,
+    "shops": 5,
+    "catJumpTargets": 5,
+    "cameras": 19,
+    "weather": 6,
+    "inspectHuman": 14,
+    "inspectCat": 5,
+    "mobileTavernTap": true,
+    "webglErrors": 0
+  },
+  "saveSafety": [
+    "no save",
+    "malformed JSON",
+    "future version preserved",
+    "storage denied uses session state",
+    "bounded validated data"
+  ],
+  "residents": {
+    "existingScheduled": 8,
+    "newContinuousNamed": 2,
+    "newResidents": 0,
+    "indoorOutsideUpdateSeconds": 0.5,
+    "mobileFarNamedUpdateSeconds": 0.25,
+    "clockPhaseSeconds": 240,
+    "visibleTeleportOnTimeChange": 0,
+    "hiddenDoorSpawnLimit": 1.2,
+    "detourNodeLimits": {
+      "standard": 1800,
+      "mobile": 600
+    }
+  },
+  "performance": [
+    {
+      "baseline": true,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2579,
+          "triangles": 101349,
+          "ms": 16.30000001192093,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 37
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34580,
+          "ms": 1.9000000059604645,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 2.4000000059604645
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2579,
+          "triangles": 101349,
+          "ms": 12.099999994039536,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 29.900000005960464
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34580,
+          "ms": 1.5999999940395355,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 1.800000011920929
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2565,
+          "triangles": 101335,
+          "ms": 18.5,
+          "textures": 18,
+          "programs": 28,
+          "p95Ms": 34
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 140,
+          "triangles": 34566,
+          "ms": 2.5,
+          "textures": 18,
+          "programs": 28,
+          "p95Ms": 3
+        }
+      ],
+      "median": 335.69999998807907
+    },
+    {
+      "baseline": false,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2579,
+          "triangles": 101349,
+          "ms": 22.400000005960464,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 42.80000001192093
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34580,
+          "ms": 2.199999988079071,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 4.899999976158142
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2579,
+          "triangles": 101349,
+          "ms": 15.300000011920929,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 32.900000005960464
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34580,
+          "ms": 1.600000023841858,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 1.9000000059604645
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2565,
+          "triangles": 101335,
+          "ms": 9.599999994039536,
+          "textures": 18,
+          "programs": 28,
+          "p95Ms": 12.599999994039536
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 140,
+          "triangles": 34566,
+          "ms": 1.399999976158142,
+          "textures": 18,
+          "programs": 28,
+          "p95Ms": 1.5
+        }
+      ],
+      "median": 305.2999999821186
+    }
+  ],
+  "limitations": [
+    "Real smartphone performance and audio sources untested",
+    "Three shopkeepers retain indoor work movement and discrete exterior availability",
+    "Exact player/NPC coordinates and partial phase seconds are not saved",
+    "Local detours may wait for a player blocking a narrow lane"
+  ]
+}
