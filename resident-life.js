@@ -76,7 +76,7 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
    // A few background neighbours stay indoors in bad weather; room actors
    // remain exclusively controlled by the shop system.
    if(getArea()==='town'&&!r.id&&!r.moving&&!o.userData.dailyLife&&o.parent===r.initialParent){const sheltered=weather==='dawn'&&period==='morning'?r.index%3!==0:weather==='rain'?r.index%3===1:weather==='blackout'?r.index%4!==0:period==='night'?r.index%3!==0:false;o.visible=r.initialVisible&&!sheltered;}
-   if(!visible(o))continue;
+   if(!o.userData.dailyLife&&!r.id){r.activity=period==='morning'?(r.seated?'reading':'sweeping'):period==='day'?role.activity:period==='evening'?'conversation':'resting';}if(!visible(o))continue;
    o.getWorldPosition(sphere.center);sphere.center.y+=.85;const distance=camera?camera.position.distanceTo(sphere.center):0,inView=!camera||frustum.intersectsSphere(sphere),interval=distance<18&&inView?1/residentLifeSettings.idleRate:distance<42&&inView?.25:getQuality()==='mobile'?2:1;
    const pose=force||(poseTick&&Math.abs(time-(r.lastTime??-Infinity))>=interval);if(pose)r.lastTime=time;
    const sitting=!!r.sitting;
