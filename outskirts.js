@@ -1,3 +1,4 @@
+import {createDetailBatch} from './miniature.js';
 // One modest west approach; no changes to town terrain or watercourse.
 export const outskirtsLayout={
  gate:[-53,6.25,5],hill:[-109,8.65,-14],
@@ -7,7 +8,8 @@ export const outskirtsLayout={
 export function buildOutskirts({THREE,scene,box}){
  const root=new THREE.Group();root.name='Quiet west approach and lookout hill';scene.add(root);
  const stone=new THREE.MeshStandardMaterial({color:0x94958b,roughness:1}),grass=new THREE.MeshStandardMaterial({color:0x777e60,roughness:1}),path=new THREE.MeshStandardMaterial({color:0xa49c84,roughness:1}),wood=new THREE.MeshStandardMaterial({color:0x6c5845,roughness:1}),leaf=new THREE.MeshStandardMaterial({color:0x586951,roughness:1});
- const floors=[],roadPoints=[];
+ const floors=[],roadPoints=[],catSteps=[];
+ const bankHeight=(x,z)=>{let height=-Infinity;for(const o of floors){o.updateWorldMatrix(true,true);const b=new THREE.Box3().setFromObject(o,true);if(x>=b.min.x&&x<=b.max.x&&z>=b.min.z&&z<=b.max.z)height=Math.max(height,b.max.y);}return height;};
  const slab=(x,y,z,w,h,d,m)=>{const o=box(x,y-h,z,w,h,d,m,root);o.castShadow=false;return o};
  // Supported shallow terraces are actual floor slabs, not invisible ramp collisions.
  for(let segment=1;segment<outskirtsLayout.road.length;segment++){
@@ -36,11 +38,32 @@ export function buildOutskirts({THREE,scene,box}){
  for(const z of [-16,-12])slab(-111,9.45,z,.15,.85,.15,wood);
  for(const y of [8.95,9.25])slab(-111,y,-14,.12,.09,9.4,wood);
  const beyond=slab(-118,8.67,-14,13,.08,1.8,path);beyond.userData.walkSoft=true;
+ // A modest shoulder rest and dry side path, built on the same supported bank.
+ const batch=createDetailBatch(THREE,root,'Outskirts low walls and wild verge');
+ for(const [x,y,z]of [[-61,6.39,8.3],[-66,6.58,7.4],[-80,7.16,2.3],[-96,7.92,-4.9]]){
+  batch.add('block',stone,[x,y+.19,z],[1.6,.38,.32]);
+  for(let i=0;i<4;i++)batch.add('leaf',leaf,[x-.6+i*.35,y+.11,z+.36],[.12,.22,.10]);
+ }
+ for(let i=0;i<22;i++){const p=roadPoints[Math.min(roadPoints.length-1,i*2)],side=i%2?1:-1;batch.add('leaf',leaf,[p[0],p[1]+.10,p[2]+side*2.75],[.12,.20,.13]);}
+ // The sightline from the resting shoulder remains clear toward the whole town.
+ const benchY=bankHeight(-99,-6.4);const bench=slab(-99,benchY+.43,-6.4,1.2,.10,.42,wood);bench.name='Roadside quiet resting bench';catSteps.push(bench);
+ for(const x of [-99.45,-98.55])slab(x,benchY+.33,-6.4,.10,.33,.32,wood);
+ // A second low, real side opening: human road stays broad and unchanged.
+ const gap=[-91,7.67,-.65];
+ for(const z of [gap[2]-.32,gap[2]+.32])slab(gap[0],gap[1]+.95,z,.5,.95,.20,stone);
+ slab(gap[0],gap[1]+1.19,gap[2],.5,.42,.84,stone).name='Second low verge opening';
+ // Beyond the broken rail, supported distant ground suggests a road onward.
+ const farBank=slab(-118,8.55,-14,13,5.05,7,grass);farBank.userData.walkSoft=true;
+ for(const [x,z,size]of [[-135,-23,8],[-149,-10,11]])batch.add('leaf',grass,[x,4,z],[size,4,size*.70]);
+ const batchStats=batch.finish();
+ const signCanvas=document.createElement('canvas');signCanvas.width=512;signCanvas.height=128;const pen=signCanvas.getContext('2d');pen.fillStyle='#a69773';pen.fillRect(0,0,512,128);pen.fillStyle='#403e32';pen.font='36px serif';pen.fillText('Lunmere  ·  Lake Lun',18,77);
+ const signFace=new THREE.Mesh(new THREE.PlaneGeometry(.72,.18),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(signCanvas),side:THREE.DoubleSide}));signFace.position.set(-54.5,7.06,7.872);signFace.userData.walkSoft=true;root.add(signFace);
  const targets=[
- {id:'outskirts-sign',object:sign,label:'西の古い道標',text:'丘を越える道の名は、何度も書き直されている。ここから見る鐘楼は、屋根の間に小さく残る。'},
+ {id:'outskirts-rest',object:bench,label:'道端の木陰',text:'腰を下ろす高さに板が渡してある。遠くの屋根は、ここでは重ならずに見える。'},
+ {id:'outskirts-sign',object:sign,label:'西の古い道標',text:'ルンメア、ルン湖。丘の先を指す文字は何度も書き直されている。遠い道は、今は柵の向こうへ続いている。'},
  {id:'outskirts-stone',object:oldStone,label:'道端の古い石',text:'浅い円のそばに、細い線が幾つか残っている。町の水辺で見たものに、少し似ている。'},
  {id:'outskirts-lookout',object:rest,label:'町を振り返る丘',text:'深緑の屋根が段々に重なり、その向こうに鐘楼と港の水が見える。道は町の外でも続いている。'},
  {id:'outskirts-thread',object:ribbon,label:'石壁の裏の紐',text:'草の匂いに混じって、旅の荷物の匂いがする。短い紐は、石の暖かい側へ寄っていた。',profiles:['cat']}
  ].map(t=>({...t,kind:'inspect',range:3.3,profiles:t.profiles??['human','cat'],localPoint:[0,.06,0]}));
- return {root,floors,roadPoints,targets,arch,stats:{addedLights:0,trees:3,inspectionPoints:4}};
+ return {root,floors,roadPoints,targets,arch,catSteps,batchStats,stats:{addedLights:0,trees:3,inspectionPoints:5}};
 }
