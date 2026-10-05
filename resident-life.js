@@ -57,7 +57,7 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
   if(role.prop==='crate'){add('block',prop,[0,-.02/sy,0],[.40/sx,.28/sy,.29/sz],0x8c7354);for(const x of [-.15,.15])add('block',prop,[x/sx,-.02/sy,.15/sz],[.035/sx,.28/sy,.025/sz],0x5e4c39);}
   if(role.prop==='broom'){prop.position.x=.32/sx;add('limb',prop,[0,-.25/sy,0],[.028/sx,.88/sy,.028/sz],0x877051);add('block',prop,[0,-.72/sy,0],[.23/sx,.10/sy,.08/sz],0xaca07a);}
   const footRest=feet[0]?.name==='Resident grounded boots and trousers'?feet[0].geometry.attributes.position.array.slice():null;
-  const record={initialVisible:o.visible,initialParent:o.parent,index,footRest,object:o,head,body,baseBody:body.rotation.clone(),baseHead:head.rotation.clone(),arms,feet,variation,role,id,moving:!!motion,seated:entry.seated,prop,scale:{sx,sy,sz},lastTime:null};records.push(record);o.userData.residentLife={role:id??role.activity,posture:role.posture,heightFactor:variation.height,shoulderFactor:variation.shoulders,gaitSpeed:.92+variation.seed*.16,gaitAmplitude:.94+variation.seed*.12};
+  const record={initialVisible:o.visible,initialParent:o.parent,index,footRest,object:o,head,body,standingBodyY:body.position.y,standingHeadY:head.position.y,standingArmY:arms.map(a=>a.position.y),standingPropY:prop.position.y,baseBody:body.rotation.clone(),baseHead:head.rotation.clone(),arms,feet,variation,role,id,moving:!!motion,seated:entry.seated,prop,scale:{sx,sy,sz},lastTime:null};records.push(record);o.userData.residentLife={role:id??role.activity,posture:role.posture,heightFactor:variation.height,shoulderFactor:variation.shoulders,gaitSpeed:.92+variation.seed*.16,gaitAmplitude:.94+variation.seed*.12};
   o.updateWorldMatrix(true,true);
   // No terrain re-placement: maintain each original foot/seat world height.
   if(!entry.seated){const contact=new THREE.Box3().setFromObject(feet[0]??o,true).min.y;o.position.y+=(b.min.y-contact)/(o.parent?.getWorldScale(new THREE.Vector3()).y??1);}
@@ -75,18 +75,28 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
    // Existing scheduled/walking people keep their own physical route state.
    // A few background neighbours stay indoors in bad weather; room actors
    // remain exclusively controlled by the shop system.
-   if(getArea()==='town'&&!r.id&&!r.moving&&!o.userData.dailyLife&&o.parent===r.initialParent){const sheltered=weather==='dawn'&&period==='morning'?r.index%3!==0:weather==='rain'?r.index%3===1:weather==='blackout'?r.index%4!==0:false;o.visible=r.initialVisible&&!sheltered;}
+   if(getArea()==='town'&&!r.id&&!r.moving&&!o.userData.dailyLife&&o.parent===r.initialParent){const sheltered=weather==='dawn'&&period==='morning'?r.index%3!==0:weather==='rain'?r.index%3===1:weather==='blackout'?r.index%4!==0:period==='night'?r.index%3!==0:false;o.visible=r.initialVisible&&!sheltered;}
    if(!visible(o))continue;
    o.getWorldPosition(sphere.center);sphere.center.y+=.85;const distance=camera?camera.position.distanceTo(sphere.center):0,inView=!camera||frustum.intersectsSphere(sphere),interval=distance<18&&inView?1/residentLifeSettings.idleRate:distance<42&&inView?.25:getQuality()==='mobile'?2:1;
    const pose=force||(poseTick&&Math.abs(time-(r.lastTime??-Infinity))>=interval);if(pose)r.lastTime=time;
-   if(pose&&r.footRest){const p=r.feet[0].geometry.attributes.position,walking=['walking','goingHome'].includes(r.currentState);for(let i=0;i<p.count;i++){const k=i*3,sign=r.footRest[k]<0?-1:1,swing=walking?Math.sin((r.walkPhase??time*4)+sign*Math.PI/2):0;p.array[k]=r.footRest[k];p.array[k+1]=r.footRest[k+1]+Math.max(0,swing)*.045;p.array[k+2]=r.footRest[k+2]+swing*.10;}p.needsUpdate=true;}
+   const sitting=!!r.sitting;
+   const seatDrop=sitting?Math.max(0,r.standingBodyY-body.geometry.parameters.height/2-Math.min(...r.footRest.filter((_,i)=>i%3===1))-.44/r.scale.sy):0;body.position.y=r.standingBodyY-seatDrop;head.position.y=r.standingHeadY-seatDrop;arms.forEach((a,i)=>a.position.y=r.standingArmY[i]-seatDrop);r.prop.position.y=r.standingPropY-seatDrop;
+   if(r.footRest){const foot=r.feet[0];r.standingGeometry??=foot.geometry;if(sitting&&!r.seatGeometry){const pieces=[];for(const sign of [-1,1])for(const [y,z,h,d]of [[.44,.15,.12,.36],[.24,.33,.38,.11],[.055,.38,.11,.23]]){const g=new THREE.BoxGeometry(.12/r.scale.sx,h/r.scale.sy,d/r.scale.sz).toNonIndexed();g.translate(sign*.115/r.scale.sx,(y/r.scale.sy)+(r.baseFeetY??(r.baseFeetY=Math.min(...r.footRest.filter((_,i)=>i%3===1)))),z/r.scale.sz);pieces.push(g);}
+    const positions=[],normals=[],colors=[];for(const g of pieces){positions.push(...g.attributes.position.array);normals.push(...g.attributes.normal.array);const tint=new THREE.Color(r.role.accent);for(let i=0;i<g.attributes.position.count;i++)colors.push(tint.r,tint.g,tint.b);g.dispose();}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(normals,3));g.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));g.computeBoundingBox();g.computeBoundingSphere();r.seatGeometry=g;}
+    foot.geometry=sitting?r.seatGeometry:r.standingGeometry;
+   }
+   if(pose&&r.footRest&&!sitting){const p=r.feet[0].geometry.attributes.position,walking=['walking','goingHome'].includes(r.currentState);for(let i=0;i<p.count;i++){const k=i*3,sign=r.footRest[k]<0?-1:1,swing=walking?Math.sin((r.walkPhase??time*4)+sign*Math.PI/2):0;p.array[k]=r.footRest[k];p.array[k+1]=r.footRest[k+1]+Math.max(0,swing)*.045;p.array[k+2]=r.footRest[k+2]+swing*.10;}p.needsUpdate=true;}
    if(pose){const breath=Math.sin(time*.85+v.phase),look=Math.sin(time*.31+v.phase),weight=(v.seed-.5)*.045;
     body.rotation.z=r.baseBody.z+weight+breath*.008*quiet;body.rotation.x=r.baseBody.x+(role.posture==='working'?.035:role.posture==='thoughtful'?.015:-.009)+Math.sin(time*.63+v.phase)*.006*quiet;
     head.rotation.y=r.baseHead.y+look*.16*quiet;head.rotation.x=r.baseHead.x+(role.activity==='reading'||role.activity==='measuring'?.055:0)+breath*.025*quiet;
    }
    if(pose){arms.forEach((arm,i)=>{const sign=i?1:-1;arm.rotation.z=(role.prop&&r.prop.visible?-sign*.21:sign*.10)+Math.sin(time*.7+v.phase+i)*.012*quiet;if(role.prop&&r.prop.visible)arm.rotation.x=-1.04+Math.sin(time*.57+v.phase)*.035*quiet;else if(!r.moving)arm.rotation.x=Math.sin(time*.61+v.phase+i)*.04*quiet;});
-   const action=r.activity??role.activity,swing=Math.sin(time*1.2+v.phase)*quiet;
-   if(action==='sweeping'){arms.forEach((a,i)=>{a.rotation.x=-.65+swing*.16;a.rotation.z=i?.12:-.24;});r.prop.rotation.x=swing*.13;}
+   const action=o.userData.shopWork?.currentState==='walking'?'walking':r.activity??role.activity,swing=Math.sin(time*1.2+v.phase)*quiet;
+   if(sitting){arms.forEach(a=>a.rotation.x=-.40);head.rotation.x=r.baseHead.x+.055;}
+   else if(action==='reading'||action==='measuring'){head.rotation.x=r.baseHead.x+.16;arms.forEach((a,i)=>a.rotation.x=-.98+Math.sin(time*.6+v.phase+i)*.045);r.prop.rotation.x=.20+swing*.025;}
+   else if(action==='bread'){arms.forEach((a,i)=>a.rotation.x=-.88+Math.sin(time*.8+v.phase+i)*.08);head.rotation.x=r.baseHead.x+.12;}
+   else if(action==='resting'){arms.forEach(a=>a.rotation.x=-.12);head.rotation.y=r.baseHead.y+Math.sin(time*.31+v.phase)*.10;}
+   else if(action==='sweeping'){arms.forEach((a,i)=>{a.rotation.x=-.65+swing*.16;a.rotation.z=i?.12:-.24;});r.prop.rotation.x=swing*.13;}
    else if(action==='rope'){arms.forEach((a,i)=>a.rotation.x=-.92+Math.sin(time*.8+v.phase+i)*.13*quiet);}
    else if(action==='conversation'&&!r.moving){arms[0].rotation.x=-.25+Math.max(0,swing)*.18;head.rotation.y=r.baseHead.y+.25+Math.sin(time*.4+v.phase)*.08;}
    else if(action==='browsing'||action==='well'){head.rotation.x=r.baseHead.x+.10+breathValue(time,v.phase)*quiet;}

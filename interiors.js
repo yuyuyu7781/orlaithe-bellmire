@@ -86,5 +86,6 @@ export function buildInterior({THREE,shop}){
  root.updateMatrixWorld(true);for(const o of obstacles)o.bounds.setFromObject(o.object,true);
  const bounds=new THREE.Box3(new THREE.Vector3(196.58,0,-4.32),new THREE.Vector3(203.42,0,4.32));
  const policy={id:shop.id,spawn:new THREE.Vector3(200,0,2.7),obstacles,groundAt(x,z,currentY=0,profile={stepUp:.38}){if(x<bounds.min.x||x>bounds.max.x||z<bounds.min.z||z>bounds.max.z)return null;let y=0;for(const o of supports){const b=obstacles.find(q=>q.object===o).bounds;if(x>=b.min.x-.001&&x<=b.max.x+.001&&z>=b.min.z-.001&&z<=b.max.z+.001&&b.max.y<=currentY+profile.stepUp+.001)y=Math.max(y,b.max.y);}return y;}};
- return {root,policy,door,inspect,catRoutes,npcPosition,workstations,beds,hiddenBookObjects,ambient,materials,shop,exit:[200,0,3.05],stats:{meshes:root.children.filter(o=>o.isMesh).length,obstacles:obstacles.length}};
+ const seats=shop.id==='tavern'?[{position:[-2,0,1.35],yaw:Math.PI},{position:[2,0,1.35],yaw:Math.PI}]:shop.id==='inn'?[{position:[2.6,0,1.1],yaw:-Math.PI/2}]:[];
+ return {root,policy,door,inspect,catRoutes,seats,npcPosition,workstations,beds,hiddenBookObjects,ambient,materials,shop,exit:[200,0,3.05],stats:{meshes:root.children.filter(o=>o.isMesh).length,obstacles:obstacles.length}};
 }
