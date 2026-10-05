@@ -21,6 +21,7 @@ export function createStayAtmosphere({THREE,stay,townLife,inspections,dialogue,a
   const mooring=entries.get('moorings'),chart=entries.get('star-chart');
   if(mooring)mooring.text=baseTexts.get('moorings')+(day>=2?' 杭の石片には、数えにくい短い溝が並ぶ。上流の石に、少し似ている。':'');
   if(chart)chart.text=baseTexts.get('star-chart')+(day>=2?' 円の縁に九つの小さな点。水辺で見た線とは違うが、同じ数にも見える。':'');
+  if(d.discoveries['outskirts-stone']&&d.discoveries['belfry-mark'])stay.note('road-bell-marks','道端の石と鐘楼の印。似た線でも、同じ向きには並んでいなかった。',{kind:'place'});
   const stone=d.discoveries['event:upstream-stone'];
   if(day>=2&&stone&&d.discoveries.moorings)stay.note('related-water-marks','上流の石と港の古い印は、少し似ている。',{kind:'place'});
   if(day>=2&&stone&&d.discoveries['star-chart'])stay.note('related-star-circle','水路の線と、星図の円を囲む点。数え直すと、どちらも九つだった。',{kind:'place'});
