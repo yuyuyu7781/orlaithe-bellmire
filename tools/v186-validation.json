@@ -1,0 +1,882 @@
+{
+  "version": "v18.6",
+  "baselineMain": "aba0969e124f37ffd5959d2ab4d6903143df143f",
+  "environmentSettingsChanged": false,
+  "physicalPhoneTested": false,
+  "design": {
+    "plateauTop": 8.2,
+    "source": [
+      22,
+      8.32,
+      -23
+    ],
+    "removedShells": [
+      [
+        22,
+        -23
+      ],
+      [
+        24,
+        -25
+      ]
+    ],
+    "removedAttachedUpperFloor": true,
+    "falls": [
+      2.0,
+      1.97
+    ],
+    "wheelMoved": false,
+    "steps": 15,
+    "riser": 0.31333333333333335,
+    "bucket": "reused at dry right bank"
+  },
+  "notes": [
+    "Independent routes use valid relocated starts followed by native keyboard traversal.",
+    "Upper plateau is physically continuous; no excavated pocket remains.",
+    "Two approximately 2m falls reconcile the existing 4m level difference.",
+    "Five shop human/cat conversations and official portraits, 19 views, six weather, follow, inspection and WebGL passed.",
+    "Software rendering timing samples are not physical-phone benchmarks.",
+    "PC overview/canal and 390px mobile canal: visible source and all key watercourse points fit in frame in High/Standard/Mobile. Native map/nav checks and three cat-only passages passed."
+  ],
+  "springAccess": {
+    "out": [
+      {
+        "mode": "human",
+        "goal": [
+          19.7,
+          8.2,
+          -23
+        ],
+        "samples": 345,
+        "maxEyeDelta": 0.08599609708789835,
+        "feet": [
+          19.700000000000014,
+          8.229999999664724,
+          -23.000000000000018
+        ]
+      },
+      {
+        "mode": "human",
+        "goal": [
+          17.9,
+          3.5,
+          -9.8
+        ],
+        "samples": 345,
+        "maxEyeDelta": 0.08599531900595547,
+        "feet": [
+          17.9,
+          3.5,
+          -9.8
+        ]
+      },
+      {
+        "mode": "human",
+        "goal": [
+          19,
+          3.5,
+          -13.2
+        ],
+        "samples": 96,
+        "maxEyeDelta": 0.07833884591744678,
+        "feet": [
+          19,
+          3.5,
+          -13.2
+        ]
+      },
+      {
+        "mode": "cat",
+        "goal": [
+          19.7,
+          8.2,
+          -23
+        ],
+        "samples": 235,
+        "maxEyeDelta": 0.14967833386901574,
+        "feet": [
+          19.700000000000014,
+          8.229999999664724,
+          -23.000000000000018
+        ]
+      },
+      {
+        "mode": "cat",
+        "goal": [
+          17.9,
+          3.5,
+          -9.8
+        ],
+        "samples": 236,
+        "maxEyeDelta": 0.09041179587408266,
+        "feet": [
+          17.9,
+          3.5,
+          -9.8
+        ]
+      },
+      {
+        "mode": "cat",
+        "goal": [
+          19,
+          3.5,
+          -13.2
+        ],
+        "samples": 67,
+        "maxEyeDelta": 0.11221964047968136,
+        "feet": [
+          19,
+          3.5,
+          -13.2
+        ]
+      },
+      {
+        "mode": "human",
+        "goal": [
+          17.9,
+          3.5,
+          -9.8
+        ],
+        "samples": 984,
+        "maxEyeDelta": 0,
+        "feet": [
+          17.9,
+          3.5,
+          -9.8
+        ]
+      },
+      {
+        "mode": "human",
+        "goal": [
+          19.7,
+          8.2,
+          -23
+        ],
+        "samples": 345,
+        "maxEyeDelta": 0.08599609708789835,
+        "feet": [
+          19.700000000000014,
+          8.229999999664724,
+          -23.000000000000018
+        ]
+      },
+      {
+        "mode": "human",
+        "goal": [
+          23.1,
+          3.5,
+          -11.5
+        ],
+        "samples": 481,
+        "maxEyeDelta": 0.09959359922758182,
+        "feet": [
+          23.1,
+          3.5,
+          -11.5
+        ]
+      },
+      {
+        "mode": "human",
+        "goal": [
+          2.849999999999999,
+          3.5,
+          18.500000000000128
+        ],
+        "samples": 1075,
+        "maxEyeDelta": 0.10826072050734048,
+        "feet": [
+          2.849999999999999,
+          3.5,
+          18.500000000000128
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "springViewsAndReload": {
+    "out": [
+      {
+        "weather": "clear",
+        "mode": "human",
+        "sourceVisible": true,
+        "firstHit": "Upper plateau spring basin",
+        "project": [
+          2.009863245860902e-15,
+          -0.10841375774102013,
+          0.9570689851006452
+        ],
+        "color": "4c7377",
+        "contextLost": false
+      },
+      {
+        "weather": "dawn",
+        "mode": "human",
+        "sourceVisible": true,
+        "firstHit": "Upper plateau spring basin",
+        "project": [
+          2.009863245860902e-15,
+          -0.10841375774102013,
+          0.9570689851006452
+        ],
+        "color": "44666c",
+        "contextLost": false
+      },
+      {
+        "weather": "rain",
+        "mode": "human",
+        "sourceVisible": true,
+        "firstHit": "Upper plateau spring basin",
+        "project": [
+          2.009863245860902e-15,
+          -0.10841375774102013,
+          0.9570689851006452
+        ],
+        "color": "476b6f",
+        "contextLost": false
+      },
+      {
+        "weather": "fog",
+        "mode": "human",
+        "sourceVisible": true,
+        "firstHit": "Upper plateau spring basin",
+        "project": [
+          2.009863245860902e-15,
+          -0.10841375774102013,
+          0.9570689851006452
+        ],
+        "color": "4c7377",
+        "contextLost": false
+      },
+      {
+        "weather": "night",
+        "mode": "human",
+        "sourceVisible": true,
+        "firstHit": "Upper plateau spring basin",
+        "project": [
+          2.009863245860902e-15,
+          -0.10841375774102013,
+          0.9570689851006452
+        ],
+        "color": "3c5c5f",
+        "contextLost": false
+      },
+      {
+        "weather": "blackout",
+        "mode": "human",
+        "sourceVisible": true,
+        "firstHit": "Upper plateau spring basin",
+        "project": [
+          2.009863245860902e-15,
+          -0.10841375774102013,
+          0.9570689851006452
+        ],
+        "color": "294043",
+        "contextLost": false
+      },
+      {
+        "weather": "clear",
+        "mode": "cat",
+        "sourceVisible": true,
+        "firstHit": "Upper plateau spring basin",
+        "project": [
+          0,
+          0.13943804174759122,
+          0.9697906403004248
+        ],
+        "color": "4c7377",
+        "contextLost": false
+      },
+      {
+        "weather": "dawn",
+        "mode": "cat",
+        "sourceVisible": true,
+        "firstHit": "Upper plateau spring basin",
+        "project": [
+          0,
+          0.13943804174759122,
+          0.9697906403004248
+        ],
+        "color": "44666c",
+        "contextLost": false
+      },
+      {
+        "weather": "rain",
+        "mode": "cat",
+        "sourceVisible": true,
+        "firstHit": "Upper plateau spring basin",
+        "project": [
+          0,
+          0.13943804174759122,
+          0.9697906403004248
+        ],
+        "color": "476b6f",
+        "contextLost": false
+      },
+      {
+        "weather": "fog",
+        "mode": "cat",
+        "sourceVisible": true,
+        "firstHit": "Upper plateau spring basin",
+        "project": [
+          0,
+          0.13943804174759122,
+          0.9697906403004248
+        ],
+        "color": "4c7377",
+        "contextLost": false
+      },
+      {
+        "weather": "night",
+        "mode": "cat",
+        "sourceVisible": true,
+        "firstHit": "Upper plateau spring basin",
+        "project": [
+          0,
+          0.13943804174759122,
+          0.9697906403004248
+        ],
+        "color": "3c5c5f",
+        "contextLost": false
+      },
+      {
+        "weather": "blackout",
+        "mode": "cat",
+        "sourceVisible": true,
+        "firstHit": "Upper plateau spring basin",
+        "project": [
+          0,
+          0.13943804174759122,
+          0.9697906403004248
+        ],
+        "color": "294043",
+        "contextLost": false
+      },
+      {
+        "inspection": "奥の泉\n\n奥へ続く高台の小さな泉に水が集まり、浅い流れから二段の岩縁を越えて町へ向かう。短い木の導水口には、何度も直した跡が残っている。\n\n閉じる",
+        "journal": [
+          {
+            "id": "place:leat:human",
+            "day": 1,
+            "text": "家々の奥の小さな泉から、水が町へ向かって流れ出していた。",
+            "kind": "place",
+            "playerMode": "human"
+          }
+        ]
+      },
+      {
+        "reloadJournal": [
+          {
+            "id": "place:leat:human",
+            "day": 1,
+            "text": "家々の奥の小さな泉から、水が町へ向かって流れ出していた。",
+            "kind": "place",
+            "playerMode": "human"
+          }
+        ],
+        "source": [
+          22,
+          8.32,
+          -23
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "lowerRoutes": {
+    "routes": [
+      {
+        "from": "tavern",
+        "to": "mill",
+        "samples": 2375,
+        "maxEyeDelta": 0.08441755056317835,
+        "feet": [
+          24.482399999999775,
+          4.15,
+          28.180000000000142
+        ]
+      },
+      {
+        "from": "mill",
+        "to": "harbor",
+        "samples": 1955,
+        "maxEyeDelta": 0.08149716386917571,
+        "feet": [
+          0,
+          1.3799999976158142,
+          31.99840000000012
+        ]
+      },
+      {
+        "from": "market",
+        "to": "mill",
+        "samples": 2553,
+        "maxEyeDelta": 0.08441755056317835,
+        "feet": [
+          24.482399999999775,
+          4.15,
+          28.180000000000142
+        ]
+      },
+      {
+        "from": "straight-tavern-lane",
+        "to": "tavern",
+        "samples": 168,
+        "maxEyeDelta": 0,
+        "feet": [
+          -5.365,
+          3.5,
+          12.3
+        ]
+      }
+    ],
+    "lane": {
+      "tested": 520,
+      "valid": 520
+    }
+  },
+  "performance": [
+    {
+      "baseline": true,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2903,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 200,
+          "calls": 2559,
+          "triangles": 104613,
+          "ms": 29.900000005960464,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 66.90000000596046
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2903,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 200,
+          "calls": 155,
+          "triangles": 35480,
+          "ms": 2.2999999821186066,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 4.799999982118607
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2903,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 200,
+          "calls": 2559,
+          "triangles": 104613,
+          "ms": 28.5,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 47.400000005960464
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2903,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 200,
+          "calls": 155,
+          "triangles": 35480,
+          "ms": 1.899999976158142,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 1.9000000059604645
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2903,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 200,
+          "calls": 2545,
+          "triangles": 104599,
+          "ms": 34.20000001788139,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 67.69999998807907
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2903,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 200,
+          "calls": 141,
+          "triangles": 35466,
+          "ms": 4.300000011920929,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 7.5999999940395355
+        }
+      ],
+      "median": 403.10000002384186
+    },
+    {
+      "baseline": false,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2884,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2547,
+          "triangles": 105193,
+          "ms": 28.5,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 59.29999998211861
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2884,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 35168,
+          "ms": 3.5,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 17.900000005960464
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2884,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2547,
+          "triangles": 105193,
+          "ms": 19.399999976158142,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 44.599999994039536
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2884,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 35168,
+          "ms": 3.5,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 19.700000017881393
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2884,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2533,
+          "triangles": 105179,
+          "ms": 29.80000001192093,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 40.30000001192093
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2884,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 141,
+          "triangles": 35154,
+          "ms": 3.100000023841858,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 8.300000011920929
+        }
+      ],
+      "median": 299.5
+    }
+  ],
+  "framing": [
+    {
+      "q": "high",
+      "v": "overview",
+      "project": [
+        [
+          0.5155152830912644,
+          0.2461442115004614,
+          0.9986198858165186
+        ],
+        [
+          0.43821948733914634,
+          0.08710657018174761,
+          0.9985983697594701
+        ],
+        [
+          0.20581650565445428,
+          -0.6656918637897302,
+          0.9979424080078009
+        ],
+        [
+          0.13030208728843634,
+          -0.9599533883264747,
+          0.9978770633312942
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": false
+    },
+    {
+      "q": "high",
+      "v": "canal",
+      "project": [
+        [
+          0.1293752696622958,
+          0.8938805768746241,
+          0.9980287435544427
+        ],
+        [
+          0.06744456086789954,
+          0.6361942260157948,
+          0.9980576192208175
+        ],
+        [
+          -0.038792725929999224,
+          -0.5796100819767506,
+          0.9974103564166781
+        ],
+        [
+          -0.06170384921360037,
+          -0.9222792094676056,
+          0.9974645772521477
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": false
+    },
+    {
+      "q": "standard",
+      "v": "overview",
+      "project": [
+        [
+          0.5155152830912644,
+          0.2461442115004614,
+          0.9986198858165186
+        ],
+        [
+          0.43821948733914634,
+          0.08710657018174761,
+          0.9985983697594701
+        ],
+        [
+          0.20581650565445428,
+          -0.6656918637897302,
+          0.9979424080078009
+        ],
+        [
+          0.13030208728843634,
+          -0.9599533883264747,
+          0.9978770633312942
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": false
+    },
+    {
+      "q": "standard",
+      "v": "canal",
+      "project": [
+        [
+          0.1293752696622958,
+          0.8938805768746241,
+          0.9980287435544427
+        ],
+        [
+          0.06744456086789954,
+          0.6361942260157948,
+          0.9980576192208175
+        ],
+        [
+          -0.038792725929999224,
+          -0.5796100819767506,
+          0.9974103564166781
+        ],
+        [
+          -0.06170384921360037,
+          -0.9222792094676056,
+          0.9974645772521477
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": false
+    },
+    {
+      "q": "mobile",
+      "v": "overview",
+      "project": [
+        [
+          0.5155152830912644,
+          0.2461442115004614,
+          0.9986198858165186
+        ],
+        [
+          0.43821948733914634,
+          0.08710657018174761,
+          0.9985983697594701
+        ],
+        [
+          0.20581650565445428,
+          -0.6656918637897302,
+          0.9979424080078009
+        ],
+        [
+          0.13030208728843634,
+          -0.9599533883264747,
+          0.9978770633312942
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": false
+    },
+    {
+      "q": "mobile",
+      "v": "canal",
+      "project": [
+        [
+          0.1293752696622958,
+          0.8938805768746241,
+          0.9980287435544427
+        ],
+        [
+          0.06744456086789954,
+          0.6361942260157948,
+          0.9980576192208175
+        ],
+        [
+          -0.038792725929999224,
+          -0.5796100819767506,
+          0.9974103564166781
+        ],
+        [
+          -0.06170384921360037,
+          -0.9222792094676056,
+          0.9974645772521477
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": false
+    },
+    {
+      "q": "high",
+      "v": "canal",
+      "project": [
+        [
+          0.4199720292114524,
+          0.8938805768746241,
+          0.9980287435544427
+        ],
+        [
+          0.21893542066348923,
+          0.6361942260157948,
+          0.9980576192208175
+        ],
+        [
+          -0.125927156480459,
+          -0.5796100819767506,
+          0.9974103564166781
+        ],
+        [
+          -0.20030018744722577,
+          -0.9222792094676056,
+          0.9974645772521477
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": true
+    },
+    {
+      "q": "standard",
+      "v": "canal",
+      "project": [
+        [
+          0.4199720292114524,
+          0.8938805768746241,
+          0.9980287435544427
+        ],
+        [
+          0.21893542066348923,
+          0.6361942260157948,
+          0.9980576192208175
+        ],
+        [
+          -0.125927156480459,
+          -0.5796100819767506,
+          0.9974103564166781
+        ],
+        [
+          -0.20030018744722577,
+          -0.9222792094676056,
+          0.9974645772521477
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": true
+    },
+    {
+      "q": "mobile",
+      "v": "canal",
+      "project": [
+        [
+          0.4199720292114524,
+          0.8938805768746241,
+          0.9980287435544427
+        ],
+        [
+          0.21893542066348923,
+          0.6361942260157948,
+          0.9980576192208175
+        ],
+        [
+          -0.125927156480459,
+          -0.5796100819767506,
+          0.9974103564166781
+        ],
+        [
+          -0.20030018744722577,
+          -0.9222792094676056,
+          0.9974645772521477
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": true
+    }
+  ]
+}

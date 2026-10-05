@@ -208,3 +208,45 @@ Standard 15.4 → 15.9 ms, and Mobile 21.9 → 38.5 ms. Mobile's timing regressi
 and large tail variability require physical-device follow-up; counts alone do
 not establish acceptable smartphone frame rates. Full samples are in the
 validation JSON. No environment configuration was changed.
+
+## v18.6: restore the upper plateau (supersedes the v18.2–18.5 pocket)
+
+The lower spring pocket was the wrong interpretation. The upper terrace is now
+continuous at y=8.2 across x=15–29, z=-29–-17, supported down to the existing
+y=3.5 ground. It joins the retained upper neighborhood instead of ending behind
+an excavated pond. The house at (22,-23), its attached timber upper floor, and
+the overlapping legacy shell at (24,-25) are retired together. No shop, entrance,
+conversation character or resident route belonged to this residential shell.
+
+A roughly 2.6 × 3 m irregular shallow pond occupies the former home site at
+(22,8.32,-23). A short, gently bending stream crosses the plateau to (20,8.25,-17).
+Two falls of 2.00 and 1.97 m, separated by a grounded rock shelf, reconcile the
+existing approximately four-metre terrace difference. This is deliberately not a
+one-metre fall with an unexplained extra height jump. A shallow receiver rejoins
+the unchanged lower leat at (20,4.23,-13.4). Wheel, blade contact, short timber
+feed, bridges and harbor outlet are unchanged.
+
+Fifteen supported stone steps, each 0.313 m high, lead up the dry west bank; the
+plateau path continues behind the pond. Old below-grade diagonal slabs are
+removed. The existing drawing bucket is relocated to the dry right bank and
+three existing moss patches follow the new pond. No extra lights or particles.
+Map, source observation and ambient source anchor use the same layout data.
+
+Browser evidence is in tools/v186-validation.json: native human/cat stair
+climb/descent, square-to-source-to-nearby-lane circuit, lower mill/harbor routes,
+six weather source visibility, inspection/Journal/save reload, five shop human/
+cat conversations and formal portraits, 19 views and WebGL. Independent route
+tests relocate only to valid starting points, then walk with native input.
+
+Same-camera software-rendered overview before/after: 2559→2547 calls,
+104613→105193 triangles, 2903→2884 meshes, 200→193 shadow casters.
+Lights remain 14, transparent meshes 34. High/Standard/Mobile median samples
+were 29.9→28.5 / 28.5→19.4 / 34.2→29.8 ms; these shared-host SwiftShader
+samples do not establish real smartphone frame rates. No physical phone tested.
+Environment configuration unchanged.
+
+The existing overview camera ID is preserved, with a higher, more central
+composition (30,78,65) so the retained foreground roof no longer hides the
+upper spring. The canal preset remains unchanged. Both are checked for source
+visibility and the full system fitting in frame; the mobile check uses the canal
+view. Ordinary rooftop/wheel presets retain their specific focus.

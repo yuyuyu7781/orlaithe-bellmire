@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v18.5 — Orlaithe miniature</title>
+<title>Bellmire v18.6 — Orlaithe miniature</title>
 <link rel="stylesheet" href="./portrait.css">
 <link rel="stylesheet" href="./navigation.css">
 <link rel="stylesheet" href="./stay.css">
@@ -23,7 +23,7 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v18.5</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v18.6</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
 <div class="row"><button id="walk">人間で歩く</button><button id="catWalk">猫で歩く</button><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div>
 <div class="row"><label>時刻 <select id="timePeriod" aria-label="街の時間帯"><option value="morning">朝</option><option value="day" selected>昼</option><option value="evening">夕</option><option value="night">夜</option></select></label><label>品質 <select id="qualitySelect" aria-label="描画品質"><option value="standard">Standard</option><option value="high">High</option><option value="mobile">Mobile</option></select></label></div>
@@ -279,10 +279,10 @@ const cliffSkirts=[
  [-1,.2,38,16,4,5],[-47,.2,34,8,4,10]
 ].map((q,i)=>{
  if(i!==4)return box(q[0],q[1],q[2],q[3],q[4],q[5],darkStone);
- // Open the spring pocket, keeping the occupied housing terrace behind it.
- // Separate meshes preserve the notch in physical collision, not just appearance.
- const bank=new THREE.Group();bank.name='Open spring pocket below upper homes';scene.add(bank);
- for(const a of [[22,3.5,-22.1,14,4.7,5.8],[16.15,3.5,-17.1,2.3,2.75,4.2],[25.75,3.5,-17.1,6.5,1.0,4.2]])box(...a,darkStone,bank);
+ // Continuous upper residential plateau, preserved beneath the former house site.
+ const bank=new THREE.Group();bank.name='Continuous upper spring plateau';scene.add(bank);
+ const terrace=box(22,3.5,-23,14,4.7,12,darkStone,bank);
+ terrace.userData.walkSurface=true;
  return bank;
 });
 const cliffTerrain=cliffSkirts.flatMap(o=>o.isGroup?o.children:[o]);
@@ -292,14 +292,14 @@ const eastHouses=[
  [31,31,1.1,6,5,7,1],[38,27,1.1,5,5,9,2],[31,21,1.1,7,5,6,3],
  [37,16,1.1,5,6,8,4],[31,10,1.1,6,5,7,5],[37,5,1.1,5,5,6,6],
  [29,-4,4.5,7,5,8,7],[36,-8,4.5,5,5,7,8],[27,-13,4.5,6,5,9,9],
- [22,-23,8.2,7,5,8,10],[14,-29,8.2,6,5,10,11]
+ [14,-29,8.2,6,5,10,11]
 ];
 eastHouses.forEach((a,i)=>house(...a));
 
 // attached timber upper floors break the box silhouettes
 [
  [31,8.3,31,7.4,2.5,5.3],[37.5,10.1,27,5.7,2.2,5.1],
- [29,12.5,-4,7.8,2.4,5.2],[22,16.2,-23,7.8,2.2,5.2]
+ [29,12.5,-4,7.8,2.4,5.2]
 ].forEach((q,i)=>{box(q[0],q[1],q[2],q[3],q[4],q[5],i%2?wood:winePlaster);roofLong(q[0],q[1]+q[4],q[2],q[3],q[5],1.7)});
 
 // canal branch bends into the town instead of remaining a straight edge feature
@@ -462,9 +462,11 @@ const hillQuarter=new THREE.Group();scene.add(hillQuarter);
 const hqPlaster=[M(0x9b927c,.96),M(0x827f72,.96),M(0x8b786f,.96)],hqRoof=[M(0x465047,.96),M(0x544940,.96),M(0x4b4d43,.96)];
 function hqHouse(x,y,z,w,d,h,i){box(x,y,z,w,h,d,hqPlaster[i%3],hillQuarter);const r=new THREE.Mesh(new THREE.ConeGeometry(Math.max(w,d)*.72,1.8,4),hqRoof[i%3]);r.rotation.y=Math.PI/4;r.position.set(x,y+h+.9,z);r.castShadow=true;hillQuarter.add(r);const lm=new THREE.MeshStandardMaterial({color:0xe8b56e,emissive:0xff9b43,emissiveIntensity:.75});for(const dx of [-w*.2,w*.2]){const win=new THREE.Mesh(new THREE.BoxGeometry(.42,.62,.08),lm);win.position.set(x+dx,y+h*.55,z+d/2+.05);hillQuarter.add(win)}lit.push(lm)}
 // clustered homes on an upper shelf, large enough to alter the skyline
-hqHouse(24,6.2,-25,5.2,4.5,5.8,0);hqHouse(30.2,6.2,-23.2,4.5,4.2,6.7,1);hqHouse(35.5,6.2,-26.0,5.0,4.6,5.4,2);hqHouse(28.0,6.2,-30.3,4.3,4.0,5.1,2);
+// Retire the overlapping legacy shell on the same spring-house site.
+hqHouse(30.2,6.2,-23.2,4.5,4.2,6.7,1);hqHouse(35.5,6.2,-26.0,5.0,4.6,5.4,2);hqHouse(28.0,6.2,-30.3,4.3,4.0,5.1,2);
 // stepped lane and retaining edge make the quarter connect to the town
-for(let i=0;i<7;i++) box(19.0+i*1.15,6.15+i*.16,-20.2-i*.65,1.5,.22,1.25,v8Stone,hillQuarter);
+// The old diagonal slabs now lie below the restored terrace; use its dry surface.
+box(18.7,8.2,-23.8,.7,.025,7.6,path,hillQuarter);
 box(30,6.05,-19.3,17,.55,1.0,v8Stone,hillQuarter);
 // tiny shared courtyard: tree, well, bench, laundry
 groundAssembly(hillQuarter,()=>{
@@ -1065,7 +1067,7 @@ pedestrianSteps(41.2,14.8,13.7,1,lowerLandingY,1.2,3);
 pedestrianSteps(41.2,9.2,10.3,1,lowerLandingY,1.2,3);
 
 let view='overview',followMode=false,followIdx=0;
-const viewMap={overview:[[48,62,78],[-2,7,0]],alley:[[-15,6,36],[-9,5,23]],streetwalk:[[-34,4.4,34],[-18,3.5,24]],resident:[[-4,4.3,29],[-9,3.1,24]],catview:[[-25,3.3,16],[-20,2.0,18]],bakery:[[-39,7,34],[-31,4,24]],bookshop:[[-25,7,38],[-18,6,29]],inn:[[-49,11,11],[-39,8,-1]],tavern:[[-10,8,27],[-10,5.2,12.2]],orrery:[[15,17,12],[3,12,-3]],square:[[-31,6,16],[-24,2,7]],roofgarden:[[-38,18,-8],[-28,11,-18]],mill:[[26.5,10.6,25.5],[21,5.8,27]],archway:[[39,10,21],[28,5,9]],canal:[[24,72,36],[20,4,9]],rooftop:[[-5,21,13],[-20,7,0]],belfry:[[-4,27,-17],[-13,23,-32]],drone:[[0,33,45],[-8,6,-5]],train:[[51,7,19],[43.5,2.5,12]]};
+const viewMap={overview:[[30,78,65],[-2,7,6]],alley:[[-15,6,36],[-9,5,23]],streetwalk:[[-34,4.4,34],[-18,3.5,24]],resident:[[-4,4.3,29],[-9,3.1,24]],catview:[[-25,3.3,16],[-20,2.0,18]],bakery:[[-39,7,34],[-31,4,24]],bookshop:[[-25,7,38],[-18,6,29]],inn:[[-49,11,11],[-39,8,-1]],tavern:[[-10,8,27],[-10,5.2,12.2]],orrery:[[15,17,12],[3,12,-3]],square:[[-31,6,16],[-24,2,7]],roofgarden:[[-38,18,-8],[-28,11,-18]],mill:[[26.5,10.6,25.5],[21,5.8,27]],archway:[[39,10,21],[28,5,9]],canal:[[24,72,36],[20,4,9]],rooftop:[[-5,21,13],[-20,7,0]],belfry:[[-4,27,-17],[-13,23,-32]],drone:[[0,33,45],[-8,6,-5]],train:[[51,7,19],[43.5,2.5,12]]};
 function setView(v){if(walking.active)walking.leave();view=v;followMode=false;document.getElementById('follow').classList.remove('active');const[p,t]=viewMap[v];camera.position.fromArray(p);controls.target.fromArray(t);controls.enabled=!['drone','train'].includes(v);quality.update(2);document.querySelectorAll('#views button').forEach(b=>b.classList.toggle('active',b.dataset.v===v))}
 function setWeather(w){rain.visible=w==='rain';atmosphere.apply(w);townLife.setWeather(w);document.getElementById("timePeriod").value=townLife.state.period;document.querySelectorAll('#weather button').forEach(b=>b.classList.toggle('active',b.dataset.w===w))}
 document.getElementById('weather').onclick=e=>e.target.dataset.w&&setWeather(e.target.dataset.w);document.getElementById('views').onclick=e=>e.target.dataset.v&&setView(e.target.dataset.v);residentSel.onchange=e=>followIdx=+e.target.value;
@@ -1140,7 +1142,7 @@ const lifeDetails=addLifeDetails({THREE,culture,lit});
 const miniatureGoods=addMiniatureGoods(culture);
 const harborGoods=addHarborGoods(culture);
 const walking=createWalkingSystem({THREE,scene,camera,controls,canvas:renderer.domElement,
-  terrain:[...townGround,cliffSkirts[1]],surfaces:harborSupports,
+  terrain:[...townGround,cliffSkirts[1],...cliffSkirts[4].children],surfaces:harborSupports,
   surfaceMaterials:[path,v8Stone,stone101],dynamicObjects:[train,p0,bard,shopResidents[4],talkingDockWorker,shopResidents[1]],
   ignoredObjects:[...residents,residentV8,cat,...smoke,wheel,orrery],
   waterMaterials:[water,water101],
