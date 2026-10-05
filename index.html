@@ -1205,7 +1205,7 @@ const residentDay=createResidentDay({THREE,walking,grounding,residentLife,townLi
 const visitorSystem=connectVisitors({THREE,people:visitorPeople.people,residentLife,residentDay,inspections,walking,shopSystem,townLife,stay:stayState});
 const namedTravel=createNamedTravel({THREE,walking,shopSystem,residentDay,dialogue,townLife,getQuality:()=>quality.current});
 const townEvents=createTownEvents({THREE,scene,culture,inspectTargets,inspections,walking,townLife,shopSystem,dialogue,stay:stayState});
-const catExploration=addCatExploration({THREE,walking,grounding,inspections,shopSystem});
+const catExploration=addCatExploration({THREE,walking,grounding,inspections,shopSystem,extraSteps:outskirts.catSteps});
 const ambientAudio=createAmbientAudio({camera,walking,shopSystem,townLife,getQuality:()=>quality.current});
 const restSystem=createRestSystem({THREE,walking,inspections,shopSystem,townLife,stay:stayState});
 window.BellmireStay=Object.freeze({get day(){return townLife.state.dayIndex},setSeason(season){townLife.setSeason(season);},resetProgress(){if(confirm('旅の記録と滞在の進行を初期化しますか。'))restSystem.reset();}});

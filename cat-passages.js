@@ -8,7 +8,7 @@ export function createCatPassages({THREE,scene,walking,grounding,groundedObjects
   if(![-1,1].some(side=>[-1.1,-.55,0,.55,1.1].every(dz=>walking.canStandAs('human',x+side*1.06,z+dz,y)!==null)))return null;
   return y;
  }
- for(const [id,label,cx,cz]of [['market','市場裏の荷物棚下',19,16],['harbor','港側の荷物棚下',26,30.5],['bakery','パン屋側の薪棚下',-36,24]]){
+ for(const [id,label,cx,cz]of [['market','市場裏の荷物棚下',19,16],['harbor','港側の荷物棚下',26,30.5],['bakery','パン屋側の薪棚下',-36,24],['tavern','酒場脇の道具棚下',-6,14],['bookshop','古書店脇の低い棚下',-20,34]]){
   const offsets=[[0,0]];for(let r=.4;r<=4;r+=.4)for(let i=0;i<16;i++)offsets.push([Math.cos(i*Math.PI/8)*r,Math.sin(i*Math.PI/8)*r]);
   const g=new THREE.Group();g.name=label;root.add(g);
   for(const x of [-.59,.59])for(const z of [-.29,.29])box(x,0,z,.08,.74,.08,wood,g);
