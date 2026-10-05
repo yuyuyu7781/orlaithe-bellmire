@@ -1,0 +1,1025 @@
+{
+  "version": "v20.5",
+  "baselineMain": "0944bf1ffc54a4d61367b9b5ea89af9f8ea3c77e",
+  "environmentSettingsChanged": false,
+  "watercourseRedesigned": false,
+  "browser": "Chromium, software WebGL/SwiftShader; PC 1280x800 and mobile viewport 390x844; no physical phone",
+  "grounding": {
+    "supportedBuildingShells": 6,
+    "fullStoneBases": 5,
+    "openMarketPorchCornerPiers": 4,
+    "removedLegacyRandomRocks": 18,
+    "clearlyFloatingAmongRemoved": 5,
+    "remainingFloatingBuildings": 0,
+    "remainingUnsupportedRegisteredGoods": 0,
+    "standingActorContactIssues": 0,
+    "scope": "registered shells/goods and visible standing actor feet; old terrace basements can intentionally extend below ground"
+  },
+  "nativeHumanWalking": [
+    {
+      "from": "square",
+      "to": "bakery",
+      "goal": [
+        -25.965,
+        3.5,
+        27
+      ],
+      "arrival": {
+        "feet": [
+          -26.280000000000037,
+          3.5,
+          27.07999999999996
+        ],
+        "distance": 0.3250000000000256,
+        "stand": true
+      },
+      "exactPointOccupied": true
+    },
+    {
+      "from": "square",
+      "to": "bookshop",
+      "goal": [
+        -13.865000095367431,
+        1.3799999976158142,
+        32.399999904632566
+      ],
+      "samples": 588,
+      "maxEyeDelta": 0.06459980846263269,
+      "feet": [
+        -13.865000095367431,
+        1.592000003814697,
+        32.399999904632566
+      ]
+    },
+    {
+      "from": "square",
+      "to": "inn",
+      "goal": [
+        -32.965,
+        6.249999976158142,
+        2.5
+      ],
+      "samples": 1133,
+      "maxEyeDelta": 0.07086109585168643,
+      "feet": [
+        -32.965,
+        6.249999976158142,
+        2.5
+      ]
+    },
+    {
+      "from": "square",
+      "to": "tavern",
+      "goal": [
+        -5.3650000953674315,
+        3.5,
+        12.300000095367432
+      ],
+      "samples": 257,
+      "maxEyeDelta": 0,
+      "feet": [
+        -5.3650000953674315,
+        3.5,
+        12.300000095367432
+      ]
+    },
+    {
+      "from": "square",
+      "to": "orrery",
+      "goal": [
+        3,
+        6.249999976158142,
+        1.7850000000000001
+      ],
+      "samples": 487,
+      "maxEyeDelta": 0.07085909874534035,
+      "feet": [
+        3,
+        6.249999976158142,
+        1.7850000000000001
+      ]
+    },
+    {
+      "from": "square",
+      "to": "belfry",
+      "goal": [
+        -4.5,
+        9.299999952316284,
+        -17.49999999999989
+      ],
+      "samples": 980,
+      "maxEyeDelta": 0.07880712169446724,
+      "feet": [
+        -4.5,
+        9.299999952316284,
+        -17.49999999999989
+      ]
+    },
+    {
+      "from": "market",
+      "to": "tavern",
+      "goal": [
+        -5.3650000953674315,
+        3.5,
+        12.300000095367432
+      ],
+      "samples": 662,
+      "maxEyeDelta": 0,
+      "feet": [
+        -5.366695016469751,
+        3.5,
+        12.302688594176457
+      ]
+    },
+    {
+      "from": "harbor",
+      "to": "tavern",
+      "goal": [
+        -5.3650000953674315,
+        3.5,
+        12.300000095367432
+      ],
+      "samples": 538,
+      "maxEyeDelta": 0.06111771886854811,
+      "feet": [
+        -5.3650000953674315,
+        3.5,
+        12.300000095367432
+      ]
+    },
+    {
+      "from": "harbor",
+      "to": "bakery",
+      "goal": [
+        -25.965,
+        3.5,
+        27
+      ],
+      "samples": 1595,
+      "maxEyeDelta": 0.061115256031737175,
+      "feet": [
+        -25.965,
+        3.5,
+        27
+      ]
+    },
+    {
+      "from": "mill",
+      "to": "tavern",
+      "goal": [
+        -5.3650000953674315,
+        3.5,
+        12.300000095367432
+      ],
+      "samples": 934,
+      "maxEyeDelta": 0.10241084470855277,
+      "feet": [
+        -5.3650000953674315,
+        3.5,
+        12.300000095367432
+      ]
+    },
+    {
+      "from": "belfry",
+      "to": "square",
+      "goal": [
+        2.849999999999999,
+        3.5,
+        18.500000000000128
+      ],
+      "samples": 978,
+      "maxEyeDelta": 0.07889680213025763,
+      "feet": [
+        2.849999999999999,
+        3.5,
+        18.500000000000128
+      ]
+    },
+    {
+      "from": "square",
+      "to": "gate",
+      "goal": [
+        -53,
+        6.25,
+        5
+      ],
+      "samples": 1622,
+      "maxEyeDelta": 0.07086109585168643,
+      "feet": [
+        -53,
+        6.262000000186264,
+        5
+      ]
+    },
+    {
+      "from": "inn",
+      "to": "gate",
+      "goal": [
+        -53,
+        6.25,
+        5
+      ],
+      "samples": 539,
+      "maxEyeDelta": 0.0030028669058905777,
+      "feet": [
+        -53,
+        6.262000000186264,
+        5
+      ]
+    },
+    {
+      "from": "gate",
+      "to": "hill",
+      "goal": [
+        -109,
+        8.65,
+        -14
+      ],
+      "samples": 1558,
+      "maxEyeDelta": 0.02859875689339475,
+      "feet": [
+        -109,
+        8.650000047683715,
+        -14
+      ]
+    },
+    {
+      "from": "hill",
+      "to": "gate",
+      "goal": [
+        -53,
+        6.25,
+        5
+      ],
+      "samples": 1558,
+      "maxEyeDelta": 0.028623315037282993,
+      "feet": [
+        -53,
+        6.262000000186264,
+        5
+      ]
+    }
+  ],
+  "catExploration": {
+    "existingTownRoutesPreserved": 3,
+    "additionalTownRoute": "tavern storage shelf",
+    "totalTownRoutes": 4,
+    "additionalOutskirtsOpening": [
+      -91,
+      -3
+    ],
+    "verifiedNativeCrossing": true,
+    "addedJumpSupports": 6,
+    "totalJumpSupports": 11,
+    "perchObservations": 8,
+    "nativeJumpResults": [
+      {
+        "i": 5,
+        "p": [
+          -36.87999999523163,
+          3.5,
+          27.313750004805627
+        ],
+        "yaw": -1.5707963267948966,
+        "height": 4.337000003308058,
+        "name": "Bakery morning basket",
+        "landing": [
+          -36.2,
+          4.337000003308058,
+          27.313750004805627
+        ]
+      },
+      {
+        "i": 6,
+        "p": [
+          -22.441925956030456,
+          1.3799999976158142,
+          34.85433667059151
+        ],
+        "yaw": -1.5707963267948966,
+        "height": 2.148000000119209,
+        "name": "Bookshop wrapped folios",
+        "landing": [
+          -21.761925960798827,
+          2.148000000119209,
+          34.85433667059151
+        ]
+      },
+      {
+        "i": 7,
+        "p": [
+          -41.820000004768374,
+          6.262000000186264,
+          5.213750004805625
+        ],
+        "yaw": 1.5707963267948966,
+        "height": 7.017999978661536,
+        "name": "Inn travellers luggage",
+        "landing": [
+          -42.5,
+          7.017999978661536,
+          5.213750004805625
+        ]
+      },
+      {
+        "i": 8,
+        "p": [
+          11.525025257937786,
+          6.249999976158142,
+          -8.413099740329951
+        ],
+        "yaw": -1.5707963267948966,
+        "height": 6.70499997921288,
+        "name": "Workshop repair tools",
+        "landing": [
+          12.41752525465953,
+          6.70499997921288,
+          -8.413099740329951
+        ]
+      },
+      {
+        "i": 9,
+        "p": [
+          22.35,
+          1.3799999976158142,
+          31.310000014305114
+        ],
+        "yaw": 3.141592653589793,
+        "height": 2.1000000262260436,
+        "name": "",
+        "landing": [
+          22.35,
+          2.1000000262260436,
+          32
+        ]
+      },
+      {
+        "i": 10,
+        "p": [
+          -99.90000002384186,
+          8.135714169910976,
+          -6.4
+        ],
+        "yaw": -1.5707963267948966,
+        "height": 8.565714170656035,
+        "name": "Roadside quiet resting bench",
+        "landing": [
+          -99,
+          8.565714170656035,
+          -6.4
+        ]
+      }
+    ]
+  },
+  "incidents": {
+    "added": 6,
+    "total": 13,
+    "nativeInvestigations": [
+      {
+        "id": "loose-cart-wheel",
+        "text": "修理を待つ車輪\n\n車輪の留め具が一つ外れている。荷は降ろされ、工具だけが並んでいる。\n\n閉じる"
+      },
+      {
+        "id": "late-cask",
+        "text": "空いた樽置き場\n\n樽の丸い跡が一つだけ空いている。木札は、明日の荷を待っている。\n\n閉じる"
+      },
+      {
+        "id": "moved-cloth",
+        "text": "布屋の小さな札\n\n古い場所を消して、庇のそばと書き足してある。雨の日のために移したのだろう。\n\n閉じる"
+      },
+      {
+        "id": "absent-skiff",
+        "text": "帰りを待つ係留縄\n\n一つの縄だけ、杭に巻いてある。舟が戻るまで、場所を空けてあるようだ。\n\n閉じる"
+      },
+      {
+        "id": "inn-parcel",
+        "text": "宿に残された包み\n\n小さな布包みには、使い込んだ櫛が入っている。宿の人が、持ち主を待っている。\n\n閉じる"
+      },
+      {
+        "id": "cat-old-key",
+        "text": "籠の裏の古い鍵\n\n濡れた草の奥に、冷たい金属の匂い。小さな鍵の丸い頭が、縄に引っかかっている。\n\n閉じる"
+      }
+    ],
+    "nextDayStates": {
+      "loose-cart-wheel": {
+        "state": "resolved",
+        "heardAt": null,
+        "noticedAt": "day",
+        "resolvedAt": "morning",
+        "noticedDay": 1,
+        "resolvedDay": 2
+      },
+      "late-cask": {
+        "state": "resolved",
+        "heardAt": null,
+        "noticedAt": "day",
+        "resolvedAt": "morning",
+        "noticedDay": 1,
+        "resolvedDay": 2
+      },
+      "absent-skiff": {
+        "state": "resolved",
+        "heardAt": null,
+        "noticedAt": "day",
+        "resolvedAt": "morning",
+        "noticedDay": 1,
+        "resolvedDay": 2
+      },
+      "inn-parcel": {
+        "state": "resolved",
+        "heardAt": null,
+        "noticedAt": "day",
+        "resolvedAt": "morning",
+        "noticedDay": 1,
+        "resolvedDay": 2
+      }
+    },
+    "reload": {
+      "day": 2,
+      "events": [
+        "delayed-grain",
+        "unaddressed-crate",
+        "missing-folio",
+        "upstream-stone",
+        "ninth-bell",
+        "cat-bread",
+        "cat-ribbon",
+        "loose-cart-wheel",
+        "late-cask",
+        "moved-cloth",
+        "absent-skiff",
+        "inn-parcel",
+        "cat-old-key"
+      ],
+      "journal": 13,
+      "catKey": {
+        "day": 1,
+        "playerMode": "cat",
+        "period": "day",
+        "label": ""
+      }
+    }
+  },
+  "sevenDaySimulation": [
+    {
+      "day": 1,
+      "weather": "clear",
+      "calendar": {
+        "seasonal": null,
+        "cycleDay": 1,
+        "weekIndex": 0,
+        "weekly": {
+          "id": "ordinary",
+          "label": "いつもの日"
+        },
+        "market": false,
+        "gathering": false,
+        "season": "spring",
+        "marketMultiplier": 1
+      },
+      "scheduledNPCs": 11,
+      "visitors": {
+        "types": 3,
+        "present": 0,
+        "walking": 0
+      },
+      "insideNPCs": 0,
+      "contextLost": false
+    },
+    {
+      "day": 2,
+      "weather": "rain",
+      "calendar": {
+        "seasonal": null,
+        "cycleDay": 2,
+        "weekIndex": 0,
+        "weekly": {
+          "id": "cargo",
+          "label": "荷の多い日"
+        },
+        "market": false,
+        "gathering": false,
+        "season": "spring",
+        "marketMultiplier": 1
+      },
+      "scheduledNPCs": 11,
+      "visitors": {
+        "types": 3,
+        "present": 1,
+        "walking": 1
+      },
+      "insideNPCs": 1,
+      "contextLost": false
+    },
+    {
+      "day": 3,
+      "weather": "clear",
+      "calendar": {
+        "seasonal": null,
+        "cycleDay": 3,
+        "weekIndex": 0,
+        "weekly": {
+          "id": "roads",
+          "label": "旅人の来る日"
+        },
+        "market": false,
+        "gathering": false,
+        "season": "spring",
+        "marketMultiplier": 1
+      },
+      "scheduledNPCs": 11,
+      "visitors": {
+        "types": 3,
+        "present": 2,
+        "walking": 0
+      },
+      "insideNPCs": 0,
+      "contextLost": false
+    },
+    {
+      "day": 4,
+      "weather": "clear",
+      "calendar": {
+        "seasonal": null,
+        "cycleDay": 4,
+        "weekIndex": 0,
+        "weekly": {
+          "id": "market",
+          "label": "市の日"
+        },
+        "market": true,
+        "gathering": false,
+        "season": "spring",
+        "marketMultiplier": 1.2
+      },
+      "scheduledNPCs": 11,
+      "visitors": {
+        "types": 3,
+        "present": 3,
+        "walking": 0
+      },
+      "insideNPCs": 1,
+      "contextLost": false
+    },
+    {
+      "day": 5,
+      "weather": "fog",
+      "calendar": {
+        "seasonal": {
+          "id": "spring-verge",
+          "label": "若葉を眺める日"
+        },
+        "cycleDay": 5,
+        "weekIndex": 0,
+        "weekly": {
+          "id": "quiet",
+          "label": "静かな日"
+        },
+        "market": false,
+        "gathering": false,
+        "season": "spring",
+        "marketMultiplier": 0.85
+      },
+      "scheduledNPCs": 11,
+      "visitors": {
+        "types": 3,
+        "present": 2,
+        "walking": 0
+      },
+      "insideNPCs": 1,
+      "contextLost": false
+    },
+    {
+      "day": 6,
+      "weather": "blackout",
+      "calendar": {
+        "seasonal": null,
+        "cycleDay": 6,
+        "weekIndex": 0,
+        "weekly": {
+          "id": "water-lights",
+          "label": "水辺に灯りを出す日"
+        },
+        "market": false,
+        "gathering": false,
+        "season": "spring",
+        "marketMultiplier": 1
+      },
+      "scheduledNPCs": 11,
+      "visitors": {
+        "types": 3,
+        "present": 2,
+        "walking": 2
+      },
+      "insideNPCs": 2,
+      "contextLost": false
+    },
+    {
+      "day": 7,
+      "weather": "clear",
+      "calendar": {
+        "seasonal": null,
+        "cycleDay": 7,
+        "weekIndex": 0,
+        "weekly": {
+          "id": "departures",
+          "label": "旅立ちの日"
+        },
+        "market": false,
+        "gathering": false,
+        "season": "autumn",
+        "marketMultiplier": 1
+      },
+      "scheduledNPCs": 11,
+      "visitors": {
+        "types": 3,
+        "present": 2,
+        "walking": 2
+      },
+      "insideNPCs": 0,
+      "contextLost": false
+    }
+  ],
+  "physicalResidentOuting": {
+    "dayOneTrail": [
+      [
+        -38.19,
+        6.262000000186264,
+        4.88
+      ],
+      [
+        -108.74395245592355,
+        8.650000047683715,
+        -14.597444269511737
+      ],
+      [
+        -108.74395245592355,
+        8.650000047683715,
+        -14.597444269511737
+      ],
+      [
+        -108.74395245592355,
+        8.650000047683715,
+        -14.597444269511737
+      ],
+      [
+        -108.74395245592355,
+        8.650000047683715,
+        -14.597444269511737
+      ],
+      [
+        -108.74395245592355,
+        8.650000047683715,
+        -14.597444269511737
+      ]
+    ],
+    "seatedTavernGuests": [
+      {
+        "index": 0,
+        "position": [
+          198,
+          0,
+          1.35
+        ],
+        "feet": -1.175696047620905e-09,
+        "body": 0.6789997710015223
+      }
+    ]
+  },
+  "otherChecks": {
+    "nativeInnBedRests": 6,
+    "reachedDay": 7,
+    "saveReload": true,
+    "fiveShopsHumanAndCatConversationPortrait": true,
+    "cameraPresets": 19,
+    "weatherProfiles": 6,
+    "qualityPresets": 3,
+    "followAndAnimations": true,
+    "mobileMapNavigationAndReload": true,
+    "seasonalGoodsNativeInteraction": "季節の小さな籠\n\n今年の麦で焼いた小さなパン。いつもの籠に、乾いた実が少し添えてある。\n\n閉じる",
+    "journalFilter": true,
+    "staticChecks": "all tools/check_*.mjs passed"
+  },
+  "performance": [
+    {
+      "baseline": true,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2980,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2645,
+          "triangles": 106113,
+          "ms": 24.599999994039536,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 35.70000001788139
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2980,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 34760,
+          "ms": 1.9000000059604645,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 2.9000000059604645
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2980,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2645,
+          "triangles": 106113,
+          "ms": 17.200000017881393,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 36.29999998211861
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2980,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 34760,
+          "ms": 2.899999976158142,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 3
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2980,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2631,
+          "triangles": 106099,
+          "ms": 16.099999994039536,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 40.599999994039536
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2980,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 141,
+          "triangles": 34746,
+          "ms": 1.5999999940395355,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 2
+        }
+      ],
+      "median": 336.19999998807907
+    },
+    {
+      "baseline": false,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 3007,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2668,
+          "triangles": 106927,
+          "ms": 17.599999994039536,
+          "textures": 19,
+          "programs": 21,
+          "p95Ms": 29.900000005960464
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 3007,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 34928,
+          "ms": 5.9000000059604645,
+          "textures": 19,
+          "programs": 21,
+          "p95Ms": 31.69999998807907
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 3007,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2668,
+          "triangles": 106927,
+          "ms": 20.19999998807907,
+          "textures": 19,
+          "programs": 21,
+          "p95Ms": 45
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 3007,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 34928,
+          "ms": 3.5,
+          "textures": 19,
+          "programs": 21,
+          "p95Ms": 4.800000011920929
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 3007,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2654,
+          "triangles": 106913,
+          "ms": 18.5,
+          "textures": 19,
+          "programs": 32,
+          "p95Ms": 46.69999998807907
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 3007,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 141,
+          "triangles": 34914,
+          "ms": 1.7999999821186066,
+          "textures": 19,
+          "programs": 32,
+          "p95Ms": 2.5
+        }
+      ],
+      "median": 282.90000000596046
+    }
+  ],
+  "simulationUpdateMeasurements": [
+    {
+      "baseline": true,
+      "measurements": [
+        {
+          "quality": "high",
+          "median": 0.29999998211860657,
+          "p95": 1,
+          "max": 4.0999999940395355,
+          "scheduled": 11,
+          "stats": {
+            "scheduled": 11,
+            "period": "day",
+            "outsideVisible": 8,
+            "walking": 8,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 8,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 11
+          }
+        },
+        {
+          "quality": "standard",
+          "median": 0.29999998211860657,
+          "p95": 0.9000000059604645,
+          "max": 2.699999988079071,
+          "scheduled": 11,
+          "stats": {
+            "scheduled": 11,
+            "period": "day",
+            "outsideVisible": 8,
+            "walking": 4,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 8,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 11
+          }
+        },
+        {
+          "quality": "mobile",
+          "median": 0.20000001788139343,
+          "p95": 0.6000000238418579,
+          "max": 2.2999999821186066,
+          "scheduled": 11,
+          "stats": {
+            "scheduled": 11,
+            "period": "day",
+            "outsideVisible": 8,
+            "walking": 3,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 8,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 11
+          }
+        }
+      ]
+    },
+    {
+      "baseline": false,
+      "measurements": [
+        {
+          "quality": "high",
+          "median": 0.30000001192092896,
+          "p95": 0.7000000178813934,
+          "max": 1.5,
+          "scheduled": 11,
+          "stats": {
+            "scheduled": 11,
+            "period": "day",
+            "outsideVisible": 8,
+            "walking": 8,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 8,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 11
+          }
+        },
+        {
+          "quality": "standard",
+          "median": 0.20000001788139343,
+          "p95": 0.5999999940395355,
+          "max": 1,
+          "scheduled": 11,
+          "stats": {
+            "scheduled": 11,
+            "period": "day",
+            "outsideVisible": 8,
+            "walking": 4,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 8,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 11
+          }
+        },
+        {
+          "quality": "mobile",
+          "median": 0.29999998211860657,
+          "p95": 0.6000000238418579,
+          "max": 1.199999988079071,
+          "scheduled": 11,
+          "stats": {
+            "scheduled": 11,
+            "period": "day",
+            "outsideVisible": 8,
+            "walking": 3,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 8,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 11
+          }
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Software rendering timings vary with shared host load and are not physical-phone FPS.",
+    "Detailed crowd deadlock resolution and all 31 actors having complete long-distance schedules remain future work.",
+    "Floating goods count is limited to registered geometry, not a guarantee about every decorative vertex."
+  ]
+}

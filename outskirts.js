@@ -2,7 +2,7 @@ import {createDetailBatch} from './miniature.js';
 // One modest west approach; no changes to town terrain or watercourse.
 export const outskirtsLayout={
  gate:[-53,6.25,5],hill:[-109,8.65,-14],
- road:[[-38.55,6.25,5],[-49,6.25,5],[-58,6.25,5],[-70,6.75,3],[-83,7.25,-2],[-95,7.85,-8],[-109,8.65,-14]],
+ road:[[-38.55,6.25,5],[-41.8,6.25,5],[-41.8,6.25,4.45],[-44.5,6.25,4.45],[-45.1,6.25,5],[-49,6.25,5],[-58,6.25,5],[-70,6.75,3],[-83,7.25,-2],[-95,7.85,-8],[-109,8.65,-14]],
  catPassage:[-74,6.917,5.8],catDiscovery:[-77,7.042,4.4]
 };
 export function buildOutskirts({THREE,scene,box}){
@@ -49,7 +49,7 @@ export function buildOutskirts({THREE,scene,box}){
  const benchY=bankHeight(-99,-6.4);const bench=slab(-99,benchY+.43,-6.4,1.2,.10,.42,wood);bench.name='Roadside quiet resting bench';catSteps.push(bench);
  for(const x of [-99.45,-98.55])slab(x,benchY+.33,-6.4,.10,.33,.32,wood);
  // A second low, real side opening: human road stays broad and unchanged.
- const gap=[-91,7.67,-.65];
+ const gap=[-91,bankHeight(-91,-3),-3];
  for(const z of [gap[2]-.32,gap[2]+.32])slab(gap[0],gap[1]+.95,z,.5,.95,.20,stone);
  slab(gap[0],gap[1]+1.19,gap[2],.5,.42,.84,stone).name='Second low verge opening';
  // Beyond the broken rail, supported distant ground suggests a road onward.

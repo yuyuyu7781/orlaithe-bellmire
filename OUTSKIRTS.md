@@ -49,3 +49,18 @@ Lights 14, transparent meshes 34 and shadow casters 193 are unchanged.
 The added geometry is static, opaque, and shared-material; no permanent second
 render pass. No cart is implemented. A true continuous interior doorway mesh,
 further countryside, wind audio and real-phone performance remain future work.
+
+## v19.4–v20.5 finishing
+
+The approach now bends around the inn luggage via (-41.8,5) and (-41.8,4.45),
+then rejoins the original road at (-45.1,5). This is a physical street/waypoint
+correction, not collision bypassing. One existing resident walks from the inn
+area to the hill on clear odd-numbered afternoons and returns toward the inn
+at evening. Three temporary visitor types remain the same; no new crowd added.
+
+A ground-height sampled bench, four low wall fragments and 22 muted verge plants
+are shared geometry/material details. A second low opening at (-91,-3) sits on
+the actual grass bank: human shoulders do not fit, a cat crosses with native
+walking. The bench is also one of six newly validated cat jump supports.
+The sign mentions Lunmere and Lake Lun. Distant supported ground beyond the
+existing broken rail hints at continuation; it does not create another map.

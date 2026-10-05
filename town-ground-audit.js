@@ -2,7 +2,7 @@
 export function auditTownGround({THREE,shells,grounding}){
  const buildings=shells.map(({object,b})=>{const bounds=b??new THREE.Box3().setFromObject(object,true),p=bounds.getCenter(new THREE.Vector3()),ground=grounding.heightAt(p.x,p.z);return {name:object.name,position:p.toArray(),bottom:bounds.min.y,ground,gap:ground===null?null:bounds.min.y-ground,supported:!!object.userData.supportedPorch?.every(post=>{const b=new THREE.Box3().setFromObject(post,true),p=b.getCenter(new THREE.Vector3()),y=grounding.heightAt(p.x,p.z);return y!==null&&Math.abs(b.max.y-bounds.min.y)<.05&&b.min.y<=y+.05;})};});
  const goods=grounding.objects.filter(e=>!e.person&&!e.seat).map(e=>{const b=new THREE.Box3().setFromObject(e.object,true),p=b.getCenter(new THREE.Vector3()),ground=grounding.heightAt(p.x,p.z);return{name:e.object.name,position:p.toArray(),bottom:b.min.y,ground,gap:ground===null?null:b.min.y-ground,unresolved:!!e.object.userData.grounding?.unresolved};});
- return {buildings,goods,floatingBuildings:buildings.filter(e=>e.gap>.12&&!e.supported),unsupportedGoods:goods.filter(e=>e.unresolved||e.gap>.12||e.gap<-.12)};
+ return {buildings,goods,floatingBuildings:buildings.filter(e=>e.gap>.12&&!e.supported),unsupportedGoods:goods.filter(e=>e.unresolved||e.ground===null||e.gap>.12||e.gap<-.12)};
 }
 // Existing high houses keep their roof/door height; a visible stone plinth fills
 // the unsupported volume. Nothing projects beyond the old building footprint.
