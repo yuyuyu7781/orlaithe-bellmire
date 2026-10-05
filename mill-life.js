@@ -19,6 +19,16 @@ export function addMillLife({THREE,scene,walking,grounding,millrace}){
   batch.add('pot',linen,[x-.16,y+.60,z],[.21,.25,.20]);
   batch.add('block',timber,[x+.14,y+.50,z],[.24,.035,.12]);
  });
+ // A single dry water-drawing foothold; leave both narrow bank paths open.
+ site(21.55,-12.1,.42,.46,(x,y,z)=>{
+  batch.add('block',wet,[x,y+.055,z],[.42,.11,.46]);
+  batch.add('pot',timber,[x,y+.25,z],[.22,.28,.22]);
+  batch.add('pot',wet,[x,y+.392,z],[.17,.008,.17]);
+ });
+ // A small stack of damp offcuts beside the existing mill work bench.
+ site(24.05,30.15,.36,.42,(x,y,z)=>{
+  for(let i=0;i<3;i++)batch.add('block',timber,[x,y+.06+i*.075,z],[.34,.065,.32-i*.025]);
+ });
  // Small stains/stone seams on the existing banks; never crowd the walking lane.
  for(const p of millrace.layout.open.filter((_,i)=>i%2===0)){
   for(const side of [-1,1]){batch.add('block',wet,[p[0]+side*.355,p[1]+.05,p[2]],[.015,.13,.20]);batch.add('leaf',moss,[p[0]+side*.36,p[1]+.12,p[2]+.15],[.045,.025,.075]);}
