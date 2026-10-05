@@ -1,0 +1,8 @@
+// Restore immutable base colours before applying a deterministic three-day cycle.
+// Only fabrics and goods change; all silhouettes, floors and routes stay fixed.
+export function createDayDetails({THREE,culture,townLife}){
+ const entries=[];for(const object of culture.goods){if(!/cloth|wool|linen|bags|parcels|luggage/i.test(object.name))continue;let count=0;object.traverse(o=>{if(!o.isMesh||!o.material?.color||count>=2)return;const material=o.material.clone();o.material=material;entries.push({object:o,material,base:material.color.clone(),name:object.name});count++;});}
+ const palettes=[0xd5c6aa,0xaebcb0,0xb6b8c2].map(c=>new THREE.Color(c));let day=0;
+ function apply(state){if(state.dayIndex===day)return;day=state.dayIndex;entries.forEach((e,i)=>{e.material.color.copy(e.base).lerp(palettes[(day-1+i)%3],day===1?0:.16);e.object.userData.stayDay=day;});}
+ townLife.onChange(apply);apply(townLife.state);return {entries,apply,get day(){return day},addedMeshes:0,addedLights:0};
+}

@@ -1,0 +1,16 @@
+// A quiet, append-only travel notebook. No objectives, scores, or frame updates.
+export function createJournal({stay,walking,inspections,dialogue,navigation,townLife}){
+ const button=document.createElement('button');button.id='journalButton';button.textContent='記録';navigation.tools.append(button);
+ const dialog=document.createElement('dialog');dialog.className='journal-dialog';dialog.setAttribute('aria-labelledby','journalTitle');
+ const heading=document.createElement('h2');heading.id='journalTitle';heading.textContent='旅の覚え書き';const close=document.createElement('button');close.textContent='閉じる';close.className='journal-close';
+ const pages=document.createElement('div');pages.className='journal-pages';dialog.append(heading,close,pages);document.body.append(dialog);let dirty=true;
+ function render(){if(!dirty)return;dirty=false;pages.replaceChildren();if(!stay.data.journal.length){const p=document.createElement('p');p.textContent='まだ白い頁。街で気づいたことを、ここに残していく。';pages.append(p);}for(const entry of stay.data.journal){const article=document.createElement('article'),date=document.createElement('small'),text=document.createElement('p');date.textContent='Day '+entry.day;text.textContent=entry.text;article.append(date,text);pages.append(article);}}
+ function open(){render();inspections.dismiss();document.exitPointerLock?.();walking.setInputBlocked('journal',true);dialog.showModal();close.focus();}
+ button.onclick=open;close.onclick=()=>dialog.close();dialog.addEventListener('close',()=>walking.setInputBlocked('journal',false));dialog.addEventListener('cancel',()=>walking.setInputBlocked('journal',false));
+ stay.onChange(()=>{dirty=true;if(dialog.open)render();});
+ const places={'well':'井戸の縁には、何度も桶を置いた跡がある。','travel-stone':'旅立つ前に触れるという石に、手の丸い跡が残る。','moorings':'港の古い印には、星と円が重なっていた。','mill':'上から来た水が、輪を回して港へ抜けていく。','leat':'石の溝を、水がひとつ下の段へ渡っていく。','orrery':'真鍮の円の向こうに、古い星の並びがある。','belfry-mark':'鐘楼の古い印。音を数えた人の指の跡にも見える。','star-chart':'古い星図には、いくつかの円が残っていた。'};
+ inspections.onPresent(({entry,kind,text})=>{if(kind==='talk'||kind==='enter'||kind==='exit')return;const mode=walking.state.profile.id,event=entry.event,cat=mode==='cat',special=kind==='town-event'||entry.id.includes('perch')||places[entry.id];if(!special)return;
+  const id='place:'+entry.id+':'+mode;stay.data.discoveries[entry.id]={day:townLife.state.dayIndex,playerMode:mode,period:townLife.state.period,label:entry.label};stay.note(id,event?.id==='upstream-stone'?'上流の石に、九本の線が刻まれていた。':places[entry.id]&&!cat?places[entry.id]:text,{kind:cat?'cat-discovery':'place',playerMode:mode});stay.changed();});
+ dialogue.onSpeak(({character,text,profile})=>{if(profile==='human'&&character.rumorPool?.includes(text)){let hash=2166136261;for(const c of text)hash=Math.imul(hash^c.charCodeAt(0),16777619);stay.note('rumor:'+character.id+':'+(hash>>>0),text,{kind:'rumor'});}});
+ return {button,dialog,open,render,get entries(){return stay.data.journal}};
+}

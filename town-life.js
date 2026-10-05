@@ -44,9 +44,11 @@ export function createTownLife({THREE,scene,lit,smoke,chimneySources,buildings=[
   smoke.forEach((o,i)=>{const q=chimneySources[i%chimneySources.length],site=siteAt(new THREE.Vector3(q[0],q[1],q[2]));let factor={morning:.85,day:.65,evening:.45,night:.25}[state.period];if(site==='baker')factor={morning:1.08,day:.72,evening:.18,night:.08}[state.period];o.userData.lifeSmokeFactor=factor*(state.weather==='rain'?.75:1);});
   for(const fn of listeners)fn({...state,openShops:{...state.openShops}});
  }
- function dayAdvance(){state.dayIndex=Math.min(9999,state.dayIndex+1);state.dayStart=state.dayIndex;if(stay){stay.data.currentDay=state.dayIndex;stay.data.dayStart=state.dayStart;stay.changed();}setPeriod('morning');return state.dayIndex;}
- function setPeriod(period){if(!periodSettings[period])throw Error('Unknown time period: '+period);state.period=period;update();}
- function setWeather(weather){state.weather=weather;state.period=periodForWeather(weather);update();}
+ let phaseElapsed=0;const phaseSeconds=240;
+ function tick(dt,active=true){if(!active||state.period==='night')return;phaseElapsed+=Math.min(.1,Math.max(0,dt));if(phaseElapsed>=phaseSeconds)setPeriod(({morning:'day',day:'evening',evening:'night'})[state.period]);}
+ function dayAdvance(){state.dayIndex=Math.min(9999,state.dayIndex+1);state.dayStart=state.dayIndex;if(stay){stay.data.currentDay=state.dayIndex;stay.data.dayStart=state.dayStart;stay.data.weatherHistory.push({day:state.dayIndex,weather:state.weather});if(stay.data.weatherHistory.length>30)stay.data.weatherHistory.shift();stay.changed();}setPeriod('morning');return state.dayIndex;}
+ function setPeriod(period){if(!periodSettings[period])throw Error('Unknown time period: '+period);phaseElapsed=0;state.period=period;update();}
+ function setWeather(weather){phaseElapsed=0;state.weather=weather;state.period=periodForWeather(weather);update();}
  update();
- return {state,entries,points,glowMap,windowBatch,homes,setPeriod,setWeather,dayAdvance,onChange(fn){listeners.add(fn);return()=>listeners.delete(fn);},get stats(){return {windows:entries.filter(e=>e.window).length,litWindows:entries.filter(e=>e.window&&e.material.emissiveIntensity>0).length,lamps:entries.filter(e=>!e.window).length,pointLights:points.length};}};
+ return {state,entries,points,glowMap,windowBatch,homes,setPeriod,setWeather,dayAdvance,tick,get phaseElapsed(){return phaseElapsed},phaseSeconds,onChange(fn){listeners.add(fn);return()=>listeners.delete(fn);},get stats(){return {windows:entries.filter(e=>e.window).length,litWindows:entries.filter(e=>e.window&&e.material.emissiveIntensity>0).length,lamps:entries.filter(e=>!e.window).length,pointLights:points.length};}};
 }

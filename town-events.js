@@ -17,7 +17,7 @@ export function createTownEvents({THREE,scene,culture,inspectTargets,inspections
    const at=event.id==='upstream-stone'?new THREE.Vector3(21.35,6.275,21):event.id==='ninth-bell'?new THREE.Vector3(center.x,b.max.y+.05,center.z):new THREE.Vector3(b.max.x+.055,b.min.y+.012,center.z-.12);
    clue.name=event.label;clue.position.copy(object.worldToLocal(at));clue.userData.walkSoft=true;object.add(clue);props.push(clue);
   }
-  const entry={id:'event:'+event.id,kind:'town-event',verb:'調べる',label:event.label,object,localPoint:original?.localPoint??object.worldToLocal(center).toArray(),profiles:event.profiles??['human','cat'],range:3.2,priority:.25,event,
+  const entry={id:'event:'+event.id,kind:'town-event',verb:'調べる',label:event.label,object,localPoint:event.id==='upstream-stone'?object.worldToLocal(new THREE.Vector3(21.35,6.275,21)).toArray():original?.localPoint??object.worldToLocal(center).toArray(),profiles:event.profiles??['human','cat'],range:3.2,priority:event.id==='upstream-stone'?-.30:.25,event,
    enabled:()=>!shopSystem.current&&(states.get(event.id).state==='resolved'||!event.periods||event.periods.includes(townLife.state.period))};
   inspections.resolver.register(entry);entries.push(entry);
  }
