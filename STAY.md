@@ -75,3 +75,12 @@
   migration or extra per-frame storage writes are needed. A small, inert
   `futureCalendar` holds season/festival/visitor extension points. An actual
   visiting traveller and seasonal simulation remain unimplemented.
+
+### Weekly rhythm and seasons (v17.2)
+
+The same `currentDay` derives a seven-day cycle; no second day counter is saved.
+Save v1 now accepts an optional validated `season`, defaulting old saves to
+spring. Visitor encounters and weekly observations use existing discoveries /
+Journal storage. Exact NPC transit positions remain schedule-derived on reload.
+See [TOWN_RHYTHM.md](TOWN_RHYTHM.md) for visitor windows, the market / gathering,
+season trial, gesture-controlled audio, diagnostics and verification results.

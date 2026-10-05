@@ -1,0 +1,195 @@
+{
+  "version": "v16.7–v17.2",
+  "base": "8700ff5ac33b2c3451834edfbaf28dbca65e1ded",
+  "browser": "Chromium, software SwiftShader; not a real handset",
+  "checks": {
+    "nativeInnRests": 6,
+    "days": 7,
+    "reload": "day / season / Journal retained; default muted",
+    "humanRoutesNormal": 16,
+    "humanRoutesMarket": 16,
+    "tavernLaneValid": 520,
+    "tavernLaneTested": 520,
+    "visitorTypes": 3,
+    "visitorNativeTalks": 3,
+    "visitorArrivalDeparture": "all three reach town and return to origin, then become away",
+    "calendarNativeInspections": [
+      "weekly-market",
+      "waterfront-gathering"
+    ],
+    "officialHumanCatPortraitTalks": 10,
+    "shops": 5,
+    "nativeCatJumps": 5,
+    "cameras": 19,
+    "weather": 6,
+    "diagnostics": "URL opt-in, FPS / calls / triangles / scheduled NPCs / quality",
+    "audio": {
+      "gesture": true,
+      "mute": true,
+      "contexts": 1,
+      "continuousSources": 3,
+      "rainRms": 0.00586
+    },
+    "upperLedges": {
+      "converted": 4,
+      "newWalkableBalconies": 0,
+      "depth": 0.32,
+      "minimumStreetClearance": 2.55
+    }
+  },
+  "performance": [
+    {
+      "baseline": true,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "calls": 2587,
+          "triangles": 102237,
+          "meshes": 2911,
+          "lights": 14,
+          "casters": 208,
+          "transparent": 34,
+          "ms": 22.599999994039536
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "calls": 154,
+          "triangles": 34580,
+          "meshes": 2911,
+          "lights": 14,
+          "casters": 208,
+          "transparent": 34,
+          "ms": 3.699999988079071
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "calls": 2587,
+          "triangles": 102237,
+          "meshes": 2911,
+          "lights": 14,
+          "casters": 208,
+          "transparent": 34,
+          "ms": 16
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "calls": 154,
+          "triangles": 34580,
+          "meshes": 2911,
+          "lights": 14,
+          "casters": 208,
+          "transparent": 34,
+          "ms": 1.600000023841858
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "calls": 2573,
+          "triangles": 102223,
+          "meshes": 2911,
+          "lights": 14,
+          "casters": 208,
+          "transparent": 34,
+          "ms": 10.399999976158142
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "calls": 140,
+          "triangles": 34566,
+          "meshes": 2911,
+          "lights": 14,
+          "casters": 208,
+          "transparent": 34,
+          "ms": 1.399999976158142
+        }
+      ]
+    },
+    {
+      "baseline": false,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "calls": 2587,
+          "triangles": 102213,
+          "meshes": 2927,
+          "lights": 14,
+          "casters": 208,
+          "transparent": 34,
+          "ms": 14.900000005960464
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "calls": 154,
+          "triangles": 34580,
+          "meshes": 2927,
+          "lights": 14,
+          "casters": 208,
+          "transparent": 34,
+          "ms": 2.0999999940395355
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "calls": 2587,
+          "triangles": 102213,
+          "meshes": 2927,
+          "lights": 14,
+          "casters": 208,
+          "transparent": 34,
+          "ms": 16.80000001192093
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "calls": 154,
+          "triangles": 34580,
+          "meshes": 2927,
+          "lights": 14,
+          "casters": 208,
+          "transparent": 34,
+          "ms": 2.9000000059604645
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "calls": 2573,
+          "triangles": 102199,
+          "meshes": 2927,
+          "lights": 14,
+          "casters": 208,
+          "transparent": 34,
+          "ms": 12.799999982118607
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "calls": 140,
+          "triangles": 34566,
+          "meshes": 2927,
+          "lights": 14,
+          "casters": 208,
+          "transparent": 34,
+          "ms": 2.4000000059604645
+        }
+      ]
+    }
+  ],
+  "busyDay": {
+    "calls": 2609,
+    "triangles": 102609,
+    "newLights": 0
+  },
+  "limitations": [
+    "No real-phone profiling or audio audition",
+    "Synthetic sound textures remain provisional",
+    "Only spring/autumn trial visuals; other seasons metadata",
+    "Exact visitor transit positions are not persisted"
+  ]
+}
