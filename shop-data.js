@@ -36,7 +36,7 @@ export const townEventDefinitions=[
 ];
 export const soundAnchors=[
  {id:'harbor-water',area:'town',kind:'water',position:[0,1.38,38],src:null},
- {id:'spring-water',area:'town',kind:'water',position:[20,5.1,-14.15],radius:9,gain:.18,src:null},
+ {id:'spring-water',area:'town',kind:'water',position:[20,5.6,-16.25],radius:9,gain:.18,src:null},
  {id:'stream-water',area:'town',kind:'water',position:[20,4,-6],radius:11,gain:.12,src:null},
  {id:'mill-wheel',area:'town',kind:'wheel',position:[21.05,5.98,27],src:null},
  {id:'bell',area:'town',kind:'bell',position:[-8,20,-20],src:null},

@@ -29,6 +29,8 @@ export function addMillLife({THREE,scene,walking,grounding,millrace}){
  site(24.45,30.55,.36,.42,(x,y,z)=>{
   for(let i=0;i<3;i++)batch.add('block',timber,[x,y+.06+i*.075,z],[.34,.065,.32-i*.025]);
  });
+ // A few low moss patches, never a planted garden or another collider.
+ for(const [x,z]of [[19.25,-17.35],[20.60,-17.50],[21.05,-16.90]])batch.add('leaf',moss,[x,millrace.layout.source[1]+.08,z],[.11,.025,.08]);
  // Small stains/stone seams on the existing banks; never crowd the walking lane.
  for(const p of millrace.layout.open.filter((_,i)=>i%2===0)){
   for(const side of [-1,1]){batch.add('block',wet,[p[0]+side*.355,p[1]+.05,p[2]],[.015,.13,.20]);batch.add('leaf',moss,[p[0]+side*.36,p[1]+.12,p[2]+.15],[.045,.025,.075]);}
