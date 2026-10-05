@@ -1,0 +1,1097 @@
+{
+  "version": "v17.7",
+  "baselineMain": "b17288fead95f8a14b1f98f6ea406f05ac8ba6b1",
+  "environmentSettingsChanged": false,
+  "browser": "Chromium / WebGL (SwiftShader), PC and 390px phone-sized viewports",
+  "realHandsetTested": false,
+  "watercourse": {
+    "out": [
+      {
+        "mode": "human",
+        "from": [
+          19,
+          3.5,
+          -12
+        ],
+        "to": [
+          24.48,
+          4.15,
+          28.18
+        ],
+        "nodes": 2374,
+        "samples": 1088,
+        "maxEyeDelta": 0.08683272785102147,
+        "feet": [
+          24.48,
+          4.15,
+          28.18
+        ]
+      },
+      {
+        "mode": "human",
+        "from": [
+          18.3,
+          3.5,
+          -8.9
+        ],
+        "to": [
+          21.7,
+          3.5,
+          -8.9
+        ],
+        "nodes": 93,
+        "samples": 85,
+        "maxEyeDelta": 0.09829404533213104,
+        "feet": [
+          21.7,
+          3.5,
+          -8.9
+        ]
+      },
+      {
+        "mode": "human",
+        "from": [
+          19.4,
+          3.5,
+          17.6
+        ],
+        "to": [
+          22.55,
+          3.5,
+          17.6
+        ],
+        "nodes": 73,
+        "samples": 81,
+        "maxEyeDelta": 0.08143964728652975,
+        "feet": [
+          22.55,
+          3.5,
+          17.6
+        ]
+      },
+      {
+        "mode": "human",
+        "from": [
+          19.4,
+          3.5,
+          23.15
+        ],
+        "to": [
+          22.55,
+          3.5,
+          23.15
+        ],
+        "nodes": 47,
+        "samples": 83,
+        "maxEyeDelta": 0.07846532801407768,
+        "feet": [
+          22.55,
+          3.5,
+          23.15
+        ]
+      },
+      {
+        "mode": "human",
+        "from": [
+          19.3,
+          1.38,
+          34.2
+        ],
+        "to": [
+          23.4,
+          1.38,
+          34.2
+        ],
+        "nodes": 90,
+        "samples": 105,
+        "maxEyeDelta": 0.08970157704654413,
+        "feet": [
+          23.4,
+          1.3799999976158142,
+          34.2
+        ]
+      },
+      {
+        "mode": "cat",
+        "from": [
+          19,
+          3.5,
+          -12
+        ],
+        "to": [
+          24.48,
+          4.15,
+          28.18
+        ],
+        "nodes": 1699,
+        "samples": 733,
+        "maxEyeDelta": 0.12770514758759166,
+        "feet": [
+          24.48,
+          4.15,
+          28.18
+        ]
+      },
+      {
+        "mode": "cat",
+        "from": [
+          18.3,
+          3.5,
+          -8.9
+        ],
+        "to": [
+          21.7,
+          3.5,
+          -8.9
+        ],
+        "nodes": 97,
+        "samples": 57,
+        "maxEyeDelta": 0.18334490920149982,
+        "feet": [
+          21.7,
+          3.5,
+          -8.9
+        ]
+      },
+      {
+        "mode": "cat",
+        "from": [
+          19.4,
+          3.5,
+          17.6
+        ],
+        "to": [
+          22.55,
+          3.5,
+          17.6
+        ],
+        "nodes": 75,
+        "samples": 53,
+        "maxEyeDelta": 0.1356092903315691,
+        "feet": [
+          22.55,
+          3.5,
+          17.6
+        ]
+      },
+      {
+        "mode": "cat",
+        "from": [
+          19.4,
+          3.5,
+          23.15
+        ],
+        "to": [
+          22.55,
+          3.5,
+          23.15
+        ],
+        "nodes": 47,
+        "samples": 56,
+        "maxEyeDelta": 0.125109282344547,
+        "feet": [
+          22.55,
+          3.5,
+          23.15
+        ]
+      },
+      {
+        "mode": "cat",
+        "from": [
+          19.3,
+          1.38,
+          34.2
+        ],
+        "to": [
+          23.4,
+          1.38,
+          34.2
+        ],
+        "nodes": 144,
+        "samples": 70,
+        "maxEyeDelta": 0.15301158127232117,
+        "feet": [
+          23.4,
+          1.3799999976158142,
+          34.2
+        ]
+      }
+    ],
+    "water": {
+      "stats": {
+        "timberLength": 0.9,
+        "smallSpringDrop": 0.63,
+        "bridges": 4,
+        "flowMarks": 33,
+        "addedLights": 0
+      },
+      "wheel": [
+        21.05,
+        5.98,
+        27
+      ],
+      "monotonic": true,
+      "bridges": [
+        {
+          "id": "upper",
+          "top": 4.194
+        },
+        {
+          "id": "middle",
+          "top": 4.075
+        },
+        {
+          "id": "mill",
+          "top": 4.054
+        },
+        {
+          "id": "quay",
+          "top": 2.33
+        }
+      ],
+      "routes": 3,
+      "npcs": {
+        "scheduled": 11,
+        "period": "day",
+        "outsideVisible": 8,
+        "walking": 0,
+        "inside": 0,
+        "addedResidents": 3,
+        "pathRequests": 8,
+        "updated": 1,
+        "near": 1,
+        "mid": 9,
+        "far": 1
+      }
+    },
+    "errors": []
+  },
+  "walkingRegression": {
+    "routes": [
+      {
+        "from": "square",
+        "to": "bakery",
+        "samples": 1816,
+        "maxEyeDelta": 0.061117639485838815,
+        "feet": [
+          -25.965,
+          3.5,
+          27
+        ],
+        "detour": true
+      },
+      {
+        "from": "square",
+        "to": "bookshop",
+        "samples": 116,
+        "maxEyeDelta": 0.03994074038675066,
+        "feet": [
+          -13.865000095367431,
+          1.592000003814697,
+          32.399999904632566
+        ],
+        "detour": true
+      },
+      {
+        "from": "square",
+        "to": "inn",
+        "samples": 1786,
+        "maxEyeDelta": 0.07025682957107104,
+        "feet": [
+          -32.965,
+          6.249999976158142,
+          2.5
+        ]
+      },
+      {
+        "from": "square",
+        "to": "tavern",
+        "samples": 257,
+        "maxEyeDelta": 0,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "square",
+        "to": "orrery",
+        "samples": 1134,
+        "maxEyeDelta": 0.07025682977865699,
+        "feet": [
+          3,
+          6.249999976158142,
+          1.7850000000000001
+        ]
+      },
+      {
+        "from": "market",
+        "to": "tavern",
+        "samples": 709,
+        "maxEyeDelta": 0,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "market",
+        "to": "bakery",
+        "samples": 1812,
+        "maxEyeDelta": 0.06111761472800925,
+        "feet": [
+          -25.965,
+          3.5,
+          27
+        ],
+        "detour": true
+      },
+      {
+        "from": "harbor",
+        "to": "tavern",
+        "samples": 569,
+        "maxEyeDelta": 0.061767353332156105,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "harbor",
+        "to": "market",
+        "samples": 764,
+        "maxEyeDelta": 0.061767353332156105,
+        "feet": [
+          19.566,
+          3.5,
+          15.586
+        ]
+      },
+      {
+        "from": "harbor",
+        "to": "bakery",
+        "samples": 1812,
+        "maxEyeDelta": 0.06111761472800925,
+        "feet": [
+          -25.965,
+          3.5,
+          27
+        ],
+        "detour": true
+      },
+      {
+        "from": "mill",
+        "to": "tavern",
+        "samples": 798,
+        "maxEyeDelta": 0.07623373175432668,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ],
+        "detour": true
+      },
+      {
+        "from": "mill",
+        "to": "harbor",
+        "samples": 723,
+        "maxEyeDelta": 0.0784653301096414,
+        "feet": [
+          6.938893903907228e-18,
+          1.3799999976158142,
+          32
+        ],
+        "detour": true
+      },
+      {
+        "from": "orrery",
+        "to": "tavern",
+        "samples": 1029,
+        "maxEyeDelta": 0.07291144348578982,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "cable",
+        "to": "square",
+        "samples": 542,
+        "maxEyeDelta": 0.0784653301096414,
+        "feet": [
+          2.849999999999999,
+          3.5,
+          18.500000000000128
+        ],
+        "detour": true
+      },
+      {
+        "from": "belfry",
+        "to": "square",
+        "samples": 988,
+        "maxEyeDelta": 0.0778443175526764,
+        "feet": [
+          2.849999999999999,
+          3.5,
+          18.500000000000128
+        ]
+      },
+      {
+        "from": "straight-tavern-lane",
+        "to": "tavern",
+        "samples": 168,
+        "maxEyeDelta": 0,
+        "feet": [
+          -5.365,
+          3.5,
+          12.3
+        ]
+      }
+    ],
+    "lane": {
+      "tested": 520,
+      "valid": 520
+    }
+  },
+  "weatherEventSave": [
+    {
+      "stoneText": "水路の丸い石\n\n上流の溝に、丸い石がひとつ挟まっている。濡れると、細い九本の線が浮かぶ。\n\n閉じる",
+      "state": {
+        "state": "noticed",
+        "heardAt": null,
+        "noticedAt": "day",
+        "resolvedAt": null,
+        "noticedDay": 1
+      }
+    },
+    {
+      "weather": "clear",
+      "state": "clear",
+      "water": "4b7175",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "weather": "dawn",
+      "state": "dawn",
+      "water": "43646b",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "weather": "rain",
+      "state": "rain",
+      "water": "46696d",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "weather": "fog",
+      "state": "fog",
+      "water": "4b7175",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "weather": "night",
+      "state": "night",
+      "water": "3b5a5d",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "weather": "blackout",
+      "state": "blackout",
+      "water": "283f41",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "restored": {
+        "state": "noticed",
+        "heardAt": null,
+        "noticedAt": "day",
+        "resolvedAt": null,
+        "noticedDay": 1
+      },
+      "journal": [
+        {
+          "id": "place:event:upstream-stone:human",
+          "day": 1,
+          "text": "上流の石に、九本の線が刻まれていた。",
+          "kind": "place",
+          "playerMode": "human"
+        }
+      ]
+    }
+  ],
+  "residentCalendarSimulation": [
+    {
+      "day": 1,
+      "calendar": {
+        "cycleDay": 1,
+        "weekIndex": 0,
+        "weekly": {
+          "id": "ordinary",
+          "label": "いつもの日"
+        },
+        "market": false,
+        "gathering": false,
+        "season": "spring",
+        "marketMultiplier": 1
+      },
+      "visitors": {
+        "types": 3,
+        "present": 0,
+        "walking": 0
+      },
+      "waterUse": [
+        {
+          "index": 2,
+          "destination": "harbor",
+          "state": "working",
+          "feet": [
+            -2.4203805922287485,
+            1.3799999976158142,
+            30.820380592228744
+          ],
+          "valid": true
+        },
+        {
+          "index": 5,
+          "destination": "mill",
+          "state": "working",
+          "feet": [
+            30.4824,
+            4.15,
+            27.53
+          ],
+          "valid": true
+        }
+      ],
+      "scenery": {
+        "stalls": 2,
+        "lamps": 2,
+        "market": false,
+        "gathering": false,
+        "addedLights": 0
+      }
+    },
+    {
+      "day": 2,
+      "calendar": {
+        "cycleDay": 2,
+        "weekIndex": 0,
+        "weekly": {
+          "id": "cargo",
+          "label": "荷の多い日"
+        },
+        "market": false,
+        "gathering": false,
+        "season": "spring",
+        "marketMultiplier": 1
+      },
+      "visitors": {
+        "types": 3,
+        "present": 1,
+        "walking": 0
+      },
+      "waterUse": [
+        {
+          "index": 2,
+          "destination": "harbor",
+          "state": "working",
+          "feet": [
+            -1.7387241540882827,
+            1,
+            30.416314683438173
+          ],
+          "valid": true
+        },
+        {
+          "index": 5,
+          "destination": "mill",
+          "state": "working",
+          "feet": [
+            30.4824,
+            4.15,
+            27.53
+          ],
+          "valid": true
+        }
+      ],
+      "scenery": {
+        "stalls": 2,
+        "lamps": 2,
+        "market": false,
+        "gathering": false,
+        "addedLights": 0
+      }
+    },
+    {
+      "day": 3,
+      "calendar": {
+        "cycleDay": 3,
+        "weekIndex": 0,
+        "weekly": {
+          "id": "roads",
+          "label": "旅人の来る日"
+        },
+        "market": false,
+        "gathering": false,
+        "season": "spring",
+        "marketMultiplier": 1
+      },
+      "visitors": {
+        "types": 3,
+        "present": 2,
+        "walking": 2
+      },
+      "waterUse": [
+        {
+          "index": 2,
+          "destination": "harbor",
+          "state": "working",
+          "feet": [
+            -1.7387241540882827,
+            1,
+            30.416314683438173
+          ],
+          "valid": true
+        },
+        {
+          "index": 5,
+          "destination": "mill",
+          "state": "working",
+          "feet": [
+            30.4824,
+            4.15,
+            27.53
+          ],
+          "valid": true
+        }
+      ],
+      "scenery": {
+        "stalls": 2,
+        "lamps": 2,
+        "market": false,
+        "gathering": false,
+        "addedLights": 0
+      }
+    },
+    {
+      "day": 4,
+      "calendar": {
+        "cycleDay": 4,
+        "weekIndex": 0,
+        "weekly": {
+          "id": "market",
+          "label": "市の日"
+        },
+        "market": false,
+        "gathering": false,
+        "season": "spring",
+        "marketMultiplier": 1
+      },
+      "visitors": {
+        "types": 3,
+        "present": 3,
+        "walking": 3
+      },
+      "waterUse": [
+        {
+          "index": 2,
+          "destination": "mill",
+          "state": "walking",
+          "feet": [
+            19.5,
+            3.5,
+            22.7
+          ],
+          "valid": true
+        },
+        {
+          "index": 5,
+          "destination": "harbor",
+          "state": "walking",
+          "feet": [
+            20.5,
+            4.053999999105931,
+            22.7
+          ],
+          "valid": true
+        }
+      ],
+      "scenery": {
+        "stalls": 2,
+        "lamps": 2,
+        "market": false,
+        "gathering": false,
+        "addedLights": 0
+      }
+    },
+    {
+      "day": 5,
+      "calendar": {
+        "cycleDay": 5,
+        "weekIndex": 0,
+        "weekly": {
+          "id": "quiet",
+          "label": "静かな日"
+        },
+        "market": false,
+        "gathering": false,
+        "season": "spring",
+        "marketMultiplier": 0.85
+      },
+      "visitors": {
+        "types": 3,
+        "present": 2,
+        "walking": 0
+      },
+      "waterUse": [
+        {
+          "index": 2,
+          "destination": "tavern",
+          "state": "inside",
+          "feet": [
+            -5.365,
+            3.5,
+            12.3
+          ],
+          "valid": true
+        },
+        {
+          "index": 5,
+          "destination": "mill",
+          "state": "working",
+          "feet": [
+            30.4824,
+            4.15,
+            27.53
+          ],
+          "valid": true
+        }
+      ],
+      "scenery": {
+        "stalls": 2,
+        "lamps": 2,
+        "market": false,
+        "gathering": false,
+        "addedLights": 0
+      }
+    },
+    {
+      "day": 6,
+      "calendar": {
+        "cycleDay": 6,
+        "weekIndex": 0,
+        "weekly": {
+          "id": "water-lights",
+          "label": "水辺に灯りを出す日"
+        },
+        "market": false,
+        "gathering": true,
+        "season": "spring",
+        "marketMultiplier": 1
+      },
+      "visitors": {
+        "types": 3,
+        "present": 1,
+        "walking": 0
+      },
+      "waterUse": [
+        {
+          "index": 2,
+          "destination": "tavern",
+          "state": "inside",
+          "feet": [
+            -5.365,
+            3.5,
+            12.4
+          ],
+          "valid": true
+        },
+        {
+          "index": 5,
+          "destination": "mill",
+          "state": "working",
+          "feet": [
+            29.864857538214522,
+            4.15,
+            26.79383528607331
+          ],
+          "valid": true
+        }
+      ],
+      "scenery": {
+        "stalls": 2,
+        "lamps": 2,
+        "market": false,
+        "gathering": true,
+        "addedLights": 0
+      }
+    },
+    {
+      "day": 7,
+      "calendar": {
+        "cycleDay": 7,
+        "weekIndex": 0,
+        "weekly": {
+          "id": "departures",
+          "label": "旅立ちの日"
+        },
+        "market": false,
+        "gathering": false,
+        "season": "spring",
+        "marketMultiplier": 1
+      },
+      "visitors": {
+        "types": 3,
+        "present": 0,
+        "walking": 0
+      },
+      "waterUse": [
+        {
+          "index": 2,
+          "destination": "harbor",
+          "state": "walking",
+          "feet": [
+            -5.365,
+            3.5,
+            12.4
+          ],
+          "valid": false
+        },
+        {
+          "index": 5,
+          "destination": "mill",
+          "state": "working",
+          "feet": [
+            31.099942461785474,
+            4.15,
+            26.79383528607331
+          ],
+          "valid": true
+        }
+      ],
+      "scenery": {
+        "stalls": 2,
+        "lamps": 2,
+        "market": false,
+        "gathering": false,
+        "addedLights": 0
+      }
+    }
+  ],
+  "performance": [
+    {
+      "baseline": true,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2927,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2587,
+          "triangles": 102213,
+          "ms": 23.799999982118607,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 55
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2927,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34580,
+          "ms": 2,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 20.900000005960464
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2927,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2587,
+          "triangles": 102213,
+          "ms": 19.5,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 41.80000001192093
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2927,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34580,
+          "ms": 2.600000023841858,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 3
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2927,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2573,
+          "triangles": 102199,
+          "ms": 12.099999994039536,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 27.400000005960464
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2927,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 140,
+          "triangles": 34566,
+          "ms": 1.5,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 1.9000000059604645
+        }
+      ],
+      "median": 317.19999998807907
+    },
+    {
+      "baseline": false,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2888,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 2547,
+          "triangles": 102509,
+          "ms": 34.89999997615814,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 47.29999998211861
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2888,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 155,
+          "triangles": 35168,
+          "ms": 3.5,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 4.0999999940395355
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2888,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 2547,
+          "triangles": 102509,
+          "ms": 23.900000005960464,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 56.599999994039536
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2888,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 155,
+          "triangles": 35168,
+          "ms": 2.899999976158142,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 20.5
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2888,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 2533,
+          "triangles": 102495,
+          "ms": 9.400000005960464,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 24.600000023841858
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2888,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 141,
+          "triangles": 35154,
+          "ms": 1.4000000059604645,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 1.7000000178813934
+        }
+      ],
+      "median": 297.2999999821186
+    }
+  ],
+  "otherChecks": {
+    "fiveShopsHumanCatEntryTalkPortraitExit": true,
+    "formalPortraitsUnmodified": true,
+    "humanInspections": 14,
+    "catInspections": 5,
+    "cameras": 19,
+    "weatherModes": 6,
+    "originalCatPassages": 3,
+    "nativeCatJumps": 5,
+    "qualityModes": 3,
+    "audioUserGestureAndMuteReload": true,
+    "daySevenSeasonJournalReload": true,
+    "mapNavigationPCAndMobile": true,
+    "nodeChecks": "all tools/check_*.mjs passed",
+    "innUpperFloorSixNativeRestsAndDaySevenReload": true,
+    "weatherChangeInsideInnAndOutdoorCatchUp": true,
+    "catOnlyRoutesHumanBlockedNativeKeyboard": true
+  },
+  "limitations": [
+    "No physical smartphone was available.",
+    "Software-renderer timing varies; compare geometry and draw counts as well as time.",
+    "Scheduled NPCs may wait at crowded crossings; this task does not replace their existing route AI.",
+    "Water is a low-cost stylized flow, not a fluid simulation."
+  ]
+}

@@ -128,3 +128,14 @@ cover map controls, arrival, bakery entry, portrait conversation and return.
 動的判定を使う。仕事場では道の脇へ寄り、通行者を待避する。
 宿屋上階は実際の階段で移動する。猫は既存低い足場5個だけへ小ジャンプできる。
 既存3抜け道、店舗入口と出口、室内の人間・猫プロフィールは維持する。
+
+## v17.7 watercourse crossings
+
+The new open leat has four real walking decks with matching support geometry.
+Two-step approaches (three at the lower quay) respect the existing human `.38`
+step limit. The mill deck covers the existing diagonal street/NPC bend, not just
+an orthogonal crossing. Grounded cargo placement reserves the crossings and dry
+service margins before walking collision capture. Existing three cat passages,
+shop entrance destinations, main lane standard and sixteen route tests remain.
+The quay crossing avoids the existing safety lamp and uses the lower dry shore
+as its footing height. See `WATERCOURSE.md` for shared layout/data ownership.
