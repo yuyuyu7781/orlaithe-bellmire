@@ -1,8 +1,8 @@
 // One authoritative watercourse. Points describe water SURFACES, not pipe centres.
-// The spring emerges from the existing upper-terrace rock face; the open leat
+// A visible spring basin occupies an open pocket below the housing terrace; the leat
 // stays on the lower terrace instead of crossing the town on timber stilts.
 export const watercourseLayout={
- source:[20,6.0,-14.64],falls:[[20,6.0,-14.64],[20,5.13,-14.64],[20,5.13,-14.15],[20,4.23,-14.15]],stone:[20.61,4.475,-13.62],
+ source:[20,6.0,-16.25],springBasin:{center:[20,6.0,-16.25],radius:[1.3,1.5],lookout:[17.9,6.1,-16.3]},falls:[[20,6.0,-14.64],[20,5.13,-14.64],[20,5.13,-14.15],[20,4.23,-14.15]],stone:[20.61,4.475,-13.62],
  open:[[20,4.23,-13.40],[19.94,4.18,-12.92],[19.90,4.10,-12.15],[20.08,4.02,-11.15],[20,3.97,-10.05],[20,3.95,-8],[20,3.90,6.8],[20,3.88,8.8],[21.05,3.85,11.4],[21.05,3.81,24.4]],
  feed:[[21.05,3.81,24.4],[21.05,3.78,25.3]],
  wheel:[21.05,5.98,27],
@@ -20,7 +20,20 @@ export function createMillrace({THREE,scene,water,wood,stone,iron,box}){
  const moss=new THREE.MeshStandardMaterial({color:0x596850,roughness:1}),foam=new THREE.MeshStandardMaterial({color:0x819b94,roughness:1});
  const slab=(x,y,z,w,h,d,ma,parent=root)=>{const o=box(x,y,z,w,h,d,ma,parent);o.castShadow=false;return o;};
  function flow(x,y,z,w,h,d,role){const o=slab(x,y,z,w,h,d,water);if(role==='spring-fall'){const positions=o.geometry.attributes.position;for(let i=0;i<positions.count;i++){const top=positions.getY(i)>0;positions.setX(i,positions.getX(i)*(top?.82:1));}positions.needsUpdate=true;o.geometry.computeVertexNormals();}o.name='Water '+role;o.userData.waterRole=role;waterParts.push(o);return o;}
- // Two quiet rock steps against the existing cliff, not an elevated aqueduct.
+ // Visible spring pool in a cleared rock pocket, not water emitted by a wall.
+ const basin=watercourseLayout.springBasin;
+ const support=new THREE.Mesh(new THREE.CylinderGeometry(1,1.18,2.4,12),wet);
+ support.position.set(20,4.7,-16.25);support.scale.set(1.46,1,1.66);support.castShadow=false;root.add(support);
+ const sourcePool=new THREE.Mesh(new THREE.CylinderGeometry(1,1,.10,12),water);
+ sourcePool.position.set(20,5.95,-16.25);sourcePool.scale.set(...[basin.radius[0],1,basin.radius[1]]);sourcePool.name='Visible spring basin';sourcePool.userData.waterRole='spring-pool';root.add(sourcePool);waterParts.push(sourcePool);
+ // An open outlet tongue lets the pond surface feed the first drop visibly.
+ flow(20,5.90,-14.85,.47,.10,.42,'spring-step');
+ // Eight low rises lead to a dry bank, with no changes to main streets.
+ for(let i=0;i<8;i++){const top=3.5+(i+1)*.325,step=slab(17.9,3.5,-13.75-i*.30,.76,top-3.5,.30,dry);step.userData.walkSurface=true;step.name='Spring bank stair';}
+ const lookout=slab(17.9,5.95,-16.3,.88,.15,.84,dry);lookout.userData.walkSurface=true;lookout.name='Dry spring lookout';
+ // Keep the front bank open at the outlet; stones follow the rounded pond.
+ for(let i=0;i<9;i++){const a=(i+1)*Math.PI*2/10;if(Math.cos(a)>.8)continue;bankRock(20+Math.sin(a)*1.37,6.02,-16.25+Math.cos(a)*1.54,.32,.26,.35,i%3?wet:dry);}
+ // Two low stone shelves continue the existing falls below the visible pond.
  function bankRock(x,y,z,w,h,d,material=wet){const o=new THREE.Mesh(new THREE.DodecahedronGeometry(1,0),material);o.position.set(x,y,z);o.scale.set(w/2,h/2,d/2);o.castShadow=false;o.receiveShadow=true;root.add(o);return o;}
  bankRock(20,4.72,-14.92,1.18,2.48,.38);
  bankRock(20,4.46,-14.44,1.12,1.88,.40);
@@ -76,7 +89,7 @@ export function createMillrace({THREE,scene,water,wood,stone,iron,box}){
  const position=new THREE.Vector3();for(const f of flecks){f.length=f.a.distanceTo(f.b);f.rotation=new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,0,1),f.b.clone().sub(f.a).normalize());}
  function update(t){flecks.forEach((f,i)=>{const u=((f.offset+t*.42)%f.length)/f.length;position.copy(f.a).lerp(f.b,u);position.y+=.009;if(f.side)position.x+=f.side;matrix.compose(position,f.rotation,scale);marks.setMatrixAt(i,matrix);});marks.instanceMatrix.needsUpdate=true;}
  update(0);marks.computeBoundingBox();marks.computeBoundingSphere();
- const points=[...watercourseLayout.falls,...open,...watercourseLayout.feed.slice(1),...lower.slice(1)].map(p=>new THREE.Vector3(...p));
- const upstream={group:root,points:open.map(p=>new THREE.Vector3(...p)),sections,pond,spring,stonePoint:new THREE.Vector3(...watercourseLayout.stone),update:()=>{}};
+ const points=[watercourseLayout.source,...watercourseLayout.falls,...open,...watercourseLayout.feed.slice(1),...lower.slice(1)].map(p=>new THREE.Vector3(...p));
+ const upstream={group:root,points:open.map(p=>new THREE.Vector3(...p)),sections,pond,sourcePool,spring,stonePoint:new THREE.Vector3(...watercourseLayout.stone),update:()=>{}};
  return{root,waterParts,drops,update,upstream,points,bridges,materials:{dry,wet,timber,moss},layout:watercourseLayout,stats:{timberLength:.9,smallSpringDrop:1.77,springStages:2,bridges:bridges.length,flowMarks:flecks.length,addedLights:0}};
 }
