@@ -2,8 +2,8 @@
 // The spring emerges from the existing upper-terrace rock face; the open leat
 // stays on the lower terrace instead of crossing the town on timber stilts.
 export const watercourseLayout={
- source:[20,4.86,-14.48],stone:[20.61,4.475,-13.62],
- open:[[20,4.23,-13.40],[20,4.23,-13.02],[20,4.04,-13.02],[20,4.04,-12.60],[20,3.97,-12.60],[20,3.95,-8],[20,3.90,6.8],[20,3.88,8.8],[21.05,3.85,11.4],[21.05,3.81,24.4]],
+ source:[20,6.0,-14.64],falls:[[20,6.0,-14.64],[20,5.13,-14.64],[20,5.13,-14.15],[20,4.23,-14.15]],stone:[20.61,4.475,-13.62],
+ open:[[20,4.23,-13.40],[19.94,4.18,-12.92],[19.90,4.10,-12.15],[20.08,4.02,-11.15],[20,3.97,-10.05],[20,3.95,-8],[20,3.90,6.8],[20,3.88,8.8],[21.05,3.85,11.4],[21.05,3.81,24.4]],
  feed:[[21.05,3.81,24.4],[21.05,3.78,25.3]],
  wheel:[21.05,5.98,27],
  lower:[[21.05,3.78,25.3],[21.05,3.76,28.7],[21.35,3.75,29.3],[21.35,2.12,29.3],[21.35,2.09,32.2],[21.35,1.88,35.60],[21.35,1.88,35.78],[21.35,1.23,35.78]],
@@ -20,28 +20,40 @@ export function createMillrace({THREE,scene,water,wood,stone,iron,box}){
  const moss=new THREE.MeshStandardMaterial({color:0x596850,roughness:1}),foam=new THREE.MeshStandardMaterial({color:0x819b94,roughness:1});
  const slab=(x,y,z,w,h,d,ma,parent=root)=>{const o=box(x,y,z,w,h,d,ma,parent);o.castShadow=false;return o;};
  function flow(x,y,z,w,h,d,role){const o=slab(x,y,z,w,h,d,water);o.name='Water '+role;o.userData.waterRole=role;waterParts.push(o);return o;}
- // Small spring pool backed by the existing cliff, with an actual 63cm drop.
- slab(20,3.5,-14.05,1.36,.63,1.44,wet);
- const pond=flow(20,4.13,-14.05,1.10,.10,1.30,'spring-pool');
- for(const x of [19.39,20.61])slab(x,4.08,-14.05,.12,.31,1.44,dry);
- slab(20,4.08,-14.73,1.36,.31,.12,dry);
- for(const x of [19.53,20.47])slab(x,4.08,-13.39,.40,.31,.12,dry);
- const rock=new THREE.Mesh(new THREE.DodecahedronGeometry(.48,0),wet);rock.position.set(20,4.87,-14.88);rock.scale.set(1.08,.95,.76);rock.castShadow=false;root.add(rock);
- const spring=flow(20,4.23,-14.48,.27,.63,.045,'spring-fall');drops.push(spring);
- for(const [x,y,z]of [[19.66,4.58,-14.65],[20.35,4.51,-14.63]]){const o=new THREE.Mesh(new THREE.IcosahedronGeometry(.13,0),moss);o.position.set(x,y,z);o.userData.walkSoft=true;root.add(o);}
- function channel(a,b,{width=.58,material=dry,role='open',depth=.50}={}){
+ // Two quiet rock steps against the existing cliff, not an elevated aqueduct.
+ function bankRock(x,y,z,w,h,d,material=wet){const o=new THREE.Mesh(new THREE.DodecahedronGeometry(1,0),material);o.position.set(x,y,z);o.scale.set(w/2,h/2,d/2);o.castShadow=false;o.receiveShadow=true;root.add(o);return o;}
+ bankRock(20,4.72,-14.92,1.18,2.48,.38);
+ bankRock(20,4.46,-14.44,1.12,1.88,.40);
+ const pond=flow(20,4.13,-13.91,1.03,.10,1.02,'spring-pool');
+ slab(20,3.5,-13.91,1.13,.63,1.02,wet);
+ for(const side of [-1,1]){
+  bankRock(20+side*.55,4.22,-13.93,.22,.36,1.05,dry);
+  bankRock(20+side*.48,5.16,-14.46,.26,.32,.65,wet);
+  bankRock(20+side*.43,6.01,-14.78,.30,.30,.42,wet);
+ }
+ let spring;
+ for(let i=1;i<watercourseLayout.falls.length;i++){
+  const a=watercourseLayout.falls[i-1],b=watercourseLayout.falls[i];
+  if(a[1]>b[1]){const o=flow(a[0],b[1],a[2],i===1?.32:.44,a[1]-b[1],.055,'spring-fall');drops.push(o);spring??=o;flecks.push({a:new THREE.Vector3(...a),b:new THREE.Vector3(...b),width:.32,offset:.2});}
+  else flow(20,a[1]-.10,(a[2]+b[2])/2,.47,.10,Math.abs(b[2]-a[2])+.06,'spring-step');
+ }
+ // The receiving shallows continue into the first curved reach without a gap.
+ flow(20,4.13,-13.50,.62,.10,.28,'spring-pool');
+ for(const [x,y,z]of [[19.53,4.42,-14.15],[20.48,5.26,-14.49],[19.60,6.10,-14.80]]){const o=new THREE.Mesh(new THREE.IcosahedronGeometry(.10,0),moss);o.position.set(x,y,z);o.userData.walkSoft=true;root.add(o);}
+ function channel(a,b,{width=.58,material=dry,role='open',depth=.50,natural=false}={}){
   a=new THREE.Vector3(...a);b=new THREE.Vector3(...b);const delta=b.clone().sub(a),length=delta.length();
   if(Math.hypot(delta.x,delta.z)<.001){const o=flow(a.x,b.y,a.z,width,a.y-b.y,.045,role+'-fall');drops.push(o);flecks.push({a:a.clone(),b:b.clone(),width,offset:.2});return;}
   const group=new THREE.Group();group.name='Open leat '+role;group.position.copy(a).add(b).multiplyScalar(.5);group.quaternion.setFromUnitVectors(new THREE.Vector3(0,0,1),delta.clone().normalize());root.add(group);sections.push(group);
   const part=(x,y,w,h,ma)=>{const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,length+.025),ma);o.position.set(x,y,0);o.receiveShadow=true;group.add(o);return o;};
   part(0,-.10-depth/2,width+.26,depth,wet);
-  for(const x of [-width/2-.065,width/2+.065])part(x,.015,.13,.31,material);
+  if(!natural)for(const x of [-width/2-.065,width/2+.065])part(x,.015,.13,.31,material);
+  else for(const side of [-1,1]){const o=part(side*(width/2+.07),-.045,.16,.19,material);o.rotation.y=side*.035;}
   const surface=part(0,-.05,width,.10,water);surface.name='Water '+role;surface.userData.waterRole=role;waterParts.push(surface);
   for(let j=0;j<Math.max(1,Math.ceil(length/2.4));j++)flecks.push({a:a.clone(),b:b.clone(),width,offset:j*2.4});
  }
- const open=watercourseLayout.open;for(let i=1;i<open.length;i++)channel(open[i-1],open[i]);
+ const open=watercourseLayout.open;for(let i=1;i<open.length;i++)channel(open[i-1],open[i],i<6?{width:i===1?.62:i===3?.66:.56,natural:true,role:'shallow-stream',depth:.38}:{});
  // A low foundation under the two short stepped spill stones, not a viaduct.
- slab(20,3.5,-13.02,.85,.26,.48,wet);
+ // The stream bed replaces the previous rectangular spill-stone foundation.
  channel(...watercourseLayout.feed,{width:.74,material:timber,role:'short-timber-feed',depth:.26});
  const lower=watercourseLayout.lower;for(let i=1;i<lower.length;i++)channel(lower[i-1],lower[i],{width:.82,role:i===1?'wheel-pool':'tailrace'});
  // Support the terrace-to-quay cascade on the existing face rather than air.
@@ -62,7 +74,7 @@ export function createMillrace({THREE,scene,water,wood,stone,iron,box}){
  const position=new THREE.Vector3();for(const f of flecks){f.length=f.a.distanceTo(f.b);f.rotation=new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,0,1),f.b.clone().sub(f.a).normalize());}
  function update(t){flecks.forEach((f,i)=>{const u=((f.offset+t*.42)%f.length)/f.length;position.copy(f.a).lerp(f.b,u);position.y+=.009;matrix.compose(position,f.rotation,scale);marks.setMatrixAt(i,matrix);});marks.instanceMatrix.needsUpdate=true;}
  update(0);marks.computeBoundingBox();marks.computeBoundingSphere();
- const points=[watercourseLayout.source,[20,4.23,-14.48],...open,...watercourseLayout.feed.slice(1),...lower.slice(1)].map(p=>new THREE.Vector3(...p));
+ const points=[...watercourseLayout.falls,...open,...watercourseLayout.feed.slice(1),...lower.slice(1)].map(p=>new THREE.Vector3(...p));
  const upstream={group:root,points:open.map(p=>new THREE.Vector3(...p)),sections,pond,spring,stonePoint:new THREE.Vector3(...watercourseLayout.stone),update:()=>{}};
- return{root,waterParts,drops,update,upstream,points,bridges,materials:{dry,wet,timber,moss},layout:watercourseLayout,stats:{timberLength:.9,smallSpringDrop:.63,bridges:bridges.length,flowMarks:flecks.length,addedLights:0}};
+ return{root,waterParts,drops,update,upstream,points,bridges,materials:{dry,wet,timber,moss},layout:watercourseLayout,stats:{timberLength:.9,smallSpringDrop:1.77,springStages:2,bridges:bridges.length,flowMarks:flecks.length,addedLights:0}};
 }

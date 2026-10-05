@@ -24,7 +24,7 @@ export function createMinimap({walking,shopSystem,inspections,navigation,buildin
   for(const road of roads){if(road.length<2)continue;context.beginPath();road.forEach((p,i)=>{const q=project(p[0],p[2]);i?context.lineTo(...q):context.moveTo(...q)});context.stroke();}
   // The map consumes the same water points as the scene, without a 3D pass.
   context.strokeStyle='#607f7b';context.lineWidth=expanded?1.8:1.2;context.beginPath();
-  [watercourseLayout.source,...watercourseLayout.open,...watercourseLayout.feed.slice(1),...watercourseLayout.lower.slice(1)].forEach((p,i)=>{const q=project(p[0],p[2]);i?context.lineTo(...q):context.moveTo(...q)});context.stroke();
+  [...watercourseLayout.falls,...watercourseLayout.open,...watercourseLayout.feed.slice(1),...watercourseLayout.lower.slice(1)].forEach((p,i)=>{const q=project(p[0],p[2]);i?context.lineTo(...q):context.moveTo(...q)});context.stroke();
   context.font=(expanded?'11':'9')+'px serif';context.textBaseline='middle';
   for(const d of navigation.destinations){const [x,y]=project(d.position[0],d.position[2]),selected=navigation.state.selected?.id===d.id;context.beginPath();context.arc(x,y,selected?4:2.3,0,Math.PI*2);context.fillStyle=selected?'#986238':'#6f664b';context.fill();context.fillStyle='#403e30';context.fillText(d.short,x+5,y-3);}
   const feet=walking.state.feet,[x,y]=project(feet.x,feet.z);context.save();context.translate(x,y);context.rotate(-walking.state.yaw);context.beginPath();context.moveTo(0,-6);context.lineTo(4,5);context.lineTo(0,3);context.lineTo(-4,5);context.closePath();context.fillStyle=walking.state.profile.id==='cat'?'#775740':'#345f51';context.strokeStyle='#f9eed3';context.lineWidth=1;context.fill();context.stroke();context.restore();
