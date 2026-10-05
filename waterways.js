@@ -25,7 +25,7 @@ export function createMillrace({THREE,scene,water,wood,stone,iron,box}){
  const support=new THREE.Mesh(new THREE.CylinderGeometry(1,1.25,2.0,12),wet);
  support.position.set(20,4.5,-16.25);support.scale.set(1.46,1,1.66);support.castShadow=false;root.add(support);
  const sourcePool=new THREE.Mesh(new THREE.CylinderGeometry(1,1,.10,12),water);
- sourcePool.position.set(20,basin.center[1]-.05,-16.25);sourcePool.scale.set(...[basin.radius[0],1,basin.radius[1]]);for(const mesh of [support,sourcePool]){const a=mesh.geometry.attributes.position;for(let i=0;i<a.count;i++){const angle=Math.atan2(a.getZ(i),a.getX(i)),v=1+.018*Math.sin(angle*3)+.012*Math.cos(angle*5);a.setX(i,a.getX(i)*v);a.setZ(i,a.getZ(i)*v);}a.needsUpdate=true;mesh.geometry.computeVertexNormals();}
+ sourcePool.position.set(20,basin.center[1]-.05,-16.25);sourcePool.scale.set(basin.radius[0],1,basin.radius[1]);for(const mesh of [support,sourcePool]){const a=mesh.geometry.attributes.position;for(let i=0;i<a.count;i++){const angle=Math.atan2(a.getZ(i),a.getX(i)),v=1+.018*Math.sin(angle*3)+.012*Math.cos(angle*5);a.setX(i,a.getX(i)*v);a.setZ(i,a.getZ(i)*v);}a.needsUpdate=true;mesh.geometry.computeVertexNormals();}
  sourcePool.name='Visible spring basin';sourcePool.userData.waterRole='spring-pool';root.add(sourcePool);waterParts.push(sourcePool);
  // An open outlet tongue lets the pond surface feed the first drop visibly.
  flow(20,basin.center[1]-.10,-14.85,.47,.10,.42,'spring-step');
@@ -38,7 +38,7 @@ export function createMillrace({THREE,scene,water,wood,stone,iron,box}){
  // Two low stone shelves continue the existing falls below the visible pond.
  function bankRock(x,y,z,w,h,d,material=wet){const o=new THREE.Mesh(new THREE.DodecahedronGeometry(1,0),material);o.position.set(x,y,z);o.scale.set(w/2,h/2,d/2);o.castShadow=false;o.receiveShadow=true;root.add(o);return o;}
  bankRock(20,4.46,-14.92,1.18,1.98,.38);
- bankRock(20,4.25,-14.44,1.12,1.50,.40);
+ bankRock(20,4.25,-14.44,1.12,1.42,.40);
  const pond=flow(20,4.13,-13.91,1.03,.10,1.02,'spring-pool');
  slab(20,3.5,-13.91,1.13,.63,1.02,wet);
  for(const side of [-1,1]){
@@ -46,8 +46,8 @@ export function createMillrace({THREE,scene,water,wood,stone,iron,box}){
   bankRock(20+side*.48,4.96,-14.46,.26,.32,.65,wet);
   bankRock(20+side*.35,5.52,-14.88,.30,.30,.42,wet);
  }
- slab(20,5.47,-14.77,.54,.13,.29,wet);
- flow(20,5.52,-14.75,.43,.08,.24,'spring-step');
+ slab(20,5.37,-14.77,.54,.13,.29,wet);
+ slab(20,4.68,-14.395,.50,.15,.49,wet);
  let spring;
  for(let i=1;i<watercourseLayout.falls.length;i++){
   const a=watercourseLayout.falls[i-1],b=watercourseLayout.falls[i];
@@ -93,6 +93,6 @@ export function createMillrace({THREE,scene,water,wood,stone,iron,box}){
  function update(t){flecks.forEach((f,i)=>{const u=((f.offset+t*.42)%f.length)/f.length;position.copy(f.a).lerp(f.b,u);position.y+=.009;if(f.side)position.x+=f.side;matrix.compose(position,f.rotation,scale);marks.setMatrixAt(i,matrix);});marks.instanceMatrix.needsUpdate=true;}
  update(0);marks.computeBoundingBox();marks.computeBoundingSphere();
  const points=[watercourseLayout.source,...watercourseLayout.falls,...open,...watercourseLayout.feed.slice(1),...lower.slice(1)].map(p=>new THREE.Vector3(...p));
- const upstream={group:root,points:open.map(p=>new THREE.Vector3(...p)),sections,pond,sourcePool,spring,stonePoint:new THREE.Vector3(...watercourseLayout.stone),update:()=>{}};
+ const upstream={group:root,points:open.map(p=>new THREE.Vector3(...p)),sections,pond,sourcePool,spring,sourcePoint:new THREE.Vector3(basin.lookout[0]+.2,basin.lookout[1]+.15,basin.lookout[2]),stonePoint:new THREE.Vector3(...watercourseLayout.stone),update:()=>{}};
  return{root,waterParts,drops,update,upstream,points,bridges,materials:{dry,wet,timber,moss},layout:watercourseLayout,stats:{timberLength:.9,smallSpringDrop:watercourseLayout.falls[0][1]-open[0][1],springStages:2,bridges:bridges.length,flowMarks:flecks.length,addedLights:0}};
 }

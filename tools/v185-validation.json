@@ -1,0 +1,1748 @@
+{
+  "version": "v18.5",
+  "baselineMain": "e437fe9cd552cc3344b3c17a870f50c2a93b2701",
+  "environmentSettingsChanged": false,
+  "realHandsetTested": false,
+  "browser": "Chromium / SwiftShader; PC and 390x844 mobile viewport",
+  "design": {
+    "option": "A: exposed spring basin",
+    "houses": "Original positions and functions retained",
+    "spring": [
+      20,
+      5.6,
+      -16.25
+    ],
+    "basinSize": [
+      2.6,
+      3.0
+    ],
+    "falls": [
+      0.67,
+      0.7
+    ],
+    "wheelPositionChanged": false,
+    "timberFeedLength": 0.9,
+    "supportedBankSteps": 7
+  },
+  "verificationNotes": [
+    "Independent route tests start at valid locations; traversal uses native keyboard input and production walking collision, not camera teleportation.",
+    "Overview and canal compositions expose the pond; original rooftop preset remains focused elsewhere. A custom roof-level spring view was inspected.",
+    "Regression checks passed: 19 cameras, six weather modes, follow, fourteen inspection targets, five human/cat conversations and portraits, five shop entry/exit paths, three cat passages, five cat jumps, inn upper-floor rests through Day 7 and save/reload.",
+    "Performance comparison uses the same original overview camera on both versions, 12 measured samples after warmup and GL finish. Software rendering timings vary substantially; physical smartphone performance and acoustic listening remain unverified."
+  ],
+  "springAccess": {
+    "out": [
+      {
+        "mode": "human",
+        "goal": [
+          17.9,
+          5.7,
+          -16.3
+        ],
+        "samples": 76,
+        "maxEyeDelta": 0.09481724741701836,
+        "feet": [
+          17.9,
+          5.700000002980232,
+          -16.3
+        ]
+      },
+      {
+        "mode": "human",
+        "goal": [
+          17.9,
+          3.5,
+          -13.25
+        ],
+        "samples": 76,
+        "maxEyeDelta": 0.09456049314671144,
+        "feet": [
+          17.9,
+          3.5,
+          -13.25
+        ]
+      },
+      {
+        "mode": "human",
+        "goal": [
+          19,
+          3.5,
+          -13.2
+        ],
+        "samples": 28,
+        "maxEyeDelta": 0.01628134105689849,
+        "feet": [
+          18.99901520262933,
+          3.5,
+          -13.202461993426672
+        ]
+      },
+      {
+        "mode": "cat",
+        "goal": [
+          17.9,
+          5.7,
+          -16.3
+        ],
+        "samples": 51,
+        "maxEyeDelta": 0.17845183441392098,
+        "feet": [
+          17.9,
+          5.700000002980232,
+          -16.3
+        ]
+      },
+      {
+        "mode": "cat",
+        "goal": [
+          17.9,
+          3.5,
+          -13.25
+        ],
+        "samples": 51,
+        "maxEyeDelta": 0.10116797835016644,
+        "feet": [
+          17.9,
+          3.5,
+          -13.25
+        ]
+      },
+      {
+        "mode": "cat",
+        "goal": [
+          19,
+          3.5,
+          -13.2
+        ],
+        "samples": 19,
+        "maxEyeDelta": 0.019465446201273107,
+        "feet": [
+          19,
+          3.5,
+          -13.2
+        ]
+      },
+      {
+        "mode": "human",
+        "goal": [
+          17.9,
+          3.5,
+          -13.25
+        ],
+        "samples": 1071,
+        "maxEyeDelta": 0,
+        "feet": [
+          17.9,
+          3.5,
+          -13.25
+        ]
+      },
+      {
+        "mode": "human",
+        "goal": [
+          17.9,
+          5.7,
+          -16.3
+        ],
+        "samples": 76,
+        "maxEyeDelta": 0.09481724741701836,
+        "feet": [
+          17.9,
+          5.700000002980232,
+          -16.3
+        ]
+      },
+      {
+        "mode": "human",
+        "goal": [
+          23.1,
+          3.5,
+          -11.5
+        ],
+        "samples": 306,
+        "maxEyeDelta": 0.10385262979697707,
+        "feet": [
+          23.1,
+          3.5,
+          -11.5
+        ]
+      },
+      {
+        "mode": "human",
+        "goal": [
+          2.849999999999999,
+          3.5,
+          18.500000000000128
+        ],
+        "samples": 1075,
+        "maxEyeDelta": 0.10826072050734137,
+        "feet": [
+          2.849999999999999,
+          3.5,
+          18.500000000000128
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "springViews": {
+    "out": [
+      {
+        "weather": "clear",
+        "mode": "human",
+        "sourceVisible": true,
+        "firstHit": "Visible spring basin",
+        "project": [
+          0,
+          -0.34304795985936687,
+          0.9559394864599511
+        ],
+        "color": "4c7377",
+        "contextLost": false
+      },
+      {
+        "weather": "dawn",
+        "mode": "human",
+        "sourceVisible": true,
+        "firstHit": "Visible spring basin",
+        "project": [
+          0,
+          -0.34304795985936687,
+          0.9559394864599511
+        ],
+        "color": "44666c",
+        "contextLost": false
+      },
+      {
+        "weather": "rain",
+        "mode": "human",
+        "sourceVisible": true,
+        "firstHit": "Visible spring basin",
+        "project": [
+          0,
+          -0.34304795985936687,
+          0.9559394864599511
+        ],
+        "color": "476b6f",
+        "contextLost": false
+      },
+      {
+        "weather": "fog",
+        "mode": "human",
+        "sourceVisible": true,
+        "firstHit": "Visible spring basin",
+        "project": [
+          0,
+          -0.34304795985936687,
+          0.9559394864599511
+        ],
+        "color": "4c7377",
+        "contextLost": false
+      },
+      {
+        "weather": "night",
+        "mode": "human",
+        "sourceVisible": true,
+        "firstHit": "Visible spring basin",
+        "project": [
+          0,
+          -0.34304795985936687,
+          0.9559394864599511
+        ],
+        "color": "3c5c5f",
+        "contextLost": false
+      },
+      {
+        "weather": "blackout",
+        "mode": "human",
+        "sourceVisible": true,
+        "firstHit": "Visible spring basin",
+        "project": [
+          0,
+          -0.34304795985936687,
+          0.9559394864599511
+        ],
+        "color": "294043",
+        "contextLost": false
+      },
+      {
+        "weather": "clear",
+        "mode": "cat",
+        "sourceVisible": true,
+        "firstHit": "Visible spring basin",
+        "project": [
+          0,
+          -0.030038633676530722,
+          0.9674901238099972
+        ],
+        "color": "4c7377",
+        "contextLost": false
+      },
+      {
+        "weather": "dawn",
+        "mode": "cat",
+        "sourceVisible": true,
+        "firstHit": "Visible spring basin",
+        "project": [
+          0,
+          -0.030038633676530722,
+          0.9674901238099972
+        ],
+        "color": "44666c",
+        "contextLost": false
+      },
+      {
+        "weather": "rain",
+        "mode": "cat",
+        "sourceVisible": true,
+        "firstHit": "Visible spring basin",
+        "project": [
+          0,
+          -0.030038633676530722,
+          0.9674901238099972
+        ],
+        "color": "476b6f",
+        "contextLost": false
+      },
+      {
+        "weather": "fog",
+        "mode": "cat",
+        "sourceVisible": true,
+        "firstHit": "Visible spring basin",
+        "project": [
+          0,
+          -0.030038633676530722,
+          0.9674901238099972
+        ],
+        "color": "4c7377",
+        "contextLost": false
+      },
+      {
+        "weather": "night",
+        "mode": "cat",
+        "sourceVisible": true,
+        "firstHit": "Visible spring basin",
+        "project": [
+          0,
+          -0.030038633676530722,
+          0.9674901238099972
+        ],
+        "color": "3c5c5f",
+        "contextLost": false
+      },
+      {
+        "weather": "blackout",
+        "mode": "cat",
+        "sourceVisible": true,
+        "firstHit": "Visible spring basin",
+        "project": [
+          0,
+          -0.030038633676530722,
+          0.9674901238099972
+        ],
+        "color": "294043",
+        "contextLost": false
+      },
+      {
+        "inspection": "奥の泉\n\n住宅地の脇の小さな泉に水が集まり、二つの石段を越えて町の浅い流れへ向かう。短い木の導水口には、何度も直した跡が残っている。\n\n閉じる",
+        "journal": [
+          {
+            "id": "place:leat:human",
+            "day": 1,
+            "text": "家々の奥の小さな泉から、水が町へ向かって流れ出していた。",
+            "kind": "place",
+            "playerMode": "human"
+          }
+        ]
+      },
+      {
+        "reloadJournal": [
+          {
+            "id": "place:leat:human",
+            "day": 1,
+            "text": "家々の奥の小さな泉から、水が町へ向かって流れ出していた。",
+            "kind": "place",
+            "playerMode": "human"
+          }
+        ],
+        "source": [
+          20,
+          5.6,
+          -16.25
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "watercourseWalking": {
+    "out": [
+      {
+        "mode": "human",
+        "from": [
+          19,
+          3.5,
+          -12
+        ],
+        "to": [
+          24.48,
+          4.15,
+          28.18
+        ],
+        "nodes": 2321,
+        "samples": 1086,
+        "maxEyeDelta": 0.08683272785102147,
+        "feet": [
+          24.48,
+          4.15,
+          28.18
+        ]
+      },
+      {
+        "mode": "human",
+        "from": [
+          18.3,
+          3.5,
+          -8.9
+        ],
+        "to": [
+          21.7,
+          3.5,
+          -8.9
+        ],
+        "nodes": 99,
+        "samples": 85,
+        "maxEyeDelta": 0.09829404533213104,
+        "feet": [
+          21.7,
+          3.5,
+          -8.9
+        ]
+      },
+      {
+        "mode": "human",
+        "from": [
+          19.4,
+          3.5,
+          17.6
+        ],
+        "to": [
+          22.55,
+          3.5,
+          17.6
+        ],
+        "nodes": 75,
+        "samples": 81,
+        "maxEyeDelta": 0.08143964728652975,
+        "feet": [
+          22.55,
+          3.5,
+          17.6
+        ]
+      },
+      {
+        "mode": "human",
+        "from": [
+          19.4,
+          3.5,
+          23.15
+        ],
+        "to": [
+          22.55,
+          3.5,
+          23.15
+        ],
+        "nodes": 47,
+        "samples": 83,
+        "maxEyeDelta": 0.07846532801407768,
+        "feet": [
+          22.55,
+          3.5,
+          23.15
+        ]
+      },
+      {
+        "mode": "human",
+        "from": [
+          19.3,
+          1.38,
+          34.2
+        ],
+        "to": [
+          23.4,
+          1.38,
+          34.2
+        ],
+        "nodes": 100,
+        "samples": 105,
+        "maxEyeDelta": 0.08970157704654413,
+        "feet": [
+          23.4,
+          1.3799999976158142,
+          34.2
+        ]
+      },
+      {
+        "mode": "cat",
+        "from": [
+          19,
+          3.5,
+          -12
+        ],
+        "to": [
+          24.48,
+          4.15,
+          28.18
+        ],
+        "nodes": 2105,
+        "samples": 734,
+        "maxEyeDelta": 0.346999997675419,
+        "feet": [
+          24.48,
+          4.15,
+          28.18
+        ]
+      },
+      {
+        "mode": "cat",
+        "from": [
+          18.3,
+          3.5,
+          -8.9
+        ],
+        "to": [
+          21.7,
+          3.5,
+          -8.9
+        ],
+        "nodes": 99,
+        "samples": 57,
+        "maxEyeDelta": 0.18334490920149982,
+        "feet": [
+          21.7,
+          3.5,
+          -8.9
+        ]
+      },
+      {
+        "mode": "cat",
+        "from": [
+          19.4,
+          3.5,
+          17.6
+        ],
+        "to": [
+          22.55,
+          3.5,
+          17.6
+        ],
+        "nodes": 75,
+        "samples": 53,
+        "maxEyeDelta": 0.1356092903315691,
+        "feet": [
+          22.55,
+          3.5,
+          17.6
+        ]
+      },
+      {
+        "mode": "cat",
+        "from": [
+          19.4,
+          3.5,
+          23.15
+        ],
+        "to": [
+          22.55,
+          3.5,
+          23.15
+        ],
+        "nodes": 47,
+        "samples": 56,
+        "maxEyeDelta": 0.125109282344547,
+        "feet": [
+          22.55,
+          3.5,
+          23.15
+        ]
+      },
+      {
+        "mode": "cat",
+        "from": [
+          19.3,
+          1.38,
+          34.2
+        ],
+        "to": [
+          23.4,
+          1.38,
+          34.2
+        ],
+        "nodes": 165,
+        "samples": 70,
+        "maxEyeDelta": 0.15301158127232117,
+        "feet": [
+          23.4,
+          1.3799999976158142,
+          34.2
+        ]
+      }
+    ],
+    "water": {
+      "stats": {
+        "timberLength": 0.9,
+        "smallSpringDrop": 1.3699999999999992,
+        "springStages": 2,
+        "bridges": 4,
+        "flowMarks": 38,
+        "addedLights": 0
+      },
+      "wheel": [
+        21.05,
+        5.98,
+        27
+      ],
+      "monotonic": true,
+      "bridges": [
+        {
+          "id": "upper",
+          "top": 4.194
+        },
+        {
+          "id": "middle",
+          "top": 4.075
+        },
+        {
+          "id": "mill",
+          "top": 4.054
+        },
+        {
+          "id": "quay",
+          "top": 2.33
+        }
+      ],
+      "routes": 3,
+      "npcs": {
+        "scheduled": 11,
+        "period": "day",
+        "outsideVisible": 8,
+        "walking": 0,
+        "inside": 0,
+        "addedResidents": 3,
+        "pathRequests": 8,
+        "updated": 1,
+        "near": 1,
+        "mid": 9,
+        "far": 1
+      }
+    },
+    "errors": []
+  },
+  "additionalRoutes": {
+    "routes": [
+      {
+        "from": "market",
+        "to": "mill",
+        "samples": 2570,
+        "maxEyeDelta": 0.08441755056317835,
+        "feet": [
+          24.482399999999775,
+          4.15,
+          28.180000000000142
+        ]
+      },
+      {
+        "from": "square",
+        "to": "mill",
+        "samples": 2101,
+        "maxEyeDelta": 0.08441755056317835,
+        "feet": [
+          24.482399999999775,
+          4.15,
+          28.180000000000142
+        ]
+      },
+      {
+        "from": "harbor",
+        "to": "mill",
+        "samples": 1955,
+        "maxEyeDelta": 0.08441755056317835,
+        "feet": [
+          24.482399999999775,
+          4.15,
+          28.180000000000142
+        ]
+      },
+      {
+        "from": "straight-tavern-lane",
+        "to": "tavern",
+        "samples": 168,
+        "maxEyeDelta": 0,
+        "feet": [
+          -5.365,
+          3.5,
+          12.3
+        ]
+      }
+    ],
+    "lane": {
+      "tested": 520,
+      "valid": 520
+    }
+  },
+  "finalRoutes": {
+    "routes": [
+      {
+        "from": "tavern",
+        "to": "mill",
+        "samples": 2375,
+        "maxEyeDelta": 0.08441755056317835,
+        "feet": [
+          24.482399999999775,
+          4.15,
+          28.180000000000142
+        ]
+      },
+      {
+        "from": "mill",
+        "to": "harbor",
+        "samples": 1955,
+        "maxEyeDelta": 0.08149716386917571,
+        "feet": [
+          0,
+          1.3799999976158142,
+          31.99840000000012
+        ]
+      },
+      {
+        "from": "market",
+        "to": "mill",
+        "samples": 2553,
+        "maxEyeDelta": 0.08441755056317835,
+        "feet": [
+          24.482399999999775,
+          4.15,
+          28.180000000000142
+        ]
+      },
+      {
+        "from": "straight-tavern-lane",
+        "to": "tavern",
+        "samples": 168,
+        "maxEyeDelta": 0,
+        "feet": [
+          -5.365,
+          3.5,
+          12.3
+        ]
+      }
+    ],
+    "lane": {
+      "tested": 520,
+      "valid": 520
+    }
+  },
+  "watercourseFraming": [
+    {
+      "q": "high",
+      "v": "overview",
+      "project": [
+        [
+          0.3896060722746496,
+          -0.006017345672701122,
+          0.9986817251916176
+        ],
+        [
+          0.3762344938631478,
+          -0.050950216597214555,
+          0.9986680544068937
+        ],
+        [
+          0.0973128164281186,
+          -0.5685631671875205,
+          0.9979361392939591
+        ],
+        [
+          0.007403925071042988,
+          -0.8528097884509432,
+          0.9977950076306552
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": false
+    },
+    {
+      "q": "high",
+      "v": "canal",
+      "project": [
+        [
+          0.0716667579505815,
+          0.6907177176458321,
+          0.9980331980677957
+        ],
+        [
+          0.06530563679072984,
+          0.6161056968852343,
+          0.9980482428969538
+        ],
+        [
+          -0.038792725929999224,
+          -0.5796100819767506,
+          0.9974103564166781
+        ],
+        [
+          -0.06170384921360037,
+          -0.9222792094676056,
+          0.9974645772521477
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": false
+    },
+    {
+      "q": "standard",
+      "v": "overview",
+      "project": [
+        [
+          0.3896060722746496,
+          -0.006017345672701122,
+          0.9986817251916176
+        ],
+        [
+          0.3762344938631478,
+          -0.050950216597214555,
+          0.9986680544068937
+        ],
+        [
+          0.0973128164281186,
+          -0.5685631671875205,
+          0.9979361392939591
+        ],
+        [
+          0.007403925071042988,
+          -0.8528097884509432,
+          0.9977950076306552
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": false
+    },
+    {
+      "q": "standard",
+      "v": "canal",
+      "project": [
+        [
+          0.0716667579505815,
+          0.6907177176458321,
+          0.9980331980677957
+        ],
+        [
+          0.06530563679072984,
+          0.6161056968852343,
+          0.9980482428969538
+        ],
+        [
+          -0.038792725929999224,
+          -0.5796100819767506,
+          0.9974103564166781
+        ],
+        [
+          -0.06170384921360037,
+          -0.9222792094676056,
+          0.9974645772521477
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": false
+    },
+    {
+      "q": "mobile",
+      "v": "overview",
+      "project": [
+        [
+          0.3896060722746496,
+          -0.006017345672701122,
+          0.9986817251916176
+        ],
+        [
+          0.3762344938631478,
+          -0.050950216597214555,
+          0.9986680544068937
+        ],
+        [
+          0.0973128164281186,
+          -0.5685631671875205,
+          0.9979361392939591
+        ],
+        [
+          0.007403925071042988,
+          -0.8528097884509432,
+          0.9977950076306552
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": false
+    },
+    {
+      "q": "mobile",
+      "v": "canal",
+      "project": [
+        [
+          0.0716667579505815,
+          0.6907177176458321,
+          0.9980331980677957
+        ],
+        [
+          0.06530563679072984,
+          0.6161056968852343,
+          0.9980482428969538
+        ],
+        [
+          -0.038792725929999224,
+          -0.5796100819767506,
+          0.9974103564166781
+        ],
+        [
+          -0.06170384921360037,
+          -0.9222792094676056,
+          0.9974645772521477
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": false
+    },
+    {
+      "q": "high",
+      "v": "canal",
+      "project": [
+        [
+          0.23264132196265683,
+          0.6907177176458321,
+          0.9980331980677957
+        ],
+        [
+          0.21199214404375377,
+          0.6161056968852343,
+          0.9980482428969538
+        ],
+        [
+          -0.125927156480459,
+          -0.5796100819767506,
+          0.9974103564166781
+        ],
+        [
+          -0.20030018744722577,
+          -0.9222792094676056,
+          0.9974645772521477
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": true
+    },
+    {
+      "q": "standard",
+      "v": "canal",
+      "project": [
+        [
+          0.23264132196265683,
+          0.6907177176458321,
+          0.9980331980677957
+        ],
+        [
+          0.21199214404375377,
+          0.6161056968852343,
+          0.9980482428969538
+        ],
+        [
+          -0.125927156480459,
+          -0.5796100819767506,
+          0.9974103564166781
+        ],
+        [
+          -0.20030018744722577,
+          -0.9222792094676056,
+          0.9974645772521477
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": true
+    },
+    {
+      "q": "mobile",
+      "v": "canal",
+      "project": [
+        [
+          0.23264132196265683,
+          0.6907177176458321,
+          0.9980331980677957
+        ],
+        [
+          0.21199214404375377,
+          0.6161056968852343,
+          0.9980482428969538
+        ],
+        [
+          -0.125927156480459,
+          -0.5796100819767506,
+          0.9974103564166781
+        ],
+        [
+          -0.20030018744722577,
+          -0.9222792094676056,
+          0.9974645772521477
+        ]
+      ],
+      "visible": true,
+      "lost": false,
+      "mobile": true
+    }
+  ],
+  "overviewVisibility": {
+    "out": [
+      {
+        "view": "overview",
+        "first": "Visible spring basin",
+        "type": "CylinderGeometry",
+        "sourceVisible": true,
+        "project": [
+          0.3896060722746496,
+          -0.006017345672701122,
+          0.9986817251916176
+        ]
+      },
+      {
+        "view": "rooftop",
+        "first": "Visible spring basin",
+        "type": "CylinderGeometry",
+        "sourceVisible": true,
+        "project": [
+          6.646431398992862,
+          -3.2212656429901707,
+          0.9784978704689918
+        ]
+      },
+      {
+        "view": "canal",
+        "first": "Visible spring basin",
+        "type": "CylinderGeometry",
+        "sourceVisible": true,
+        "project": [
+          0.0716667579505815,
+          0.6907177176458321,
+          0.9980331980677957
+        ]
+      },
+      {
+        "view": "mill",
+        "first": "",
+        "type": "ConeGeometry",
+        "sourceVisible": false,
+        "project": [
+          -170.94602691628987,
+          41.899332148999356,
+          1.5190656866689372
+        ]
+      },
+      {
+        "view": "archway",
+        "first": "",
+        "type": "ConeGeometry",
+        "sourceVisible": false,
+        "project": [
+          0.4404307162225113,
+          0.45123255302441206,
+          0.9954754510557062
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "conversations": [
+    {
+      "profile": "human",
+      "id": "bakery",
+      "actor": "baker",
+      "text": "モイラ\nパン屋\n窯の温もりを袖に残したパン屋。\n\n窯の近くは暑いから、気をつけて。今の籠は、まだ冷ましているところなんだ。\n\n閉じる",
+      "state": {
+        "room": "bakery",
+        "visibleCharacters": [
+          "baker"
+        ],
+        "renderedDetails": 11,
+        "log": {
+          "day": 1,
+          "speaker": "モイラ",
+          "speakerId": "baker",
+          "text": "窯の近くは暑いから、気をつけて。今の籠は、まだ冷ましているところなんだ。",
+          "time": "day",
+          "timestamp": "2026-10-05T08:21:28.760Z",
+          "playerMode": "human",
+          "location": "bakery",
+          "portraitVariant": "default",
+          "dialogueVariant": "human:bakery:day"
+        }
+      }
+    },
+    {
+      "profile": "human",
+      "id": "bookshop",
+      "actor": "bookseller",
+      "text": "エヴァン\n古書店主\n頁の折り目まで覚えている古書店主。\n\nその棚は古い本が多い。上から取らない方がいいですよ。机の上の紙は、まだ乾いていません。\n\n閉じる",
+      "state": {
+        "room": "bookshop",
+        "visibleCharacters": [
+          "bookseller"
+        ],
+        "renderedDetails": 14,
+        "log": {
+          "day": 1,
+          "speaker": "エヴァン",
+          "speakerId": "bookseller",
+          "text": "その棚は古い本が多い。上から取らない方がいいですよ。机の上の紙は、まだ乾いていません。",
+          "time": "day",
+          "timestamp": "2026-10-05T08:21:33.118Z",
+          "playerMode": "human",
+          "location": "bookshop",
+          "portraitVariant": "default",
+          "dialogueVariant": "human:bookshop:day"
+        }
+      }
+    },
+    {
+      "profile": "human",
+      "id": "inn",
+      "actor": "greenBard",
+      "text": "フィン\n緑の吟遊詩人\n緑の外套と木の弦楽器を持つ旅人。\n\nこんにちは。今は弦を張り直しているところ。水音に負けないくらいで、ちょうどいいんだ。\n\n閉じる",
+      "state": {
+        "room": "inn",
+        "visibleCharacters": [
+          "greenBard"
+        ],
+        "renderedDetails": 7,
+        "log": {
+          "day": 1,
+          "speaker": "フィン",
+          "speakerId": "greenBard",
+          "text": "こんにちは。今は弦を張り直しているところ。水音に負けないくらいで、ちょうどいいんだ。",
+          "time": "evening",
+          "timestamp": "2026-10-05T08:21:37.329Z",
+          "playerMode": "human",
+          "location": "inn",
+          "portraitVariant": "default",
+          "dialogueVariant": "human:inn:evening"
+        }
+      }
+    },
+    {
+      "profile": "human",
+      "id": "tavern",
+      "actor": "boatworker",
+      "text": "ブラン\n港\n縄と荷物を扱う、港の働き手。\n\n荷は片付いたよ。ここでは縄の代わりに、椅子へ腰を落ち着けるんだ。\n\n閉じる",
+      "state": {
+        "room": "tavern",
+        "visibleCharacters": [
+          null,
+          null,
+          null,
+          "boatworker",
+          "greenBard"
+        ],
+        "renderedDetails": 24,
+        "log": {
+          "day": 1,
+          "speaker": "ブラン",
+          "speakerId": "boatworker",
+          "text": "荷は片付いたよ。ここでは縄の代わりに、椅子へ腰を落ち着けるんだ。",
+          "time": "night",
+          "timestamp": "2026-10-05T08:21:41.504Z",
+          "playerMode": "human",
+          "location": "tavern",
+          "portraitVariant": "default",
+          "dialogueVariant": "human:tavern:night"
+        }
+      }
+    },
+    {
+      "profile": "human",
+      "id": "orrery",
+      "actor": "starmaker",
+      "text": "ネリッサ\n天球儀店\n天体と機械に親しむ、天球儀店の店主。\n\nこの円は少しずつ調整するんです。棚の真鍮器具は、持つと案外重いですよ。\n\n閉じる",
+      "state": {
+        "room": "orrery",
+        "visibleCharacters": [
+          "starmaker"
+        ],
+        "renderedDetails": 13,
+        "log": {
+          "day": 1,
+          "speaker": "ネリッサ",
+          "speakerId": "starmaker",
+          "text": "この円は少しずつ調整するんです。棚の真鍮器具は、持つと案外重いですよ。",
+          "time": "night",
+          "timestamp": "2026-10-05T08:21:44.774Z",
+          "playerMode": "human",
+          "location": "orrery",
+          "portraitVariant": "default",
+          "dialogueVariant": "human:orrery:night"
+        }
+      }
+    },
+    {
+      "profile": "cat",
+      "id": "bakery",
+      "actor": "baker",
+      "text": "モイラ\nパン屋\n窯の温もりを袖に残したパン屋。\n\n小麦袋の横なら通れるよ。粉の上だけは歩かないでおくれ。\n\n閉じる",
+      "state": {
+        "room": "bakery",
+        "visibleCharacters": [
+          "baker"
+        ],
+        "renderedDetails": 11,
+        "log": {
+          "day": 1,
+          "speaker": "モイラ",
+          "speakerId": "baker",
+          "text": "小麦袋の横なら通れるよ。粉の上だけは歩かないでおくれ。",
+          "time": "day",
+          "timestamp": "2026-10-05T08:21:48.388Z",
+          "playerMode": "cat",
+          "location": "bakery",
+          "portraitVariant": "default",
+          "dialogueVariant": "cat:bakery:day"
+        }
+      }
+    },
+    {
+      "profile": "cat",
+      "id": "bookshop",
+      "actor": "bookseller",
+      "text": "エヴァン\n古書店主\n頁の折り目まで覚えている古書店主。\n\n机の下なら静かだよ。積んだ本を倒さないようにね。\n\n閉じる",
+      "state": {
+        "room": "bookshop",
+        "visibleCharacters": [
+          "bookseller"
+        ],
+        "renderedDetails": 14,
+        "log": {
+          "day": 1,
+          "speaker": "エヴァン",
+          "speakerId": "bookseller",
+          "text": "机の下なら静かだよ。積んだ本を倒さないようにね。",
+          "time": "day",
+          "timestamp": "2026-10-05T08:21:51.828Z",
+          "playerMode": "cat",
+          "location": "bookshop",
+          "portraitVariant": "default",
+          "dialogueVariant": "cat:bookshop:day"
+        }
+      }
+    },
+    {
+      "profile": "cat",
+      "id": "inn",
+      "actor": "greenBard",
+      "text": "フィン\n緑の吟遊詩人\n緑の外套と木の弦楽器を持つ旅人。\n\n今日は、そちらで歩いているんだね。ここなら、水音も近くに聞こえる。\n\n閉じる",
+      "state": {
+        "room": "inn",
+        "visibleCharacters": [
+          "greenBard"
+        ],
+        "renderedDetails": 7,
+        "log": {
+          "day": 1,
+          "speaker": "フィン",
+          "speakerId": "greenBard",
+          "text": "今日は、そちらで歩いているんだね。ここなら、水音も近くに聞こえる。",
+          "time": "evening",
+          "timestamp": "2026-10-05T08:21:55.235Z",
+          "playerMode": "cat",
+          "location": "inn",
+          "portraitVariant": "default",
+          "dialogueVariant": "cat:inn:evening"
+        }
+      }
+    },
+    {
+      "profile": "cat",
+      "id": "tavern",
+      "actor": "boatworker",
+      "text": "ブラン\n港\n縄と荷物を扱う、港の働き手。\n\n魚籠は港に置いてきたぞ。ここならベンチの横で休める。\n\n閉じる",
+      "state": {
+        "room": "tavern",
+        "visibleCharacters": [
+          null,
+          null,
+          null,
+          "boatworker",
+          "greenBard"
+        ],
+        "renderedDetails": 24,
+        "log": {
+          "day": 1,
+          "speaker": "ブラン",
+          "speakerId": "boatworker",
+          "text": "魚籠は港に置いてきたぞ。ここならベンチの横で休める。",
+          "time": "night",
+          "timestamp": "2026-10-05T08:21:59.402Z",
+          "playerMode": "cat",
+          "location": "tavern",
+          "portraitVariant": "default",
+          "dialogueVariant": "cat:tavern:night"
+        }
+      }
+    },
+    {
+      "profile": "cat",
+      "id": "orrery",
+      "actor": "starmaker",
+      "text": "ネリッサ\n天球儀店\n天体と機械に親しむ、天球儀店の店主。\n\n机の下は空いていますよ。小さな歯車には触れないでね。\n\n閉じる",
+      "state": {
+        "room": "orrery",
+        "visibleCharacters": [
+          "starmaker"
+        ],
+        "renderedDetails": 13,
+        "log": {
+          "day": 1,
+          "speaker": "ネリッサ",
+          "speakerId": "starmaker",
+          "text": "机の下は空いていますよ。小さな歯車には触れないでね。",
+          "time": "night",
+          "timestamp": "2026-10-05T08:22:02.965Z",
+          "playerMode": "cat",
+          "location": "orrery",
+          "portraitVariant": "default",
+          "dialogueVariant": "cat:orrery:night"
+        }
+      }
+    }
+  ],
+  "eventSave": [
+    {
+      "stoneText": "水路の丸い石\n\n上流の溝に、丸い石がひとつ挟まっている。濡れると、細い九本の線が浮かぶ。\n\n閉じる",
+      "state": {
+        "state": "noticed",
+        "heardAt": null,
+        "noticedAt": "day",
+        "resolvedAt": null,
+        "noticedDay": 1
+      }
+    },
+    {
+      "weather": "clear",
+      "state": "clear",
+      "water": "4c7377",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "weather": "dawn",
+      "state": "dawn",
+      "water": "44666c",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "weather": "rain",
+      "state": "rain",
+      "water": "476b6f",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "weather": "fog",
+      "state": "fog",
+      "water": "4c7377",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "weather": "night",
+      "state": "night",
+      "water": "3c5c5f",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "weather": "blackout",
+      "state": "blackout",
+      "water": "294043",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "restored": {
+        "state": "noticed",
+        "heardAt": null,
+        "noticedAt": "day",
+        "resolvedAt": null,
+        "noticedDay": 1
+      },
+      "journal": [
+        {
+          "id": "place:event:upstream-stone:human",
+          "day": 1,
+          "text": "上流の石に、九本の線が刻まれていた。",
+          "kind": "place",
+          "playerMode": "human"
+        }
+      ]
+    }
+  ],
+  "indoorWeather": [
+    {
+      "w": "dawn",
+      "room": {
+        "weather": "dawn",
+        "oil": 0.3,
+        "glow": 0.45,
+        "outdoorRoot": false
+      },
+      "outside": {
+        "weather": "dawn",
+        "profile": {
+          "sky": 5467267,
+          "fog": 6716302,
+          "density": 0.0072,
+          "air": true,
+          "hemi": 0.72,
+          "sun": 0.24,
+          "exposure": 0.86,
+          "bloom": 0.18,
+          "skyTint": 12702179,
+          "groundTint": 8752536,
+          "sunColor": 12176348,
+          "period": "morning"
+        },
+        "lamps": 0,
+        "root": true,
+        "stand": 6.249999976158142,
+        "normalWindows": 141
+      }
+    },
+    {
+      "w": "rain",
+      "room": {
+        "weather": "rain",
+        "oil": 0.3,
+        "glow": 0.45,
+        "outdoorRoot": false
+      },
+      "outside": {
+        "weather": "rain",
+        "profile": {
+          "sky": 6122352,
+          "fog": 6845813,
+          "density": 0.0078,
+          "air": true,
+          "hemi": 0.83,
+          "sun": 0.3,
+          "exposure": 0.83,
+          "bloom": 0.2,
+          "sunColor": 13029061,
+          "period": "day"
+        },
+        "lamps": 0,
+        "root": true,
+        "stand": 6.249999976158142,
+        "normalWindows": 172
+      }
+    },
+    {
+      "w": "blackout",
+      "room": {
+        "weather": "blackout",
+        "oil": 1.35,
+        "glow": 0.015,
+        "outdoorRoot": false
+      },
+      "outside": {
+        "weather": "blackout",
+        "profile": {
+          "sky": 462871,
+          "fog": 462871,
+          "density": 0.0078,
+          "air": true,
+          "hemi": 0.62,
+          "sun": 0.06,
+          "exposure": 0.92,
+          "bloom": 0.12,
+          "sunColor": 11780026,
+          "period": "night"
+        },
+        "lamps": 4,
+        "root": true,
+        "stand": 6.249999976158142,
+        "normalWindows": 0
+      }
+    },
+    {
+      "w": "clear",
+      "room": {
+        "weather": "clear",
+        "oil": 0.3,
+        "glow": 0.45,
+        "outdoorRoot": false
+      },
+      "outside": {
+        "weather": "clear",
+        "profile": {
+          "sky": 10858410,
+          "fog": 10858410,
+          "density": 0.0067,
+          "air": true,
+          "hemi": 1.52,
+          "sun": 1.92,
+          "exposure": 1.08,
+          "bloom": 0.14,
+          "sunColor": 16770496,
+          "period": "day"
+        },
+        "lamps": 0,
+        "root": true,
+        "stand": 6.249999976158142,
+        "normalWindows": 172
+      }
+    }
+  ],
+  "audioAndFittings": {
+    "near": {
+      "harbor-water": 0,
+      "spring-water": 0.09221617461058101,
+      "stream-water": 0.052467087913551126,
+      "mill-wheel": 0,
+      "bell": 0,
+      "bakery-room": 0,
+      "bookshop-room": 0,
+      "inn-room": 0,
+      "tavern-room": 0,
+      "orrery-room": 0,
+      "footsteps": 0,
+      "market": 0
+    },
+    "far": {
+      "harbor-water": 0.2924090909090909,
+      "spring-water": 0,
+      "stream-water": 0,
+      "mill-wheel": 0,
+      "bell": 0,
+      "bakery-room": 0,
+      "bookshop-room": 0,
+      "inn-room": 0,
+      "tavern-room": 0,
+      "orrery-room": 0,
+      "footsteps": 0,
+      "market": 0
+    },
+    "audio": {
+      "zones": 12,
+      "configured": 5,
+      "enabled": true,
+      "contexts": 1
+    },
+    "millLife": {
+      "sites": 4,
+      "instances": 39,
+      "batches": 7
+    },
+    "water": {
+      "timberLength": 0.9,
+      "smallSpringDrop": 1.3699999999999992,
+      "springStages": 2,
+      "bridges": 4,
+      "flowMarks": 38,
+      "addedLights": 0
+    },
+    "muted": true,
+    "errors": []
+  },
+  "performance": [
+    {
+      "baseline": true,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2901,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 2560,
+          "triangles": 103005,
+          "ms": 18.099999994039536,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 49.400000005960464
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2901,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 155,
+          "triangles": 35228,
+          "ms": 1.7999999821186066,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 2.2999999821186066
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2901,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 2560,
+          "triangles": 103005,
+          "ms": 15.400000005960464,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 28.400000005960464
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2901,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 155,
+          "triangles": 35228,
+          "ms": 2,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 2.800000011920929
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2901,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 2546,
+          "triangles": 102991,
+          "ms": 21.900000005960464,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 39.89999997615814
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2901,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 141,
+          "triangles": 35214,
+          "ms": 1.5,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 2.5
+        }
+      ],
+      "median": 305.19999998807907
+    },
+    {
+      "baseline": false,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2903,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 200,
+          "calls": 2559,
+          "triangles": 104613,
+          "ms": 18.900000005960464,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 49.70000001788139
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2903,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 200,
+          "calls": 155,
+          "triangles": 35480,
+          "ms": 3.7999999821186066,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 19.69999998807907
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2903,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 200,
+          "calls": 2559,
+          "triangles": 104613,
+          "ms": 15.900000005960464,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 34.599999994039536
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2903,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 200,
+          "calls": 155,
+          "triangles": 35480,
+          "ms": 1.7999999821186066,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 2.100000023841858
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2903,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 200,
+          "calls": 2545,
+          "triangles": 104599,
+          "ms": 38.5,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 295.40000000596046
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2903,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 200,
+          "calls": 141,
+          "triangles": 35466,
+          "ms": 7.0999999940395355,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 24.30000001192093
+        }
+      ],
+      "median": 329.59999999403954
+    }
+  ]
+}

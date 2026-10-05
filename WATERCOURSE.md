@@ -142,3 +142,69 @@ Final dry fitting locations: spring bucket `(18.25,3.5,-12.4)` and damp timber
 checks. All four fitting sites now instantiate; seven instance batches contain
 36 details. Human/cat water crossings and mill-to-harbor/tavern routes were
 rechecked after placement, with no change to player collision settings.
+
+## v18.2–v18.5: an exposed spring, not a wall outlet
+
+Starting main: `e437fe9` (v18.1). **Option A** is used: a visible, shallow,
+roughly 2.6 × 3 m spring basin occupies a small open pocket in front of the
+upper homes. Its water surface is y=5.60; an irregular, faceted rock mound
+meets the existing lower ground at y=3.50. Water leaves the pond over a visible
+short stone lip, then drops **0.67 m / 0.70 m** into the existing receiving pool.
+The pond does not begin in a building wall or under a house.
+
+The old solid cliff skirt is divided into three separate, grounded rock masses,
+leaving an actual collision opening at x=17.3–22.5, z=−19.2–−15. Its occupied
+housing terrace remains supported behind the pocket. Houses, shop functions,
+doors and residents are not removed or relocated. The western high wood
+crossing retains its original west end and is shortened from 13 to 9.5 m;
+its previously unsupported east projection no longer covers the spring.
+The twelve old suspended diagonal stair slabs over the source are retired.
+
+Seven ground-supported stone rises lead to a dry lookout at
+`(17.9,5.7,-16.3)`. Each rise is about 0.314 m, within the existing human step
+allowance. The real walking system, not a teleport or enlarged collision rule,
+is used to climb and descend. The nearby accessible residential side lane is
+`(23.1,3.5,-11.5)`; the previous floating stair point is not treated as an
+accessible street.
+
+The first curved shallow reach retains its width variations. Continuous low
+curb strips are replaced with irregular, small stone margins in **one opaque
+instance batch**, leaving the actual water hazard intact. Three low moss patches
+extend the existing detail batch. The previous bucket, washing ledge, timber
+stack and work table are reused; there is no new visitor area or decorative crowd.
+
+The mill position, blade contact, four existing stream bridges, 0.9 m timber feed,
+tailrace and harbor outlet remain unchanged. The source point on the 2D map now
+starts at the pond. The existing `leat` inspection is called **奥の泉** and uses
+the dry bank; its stable ID, fourteen-target list and Journal hook are retained.
+The nine-line stone event stays at its original bank position with unchanged
+saved-state IDs. Audio spring/wheel positions reference the same layout data.
+
+`tools/v185-validation.json` records browser checks. Native human/cat walking
+covers the new spring stairs, four bridges, spring-to-mill paths and surrounding
+streets. Camera-to-pool ray checks confirm that the visible source is the pond,
+rather than an intervening building or cliff, in both walking profiles and all
+six weather modes. A native spring inspection, Journal and reload are checked.
+
+No new lights, water shader, particles, audio engine or environment settings.
+Physical phone performance and listening comparisons remain unverified.
+
+Final terrain shoulders are deliberately low: the rear support tops out at y=8.2
+(the existing housing floor), the west shoulder at 6.25, and the east at 4.5.
+The pond outlet has one water tongue; its stone lip and middle-step support
+remain below the water surface to avoid coplanar overlaps.
+
+Overview and canal cameras retain their original IDs but are reframed to show
+the spring and the downstream system together. Browser projection and ray tests
+cover PC and 390 × 844 mobile canal framing in all three quality settings. The
+rooftop preset still looks across the western roofs; a separate roof-level
+spring view was inspected rather than claiming every camera shows the source.
+
+Same-camera v18.1 → v18.5 overview counts (High/Standard): draw calls
+2560 → 2559; triangles 103005 → 104613 (+1.56%); scene meshes
+2901 → 2903; lights 14 → 14; transparent meshes 34 → 34; shadow casters
+199 → 200. Software-rendered median frame samples were High 18.1 → 18.9 ms,
+Standard 15.4 → 15.9 ms, and Mobile 21.9 → 38.5 ms. Mobile's timing regression
+and large tail variability require physical-device follow-up; counts alone do
+not establish acceptable smartphone frame rates. Full samples are in the
+validation JSON. No environment configuration was changed.

@@ -1,3 +1,4 @@
+import {watercourseLayout} from './waterways.js';
 // Shop identities extend the existing town clock and dialogue IDs.
 export const shops=[
  {id:'bakery',name:'パン屋',actor:'baker',site:'baker',center:[-31,24],hours:{morning:'open',day:'open',evening:'limited',night:'closed'},palette:{wall:0xd9ccb3,wood:0x896447,accent:0xa16945},inside:'窯の近くは暑いから、気をつけて。今の籠は、まだ冷ましているところなんだ。',catInside:'小麦袋の横なら通れるよ。粉の上だけは歩かないでおくれ。'},
@@ -36,9 +37,9 @@ export const townEventDefinitions=[
 ];
 export const soundAnchors=[
  {id:'harbor-water',area:'town',kind:'water',position:[0,1.38,38],src:null},
- {id:'spring-water',area:'town',kind:'water',position:[20,5.6,-16.25],radius:9,gain:.18,src:null},
+ {id:'spring-water',area:'town',kind:'water',position:watercourseLayout.source,radius:9,gain:.18,src:null},
  {id:'stream-water',area:'town',kind:'water',position:[20,4,-6],radius:11,gain:.12,src:null},
- {id:'mill-wheel',area:'town',kind:'wheel',position:[21.05,5.98,27],src:null},
+ {id:'mill-wheel',area:'town',kind:'wheel',position:watercourseLayout.wheel,src:null},
  {id:'bell',area:'town',kind:'bell',position:[-8,20,-20],src:null},
  ...shops.map(s=>({id:s.id+'-room',area:s.id,kind:s.id,position:[0,1,0],src:null})),
  {id:'footsteps',kind:'movement',profiles:{human:null,cat:null},src:null}
