@@ -36,7 +36,7 @@ export function buildOutskirts({THREE,scene,box}){
  const ribbon=slab(-77,7.10,4.4,.12,.015,.30,wood);ribbon.name='Thread behind the roadside wall';
  // A visible broken rail closes the playable hill, while a dry trail suggests continuation.
  for(const z of [-16,-12])slab(-111,9.45,z,.15,.85,.15,wood);
- for(const y of [8.95,9.25])slab(-111,y,-14,.12,.09,9.4,wood);
+ for(const y of [8.95,9.25])slab(-111,y,-14,.12,.09,9.4,wood);const closure=slab(-111,9.20,-13.9,.16,.16,1.5,wood);closure.rotation.x=.20;closure.name='Repair timber across the old road';
  const beyond=slab(-118,8.67,-14,13,.08,1.8,path);beyond.userData.walkSoft=true;
  // A modest shoulder rest and dry side path, built on the same supported bank.
  const batch=createDetailBatch(THREE,root,'Outskirts low walls and wild verge');
@@ -55,12 +55,15 @@ export function buildOutskirts({THREE,scene,box}){
  // Beyond the broken rail, supported distant ground suggests a road onward.
  const farBank=slab(-118,8.55,-14,13,5.05,7,grass);farBank.userData.walkSoft=true;
  for(const [x,z,size]of [[-135,-23,8],[-149,-10,11]])batch.add('leaf',grass,[x,4,z],[size,4,size*.70]);
+ // A short verge spur and two resting traces stay on the existing grass bank.
+ for(let i=0;i<6;i++){const x=-98.5-i*.12,z=-7.5+i*.16,y=bankHeight(x,z);batch.add('block',stone,[x,y+.015,z],[.30,.03,.21]);}
+ for(const [x,z,w]of [[-102,-9.3,.85],[-102.4,-9.05,.50]]){const y=bankHeight(x,z);batch.add('block',wood,[x,y+.045,z],[w,.09,.14]);}
  const batchStats=batch.finish();
  const signCanvas=document.createElement('canvas');signCanvas.width=512;signCanvas.height=128;const pen=signCanvas.getContext('2d');pen.fillStyle='#a69773';pen.fillRect(0,0,512,128);pen.fillStyle='#403e32';pen.font='36px serif';pen.fillText('Lunmere  ·  Lake Lun',18,77);
  const signFace=new THREE.Mesh(new THREE.PlaneGeometry(.72,.18),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(signCanvas),side:THREE.DoubleSide}));signFace.position.set(-54.5,7.06,7.872);signFace.userData.walkSoft=true;root.add(signFace);
  const targets=[
  {id:'outskirts-rest',object:bench,label:'道端の木陰',text:'腰を下ろす高さに板が渡してある。遠くの屋根は、ここでは重ならずに見える。'},
- {id:'outskirts-sign',object:sign,label:'西の古い道標',text:'ルンメア、ルン湖。丘の先を指す文字は何度も書き直されている。遠い道は、今は柵の向こうへ続いている。'},
+ {id:'outskirts-sign',object:sign,label:'西の古い道標',text:'ルンメア、ルン湖。丘の先を指す文字は何度も書き直されている。古い街道の傷んだ縁に、修理の木が渡してある。遠い道は、その向こうへ続いている。'},
  {id:'outskirts-stone',object:oldStone,label:'道端の古い石',text:'浅い円のそばに、細い線が幾つか残っている。町の水辺で見たものに、少し似ている。'},
  {id:'outskirts-lookout',object:rest,label:'町を振り返る丘',text:'深緑の屋根が段々に重なり、その向こうに鐘楼と港の水が見える。道は町の外でも続いている。'},
  {id:'outskirts-thread',object:ribbon,label:'石壁の裏の紐',text:'草の匂いに混じって、旅の荷物の匂いがする。短い紐は、石の暖かい側へ寄っていた。',profiles:['cat']}

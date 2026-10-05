@@ -56,7 +56,7 @@ export function buildInterior({THREE,shop}){
   // Corridor and two small bedrooms; each side doorway has a 1.1m opening.
   box(1.7,3.2,0,3.4,2.85,.12,wall);
   for(const z of [-3.65,-.7,.7,3.65])box(-.1,3.2,z,.12,2.85,1.0,wall);
-  for(const z of [-2,2]){const bed=box(2.25,3.2,z,1.2,.42,1.8,wood);beds.push({object:bed,localPoint:[-.25,.6,0],wake:[200.7,3.2,z],room:z<0?'north':'south'});box(2.25,3.62,z,1.1,.12,1.7,linen,false);box(2.25,3.75,z-.6,.7,.13,.35,paper,false);for(const dx of [-.20,.20])for(const dz of [-.20,.20])box(.8+dx,3.2,(z<0?-3.55:3.55)+dz,.06,.75,.06,wood);box(.8,3.95,z<0?-3.55:3.55,.55,.08,.55,wood);box(3.40,4.15,z,.025,1,.70,glow,false);box(1.0,3.2,z+1.05,.60,.35,.45,wood);}
+  for(const z of [-2,2]){const bed=box(2.25,3.2,z,1.2,.42,1.8,wood);beds.push({object:bed,localPoint:[-.25,.6,0],wake:[200.7,3.2,z],room:z<0?'north':'south'});box(2.25,3.62,z,1.1,.12,1.7,linen,false);box(2.25,3.75,z-.6,.7,.13,.35,paper,false);for(const dx of [-.20,.20])for(const dz of [-.20,.20])box(.8+dx,3.2,(z<0?-3.55:3.55)+dz,.06,.75,.06,wood);box(.8,3.95,z<0?-3.55:3.55,.55,.08,.55,wood);box(3.40,4.15,z,.025,1,.70,glow,false);const guestBag=box(1.0,3.2,z+1.05,.60,.35,.45,wood,false);guestBag.userData.interiorVariant='guest-bag';}
   notice('upstairs','宿の客室','荷物置きには、旅人が結び直した紐が残っている。窓の下では港の音が少し遠い。',[-1,4.0,-1]);
 
   notice('guestbook','宿帳','名前の横に、小さな円を添える旅人がいる。受付の灯りは、遅い到着にも残されている。',[1.8,1.05,-2.3]);
@@ -81,7 +81,7 @@ export function buildInterior({THREE,shop}){
  // Quiet back-room details reuse materials, without changing the entry route.
  if(shop.id==='bakery'){box(0,1.9,-2.9,1.2,.06,.05,wood,false);box(-.85,0,-2.9,.08,2.1,.08,wood);box(-.85,1.6,-2.9,.40,.35,.04,linen,false);workstations.push([1.3,0,-2.6],[1.05,0,-1.95]);}
  if(shop.id==='bookshop'){box(-.9,0,-3.1,.10,1.95,.15,wood);box(-.9,1.85,-3.1,.12,.08,1.0,wood,false);workstations.push([1.7,0,-2.7],[1.25,0,-2.65],[1.4,0,-1.2]);}
- if(shop.id==='tavern'){box(0,1.05,-3.7,1.2,.30,.12,paper,false);box(-1,1.05,-3.7,.25,.18,.25,linen,false);workstations.push([1.1,0,-1.6],[.6,0,-1.4]);}
+ if(shop.id==='tavern'){const plate=box(0,1.11,-2.7,.36,.03,.24,paper,false),cup=box(-.55,1.11,-2.7,.15,.18,.15,linen,false);plate.userData.interiorVariant=cup.userData.interiorVariant='night-table';workstations.push([1.1,0,-1.6],[.6,0,-1.4]);}
  if(shop.id==='orrery'){box(.0,0,-4.05,.65,1.3,.18,wood);box(0,1.4,-4.08,.48,.62,.025,paper,false);workstations.push([1.7,0,-2.95],[.65,0,-2.65],[.45,0,-1.1]);}
  root.updateMatrixWorld(true);for(const o of obstacles)o.bounds.setFromObject(o.object,true);
  const bounds=new THREE.Box3(new THREE.Vector3(196.58,0,-4.32),new THREE.Vector3(203.42,0,4.32));
