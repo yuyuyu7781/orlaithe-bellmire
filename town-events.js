@@ -1,3 +1,4 @@
+import {watercourseLayout} from './waterways.js';
 import {townEventDefinitions,rumorPools} from './shop-data.js';
 // Extends the shared resolver/card. No extra quest HUD or polling loop.
 export function createTownEvents({THREE,scene,culture,inspectTargets,inspections,walking,townLife,shopSystem,dialogue,stay=null}){
@@ -14,10 +15,10 @@ export function createTownEvents({THREE,scene,culture,inspectTargets,inspections
   // Their silhouettes stay below the walker's step allowance; no new blockers.
   if(['cat-bread','cat-ribbon','ninth-bell','upstream-stone'].includes(event.id)){
    const clue=event.id==='upstream-stone'?new THREE.Mesh(new THREE.IcosahedronGeometry(.085,0),culture.tools.materials.stone):event.id==='ninth-bell'?new THREE.Mesh(new THREE.CylinderGeometry(.055,.040,.10,6),culture.tools.materials.wood):new THREE.Mesh(new THREE.BoxGeometry(event.id==='cat-bread'?.085:.19,.018,.025),culture.tools.materials.linen);
-   const at=event.id==='upstream-stone'?new THREE.Vector3(21.35,6.275,21):event.id==='ninth-bell'?new THREE.Vector3(center.x,b.max.y+.05,center.z):new THREE.Vector3(b.max.x+.055,b.min.y+.012,center.z-.12);
+   const at=event.id==='upstream-stone'?new THREE.Vector3(...watercourseLayout.stone):event.id==='ninth-bell'?new THREE.Vector3(center.x,b.max.y+.05,center.z):new THREE.Vector3(b.max.x+.055,b.min.y+.012,center.z-.12);
    clue.name=event.label;clue.position.copy(object.worldToLocal(at));clue.userData.walkSoft=true;object.add(clue);props.push(clue);
   }
-  const entry={id:'event:'+event.id,kind:'town-event',verb:'調べる',label:event.label,object,localPoint:event.id==='upstream-stone'?object.worldToLocal(new THREE.Vector3(21.35,6.275,21)).toArray():original?.localPoint??object.worldToLocal(center).toArray(),profiles:event.profiles??['human','cat'],range:3.2,priority:event.id==='upstream-stone'?-.30:.25,event,
+  const entry={id:'event:'+event.id,kind:'town-event',verb:'調べる',label:event.label,object,localPoint:event.id==='upstream-stone'?object.worldToLocal(new THREE.Vector3(...watercourseLayout.stone)).toArray():original?.localPoint??object.worldToLocal(center).toArray(),profiles:event.profiles??['human','cat'],range:3.2,priority:event.id==='upstream-stone'?-.30:.25,event,
    enabled:()=>!shopSystem.current&&(states.get(event.id).state==='resolved'||!event.periods||event.periods.includes(townLife.state.period))};
   inspections.resolver.register(entry);entries.push(entry);
  }
