@@ -86,3 +86,31 @@ Validation includes a native three-day W/E stay with two bed rests, a Day 2
 save/reload, all five human/cat portrait conversations, 16 human routes and 520
 lane cells, five cat jumps, all six weather states and nineteen cameras. Inn
 weather changes were checked while indoors and after returning outside.
+
+## Small schedule and weather refinement after v18.6
+
+Existing street routes, worker stations, visitor definitions and update loops are
+reused. No added NPCs, geometry, lights, timers, saved fields or environment settings.
+
+* Moira/Evan: in clear morning/day weather, brief doorway-to-shopfront errands
+  (0.65 m maximum, roughly nine seconds before returning). Existing shop portals
+  bridge interior/exterior coordinates. Every exterior step uses human collision;
+  a player at the doorway prevents departure and nearby players pause movement.
+  Indoors Moira starts her morning workstation cycle sooner; Evan walks more slowly.
+* Nerissa: existing desk/instrument stations remain; slower walks and longer night
+  work pauses distinguish quiet study without a new animation system.
+* Bran/Finn: existing route controllers gain staggered departure waits and occasional
+  short waypoint pauses. Weather shelter destinations reuse inn/tavern nodes.
+* The three visitor types keep their existing arrival/departure days, with two or
+  three deterministic stay-pattern overrides chosen by day. The traveller alternates
+  market/square, merchant market/harbor/inn, carrier harbor/market/inn/tavern.
+* More of the existing scheduled residents head indoors during rain, dawn and
+  blackout. Weather shelter takes priority over the water-light gathering.
+* Existing five-person rain/dawn/blackout dialogue, memory, Journal and portraits
+  are retained rather than duplicated.
+
+Browser checks cover four phases, four weather states, actual short porch motion,
+visitor destination differences across several days, five human/cat shop
+conversations and portraits, PC/mobile navigation/map, and 19 views/six weather/
+follow/inspection/WebGL. Scene mesh/light counts remain unchanged in the focused
+simulation check. No physical-phone frame-time claim is made.

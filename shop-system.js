@@ -4,7 +4,7 @@ import {buildInterior} from './interiors.js';
 export function createShopSystem({THREE,scene,walking,grounding,miniature,inspections,dialogue,townLife,onExit=()=>{}}){
  const roomListeners=new Set(),rooms=new Map(),entrances=[],actors=new Map(dialogue.entries.map(e=>[e.character.id,e.object]));
  const originals=new Map([...actors].map(([id,o])=>[id,{parent:o.parent,position:o.position.clone(),rotation:o.rotation.clone(),visible:o.visible}]));
- const townRoots=[...scene.children],savedVisibility=new Map(),outdoorPoints=[];scene.traverse(o=>{if(o.isPointLight)outdoorPoints.push(o);});let workTime=0;const workerStates=new Map();let travel=null;let current=null,returnPoint=null,returnYaw=0,savedBackground=null,savedFog=null;
+ const townRoots=[...scene.children],savedVisibility=new Map(),outdoorPoints=[];scene.traverse(o=>{if(o.isPointLight)outdoorPoints.push(o);});let workTime=0;const porchStates=new Map();const workerStates=new Map();let travel=null;let current=null,returnPoint=null,returnYaw=0,savedBackground=null,savedFog=null;
  const label=document.createElement('div');label.className='room-label';label.hidden=true;document.body.append(label);
  const wood=new THREE.MeshStandardMaterial({color:0x775b42,roughness:1}),iron=new THREE.MeshStandardMaterial({color:0x42463d,roughness:1});
  const distance=(a,b)=>Math.hypot(a.x-b.x,a.z-b.z);
@@ -37,7 +37,7 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
   entrances.push(entry);inspections.resolver.register(entry);
  }
  for(const e of dialogue.entries){e.enabled=()=>{const place=travel?.location(e.character.id)??locationFor(e.character.id);return current?place===current.shop.id:!['private',...shops.map(s=>s.id)].includes(place);};e.character.rumorPool=rumorPools[e.character.id]??[];}
- function locationFor(id){if(id==='greenBard'&&townLife.state.calendar?.gathering)return 'waterfront';return dailyLocations[id]?.[townLife.state.period]??'town';}
+ function locationFor(id){if(porchStates.get(id)?.active)return 'town';if(townLife.state.weather==='blackout'&&['boatworker','greenBard'].includes(id))return townLife.state.period==='morning'?'inn':'tavern';if(townLife.state.weather==='rain'&&['boatworker','greenBard'].includes(id))return 'inn';if(townLife.state.weather==='dawn'&&id==='greenBard')return 'inn';if(id==='greenBard'&&townLife.state.calendar?.gathering)return 'waterfront';return dailyLocations[id]?.[townLife.state.period]??'town';}
  function characterLocation(id){const place=travel?.location(id)??locationFor(id);return current&&place===current.shop.id?current.shop.id:'town';}
  function getRoom(shop){if(rooms.has(shop.id))return rooms.get(shop.id);const room=buildInterior({THREE,shop});rooms.set(shop.id,room);room.root.visible=false;
   for(const target of room.inspect)inspections.resolver.register(target);
@@ -60,11 +60,12 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
     if(o.parent!==current.root)current.root.attach(o);
     let p=current.npcPosition;if(id==='greenBard')p=[-2.5,0,2.7];else if(id==='boatworker')p=[1.1,0,-1.6];
     const stations=current.workstations??[],key=current.shop.id+':'+id;let worker=workerStates.get(key);
-    if(!worker){worker={feet:new THREE.Vector3(...p).add(current.root.position),station:0,wait:4,currentState:'working'};workerStates.set(key,worker);}
+    if(!worker){worker={feet:new THREE.Vector3(...p).add(current.root.position),station:0,wait:id==='baker'&&townLife.state.period==='morning'?2:4,currentState:'working'};workerStates.set(key,worker);}
     const dt=workTime;worker.wait-=dt;if(stations.length&&worker.wait<=0){const target=new THREE.Vector3(...stations[worker.station%stations.length]).add(current.root.position),delta=target.clone().sub(worker.feet),d=Math.hypot(delta.x,delta.z);
-     if(d<.05){worker.station++;worker.wait=5+worker.station%3;worker.currentState='working';}else{const blockedByPlayer=walking.active&&walking.state.feet.distanceTo(worker.feet)<.65;const step=Math.min(blockedByPlayer?0:.50*dt,d),x=worker.feet.x+delta.x/d*step,z=worker.feet.z+delta.z/d*step,y=walking.canStandActor('human',x,z,worker.feet.y,o);if(y!==null){worker.feet.set(x,y,z);worker.currentState='walking';}else{worker.wait=2;worker.station++;worker.currentState='working';}}}
+     if(d<.05){worker.station++;worker.wait=(id==='starmaker'&&townLife.state.period==='night'?10:5)+worker.station%3;worker.currentState='working';}else{const blockedByPlayer=walking.active&&walking.state.feet.distanceTo(worker.feet)<.65;const step=Math.min(blockedByPlayer?0:(id==='starmaker'?.34:id==='bookseller'?.42:.50)*dt,d),x=worker.feet.x+delta.x/d*step,z=worker.feet.z+delta.z/d*step,y=walking.canStandActor('human',x,z,worker.feet.y,o);if(y!==null){worker.feet.set(x,y,z);worker.currentState='walking';}else{worker.wait=2;worker.station++;worker.currentState='working';}}}
     const feet=worker.feet;setActor(o,feet,stations.length?({bakery:1.6,bookshop:Math.PI,orrery:1.8,tavern:0}[current.shop.id]??0):0);o.userData.shopWork={currentState:worker.currentState,station:worker.station};o.visible=true;
    }else{if(travel?.draw(id))continue;const initial=originals.get(id);if(o.parent!==initial.parent)initial.parent.attach(o);
+    const porch=porchStates.get(id);if(porch?.active){setActor(o,porch.feet,porch.yaw);o.visible=true;o.userData.shopWork={currentState:porch.returning?'returning':'shopfront',station:'door'};continue;}
     if(['private',...shops.map(s=>s.id)].includes(place)){o.visible=false;continue;}o.visible=initial.visible;
     if(id==='greenBard'&&place==='square')continue; // Keep his original walking animation at midday.
     const p=anchors.get(place);if(p)setActor(o,p,id==='boatworker'?-.3:Math.PI/3);
@@ -78,7 +79,22 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
  function applyTime(){for(const e of entrances){const open=isShopOpen(e.shop,townLife.state.period);e.verb=open?'入る':'閉まっている';e.label=e.shop.name+'（'+shopStatus(e.shop,townLife.state.period)+'）';e.latch.visible=!open;e.leaf.material=wood;}
   updateActors();updateAppearance();}
  townLife.onChange(applyTime);applyTime();
- function update(dt=.016){workTime=Math.min(.05,dt);travel?.update(dt);updateActors();updateAppearance();if(current)for(const o of outdoorPoints)o.visible=false;}
+ // Reuse doorway approach points and the existing actor update; no new simulation loop.
+ function updatePorches(dt){for(const [id,shopId]of [['baker','bakery'],['bookseller','bookshop']]){
+  const actor=actors.get(id),door=entrances.find(e=>e.shop.id===shopId);let state=porchStates.get(id);
+  if(!state){state={elapsed:0,active:false};porchStates.set(id,state);}
+  const eligible=!current&&townLife.state.weather==='clear'&&['morning','day'].includes(townLife.state.period);
+  if(!eligible){state.active=false;state.elapsed=0;continue;}
+  state.elapsed+=dt;
+  if(!state.active){if(walking.active&&walking.state.feet.distanceTo(new THREE.Vector3(...door.approach))<.85)continue;if(state.elapsed<(id==='baker'?24:38))continue;state.elapsed=0;state.active=true;state.returning=false;state.feet=new THREE.Vector3(...door.approach);state.origin=state.feet.clone();state.yaw=Math.atan2(door.normal[0],door.normal[2]);}
+  state.returning=state.elapsed>9;
+  const target=state.origin.clone();if(!state.returning)target.addScaledVector(new THREE.Vector3(...door.normal),.65);
+  const delta=target.sub(state.feet),distance=Math.hypot(delta.x,delta.z);
+  if(distance>.015){const step=Math.min(distance,.45*dt),x=state.feet.x+delta.x/distance*step,z=state.feet.z+delta.z/distance*step;
+   if(!walking.active||walking.state.feet.distanceTo(state.feet)>.85){const y=walking.canStandTownAs('human',x,z,state.feet.y,actor);if(y!==null)state.feet.set(x,y,z);}}
+  if(state.returning&&distance<.025){state.active=false;state.elapsed=0;}
+ }}
+ function update(dt=.016){workTime=Math.min(.05,dt);updatePorches(workTime);travel?.update(dt);updateActors();updateAppearance();if(current)for(const o of outdoorPoints)o.visible=false;}
  function trackingPoint(object){const id=[...actors].find(([,o])=>o===object)?.[0],place=id&&locationFor(id),door=entrances.find(e=>e.shop.id===place);return !object.visible&&door?door.object.getWorldPosition(new THREE.Vector3()):object.getWorldPosition(new THREE.Vector3());}
  return {initialAnchor:place=>anchors.get(place)?.clone(),setTravel(adapter){travel=adapter;},onRoom(fn){roomListeners.add(fn);for(const r of rooms.values())fn(r);return()=>roomListeners.delete(fn);},shops,rooms,entrances,enter,exit,update,locationFor,characterLocation,trackingPoint,events:townEventDefinitions,soundAnchors,workerStates,get current(){return current},get stats(){return{builtRooms:rooms.size,visibleRooms:[...rooms.values()].filter(r=>r.root.visible).length,active:current?.shop.id??'town',activeMeshes:current?.stats.meshes??0};}};
 }

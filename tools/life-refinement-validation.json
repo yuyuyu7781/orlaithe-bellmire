@@ -1,0 +1,344 @@
+{
+  "baselineMain": "bd047c8d59deac1261a9650bb81444d7d6a648dc",
+  "environmentSettingsChanged": false,
+  "sceneBefore": {
+    "meshes": 2884,
+    "lights": 14
+  },
+  "sceneAfter": {
+    "meshes": 2884,
+    "lights": 14
+  },
+  "shortPorchMovementSamples": {
+    "baker": 191,
+    "bookseller": 191
+  },
+  "visitorDestinations": [
+    {
+      "day": 2,
+      "phase": "morning",
+      "people": [
+        {
+          "id": "lake-traveller",
+          "to": "origin",
+          "spawned": false
+        },
+        {
+          "id": "cloth-merchant",
+          "to": "origin",
+          "spawned": false
+        },
+        {
+          "id": "boat-carrier",
+          "to": "harbor",
+          "spawned": true
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "phase": "day",
+      "people": [
+        {
+          "id": "lake-traveller",
+          "to": "origin",
+          "spawned": false
+        },
+        {
+          "id": "cloth-merchant",
+          "to": "origin",
+          "spawned": false
+        },
+        {
+          "id": "boat-carrier",
+          "to": "market",
+          "spawned": true
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "phase": "evening",
+      "people": [
+        {
+          "id": "lake-traveller",
+          "to": "origin",
+          "spawned": false
+        },
+        {
+          "id": "cloth-merchant",
+          "to": "origin",
+          "spawned": false
+        },
+        {
+          "id": "boat-carrier",
+          "to": "tavern",
+          "spawned": true
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "phase": "morning",
+      "people": [
+        {
+          "id": "lake-traveller",
+          "to": "inn",
+          "spawned": true
+        },
+        {
+          "id": "cloth-merchant",
+          "to": "origin",
+          "spawned": false
+        },
+        {
+          "id": "boat-carrier",
+          "to": "harbor",
+          "spawned": true
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "phase": "day",
+      "people": [
+        {
+          "id": "lake-traveller",
+          "to": "market",
+          "spawned": true
+        },
+        {
+          "id": "cloth-merchant",
+          "to": "origin",
+          "spawned": false
+        },
+        {
+          "id": "boat-carrier",
+          "to": "market",
+          "spawned": true
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "phase": "evening",
+      "people": [
+        {
+          "id": "lake-traveller",
+          "to": "inn",
+          "spawned": true
+        },
+        {
+          "id": "cloth-merchant",
+          "to": "origin",
+          "spawned": false
+        },
+        {
+          "id": "boat-carrier",
+          "to": "inn",
+          "spawned": true
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "phase": "morning",
+      "people": [
+        {
+          "id": "lake-traveller",
+          "to": "inn",
+          "spawned": true
+        },
+        {
+          "id": "cloth-merchant",
+          "to": "market",
+          "spawned": true
+        },
+        {
+          "id": "boat-carrier",
+          "to": "harbor",
+          "spawned": true
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "phase": "day",
+      "people": [
+        {
+          "id": "lake-traveller",
+          "to": "square",
+          "spawned": true
+        },
+        {
+          "id": "cloth-merchant",
+          "to": "market",
+          "spawned": true
+        },
+        {
+          "id": "boat-carrier",
+          "to": "harbor",
+          "spawned": true
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "phase": "evening",
+      "people": [
+        {
+          "id": "lake-traveller",
+          "to": "inn",
+          "spawned": true
+        },
+        {
+          "id": "cloth-merchant",
+          "to": "inn",
+          "spawned": true
+        },
+        {
+          "id": "boat-carrier",
+          "to": "tavern",
+          "spawned": true
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "phase": "morning",
+      "people": [
+        {
+          "id": "lake-traveller",
+          "to": "inn",
+          "spawned": true
+        },
+        {
+          "id": "cloth-merchant",
+          "to": "origin",
+          "spawned": true
+        },
+        {
+          "id": "boat-carrier",
+          "to": "harbor",
+          "spawned": true
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "phase": "day",
+      "people": [
+        {
+          "id": "lake-traveller",
+          "to": "market",
+          "spawned": true
+        },
+        {
+          "id": "cloth-merchant",
+          "to": "origin",
+          "spawned": true
+        },
+        {
+          "id": "boat-carrier",
+          "to": "market",
+          "spawned": true
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "phase": "evening",
+      "people": [
+        {
+          "id": "lake-traveller",
+          "to": "inn",
+          "spawned": true
+        },
+        {
+          "id": "cloth-merchant",
+          "to": "origin",
+          "spawned": true
+        },
+        {
+          "id": "boat-carrier",
+          "to": "tavern",
+          "spawned": true
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "phase": "morning",
+      "people": [
+        {
+          "id": "lake-traveller",
+          "to": "inn",
+          "spawned": true
+        },
+        {
+          "id": "cloth-merchant",
+          "to": "origin",
+          "spawned": true
+        },
+        {
+          "id": "boat-carrier",
+          "to": "origin",
+          "spawned": true
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "phase": "day",
+      "people": [
+        {
+          "id": "lake-traveller",
+          "to": "square",
+          "spawned": true
+        },
+        {
+          "id": "cloth-merchant",
+          "to": "origin",
+          "spawned": true
+        },
+        {
+          "id": "boat-carrier",
+          "to": "origin",
+          "spawned": true
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "phase": "evening",
+      "people": [
+        {
+          "id": "lake-traveller",
+          "to": "inn",
+          "spawned": true
+        },
+        {
+          "id": "cloth-merchant",
+          "to": "origin",
+          "spawned": true
+        },
+        {
+          "id": "boat-carrier",
+          "to": "origin",
+          "spawned": true
+        }
+      ]
+    }
+  ],
+  "checks": [
+    "four day phases and clear/rain/dawn/blackout destination changes",
+    "five human/cat shop conversations, official portraits, entry/exit",
+    "19 cameras, six weather, follow, human14/cat5 inspection, animation, WebGL",
+    "PC and 390px mobile navigation/minimap",
+    "all existing tools/check_*.mjs"
+  ],
+  "limits": [
+    "Physical smartphone not tested; no new FPS comparison.",
+    "Existing portal seam is reused for shopfront errands; not a seamless walk-through building interior."
+  ]
+}
