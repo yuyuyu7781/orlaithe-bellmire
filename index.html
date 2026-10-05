@@ -62,6 +62,7 @@ import {createResidentDay} from './resident-day.js';
 import {createTownEvents} from './town-events.js';
 import {addCatExploration} from './cat-exploration.js';
 import {createAmbientAudio} from './ambient-audio.js';
+import {createWeatherSurfaces} from './weather-surfaces.js';
 import {createStayState} from './stay-state.js';
 import {createRestSystem} from './stay-ui.js';
 import {createJournal} from './journal.js';
@@ -1154,7 +1155,8 @@ const harborDetails=enrichHarbor({THREE,scene,grounding,walking,supports:harborS
   ignored:[...residentScale.residents.map(q=>q.object),cat,...smoke,orrery]});
 inspections.resolver.refreshOccluders();
 const townLife=createTownLife({THREE,scene,lit,smoke,chimneySources,buildings:miniature.shells,stay:stayState});
-townLife.onChange(state=>residentLife.setPeriod(state.period));residentLife.setPeriod(townLife.state.period);
+townLife.onChange(state=>residentLife.setPeriod(state.period));
+const weatherSurfaces=createWeatherSurfaces({THREE,scene,townLife,waterMaterials:[water]});residentLife.setPeriod(townLife.state.period);
 const shopSystem=createShopSystem({THREE,scene,walking,grounding,miniature,inspections,dialogue,townLife,onExit:()=>{atmosphere.apply(townLife.state.weather);atmosphere.applyPeriod(townLife.state.period);atmosphere.refreshShadows();quality.update(2);}});
 const residentDay=createResidentDay({THREE,walking,grounding,residentLife,townLife,shopSystem,camera,getQuality:()=>quality.current});
 const namedTravel=createNamedTravel({THREE,walking,shopSystem,residentDay,dialogue,townLife,getQuality:()=>quality.current});

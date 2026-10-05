@@ -26,10 +26,10 @@ export function createAtmosphere({THREE,scene,camera,renderer,bloom,hemi,sun,dyn
  const materials=new Set();scene.traverse(o=>{if(o.material)for(const m of Array.isArray(o.material)?o.material:[o.material])materials.add(m);});
  for(const m of materials){const previous=m.onBeforeCompile,previousKey=m.customProgramCacheKey();m.onBeforeCompile=function(shader,renderer){previous.call(this,shader,renderer);shader.uniforms.bellmireAirNear=airNear;shader.fragmentShader='uniform float bellmireAirNear;\n'+shader.fragmentShader.replace('#include <fog_fragment>',fragment);};m.customProgramCacheKey=()=>previousKey+'|bellmire-clear-foreground-v1';m.needsUpdate=true;}
  function update(walking=false){airNear.value=profile.air?(walking?14:Math.max(14,Math.min(58,camera.position.y-3))):0;}
- function paint(){scene.background.set(profile.sky);scene.fog.color.set(profile.fog);scene.fog.density=profile.density;hemi.intensity=profile.hemi;sun.intensity=profile.sun;sun.color.set(profile.sunColor);renderer.toneMappingExposure=profile.exposure;bloom.strength=profile.bloom;update();}
+ function paint(){scene.background.set(profile.sky);scene.fog.color.set(profile.fog);scene.fog.density=profile.density;hemi.color.set(profile.skyTint??artLighting.skyTint);hemi.groundColor.set(profile.groundTint??artLighting.groundTint);hemi.intensity=profile.hemi;sun.intensity=profile.sun;sun.color.set(profile.sunColor);renderer.toneMappingExposure=profile.exposure;bloom.strength=profile.bloom;update();}
  function apply(value){weather=value;profile=weatherProfiles[value];if(!profile)throw Error('Unknown weather: '+value);paint();}
  function applyPeriod(period){if(!timeAtmosphere[period])throw Error('Unknown period: '+period);const base=weatherProfiles[weather];
-  profile=['clear','dawn','night'].includes(weather)?timeAtmosphere[period]:{...base};
+  profile=weather==='dawn'&&period==='morning'?base:['clear','dawn','night'].includes(weather)?timeAtmosphere[period]:{...base};
   if(['rain','fog'].includes(weather)){const factor={morning:.85,day:1,evening:.78,night:.60}[period];profile.hemi*=factor;profile.sun*=factor;}
   paint();
  }

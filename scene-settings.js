@@ -1,10 +1,10 @@
 // Shared art direction and time vocabulary. No model coordinates are changed.
 export const weatherProfiles={
  clear:{sky:0xa5afaa,fog:0xa5afaa,density:.0067,air:true,hemi:1.52,sun:1.92,exposure:1.08,bloom:.14,sunColor:0xffe5c0,period:'day'},
- rain:{sky:0x5d6b70,fog:0x687575,density:.0105,air:false,hemi:.80,sun:.34,exposure:.80,bloom:.20,sunColor:0xc6cec5,period:'day'},
+ rain:{sky:0x5d6b70,fog:0x687575,density:.0078,air:true,hemi:.83,sun:.30,exposure:.83,bloom:.20,sunColor:0xc6cec5,period:'day'},
  fog:{sky:0x929b96,fog:0x929b96,density:.0145,air:false,hemi:.94,sun:.43,exposure:.82,bloom:.22,sunColor:0xd9d8be,period:'day'},
- blackout:{sky:0x071017,fog:0x071017,density:.012,air:false,hemi:.12,sun:.02,exposure:.48,bloom:.12,sunColor:0xb3bfba,period:'night'},
- dawn:{sky:0x7c8b8b,fog:0x9da091,density:.0075,air:true,hemi:.95,sun:.92,exposure:1.02,bloom:.18,sunColor:0xffce98,period:'morning'},
+ blackout:{sky:0x071017,fog:0x071017,density:.012,air:false,hemi:.35,sun:.04,exposure:.72,bloom:.12,sunColor:0xb3bfba,period:'night'},
+ dawn:{sky:0x536c83,fog:0x667b8e,density:.0072,air:true,hemi:.72,sun:.24,exposure:.86,bloom:.18,skyTint:0xc1d1e3,groundTint:0x858d98,sunColor:0xb9cbdc,period:'morning'},
  night:{sky:0x142024,fog:0x253031,density:.0070,air:true,hemi:1.05,sun:.18,exposure:1.00,bloom:.20,sunColor:0xb8c8c2,period:'night'}
 };
 export const periodSettings={
@@ -27,4 +27,4 @@ export function periodForWeather(weather){return weatherProfiles[weather]?.perio
 export const artLighting={skyTint:0xe3e4db,groundTint:0x9d8e79,shadowExtent:65,shadowFar:180,minCasterWidth:2.2,minCasterHeight:1.2};
 export const waterPalette={tint:0x607978,tintAmount:.31};
 
-export const timeAtmosphere={morning:weatherProfiles.dawn,day:weatherProfiles.clear,night:weatherProfiles.night,evening:{sky:0x77847b,fog:0x899186,density:.0068,air:true,hemi:.85,sun:1.05,exposure:.96,bloom:.20,sunColor:0xffd1a0,period:"evening"}};
+export const timeAtmosphere={morning:{...weatherProfiles.dawn,sky:0x8b9b9d,fog:0xa0aba5,hemi:1.05,sun:1.05,exposure:1.04,sunColor:0xffd6ac,skyTint:0xe3e4db,groundTint:0x9d8e79},day:weatherProfiles.clear,night:weatherProfiles.night,evening:{sky:0x77847b,fog:0x899186,density:.0068,air:true,hemi:.85,sun:1.05,exposure:.96,bloom:.20,sunColor:0xffd1a0,period:"evening"}};
