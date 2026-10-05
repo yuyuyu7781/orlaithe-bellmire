@@ -19,7 +19,7 @@ export function createMillrace({THREE,scene,water,wood,stone,iron,box}){
  const timber=wood.clone();timber.color.lerp(new THREE.Color(0x52645a),.13);timber.userData.storybookKind='wood';
  const moss=new THREE.MeshStandardMaterial({color:0x596850,roughness:1}),foam=new THREE.MeshStandardMaterial({color:0x819b94,roughness:1});
  const slab=(x,y,z,w,h,d,ma,parent=root)=>{const o=box(x,y,z,w,h,d,ma,parent);o.castShadow=false;return o;};
- function flow(x,y,z,w,h,d,role){const o=slab(x,y,z,w,h,d,water);o.name='Water '+role;o.userData.waterRole=role;waterParts.push(o);return o;}
+ function flow(x,y,z,w,h,d,role){const o=slab(x,y,z,w,h,d,water);if(role==='spring-fall'){const positions=o.geometry.attributes.position;for(let i=0;i<positions.count;i++){const top=positions.getY(i)>0;positions.setX(i,positions.getX(i)*(top?.82:1));}positions.needsUpdate=true;o.geometry.computeVertexNormals();}o.name='Water '+role;o.userData.waterRole=role;waterParts.push(o);return o;}
  // Two quiet rock steps against the existing cliff, not an elevated aqueduct.
  function bankRock(x,y,z,w,h,d,material=wet){const o=new THREE.Mesh(new THREE.DodecahedronGeometry(1,0),material);o.position.set(x,y,z);o.scale.set(w/2,h/2,d/2);o.castShadow=false;o.receiveShadow=true;root.add(o);return o;}
  bankRock(20,4.72,-14.92,1.18,2.48,.38);
@@ -29,12 +29,14 @@ export function createMillrace({THREE,scene,water,wood,stone,iron,box}){
  for(const side of [-1,1]){
   bankRock(20+side*.55,4.22,-13.93,.22,.36,1.05,dry);
   bankRock(20+side*.48,5.16,-14.46,.26,.32,.65,wet);
-  bankRock(20+side*.43,6.01,-14.78,.30,.30,.42,wet);
+  bankRock(20+side*.35,5.92,-14.88,.30,.30,.42,wet);
  }
+ slab(20,5.87,-14.77,.54,.13,.29,wet);
+ flow(20,5.92,-14.75,.43,.08,.24,'spring-step');
  let spring;
  for(let i=1;i<watercourseLayout.falls.length;i++){
   const a=watercourseLayout.falls[i-1],b=watercourseLayout.falls[i];
-  if(a[1]>b[1]){const o=flow(a[0],b[1],a[2],i===1?.32:.44,a[1]-b[1],.055,'spring-fall');drops.push(o);spring??=o;flecks.push({a:new THREE.Vector3(...a),b:new THREE.Vector3(...b),width:.32,offset:.2});}
+  if(a[1]>b[1]){const o=flow(a[0],b[1],a[2],i===1?.32:.44,a[1]-b[1],.055,'spring-fall');drops.push(o);spring??=o;for(const side of [-1,0,1])flecks.push({a:new THREE.Vector3(...a),b:new THREE.Vector3(...b),width:.32,offset:.3+side*.23,side:side*.075});}
   else flow(20,a[1]-.10,(a[2]+b[2])/2,.47,.10,Math.abs(b[2]-a[2])+.06,'spring-step');
  }
  // The receiving shallows continue into the first curved reach without a gap.
@@ -72,7 +74,7 @@ export function createMillrace({THREE,scene,water,wood,stone,iron,box}){
  // Shared opaque stream marks: one draw, no particles or second water shader.
  const geometry=new THREE.BoxGeometry(.045,.008,.18),marks=new THREE.InstancedMesh(geometry,foam,flecks.length),matrix=new THREE.Matrix4(),scale=new THREE.Vector3(1,1,1);marks.frustumCulled=false;marks.userData.walkSoft=true;marks.name='Quiet downstream flow marks';root.add(marks);
  const position=new THREE.Vector3();for(const f of flecks){f.length=f.a.distanceTo(f.b);f.rotation=new THREE.Quaternion().setFromUnitVectors(new THREE.Vector3(0,0,1),f.b.clone().sub(f.a).normalize());}
- function update(t){flecks.forEach((f,i)=>{const u=((f.offset+t*.42)%f.length)/f.length;position.copy(f.a).lerp(f.b,u);position.y+=.009;matrix.compose(position,f.rotation,scale);marks.setMatrixAt(i,matrix);});marks.instanceMatrix.needsUpdate=true;}
+ function update(t){flecks.forEach((f,i)=>{const u=((f.offset+t*.42)%f.length)/f.length;position.copy(f.a).lerp(f.b,u);position.y+=.009;if(f.side)position.x+=f.side;matrix.compose(position,f.rotation,scale);marks.setMatrixAt(i,matrix);});marks.instanceMatrix.needsUpdate=true;}
  update(0);marks.computeBoundingBox();marks.computeBoundingSphere();
  const points=[...watercourseLayout.falls,...open,...watercourseLayout.feed.slice(1),...lower.slice(1)].map(p=>new THREE.Vector3(...p));
  const upstream={group:root,points:open.map(p=>new THREE.Vector3(...p)),sections,pond,spring,stonePoint:new THREE.Vector3(...watercourseLayout.stone),update:()=>{}};

@@ -85,3 +85,60 @@ It advances the legacy moving residents as well as scheduled residents; freezing
 those actors can otherwise artificially block a crossing. Crowded NPC crossings
 can still produce waits. Retreats now use collision-validated approach steps,
 rather than requiring a perfectly level patch beside the bridge.
+
+## v17.8–v18.1: a higher, gentler spring landscape
+
+Starting main: `ae6f6a5` (v17.7). The same builder/root and downstream crossings
+remain active. The source rises **1.14 m**, from y=4.86 to **6.00**, against the
+existing rock face. Two rock-backed falls descend **0.87 m** and **0.90 m**,
+with a short wet shelf between them and a shallow receiving surface at y=4.23.
+This is a local source correction, not a new terrace or suspended aqueduct.
+
+The first six metres now bend slightly (x=19.90–20.08), vary in width
+(0.56–0.66 m), and have lower banks before joining the existing stone town leat.
+The mill remains at `(21.05, 5.98, 27)`; its blade contact, short **0.9 m** timber
+feed, tailrace, four crossings and harbor outlet are unchanged.
+
+Existing harbor weather handling now owns a small set of shared water tones:
+spring +7%, shallow stream +1%, mill −7%, tailrace −4%, harbor unchanged.
+The existing rain/dawn/night/blackout multipliers apply to every tone, with no
+second color controller. Waterfall sheets have gently tapered edges and a lighter shared tone; their
+small flow streaks remain in the same opaque instanced draw (38 marks).
+No new lights, particles, textures or water shader are introduced.
+
+The existing washing ledge and work table are reused. Two additional dry-side
+fittings add a bucket foothold near the spring and a small damp timber stack near
+the mill. They use the existing instance batches and dry-footprint validation.
+The existing alternating morning mill/harbor schedules remain unchanged.
+
+Two short-range audio zones (spring/stream) use the existing single-context,
+gesture-activated filtered-water texture, mute control and quality update cadence.
+The wheel sound anchor now matches its actual position. The `leat` observation
+and Journal sentence describe the small falls; event IDs, saved progress and the
+unresolved nine-line/circle motif remain intact. The map uses the same fall points.
+
+Current browser results and before/after counts are in `tools/v181-validation.json`.
+Testing includes actual keyboard walking in both profiles. At bridge boundaries,
+validation accepts support on either the current step or the reachable next step;
+a second `canStand` call can otherwise select the next step prematurely. This
+required only a validation correction, not a change to player collision rules.
+
+Limits: stylized geometric water rather than fluid simulation; generic water-use
+idle remains simple. No physical handset or acoustic listening comparison was
+available. Software-renderer timings and viewport tests do not establish real
+phone performance. Environment/dependency settings were not changed.
+
+At the same Standard overview, v17.7 → v18.1: calls **2,547 → 2,560**,
+triangles **102,509 → 103,005**, meshes **2,888 → 2,901**. Lights remain **14**,
+shadow casters **199**, transparent meshes **34**, textures **18**. The increase
+is approximately **0.51% calls / 0.48% triangles**. Mobile overview calls are
+**2,533 → 2,546**; harbor walking calls remain **155** (High/Standard) and **141**
+(Mobile). Software-renderer median overview samples were High **25.3 → 33.2 ms**,
+Standard **14.6 → 21.2 ms**, Mobile **45.6 → 27.1 ms**. Shared host contention and
+software rendering make these timings noisy; they are not a handset benchmark.
+
+Final dry fitting locations: spring bucket `(18.25,3.5,-12.4)` and damp timber
+`(24.45,4.15,30.55)`. Earlier candidate positions were rejected by footprint
+checks. All four fitting sites now instantiate; seven instance batches contain
+36 details. Human/cat water crossings and mill-to-harbor/tavern routes were
+rechecked after placement, with no change to player collision settings.

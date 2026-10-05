@@ -1,0 +1,1034 @@
+{
+  "version": "v18.1",
+  "baselineMain": "ae6f6a5bc8657bcc184d4485655d2775fde452ca",
+  "environmentSettingsChanged": false,
+  "browser": "Chromium / WebGL (SwiftShader), PC and 390px phone viewport",
+  "realHandsetTested": false,
+  "verificationNotes": [
+    "Native keyboard movement with real walking collision update; route tests use independent valid start points.",
+    "Bridge-step verification accepts current-step support when a second collision query selects the next reachable step. Production walking rules are unchanged.",
+    "All tools/check_*.mjs passed.",
+    "Five shops and all five official portrait conversations passed in human and cat profiles; open/close/re-entry exercised.",
+    "Three cat-only routes block humans; five Space jumps and mobile button passed.",
+    "Nineteen cameras, six weather modes, follow and resident/cat/wheel/cable animation passed.",
+    "Six native inn upper-floor bed rests advanced to Day 7; reload retained day state.",
+    "Audio enabled by native button; one context, nonzero output, mute; Day 7 autumn and Journal retained after reload.",
+    "PC 1280px and 390px phone-size navigation/map bounds valid.",
+    "Scene screenshots reviewed at spring, stream, mill, tailrace and overview.",
+    "Performance timing uses software WebGL and shared host resources; it is not real-phone FPS.",
+    "Existing alternating morning mill/harbor water-use schedules were reused; no new NPC crowd.",
+    "The first two proposed prop positions failed footprint checks. Final dry positions are spring bucket (18.25,3.5,-12.4) and mill timber (24.45,4.15,30.55); all four fitting sites instantiate. Final water crossings, spring access and mill-to-harbor/tavern walking were repeated after this correction."
+  ],
+  "watercourse": {
+    "out": [
+      {
+        "mode": "human",
+        "from": [
+          19,
+          3.5,
+          -12
+        ],
+        "to": [
+          24.48,
+          4.15,
+          28.18
+        ],
+        "nodes": 2320,
+        "samples": 1086,
+        "maxEyeDelta": 0.08683272785102147,
+        "feet": [
+          24.48,
+          4.15,
+          28.18
+        ]
+      },
+      {
+        "mode": "human",
+        "from": [
+          18.3,
+          3.5,
+          -8.9
+        ],
+        "to": [
+          21.7,
+          3.5,
+          -8.9
+        ],
+        "nodes": 99,
+        "samples": 85,
+        "maxEyeDelta": 0.09829404533213104,
+        "feet": [
+          21.7,
+          3.5,
+          -8.9
+        ]
+      },
+      {
+        "mode": "human",
+        "from": [
+          19.4,
+          3.5,
+          17.6
+        ],
+        "to": [
+          22.55,
+          3.5,
+          17.6
+        ],
+        "nodes": 75,
+        "samples": 81,
+        "maxEyeDelta": 0.08143964728652975,
+        "feet": [
+          22.55,
+          3.5,
+          17.6
+        ]
+      },
+      {
+        "mode": "human",
+        "from": [
+          19.4,
+          3.5,
+          23.15
+        ],
+        "to": [
+          22.55,
+          3.5,
+          23.15
+        ],
+        "nodes": 47,
+        "samples": 83,
+        "maxEyeDelta": 0.07846532801407768,
+        "feet": [
+          22.55,
+          3.5,
+          23.15
+        ]
+      },
+      {
+        "mode": "human",
+        "from": [
+          19.3,
+          1.38,
+          34.2
+        ],
+        "to": [
+          23.4,
+          1.38,
+          34.2
+        ],
+        "nodes": 100,
+        "samples": 105,
+        "maxEyeDelta": 0.08970157704654413,
+        "feet": [
+          23.4,
+          1.3799999976158142,
+          34.2
+        ]
+      },
+      {
+        "mode": "cat",
+        "from": [
+          19,
+          3.5,
+          -12
+        ],
+        "to": [
+          24.48,
+          4.15,
+          28.18
+        ],
+        "nodes": 2105,
+        "samples": 734,
+        "maxEyeDelta": 0.346999997675419,
+        "feet": [
+          24.48,
+          4.15,
+          28.18
+        ]
+      },
+      {
+        "mode": "cat",
+        "from": [
+          18.3,
+          3.5,
+          -8.9
+        ],
+        "to": [
+          21.7,
+          3.5,
+          -8.9
+        ],
+        "nodes": 99,
+        "samples": 57,
+        "maxEyeDelta": 0.18334490920149982,
+        "feet": [
+          21.7,
+          3.5,
+          -8.9
+        ]
+      },
+      {
+        "mode": "cat",
+        "from": [
+          19.4,
+          3.5,
+          17.6
+        ],
+        "to": [
+          22.55,
+          3.5,
+          17.6
+        ],
+        "nodes": 75,
+        "samples": 53,
+        "maxEyeDelta": 0.1356092903315691,
+        "feet": [
+          22.55,
+          3.5,
+          17.6
+        ]
+      },
+      {
+        "mode": "cat",
+        "from": [
+          19.4,
+          3.5,
+          23.15
+        ],
+        "to": [
+          22.55,
+          3.5,
+          23.15
+        ],
+        "nodes": 47,
+        "samples": 56,
+        "maxEyeDelta": 0.125109282344547,
+        "feet": [
+          22.55,
+          3.5,
+          23.15
+        ]
+      },
+      {
+        "mode": "cat",
+        "from": [
+          19.3,
+          1.38,
+          34.2
+        ],
+        "to": [
+          23.4,
+          1.38,
+          34.2
+        ],
+        "nodes": 165,
+        "samples": 70,
+        "maxEyeDelta": 0.15301158127232117,
+        "feet": [
+          23.4,
+          1.3799999976158142,
+          34.2
+        ]
+      }
+    ],
+    "water": {
+      "stats": {
+        "timberLength": 0.9,
+        "smallSpringDrop": 1.77,
+        "springStages": 2,
+        "bridges": 4,
+        "flowMarks": 38,
+        "addedLights": 0
+      },
+      "wheel": [
+        21.05,
+        5.98,
+        27
+      ],
+      "monotonic": true,
+      "bridges": [
+        {
+          "id": "upper",
+          "top": 4.194
+        },
+        {
+          "id": "middle",
+          "top": 4.075
+        },
+        {
+          "id": "mill",
+          "top": 4.054
+        },
+        {
+          "id": "quay",
+          "top": 2.33
+        }
+      ],
+      "routes": 3,
+      "npcs": {
+        "scheduled": 11,
+        "period": "day",
+        "outsideVisible": 8,
+        "walking": 0,
+        "inside": 0,
+        "addedResidents": 3,
+        "pathRequests": 8,
+        "updated": 1,
+        "near": 1,
+        "mid": 9,
+        "far": 1
+      }
+    },
+    "errors": []
+  },
+  "springAccess": {
+    "output": [
+      {
+        "goal": [
+          19,
+          3.5,
+          -12
+        ],
+        "samples": 1038,
+        "maxEyeDelta": 0,
+        "feet": [
+          19,
+          3.5,
+          -12
+        ]
+      },
+      {
+        "goal": [
+          19,
+          3.5,
+          -13.2
+        ],
+        "samples": 30,
+        "maxEyeDelta": 0,
+        "feet": [
+          19,
+          3.5,
+          -13.199999999999992
+        ]
+      },
+      {
+        "goal": [
+          19,
+          3.5,
+          -12
+        ],
+        "samples": 30,
+        "maxEyeDelta": 0,
+        "feet": [
+          19,
+          3.5,
+          -12
+        ]
+      }
+    ],
+    "errors": []
+  },
+  "majorRoutes": {
+    "routes": [
+      {
+        "from": "square",
+        "to": "bakery",
+        "samples": 1816,
+        "maxEyeDelta": 0.061117639485838815,
+        "feet": [
+          -25.965,
+          3.5,
+          27
+        ],
+        "detour": true
+      },
+      {
+        "from": "square",
+        "to": "bookshop",
+        "samples": 116,
+        "maxEyeDelta": 0.03994074038675066,
+        "feet": [
+          -13.865000095367431,
+          1.592000003814697,
+          32.399999904632566
+        ],
+        "detour": true
+      },
+      {
+        "from": "square",
+        "to": "inn",
+        "samples": 1786,
+        "maxEyeDelta": 0.07025682957107104,
+        "feet": [
+          -32.965,
+          6.249999976158142,
+          2.5
+        ]
+      },
+      {
+        "from": "square",
+        "to": "tavern",
+        "samples": 257,
+        "maxEyeDelta": 0,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "square",
+        "to": "orrery",
+        "samples": 1134,
+        "maxEyeDelta": 0.07025682977865699,
+        "feet": [
+          3,
+          6.249999976158142,
+          1.7850000000000001
+        ]
+      },
+      {
+        "from": "market",
+        "to": "tavern",
+        "samples": 709,
+        "maxEyeDelta": 0,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "market",
+        "to": "bakery",
+        "samples": 1812,
+        "maxEyeDelta": 0.06111761472800925,
+        "feet": [
+          -25.965,
+          3.5,
+          27
+        ],
+        "detour": true
+      },
+      {
+        "from": "harbor",
+        "to": "tavern",
+        "samples": 569,
+        "maxEyeDelta": 0.061767353332156105,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "harbor",
+        "to": "market",
+        "samples": 764,
+        "maxEyeDelta": 0.061767353332156105,
+        "feet": [
+          19.566,
+          3.5,
+          15.586
+        ]
+      },
+      {
+        "from": "harbor",
+        "to": "bakery",
+        "samples": 1812,
+        "maxEyeDelta": 0.06111761472800925,
+        "feet": [
+          -25.965,
+          3.5,
+          27
+        ],
+        "detour": true
+      },
+      {
+        "from": "mill",
+        "to": "tavern",
+        "samples": 2389,
+        "maxEyeDelta": 0.08149716386917571,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "mill",
+        "to": "harbor",
+        "samples": 1955,
+        "maxEyeDelta": 0.08149716386917571,
+        "feet": [
+          0,
+          1.3799999976158142,
+          31.99840000000012
+        ]
+      },
+      {
+        "from": "orrery",
+        "to": "tavern",
+        "samples": 1029,
+        "maxEyeDelta": 0.07291144348578982,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "cable",
+        "to": "square",
+        "samples": 2221,
+        "maxEyeDelta": 0.08408657486396764,
+        "feet": [
+          2.849999999999999,
+          3.5,
+          18.500000000000128
+        ]
+      },
+      {
+        "from": "belfry",
+        "to": "square",
+        "samples": 988,
+        "maxEyeDelta": 0.0778443175526764,
+        "feet": [
+          2.849999999999999,
+          3.5,
+          18.500000000000128
+        ]
+      },
+      {
+        "from": "straight-tavern-lane",
+        "to": "tavern",
+        "samples": 168,
+        "maxEyeDelta": 0,
+        "feet": [
+          -5.365,
+          3.5,
+          12.3
+        ]
+      }
+    ],
+    "lane": {
+      "tested": 520,
+      "valid": 520
+    }
+  },
+  "additionalRoutes": {
+    "routes": [
+      {
+        "from": "market",
+        "to": "mill",
+        "samples": 2570,
+        "maxEyeDelta": 0.08441755056317835,
+        "feet": [
+          24.482399999999775,
+          4.15,
+          28.180000000000142
+        ]
+      },
+      {
+        "from": "square",
+        "to": "mill",
+        "samples": 2101,
+        "maxEyeDelta": 0.08441755056317835,
+        "feet": [
+          24.482399999999775,
+          4.15,
+          28.180000000000142
+        ]
+      },
+      {
+        "from": "harbor",
+        "to": "mill",
+        "samples": 1955,
+        "maxEyeDelta": 0.08441755056317835,
+        "feet": [
+          24.482399999999775,
+          4.15,
+          28.180000000000142
+        ]
+      },
+      {
+        "from": "straight-tavern-lane",
+        "to": "tavern",
+        "samples": 168,
+        "maxEyeDelta": 0,
+        "feet": [
+          -5.365,
+          3.5,
+          12.3
+        ]
+      }
+    ],
+    "lane": {
+      "tested": 520,
+      "valid": 520
+    }
+  },
+  "weatherEventSave": [
+    {
+      "stoneText": "水路の丸い石\n\n上流の溝に、丸い石がひとつ挟まっている。濡れると、細い九本の線が浮かぶ。\n\n閉じる",
+      "state": {
+        "state": "noticed",
+        "heardAt": null,
+        "noticedAt": "day",
+        "resolvedAt": null,
+        "noticedDay": 1
+      }
+    },
+    {
+      "weather": "clear",
+      "state": "clear",
+      "water": "4c7377",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "weather": "dawn",
+      "state": "dawn",
+      "water": "44666c",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "weather": "rain",
+      "state": "rain",
+      "water": "476b6f",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "weather": "fog",
+      "state": "fog",
+      "water": "4c7377",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "weather": "night",
+      "state": "night",
+      "water": "3c5c5f",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "weather": "blackout",
+      "state": "blackout",
+      "water": "294043",
+      "contextLost": false,
+      "entries": 10
+    },
+    {
+      "restored": {
+        "state": "noticed",
+        "heardAt": null,
+        "noticedAt": "day",
+        "resolvedAt": null,
+        "noticedDay": 1
+      },
+      "journal": [
+        {
+          "id": "place:event:upstream-stone:human",
+          "day": 1,
+          "text": "上流の石に、九本の線が刻まれていた。",
+          "kind": "place",
+          "playerMode": "human"
+        }
+      ]
+    }
+  ],
+  "indoorWeather": [
+    {
+      "w": "dawn",
+      "room": {
+        "weather": "dawn",
+        "oil": 0.3,
+        "glow": 0.45,
+        "outdoorRoot": false
+      },
+      "outside": {
+        "weather": "dawn",
+        "profile": {
+          "sky": 5467267,
+          "fog": 6716302,
+          "density": 0.0072,
+          "air": true,
+          "hemi": 0.72,
+          "sun": 0.24,
+          "exposure": 0.86,
+          "bloom": 0.18,
+          "skyTint": 12702179,
+          "groundTint": 8752536,
+          "sunColor": 12176348,
+          "period": "morning"
+        },
+        "lamps": 0,
+        "root": true,
+        "stand": 6.249999976158142,
+        "normalWindows": 141
+      }
+    },
+    {
+      "w": "rain",
+      "room": {
+        "weather": "rain",
+        "oil": 0.3,
+        "glow": 0.45,
+        "outdoorRoot": false
+      },
+      "outside": {
+        "weather": "rain",
+        "profile": {
+          "sky": 6122352,
+          "fog": 6845813,
+          "density": 0.0078,
+          "air": true,
+          "hemi": 0.83,
+          "sun": 0.3,
+          "exposure": 0.83,
+          "bloom": 0.2,
+          "sunColor": 13029061,
+          "period": "day"
+        },
+        "lamps": 0,
+        "root": true,
+        "stand": 6.249999976158142,
+        "normalWindows": 172
+      }
+    },
+    {
+      "w": "blackout",
+      "room": {
+        "weather": "blackout",
+        "oil": 1.35,
+        "glow": 0.015,
+        "outdoorRoot": false
+      },
+      "outside": {
+        "weather": "blackout",
+        "profile": {
+          "sky": 462871,
+          "fog": 462871,
+          "density": 0.0078,
+          "air": true,
+          "hemi": 0.62,
+          "sun": 0.06,
+          "exposure": 0.92,
+          "bloom": 0.12,
+          "sunColor": 11780026,
+          "period": "night"
+        },
+        "lamps": 4,
+        "root": true,
+        "stand": 6.249999976158142,
+        "normalWindows": 0
+      }
+    },
+    {
+      "w": "clear",
+      "room": {
+        "weather": "clear",
+        "oil": 0.3,
+        "glow": 0.45,
+        "outdoorRoot": false
+      },
+      "outside": {
+        "weather": "clear",
+        "profile": {
+          "sky": 10858410,
+          "fog": 10858410,
+          "density": 0.0067,
+          "air": true,
+          "hemi": 1.52,
+          "sun": 1.92,
+          "exposure": 1.08,
+          "bloom": 0.14,
+          "sunColor": 16770496,
+          "period": "day"
+        },
+        "lamps": 0,
+        "root": true,
+        "stand": 6.249999976158142,
+        "normalWindows": 172
+      }
+    }
+  ],
+  "performance": [
+    {
+      "baseline": true,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2888,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 2547,
+          "triangles": 102509,
+          "ms": 25.30000001192093,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 33.30000001192093
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2888,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 155,
+          "triangles": 35168,
+          "ms": 3.5,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 7.399999976158142
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2888,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 2547,
+          "triangles": 102509,
+          "ms": 14.599999994039536,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 36.79999998211861
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2888,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 155,
+          "triangles": 35168,
+          "ms": 1.5999999940395355,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 2.5
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2888,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 2533,
+          "triangles": 102495,
+          "ms": 45.599999994039536,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 288.5
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2888,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 141,
+          "triangles": 35154,
+          "ms": 6.4000000059604645,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 8.300000011920929
+        }
+      ],
+      "median": 306.09999999403954
+    },
+    {
+      "baseline": false,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2901,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 2560,
+          "triangles": 103005,
+          "ms": 33.19999998807907,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 54.400000005960464
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2901,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 155,
+          "triangles": 35228,
+          "ms": 4,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 11.599999994039536
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2901,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 2560,
+          "triangles": 103005,
+          "ms": 21.19999998807907,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 40.69999998807907
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2901,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 155,
+          "triangles": 35228,
+          "ms": 1.7999999821186066,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 5.199999988079071
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2901,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 2546,
+          "triangles": 102991,
+          "ms": 27.099999994039536,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 55.29999998211861
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2901,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 199,
+          "calls": 141,
+          "triangles": 35214,
+          "ms": 2.300000011920929,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 20.599999994039536
+        }
+      ],
+      "median": 317.2000000178814
+    }
+  ],
+  "watersideAudioAndFittings": {
+    "near": {
+      "harbor-water": 0,
+      "spring-water": 0.13256583509747427,
+      "stream-water": 0.052467087913551126,
+      "mill-wheel": 0,
+      "bell": 0,
+      "bakery-room": 0,
+      "bookshop-room": 0,
+      "inn-room": 0,
+      "tavern-room": 0,
+      "orrery-room": 0,
+      "footsteps": 0,
+      "market": 0
+    },
+    "far": {
+      "harbor-water": 0.2924090909090909,
+      "spring-water": 0,
+      "stream-water": 0,
+      "mill-wheel": 0,
+      "bell": 0,
+      "bakery-room": 0,
+      "bookshop-room": 0,
+      "inn-room": 0,
+      "tavern-room": 0,
+      "orrery-room": 0,
+      "footsteps": 0,
+      "market": 0
+    },
+    "audio": {
+      "zones": 12,
+      "configured": 5,
+      "enabled": true,
+      "contexts": 1
+    },
+    "millLife": {
+      "sites": 4,
+      "instances": 36,
+      "batches": 7
+    },
+    "water": {
+      "timberLength": 0.9,
+      "smallSpringDrop": 1.77,
+      "springStages": 2,
+      "bridges": 4,
+      "flowMarks": 38,
+      "addedLights": 0
+    },
+    "muted": true,
+    "errors": []
+  },
+  "finalMillRoutes": {
+    "routes": [
+      {
+        "from": "mill",
+        "to": "tavern",
+        "samples": 2358,
+        "maxEyeDelta": 0.08149716386917571,
+        "feet": [
+          -5.3650000953674315,
+          3.5,
+          12.300000095367432
+        ]
+      },
+      {
+        "from": "mill",
+        "to": "harbor",
+        "samples": 1955,
+        "maxEyeDelta": 0.08149716386917571,
+        "feet": [
+          0,
+          1.3799999976158142,
+          31.99840000000012
+        ]
+      },
+      {
+        "from": "straight-tavern-lane",
+        "to": "tavern",
+        "samples": 168,
+        "maxEyeDelta": 0,
+        "feet": [
+          -5.365,
+          3.5,
+          12.3
+        ]
+      }
+    ],
+    "lane": {
+      "tested": 520,
+      "valid": 520
+    }
+  }
+}
