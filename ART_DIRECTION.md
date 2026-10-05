@@ -92,3 +92,19 @@ v14.0の多面窓・戸板・出窓を再利用し、一部の宿屋・住宅・
 ## v14.8 検証と負荷
 
 v14.2と同条件（960×640、時刻3秒、shadow更新済み、compositor込み）で比較。Standard全景はdraw calls 2574→2579、triangles 100685→101349（約0.66%増）。港の歩行は154 callsのまま、34316→34580 triangles。Mobile全景2560→2565 calls、港歩行140 callsのまま。meshは2841→2846、ライト14（point12）、shadow casters208、透明mesh34は維持。新しい住民・リアルタイムライト・高解像度テクスチャはない。NPCの描画付属品は340 instances/4 batches、建築追加は手すり4窓・つる3組。8人の時刻切替と12Hz idleを使う。ソフトウェアWebGLの計測であり実機スマホFPSは未確認。
+
+## v16.7–v17.2: quiet weekly rhythm and private upper windows
+
+Day 4 has two modest canvas counters, not a festival stage. Day 6 evening has
+four opaque emissive oil lamps on validated quay supports, with no added lights.
+All scenery toggles its children; the interior system still owns town-root
+visibility. Market counters have explicit switchable footprints and leave the
+verified human routes and three cat passages intact.
+
+The four inaccessible rear-house balconies are now 0.32-deep window flower /
+drying ledges, aligned to existing upper windows. Chairs and standing-platform
+proportions have been removed; two carry small plants and two have drying rails.
+Clearance below is 2.55–3.94 units. No new accessible balcony or interior door is
+claimed. Existing shallow Juliet window rails remain window fittings. Street
+collision geometry is unchanged. Baseline spring is retained; autumn applies a
+restrained wash to selected leaf batches and fabrics, with slightly lower sun.
