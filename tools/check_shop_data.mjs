@@ -17,5 +17,8 @@ assert.equal(selectDialogueTurn(sample,{location:'bakery',profile:'cat',index:1}
 assert.equal(selectDialogueTurn(sample,{location:'bakery',index:3}).text,'quiet rumor');
 assert.ok(!selectDialogueTurn(sample,{location:'bakery',profile:'cat',index:3}).text.includes('quiet rumor'));
 assert.equal(selectDialogueTurn(sample,{location:'town',index:0}).text,selectDialogueTurn(base,{index:0}).text);
-assert.equal(townEventDefinitions.filter(e=>e.enabled).length,7);assert.equal(townEventDefinitions.filter(e=>e.profiles?.length===1&&e.profiles[0]==='cat').length,2);assert.ok(townEventDefinitions.every(e=>e.id&&e.source&&e.text));assert.ok(soundAnchors.every(s=>s.src===null));
-console.log('PASS five shop schedules / five daily placements / location and actor dialogue / occasional rumors / unchanged portraits / seven active observations / two cat discoveries / inactive audio hooks');
+assert.equal(townEventDefinitions.filter(e=>e.enabled).length,13);assert.equal(townEventDefinitions.filter(e=>e.profiles?.length===1&&e.profiles[0]==='cat').length,3);assert.ok(townEventDefinitions.every(e=>e.id&&e.source&&e.text));assert.ok(soundAnchors.every(s=>s.src===null));
+console.log('PASS five shop schedules / five daily placements / location and actor dialogue / occasional rumors / unchanged portraits / thirteen active observations / three cat discoveries / inactive audio hooks');
+
+assert.equal(new Set(townEventDefinitions.map(e=>e.id)).size,townEventDefinitions.length);
+for(const e of townEventDefinitions.filter(e=>e.settlesAfter)){assert.equal(e.settlesAfter,1);assert.ok(e.resolvedText);}

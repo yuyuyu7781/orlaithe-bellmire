@@ -33,7 +33,14 @@ export const townEventDefinitions=[
  {id:'upstream-stone',kind:'water-mark',area:'mill',enabled:true,source:'leat',rumorIds:['starmaker'],label:'水路の丸い石',text:'上流の溝に、丸い石がひとつ挟まっている。濡れると、細い九本の線が浮かぶ。',rumor:'上流の石に線があるそうです。水が乾くと、数えにくくなるとか。'},
  {id:'ninth-bell',kind:'rumor',area:'tavern',enabled:true,periods:['evening','night'],source:'Tavern cooperage',rumorIds:['greenBard'],label:'酒場の置き杯',text:'片付けられていない杯が二つ。九つ目の鐘の話は、今夜も結論が出なかったらしい。',rumor:'九つ目の鐘は、帰るのを忘れた人にだけ違って聞こえる、と誰かが言っていたよ。'},
  {id:'cat-bread',kind:'cat-discovery',area:'bakery',enabled:true,profiles:['cat'],source:'Bakery flour and wool',label:'袋の裏の匂い',text:'粉の匂いの奥に、冷めたパンの甘い匂いがある。小さな欠片が、袋の陰に転がっている。'},
- {id:'cat-ribbon',kind:'cat-discovery',area:'harbor',enabled:true,profiles:['cat'],source:'Harbor herbs',label:'荷物の陰の紐',text:'箱の陰で、短い紐が風に動いている。人の手より、濡れた木の匂いが強い。'}
+ {id:'cat-ribbon',kind:'cat-discovery',area:'harbor',enabled:true,profiles:['cat'],source:'Harbor herbs',label:'荷物の陰の紐',text:'箱の陰で、短い紐が風に動いている。人の手より、濡れた木の匂いが強い。'},
+ {id:'loose-cart-wheel',kind:'repair',area:'workshop',enabled:true,source:'Workshop repair tools',rumorIds:['boatworker'],label:'修理を待つ車輪',text:'車輪の留め具が一つ外れている。荷は降ろされ、工具だけが並んでいる。',rumor:'荷車の車輪を直している。明日は、丘の道へまた出せるだろう。',settlesAfter:1,resolvedText:'留め具が新しくなっている。車輪の脇の荷は、もう運び出された。'},
+ {id:'late-cask',kind:'delivery',area:'tavern',enabled:true,source:'Tavern cooperage',rumorIds:['boatworker'],label:'空いた樽置き場',text:'樽の丸い跡が一つだけ空いている。木札は、明日の荷を待っている。',rumor:'酒場の小樽は明日の舟だ。今夜は奥の樽から出すそうだ。',settlesAfter:1,resolvedText:'小樽の木札には、今朝の日付。置き場の石が、少し湿っている。'},
+ {id:'moved-cloth',kind:'market',area:'market',enabled:true,source:'Market folded linen',rumorIds:['baker'],label:'布屋の小さな札',text:'古い場所を消して、庇のそばと書き足してある。雨の日のために移したのだろう。',rumor:'布屋が庇の近くへ寄ったよ。雨でも、あの布なら見つけやすい。'},
+ {id:'absent-skiff',kind:'harbor',area:'harbor',enabled:true,source:'moorings',rumorIds:['boatworker'],label:'帰りを待つ係留縄',text:'一つの縄だけ、杭に巻いてある。舟が戻るまで、場所を空けてあるようだ。',rumor:'小舟が湖へ荷を届けに行った。明日には、あの杭へ戻るはずだ。',settlesAfter:1,resolvedText:'縄に新しい水滴が残る。舟は朝のうちに戻ったらしい。'},
+ {id:'inn-parcel',kind:'lost-property',area:'inn',enabled:true,source:'Inn wool bundles',rumorIds:['greenBard'],label:'宿に残された包み',text:'小さな布包みには、使い込んだ櫛が入っている。宿の人が、持ち主を待っている。',rumor:'宿に小さな包みが残ったそうだよ。明日、戻ってくる人のものかもしれない。',settlesAfter:1,resolvedText:'包みのあったところに、短い礼の紙だけが置かれている。'},
+ {id:'cat-old-key',kind:'cat-discovery',area:'harbor',enabled:true,profiles:['cat'],source:'Harbor herbs',label:'籠の裏の古い鍵',text:'濡れた草の奥に、冷たい金属の匂い。小さな鍵の丸い頭が、縄に引っかかっている。'}
+
 ];
 export const soundAnchors=[
  {id:'harbor-water',area:'town',kind:'water',position:[0,1.38,38],src:null},
