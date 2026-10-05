@@ -72,7 +72,7 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
   }}
  function updateAppearance(){if(!current)return;scene.background=current.background??=new THREE.Color(current.shop.id==='orrery'?0x484d4c:0x797060);scene.background.set(current.shop.id==='orrery'?0x484d4c:0x797060);scene.fog=current.fog??=new THREE.FogExp2(0x797060,0);scene.fog.density=0;
   const night=townLife.state.period==='night',blackout=townLife.state.weather==='blackout';current.ambient.intensity=blackout?.28:night?.85:1.05;
-  for(const m of Object.values(current.materials))if(m.emissive?.getHex())m.emissiveIntensity=blackout?.08:night?.70:.45;
+  for(const m of Object.values(current.materials))if(m.emissive?.getHex())m.emissiveIntensity=m.userData.blackoutBackup?(blackout?1.35:night?.55:.30):blackout?.015:night?.70:.45;
   label.textContent=current.shop.name+' · '+shopStatus(current.shop,townLife.state.period);label.hidden=false;
  }
  function applyTime(){for(const e of entrances){const open=isShopOpen(e.shop,townLife.state.period);e.verb=open?'入る':'閉まっている';e.label=e.shop.name+'（'+shopStatus(e.shop,townLife.state.period)+'）';e.latch.visible=!open;e.leaf.material=wood;}

@@ -23,6 +23,9 @@ export function buildInterior({THREE,shop}){
  box(-2.25,0,4.4,2.5,3.1,.16,wall);box(2.25,0,4.4,2.5,3.1,.16,wall);box(0,2.35,4.4,2, .75,.16,wall);
  const ceiling=shop.id==='inn'?6.40:3.10;box(0,ceiling,0,7.1,.12,8.8,wood,false);for(const x of [-2.8,0,2.8])box(x,ceiling-.16,0,.13,.16,8.8,dark,false);
  const door=box(0,0,4.36,1.42,2.30,.08,wood);door.name='外へ出る扉';lamp(-.95,1.8,4.2);
+ const oil=material('oil',0xe3b57a,0xffac54);oil.userData.blackoutBackup=true;
+ // Keep one counter oil lamp; ordinary window material stays dark in a blackout.
+ box(shop.id==='orrery'?2.6:-2.9,.86,2.4,.14,.22,.14,oil,false);
  const ambient=new THREE.AmbientLight(0xffe4bd,.95);root.add(ambient);
  // A small recessed window and timber framing break up the quiet side wall.
  box(-3.405,1.16,-.9,.028,.88,.66,glow,false);for(const z of [-1.26,-.9,-.54])box(-3.38,1.12,z,.055,.99,.045,wood,false);for(const y of [1.12,1.58,2.08])box(-3.38,y,-.9,.06,.045,.78,wood,false);
@@ -30,7 +33,7 @@ export function buildInterior({THREE,shop}){
  if(shop.id==='bakery'){
   npcPosition.splice(0,3,1.3,0,-2.6);
   box(1.9,0,-1.1,2.35,.90,.65,wood);shelf(-2.3,-4,false);shelf(.05,-4,false);
-  box(2.6,0,-3.55,1.25,1.48,1.05,stone);box(2.6,.28,-2.99,.64,.62,.06,dark,false);box(2.6,.34,-2.94,.46,.17,.025,glow,false);
+  box(2.6,0,-3.55,1.25,1.48,1.05,stone);box(2.6,.28,-2.99,.64,.62,.06,dark,false);box(2.6,.34,-2.94,.46,.17,.025,oil,false);
   for(const x of [-2.86,-2.30,-1.74]){const loaf=mesh(new THREE.SphereGeometry(.12,7,4),material('bread',0xbc935b),[x,.66,-3.65],false);loaf.scale.set(1.0,.65,1.5);}
   stack(-2.95,-1.9);cylinder(-2.7,0,-2.7,.27,.60,linen);lamp(1.9,.90,-1.1);
   notice('oven','パン窯','石には朝の熱が残っている。窯の脇の籠は、次の焼き上がりを待っている。',[2.6,.7,-2.9]);
