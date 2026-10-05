@@ -2,7 +2,7 @@ import {createDestinations,destinationReading} from './navigation-data.js';
 
 // Directional assistance, not autopilot or a promise of a straight walk.
 // Both player profiles retain their own collision world and choice of route.
-export function createNavigation({walking,shopSystem,panel=document.getElementById('panel')}){
+export function createNavigation({walking,shopSystem,stay=null,panel=document.getElementById('panel')}){
  const destinations=createDestinations(shopSystem.entrances);
  for(const d of destinations){const [x,y,z]=d.position,ground=walking.canStandAs('human',x,z,y);if(ground!==null)d.position[1]=ground;}
  const state={selected:null,mapOpen:false};
@@ -23,6 +23,7 @@ export function createNavigation({walking,shopSystem,panel=document.getElementBy
  function update(dt){elapsed+=dt;if(elapsed<.2)return;elapsed=0;const target=state.selected,room=shopSystem.current;
   guide.hidden=!target||!walking.active||!!room;
   if(!notice.hidden&&performance.now()>noticeUntil)notice.hidden=true;
+  if(stay&&walking.active&&!room&&walking.state.feet.x<-53&&!stay.data.discoveries['outskirts-visit']){stay.data.discoveries['outskirts-visit']={day:stay.data.currentDay,playerMode:walking.state.profile.id,period:stay.data.dayPhase,label:'町の外へ'};stay.changed();}
   if(!target||!walking.active)return;
   const reading=destinationReading(walking.state.feet,walking.state.yaw,target);
   if((room&&room.shop.id===target.shopId)||(!room&&reading.arrived)){

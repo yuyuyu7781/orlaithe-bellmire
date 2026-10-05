@@ -10,7 +10,7 @@ export function createMinimap({walking,shopSystem,inspections,navigation,buildin
  const buttons=document.createElement('div');buttons.className='town-map-buttons';buttons.append(expand,close);root.append(heading,canvas,caption,buttons);document.body.append(root);
  const toggle=document.createElement('button');toggle.id='mapToggle';toggle.textContent='地図';toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-controls','townMap');root.id='townMap';navigation.tools.append(toggle);
  let expanded=false,elapsed=0,width=180,height=150;const context=canvas.getContext('2d');
- const bounds={minX:-56,maxX:48,minZ:-40,maxZ:45};
+ const bounds={minX:-123,maxX:48,minZ:-40,maxZ:45};
  const project=(x,z)=>[12+(x-bounds.minX)/(bounds.maxX-bounds.minX)*(width-24),10+(z-bounds.minZ)/(bounds.maxZ-bounds.minZ)*(height-20)];
  function resize(){width=expanded?270:180;height=expanded&&innerHeight>500?220:150;const dpr=Math.min(devicePixelRatio||1,2);canvas.width=width*dpr;canvas.height=height*dpr;canvas.style.width=width+'px';canvas.style.height=height+'px';context.setTransform(dpr,0,0,dpr,0,0);}
  function setOpen(open){navigation.state.mapOpen=!!open;toggle.setAttribute('aria-expanded',String(!!open));update(1);}

@@ -20,7 +20,7 @@ export function buildOutskirts({THREE,scene,box}){
  const landing=slab(-110.2,8.65,-14,3.4,5.15,9,grass);landing.userData.walkSurface=true;floors.push(landing);
  // Sparse rounded shade trees; one shared geometry/material for crowns.
  const crownGeometry=new THREE.IcosahedronGeometry(1,0);
- for(const [x,z,y]of [[-63,8,6.48],[-86,-5.5,7.42],[-103,-14,8.43]]){slab(x,y+2,z,.24,2,.24,wood);const crown=new THREE.Mesh(crownGeometry,leaf);crown.position.set(x,y+2.6,z);crown.scale.set(1.25,1.65,1.25);crown.castShadow=false;crown.userData.walkSoft=true;root.add(crown);}
+ for(const [x,z,y]of [[-63,8,6.48],[-86,-5.5,7.42],[-103,-8,8.43]]){slab(x,y+2,z,.24,2,.24,wood);const crown=new THREE.Mesh(crownGeometry,leaf);crown.position.set(x,y+2.6,z);crown.scale.set(1.25,1.65,1.25);crown.castShadow=false;crown.userData.walkSoft=true;root.add(crown);}
  for(const z of [3.2,6.8]){const post=slab(-53,7.15,z,.45,.9,.45,stone);post.name='Old west gate pillar';}
  const sign=slab(-54.5,7.15,7.8,.7,.20,.12,wood);slab(-54.5,7.0,7.8,.10,.75,.10,wood);sign.name='Old road sign';
  // The broad road stays open. A low lintel on a side path admits cats only.

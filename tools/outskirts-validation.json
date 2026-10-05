@@ -1,0 +1,487 @@
+{
+  "version": "v18.7-v19.1",
+  "baselineMain": "b2e9d89c95303a2d076a94dc3a7c04f160e61472",
+  "environmentSettingsChanged": false,
+  "watercourseFilesChanged": false,
+  "physicalPhoneTested": false,
+  "regressions": [
+    "five shops / five human and cat conversations / formal portraits / log / entry-exit",
+    "19 existing cameras / six weather modes / follow / existing inspections plus 3 shared and 1 cat-only observations / animation / WebGL",
+    "PC and 390px mobile map/navigation",
+    "all repository tools/check_*.mjs",
+    "Conditional human-only Finn/Nerissa reaction assertions passed"
+  ],
+  "performanceNotes": [
+    "Same original overview camera and renderer for baseline and current.",
+    "SwiftShader software rendering on a shared host; timings are not physical smartphone benchmarks.",
+    "No new light, transparent mesh, water shader or NPC. One dry cat bank was added after initial profiling, and final counts were measured again."
+  ],
+  "walkingAndSave": {
+    "out": [
+      {
+        "mode": "human",
+        "goal": [
+          -38.55,
+          6.25,
+          5
+        ],
+        "samples": 1258,
+        "maxEyeDelta": 0.07086109585168643,
+        "feet": [
+          -38.55,
+          6.262000000186264,
+          5
+        ]
+      },
+      {
+        "mode": "human",
+        "goal": [
+          -53,
+          6.25,
+          5
+        ],
+        "samples": 367,
+        "maxEyeDelta": 0.0005554745239875203,
+        "feet": [
+          -53,
+          6.262000000186264,
+          5
+        ]
+      },
+      {
+        "mode": "human",
+        "goal": [
+          -109,
+          8.65,
+          -14
+        ],
+        "samples": 1558,
+        "maxEyeDelta": 0.02859875689339475,
+        "feet": [
+          -109,
+          8.650000047683715,
+          -14
+        ]
+      },
+      {
+        "mode": "human",
+        "goal": [
+          -53,
+          6.25,
+          5
+        ],
+        "samples": 1558,
+        "maxEyeDelta": 0.02862331409483687,
+        "feet": [
+          -53,
+          6.262000000186264,
+          5
+        ]
+      },
+      {
+        "goal": [
+          -32.965,
+          6.249999976158142,
+          2.5
+        ],
+        "samples": 539,
+        "maxEyeDelta": 0.0030028669058905777,
+        "feet": [
+          -32.965,
+          6.249999976158142,
+          2.5
+        ]
+      },
+      {
+        "mode": "cat",
+        "goal": [
+          -73,
+          6.917,
+          5.8
+        ],
+        "samples": 341,
+        "maxEyeDelta": 0.020854969248018662,
+        "feet": [
+          -73,
+          6.857142891202654,
+          5.8
+        ]
+      },
+      {
+        "mode": "cat",
+        "goal": [
+          -75,
+          6.95,
+          5.2
+        ],
+        "samples": 39,
+        "maxEyeDelta": 0.01787461395499257,
+        "feet": [
+          -75,
+          6.928571445601327,
+          5.2
+        ]
+      },
+      {
+        "mode": "cat",
+        "goal": [
+          -77,
+          7.042,
+          4.4
+        ],
+        "samples": 41,
+        "maxEyeDelta": 0.017874876709003118,
+        "feet": [
+          -77,
+          7,
+          4.4
+        ]
+      },
+      {
+        "mode": "cat",
+        "goal": [
+          -109,
+          8.65,
+          -14
+        ],
+        "samples": 687,
+        "maxEyeDelta": 0.028599261254901975,
+        "feet": [
+          -109,
+          8.650000047683715,
+          -14
+        ]
+      }
+    ],
+    "data": {
+      "discoveries": {
+        "outskirts-thread": {
+          "day": 1,
+          "playerMode": "cat",
+          "period": "day",
+          "label": "石壁の裏の紐"
+        },
+        "outskirts-lookout": {
+          "day": 1,
+          "playerMode": "cat",
+          "period": "night",
+          "label": "町を振り返る丘"
+        },
+        "outskirts-stone": {
+          "day": 1,
+          "playerMode": "human",
+          "period": "night",
+          "label": "道端の古い石"
+        }
+      },
+      "journal": [
+        {
+          "id": "place:outskirts-thread:cat",
+          "day": 1,
+          "text": "草の匂いに混じって、旅の荷物の匂いがする。短い紐は、石の暖かい側へ寄っていた。",
+          "kind": "cat-discovery",
+          "playerMode": "cat"
+        },
+        {
+          "id": "place:outskirts-lookout:cat",
+          "day": 1,
+          "text": "初めてBellmireを外から見た。",
+          "kind": "cat-discovery",
+          "playerMode": "cat"
+        },
+        {
+          "id": "place:outskirts-stone:human",
+          "day": 1,
+          "text": "町外れの石にも、似た線が刻まれていた。",
+          "kind": "place",
+          "playerMode": "human"
+        }
+      ],
+      "nav": [
+        "bakery",
+        "bookshop",
+        "inn",
+        "tavern",
+        "orrery",
+        "outskirts",
+        "hill",
+        "harbor",
+        "mill",
+        "square",
+        "cable",
+        "belfry"
+      ],
+      "webgl": false
+    },
+    "saved": {
+      "outskirts-thread": {
+        "day": 1,
+        "playerMode": "cat",
+        "period": "day",
+        "label": "石壁の裏の紐"
+      },
+      "outskirts-lookout": {
+        "day": 1,
+        "playerMode": "cat",
+        "period": "night",
+        "label": "町を振り返る丘"
+      },
+      "outskirts-stone": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "night",
+        "label": "道端の古い石"
+      }
+    },
+    "errors": []
+  },
+  "travelerAndCatGap": {
+    "visitor": {
+      "before": [
+        -109,
+        8.650000047683715,
+        -14
+      ],
+      "after": [
+        -52.90000000000029,
+        6.262000000186264,
+        5
+      ],
+      "destination": "market",
+      "crossed": true,
+      "moved": 680
+    },
+    "gap": [
+      {
+        "mode": "human",
+        "distance": 0.2559999999999718,
+        "feet": [
+          -73.45599999999997,
+          6.917000027656555,
+          5.8
+        ]
+      },
+      {
+        "mode": "cat",
+        "distance": 1.5200000000000102,
+        "feet": [
+          -74.72000000000001,
+          6.917000027656555,
+          5.8
+        ]
+      }
+    ],
+    "boundary": {
+      "atFence": null,
+      "beyond": null
+    },
+    "errors": []
+  },
+  "mobileVisitAndRain": {
+    "data": {
+      "map": {
+        "x": 182,
+        "width": 198
+      },
+      "visit": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "day",
+        "label": "町の外へ"
+      }
+    },
+    "rain": [
+      -109,
+      0,
+      -14
+    ],
+    "visit": {
+      "day": 1,
+      "playerMode": "human",
+      "period": "day",
+      "label": "町の外へ"
+    }
+  },
+  "performance": [
+    {
+      "baseline": true,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2884,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2547,
+          "triangles": 105261,
+          "ms": 48.29999998211861,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 121
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2884,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 35168,
+          "ms": 3.100000023841858,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 6.800000011920929
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2884,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2547,
+          "triangles": 105261,
+          "ms": 53.5,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 65.69999998807907
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2884,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 35168,
+          "ms": 9.200000017881393,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 32
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2884,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2533,
+          "triangles": 105247,
+          "ms": 70.40000000596046,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 96
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2884,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 141,
+          "triangles": 35154,
+          "ms": 20.69999998807907,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 49.19999998807907
+        }
+      ],
+      "median": 1275.4000000059605
+    },
+    {
+      "baseline": false,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2980,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2645,
+          "triangles": 106113,
+          "ms": 24.399999976158142,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 38.19999998807907
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2980,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 34760,
+          "ms": 4,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 6.200000017881393
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2980,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2645,
+          "triangles": 106113,
+          "ms": 18.099999994039536,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 30.5
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2980,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 34760,
+          "ms": 1.7000000178813934,
+          "textures": 18,
+          "programs": 20,
+          "p95Ms": 2.2999999821186066
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2980,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2631,
+          "triangles": 106099,
+          "ms": 20.900000005960464,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 56.80000001192093
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2980,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 141,
+          "triangles": 34746,
+          "ms": 2.4000000059604645,
+          "textures": 18,
+          "programs": 30,
+          "p95Ms": 3.4000000059604645
+        }
+      ],
+      "median": 343.5
+    }
+  ]
+}

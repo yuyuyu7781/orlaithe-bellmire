@@ -1,6 +1,9 @@
+import {outskirtsLayout} from './outskirts.js';
 // Positions are feet on verified outdoor routes, never building centres.
 // Shops reuse the actual entrance chosen by the existing shop system.
 export const townLandmarks=[
+ {id:'outskirts',name:'町外れ',short:'外',position:outskirtsLayout.gate},
+ {id:'hill',name:'町を振り返る丘',short:'丘',position:outskirtsLayout.hill},
  {id:'harbor',name:'港',short:'港',position:[0,1.38,32]},
  {id:'mill',name:'水車',short:'水',position:[24.48,4.15,28.18]},
  {id:'square',name:'井戸広場',short:'井',position:[2.85,3.5,18.5]},

@@ -8,7 +8,7 @@ export const stayDialogue={
  blackout:{baker:'窯の火は残っているよ。灯りが戻るまで、足元に気をつけて。',bookseller:'油灯ひとつでも、頁は読めます。今夜は薄い本を選びましょう。',boatworker:'港の端の灯は残してきた。暗いところでは縄を踏まないようにな。',starmaker:'器具は、灯りが戻ってから動かしましょう。円の位置は覚えているので。',greenBard:'小さな灯りだと、人のいる場所がよく分かるね。急がずに帰ろう。'}
 };
 export function stayObservation(stay,id,{profile,index}){
- const d=stay.data;if(index%4===3)return null; // Leave the established rumour turn intact.
+ const d=stay.data;if(profile==='human'&&index%4===2){if(id==='greenBard'&&d.discoveries['outskirts-lookout'])return '町の外から見ると、鐘楼は屋根の間に戻っていくだろう。少し離れて眺めるのもいいね。';if(id==='starmaker'&&d.discoveries['outskirts-stone'])return 'その線……古い星図にも、似たものがあります。道の印かもしれませんね。';}if(index%4===3)return null; // Leave the established rumour turn intact.
  if(profile==='cat')return d.currentDay>=2&&index%4===2?({baker:'今日は、昨日の袋も温かいよ。そこで眠るつもりかい。',bookseller:'棚の隙間は覚えたのかい。今度は本を落とさないでね。',boatworker:'昨日の籠より、こっちの陰が涼しいぞ。',starmaker:'また机の下に来たんですね。あの点は、光ではありませんよ。',greenBard:'今日は、そちらで歩いているんだね。昨日とは違う隙間が見つかった？'})[id]:null;
  if(['rain','dawn','blackout'].includes(d.weather)&&index%3===2)return stayDialogue[d.weather][id];
  if(d.currentDay>=2&&index%4===2){
