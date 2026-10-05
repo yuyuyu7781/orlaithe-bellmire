@@ -1,0 +1,4 @@
+export function createTownDiagnostics({renderer,quality,residentDay,visitorSystem}){
+ const enabled=new URLSearchParams(location.search).get('diagnostics')==='1';let panel,frames=0,start=performance.now();if(enabled){renderer.info.autoReset=false;panel=document.createElement('output');panel.style.cssText='position:fixed;right:8px;top:8px;z-index:90;background:#302f28cc;color:#ede3ce;font:11px monospace;padding:6px;pointer-events:none;white-space:pre';document.body.append(panel);}
+ return{enabled,before(){if(enabled)renderer.info.reset();},update(){if(!enabled)return;frames++;const now=performance.now();if(now-start<1000)return;panel.textContent=`${Math.round(frames*1000/(now-start))} FPS · ${quality.current}\n${renderer.info.render.calls} calls · ${renderer.info.render.triangles} triangles\n${residentDay.entries?.filter(e=>e.visible).length??0} scheduled NPCs · ${visitorSystem.stats.present} visitors`;frames=0;start=now;}};
+}

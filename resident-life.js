@@ -21,7 +21,7 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
  residentScale.residents.forEach((entry,index)=>{
   const o=entry.object,head=entry.head,body=o.children.find(c=>c.geometry?.type==='CylinderGeometry');if(!head||!body)return;
   o.updateWorldMatrix(true,true);const b=new THREE.Box3().setFromObject(o,true),base=o.worldToLocal(new THREE.Vector3(o.getWorldPosition(world).x,b.min.y,o.getWorldPosition(world).z)).y;
-  const variation=residentVariation(index),id=identity.get(o),motion=movingMap.get(o),place=o.getWorldPosition(new THREE.Vector3()),role=residentRoles[id]??everydayResidentRole(entry,index,place,body.material.color.getHex());
+  const variation=residentVariation(index),id=identity.get(o),motion=movingMap.get(o),place=o.getWorldPosition(new THREE.Vector3()),role=residentRoles[id]??o.userData.visitorRole??everydayResidentRole(entry,index,place,body.material.color.getHex());
   // Feet remain at the same contact point; variation is only +/- 2.2 percent.
   if(!entry.seated)o.scale.y*=variation.height;
   const scale=o.getWorldScale(new THREE.Vector3()),sx=scale.x,sy=scale.y,sz=scale.z;

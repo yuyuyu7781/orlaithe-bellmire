@@ -96,7 +96,7 @@ v14.2と同条件（960×640、時刻3秒、shadow更新済み、compositor込�
 ## v16.7–v17.2: quiet weekly rhythm and private upper windows
 
 Day 4 has two modest canvas counters, not a festival stage. Day 6 evening has
-four opaque emissive oil lamps on validated quay supports, with no added lights.
+three opaque emissive oil lamps on validated quay supports, with no added lights.
 All scenery toggles its children; the interior system still owns town-root
 visibility. Market counters have explicit switchable footprints and leave the
 verified human routes and three cat passages intact.

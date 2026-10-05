@@ -20,7 +20,7 @@ export function createDialogueSystem({THREE,inspections,walking,actors,getTime=(
   }
   function speak(entry){
     const character=entry.character,profile=walking.state.profile.id,key=profile==='human'?character.id:character.id+':'+profile,index=turns.get(key)??0;
-    const time=getTime(),location=getLocation(character.id),turn=selectDialogueTurn(character,{profile:walking.state.profile.id,time,index,location});const text=character.eventReply?.({profile,time,index,location})??rememberedDialogue(stay,character,{profile,index,time,location})??turn.text;
+    const time=getTime(),location=getLocation(character.id),turn=selectDialogueTurn(character,{profile:walking.state.profile.id,time,index,location});const text=character.eventReply?.({profile,time,index,location})??character.calendarReply?.({profile,time,index,location})??rememberedDialogue(stay,character,{profile,index,time,location})??turn.text;
     const image=selectPortrait(character,{expression:turn.expression,time});
     const portrait=createPortraitView(character,{image,time,expression:turn.expression});
     portrait.element.dataset.conversationMode=profile;portrait.element.dataset.portraitVariant=turn.expression;portrait.element.dataset.dialogueVariant=profile+':'+location+':'+time;

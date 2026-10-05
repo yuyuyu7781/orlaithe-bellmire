@@ -37,7 +37,7 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
   entrances.push(entry);inspections.resolver.register(entry);
  }
  for(const e of dialogue.entries){e.enabled=()=>{const place=travel?.location(e.character.id)??locationFor(e.character.id);return current?place===current.shop.id:!['private',...shops.map(s=>s.id)].includes(place);};e.character.rumorPool=rumorPools[e.character.id]??[];}
- function locationFor(id){return dailyLocations[id]?.[townLife.state.period]??'town';}
+ function locationFor(id){if(id==='greenBard'&&townLife.state.calendar?.gathering)return 'waterfront';return dailyLocations[id]?.[townLife.state.period]??'town';}
  function characterLocation(id){const place=travel?.location(id)??locationFor(id);return current&&place===current.shop.id?current.shop.id:'town';}
  function getRoom(shop){if(rooms.has(shop.id))return rooms.get(shop.id);const room=buildInterior({THREE,shop});rooms.set(shop.id,room);room.root.visible=false;
   for(const target of room.inspect)inspections.resolver.register(target);

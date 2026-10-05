@@ -33,5 +33,5 @@ export function createStayAtmosphere({THREE,stay,townLife,inspections,dialogue,a
   if(character.id==='starmaker'&&/九つの点/.test(text))stay.note('nerissa-old-chart','ネリッサは、円を九つの点が囲む古い星図を知っていた。意味はまだ分からないという。',{kind:'person'});
   if(stay.data.currentDay>=3&&/鐘.*違った/.test(text))stay.note('bell-different','昨日と鐘の余韻が少し違った、とネリッサは言った。',{kind:'rumor'});
  });
- return {marks,sync,get bellChanged(){return bellChanged},futureCalendar:{season:null,festival:null,visitors:[]},addedLights:0};
+ return {marks,sync,get bellChanged(){return bellChanged},get futureCalendar(){return townLife.state.calendar},addedLights:0};
 }
