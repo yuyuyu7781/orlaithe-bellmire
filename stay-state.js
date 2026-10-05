@@ -8,11 +8,12 @@ const people=['baker','bookseller','boatworker','starmaker','greenBard'];
 const eventIds=townEventDefinitions.map(e=>e.id),eventStages=['unseen','heard','noticed','resolved'];
 const object=v=>v&&typeof v==='object'&&!Array.isArray(v),integer=(n,fallback=1)=>Number.isSafeInteger(n)&&n>=1?Math.min(n,9999):fallback;
 const short=(s,max=500)=>typeof s==='string'?s.slice(0,max):'';
-export function defaultStay(){return {version:SAVE_VERSION,currentDay:1,dayPhase:'day',dayStart:1,weather:'clear',season:'spring',events:{},discoveries:{},memories:{},flags:{},journal:[],weatherHistory:[]};}
+export function defaultStay(){return {version:SAVE_VERSION,currentDay:1,dayPhase:'day',dayStart:1,weather:'clear',season:'spring',events:{},discoveries:{},memories:{},flags:{},journal:[],threads:{},weatherHistory:[]};}
 // Whitelist and bounds protect every consumer; storage never supplies DOM/paths.
 export function validateStay(raw){
  const d=defaultStay();if(!object(raw)||raw.version!==SAVE_VERSION)return d;
  d.season=Object.hasOwn(seasonProfiles,raw.season)?raw.season:'spring';d.currentDay=integer(raw.currentDay);d.dayStart=integer(raw.dayStart);d.dayPhase=phases.includes(raw.dayPhase)?raw.dayPhase:'day';d.weather=weather.includes(raw.weather)?raw.weather:'clear';
+ const thread=raw.threads?.bell;if(object(thread)){d.threads.bell={stage:['unseen','heard','chart','linked','anomaly','afterglow'].includes(thread.stage)?thread.stage:'unseen',anomalyDay:Number.isSafeInteger(thread.anomalyDay)?integer(thread.anomalyDay):null,catFound:thread.catFound===true};}
  for(const id of eventIds){const e=raw.events?.[id];if(object(e)&&eventStages.includes(e.state)){d.events[id]={state:e.state};for(const key of ['heardDay','noticedDay','resolvedDay','returnedDay'])if(Number.isSafeInteger(e[key])&&e[key]>=1)d.events[id][key]=integer(e[key]);for(const key of ['heardAt','noticedAt','resolvedAt'])if(phases.includes(e[key]))d.events[id][key]=e[key];}}
  for(const [id,e]of Object.entries(object(raw.discoveries)?raw.discoveries:{}).slice(0,150))if(/^[\w:-]{1,100}$/.test(id)&&!['__proto__','prototype','constructor'].includes(id)&&object(e))d.discoveries[id]={day:integer(e.day),playerMode:e.playerMode==='cat'?'cat':'human',period:phases.includes(e.period)?e.period:'day',label:short(e.label,100)};
  for(const id of people){const m=raw.memories?.[id];if(!object(m))continue;d.memories[id]={};for(const mode of ['human','cat'])if(object(m[mode]))d.memories[id][mode]={visits:Math.min(9999,Math.max(0,Number.isSafeInteger(m[mode].visits)?m[mode].visits:0)),firstDay:integer(m[mode].firstDay),lastDay:integer(m[mode].lastDay)};}

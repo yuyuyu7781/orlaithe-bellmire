@@ -1,0 +1,8 @@
+// Event-driven variations on the existing furniture, without new geometry.
+export function createInteriorLife({THREE,shopSystem,townLife}){
+ const rooms=new Set();function prepare(room){const details={bread:[],books:[],paper:[],cargo:[],cups:[]};room.root.traverse(o=>{if(!o.isMesh||room.policy.obstacles.some(a=>a.object===o&&!o.userData.walkSoft))return;const p=o.position,g=o.geometry.parameters??{};if(o.userData.interiorVariant==='guest-bag')details.cargo.push(o);if(o.userData.interiorVariant==='night-table')details.cups.push(o);if(room.shop.id==='bakery'&&o.geometry.type==='SphereGeometry'&&g.radius===.12)details.bread.push(o);if(room.shop.id==='bookshop'&&g.height===.03)details.books.push({object:o,base:p.clone()});if(room.shop.id==='orrery'&&g.height<=.015&&o.material===room.materials.paper)details.paper.push({object:o,base:p.clone()});});
+ // Reuse purely visual pieces for day-to-day movement; never move solid furniture.
+ room.lifeDetails=details;rooms.add(room);applyRoom(room);}
+ function applyRoom(room){const s=townLife.state,d=room.lifeDetails;d.bread.forEach((o,i)=>o.visible=s.period==='morning'||s.period==='day'&&i<2||s.period==='evening'&&i===0);d.books.forEach((e,i)=>{e.object.position.copy(e.base);if(s.dayIndex%2===0)e.object.position.set(-.4+i*.035,1.18,-3.69);});d.cups.forEach(o=>o.visible=['evening','night'].includes(s.period));d.cargo.forEach((o,i)=>o.visible=(s.dayIndex+i)%3!==0);d.paper.forEach((e,i)=>{e.object.position.copy(e.base);e.object.rotation.y=s.dayIndex%2?.04:-.08;});room.root.userData.livingPhase=s.period;}
+ shopSystem.onRoom(prepare);townLife.onChange(()=>{for(const r of rooms)applyRoom(r);});return {rooms,applyRoom};
+}
