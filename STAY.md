@@ -37,3 +37,41 @@
 ## 今後
 
 日送りの追加手段、住民同士の譲り合いの深化、3店主の店内／店先の連続移動、保存形式の移行、実機スマホと実音源の確認。時刻・天候履歴と会話データは既存の拡張構造を維持する。
+
+## v16.1–v16.6: weather and the next mornings
+
+- `scene-settings.js` distinguishes blue predawn (`dawn`) from the warmer
+  manual morning period. Rain keeps a clear foreground and lighter distant fog;
+  fog weather retains its own denser profile. The existing atmosphere shader,
+  sun, shadow map and bloom are reused.
+- `weather-surfaces.js` restores immutable dry pigment colours before a mild
+  wet wash. `harbor-details.js` remains the sole owner of water colour/time
+  changes. Weather switches cannot accumulate darkening.
+- Four practical outdoor blackout lamps (inn entrance, tavern entrance, quay,
+  wheel outlet) and two carried oil lamps use opaque emission, no new lights.
+  Normal windows/point lamps are off. Each lazy interior retains one oil lamp;
+  the bakery oven uses the same backup material. Outdoor root visibility is
+  still owned by `shop-system`, including weather changes made indoors.
+- The original eight residents' schedules route two market neighbours to the
+  inn in rain and four guests indoors at predawn. Existing background neighbours
+  have a restrained shelter visibility policy. Named actors and moving people
+  retain their own movement/controllers and indoor visibility policy.
+- Four upper residential balconies are at approximately `(-34,11.91,-20.05)`,
+  `(-25,12.44,-21.05)`, `(-19,11.91,-29.05)`, `(14,13.50,-26.05)`.
+  Their floor clearance over the street is 2.61–7.25 units. Shared instance
+  batches form the timber/rails/pots, with one small cloth per home. They add
+  no walkable surface, street collider, shadow caster or light.
+- `stay-dialogue.js` supplies short Day 2/3 and rain/predawn/blackout observations.
+  Existing event replies, next-day memories, portrait variants and every fourth
+  human rumour turn keep precedence. Other people keep distinct human/cat
+  memories. Finn's “yesterday's low view” only refers to an actual previous-day
+  feline meeting; it does not repeat a stale yesterday indefinitely.
+- `stay-atmosphere.js` reuses the mooring/chart/belfry cultural interactions.
+  Day 2 reveals faint related marks. Only inspecting them after seeing the
+  upstream stone records the resemblance. Day 3 bell metadata comes from the
+  existing `onBell` trigger; a relevant inspection/conversation records the
+  rumour. No sound file, answer, quest objective or reward UI is added.
+- Existing versioned saves, discoveries and journal IDs are reused; no save
+  migration or extra per-frame storage writes are needed. A small, inert
+  `futureCalendar` holds season/festival/visitor extension points. An actual
+  visiting traveller and seasonal simulation remain unimplemented.

@@ -1,6 +1,6 @@
 // A few practical oil lamps, not replacement street illumination. They share
 // opaque emissive materials and add no real-time lights or shadow casters.
-export function createBlackoutLamps({THREE,scene,grounding,townLife,residentLife}){
+export function createBlackoutLamps({THREE,scene,grounding,walking,miniature,townLife,residentLife}){
  const root=new THREE.Group();root.name='Sparse blackout safety lamps';scene.add(root);
  const iron=new THREE.MeshStandardMaterial({color:0x484337,roughness:1}),wood=new THREE.MeshStandardMaterial({color:0x695039,roughness:1}),flame=new THREE.MeshStandardMaterial({color:0xd8ad72,emissive:0xffb564,emissiveIntensity:1.8,roughness:1});
  const lamps=[],handLamps=[];
@@ -10,7 +10,9 @@ export function createBlackoutLamps({THREE,scene,grounding,townLife,residentLife
  // Places already served by human routes; small brackets sit against the wall
  // or quay furniture, above feet and outside the usable lane.
  for(const [label,x,z,y]of [['宿屋の入口',-36.1,-1.2,1.20],['酒場の入口',-6.78,8.8,1.20],['港の係留場',-4.5,37.5,.78],['水車出口',23.75,33.3,.75]]){
-  const floor=grounding.heightAt(x,z);if(floor===null)continue;const g=lantern(root,[x,floor+y,z]);g.name=label+'の非常灯';lamps.push(g);
+  let placement=null;const candidates=[[x,z]];for(let r=.25;r<=3;r+=.25)for(let i=0;i<16;i++)candidates.push([x+Math.sin(i*Math.PI/8)*r,z+Math.cos(i*Math.PI/8)*r]);
+  for(const [px,pz]of candidates){const floor=grounding.heightAt(px,pz);if(floor===null||walking.canStandTownAs('human',px,pz,floor)===null)continue;const glowBounds=new THREE.Box3(new THREE.Vector3(px-.105,floor+y+.04,pz-.085),new THREE.Vector3(px+.105,floor+y+.32,pz+.085));if(miniature.shells.some(s=>glowBounds.intersectsBox(s.b)))continue;placement=[px,floor,pz];break;}
+  if(!placement)continue;const [px,floor,pz]=placement,g=lantern(root,[px,floor+y,pz]);g.name=label+'の非常灯';lamps.push(g);
   // Small visible shelf supports the lamp rather than letting it float.
   const support=new THREE.Mesh(new THREE.BoxGeometry(.34,.06,.26),wood);support.position.set(0,-.005,0);support.userData.walkSoft=true;g.add(support);
   const post=new THREE.Mesh(new THREE.BoxGeometry(.06,y,.06),wood);post.position.set(0,-y/2,0);post.userData.walkSoft=true;g.add(post);

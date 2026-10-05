@@ -1,0 +1,277 @@
+{
+  "baseline": "4d6eca45a349de53ddff618ea8041ff3b3298306",
+  "version": "v16.1-v16.6",
+  "checks": {
+    "threeDayScenario": "PASS native W/E, two inn-bed rests, Day 2 dawn/rain/blackout, Day 3 dialogue and related-mark journal",
+    "reload": "PASS day, event states, memories and journal preserved",
+    "walking": "PASS 16 routes and 520 lane cells",
+    "cat": "PASS five native Space jumps and mobile button",
+    "conversation": "PASS all five official portraits and native human/cat conversations",
+    "mobile": "PASS 390px touch tavern entry/talk/close/exit; journal portrait/landscape bounds",
+    "weatherCameras": "PASS six weather modes, nineteen cameras, follow, fourteen human and five cat inspections, resident/cat/wheel/cable animations, WebGL",
+    "indoorWeather": "PASS dawn/rain/blackout/clear changed inside inn, safe exit and correct outside lighting",
+    "lampContact": "PASS four supported lamps, valid town floor, no luminous box overlaps building shells"
+  },
+  "balconies": [
+    {
+      "position": [
+        -34,
+        11.91,
+        -20.05
+      ],
+      "clearance": 2.610000047683716
+    },
+    {
+      "position": [
+        -25,
+        12.44,
+        -21.05
+      ],
+      "clearance": 3.1400000476837153
+    },
+    {
+      "position": [
+        -19,
+        11.91,
+        -29.05
+      ],
+      "clearance": 2.610000047683716
+    },
+    {
+      "position": [
+        14,
+        13.5,
+        -26.05
+      ],
+      "clearance": 7.250000023841858
+    }
+  ],
+  "lamps": {
+    "fixed": 4,
+    "handheld": 2,
+    "addedLights": 0
+  },
+  "day2": {
+    "day": 2,
+    "phase": "morning",
+    "grain": "resolved",
+    "book": "resolved",
+    "journal": 8
+  },
+  "day3": {
+    "day": 3,
+    "grain": "resolved",
+    "book": "resolved",
+    "stone": "noticed",
+    "journalCount": 17
+  },
+  "relatedNotes": [
+    {
+      "id": "related-water-marks",
+      "day": 2,
+      "text": "上流の石と港の古い印は、少し似ている。",
+      "kind": "place",
+      "playerMode": "human"
+    },
+    {
+      "id": "related-star-circle",
+      "day": 2,
+      "text": "水路の線と、星図の円を囲む点。数え直すと、どちらも九つだった。",
+      "kind": "place",
+      "playerMode": "human"
+    },
+    {
+      "id": "bell-different",
+      "day": 3,
+      "text": "昨日と鐘の余韻が少し違った、とネリッサは言った。",
+      "kind": "rumor",
+      "playerMode": "human"
+    }
+  ],
+  "performance": [
+    {
+      "baseline": true,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2579,
+          "triangles": 101349,
+          "ms": 9.400000005960464,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 27.19999998807907
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34580,
+          "ms": 2.100000023841858,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 2.4000000059604645
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2579,
+          "triangles": 101349,
+          "ms": 9.800000011920929,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 26.599999994039536
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34580,
+          "ms": 1.5,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 1.600000023841858
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2565,
+          "triangles": 101335,
+          "ms": 13.799999982118607,
+          "textures": 18,
+          "programs": 28,
+          "p95Ms": 38.099999994039536
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2846,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 140,
+          "triangles": 34566,
+          "ms": 1.4000000059604645,
+          "textures": 18,
+          "programs": 28,
+          "p95Ms": 1.699999988079071
+        }
+      ],
+      "median": 303.40000000596046
+    },
+    {
+      "baseline": false,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 2911,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2587,
+          "triangles": 102237,
+          "ms": 12.400000005960464,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 26.799999982118607
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 2911,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34580,
+          "ms": 1.7000000178813934,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 1.9000000059604645
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 2911,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2587,
+          "triangles": 102237,
+          "ms": 10.299999982118607,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 27.799999982118607
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 2911,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 154,
+          "triangles": 34580,
+          "ms": 1.5,
+          "textures": 18,
+          "programs": 19,
+          "p95Ms": 1.600000023841858
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 2911,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 2573,
+          "triangles": 102223,
+          "ms": 12.300000011920929,
+          "textures": 18,
+          "programs": 28,
+          "p95Ms": 27.400000005960464
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 2911,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 208,
+          "calls": 140,
+          "triangles": 34566,
+          "ms": 1.4000000059604645,
+          "textures": 18,
+          "programs": 28,
+          "p95Ms": 12.5
+        }
+      ],
+      "median": 296.90000000596046
+    }
+  ],
+  "limits": [
+    "Software WebGL Chromium; no physical smartphone performance measurement",
+    "No new audio sources, actual visiting traveller, seasonal/festival simulation, or mystery answers"
+  ]
+}

@@ -37,7 +37,7 @@ export function createTownLife({THREE,scene,lit,smoke,chimneySources,buildings=[
     else if(window)on=seed>(state.period==='morning'?.48:state.period==='evening'?.28:.30);
    }
    m.emissiveIntensity=off||!on?0:level*(.80+seed*.24)*(state.weather==='rain'?.92:1);
-   m.color.copy(e.color).multiplyScalar(window&&!on?(state.period==='night'?.24:.62):1);
+   m.color.copy(e.color).multiplyScalar(off?(window?.12:.18):window&&!on?(state.period==='night'?.24:.62):1);
   }
   windowBatch.sync();
   for(const p of points){let factor=state.period==='day'?.78:1;if(state.period==='morning'&&p.site==='baker')factor=1.08;if(state.period==='night')factor=({baker:.14,bookseller:.35,starmaker:.45,harbor:.55})[p.site]??1;p.object.intensity=off?0:p.base*factor;}

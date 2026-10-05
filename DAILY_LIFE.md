@@ -72,3 +72,17 @@ Mobile 25.1→13.7ms。同環境でもばらつくため実機性能の保証に
 ## v16.0 の更新
 
 [STAY.md](STAY.md) を現在の仕様として参照。既存8人は室内滞在中も低頻度で進み、ブランとフィンは同じ街路グラフで連続移動する。3店主の屋外長距離移動は引き続き未実装。宿屋の休息、日、保存、会話記憶、旅日記を追加した。
+
+### v16.6 weather reactions
+
+The existing route controller still owns the eight scheduled neighbours and the
+named travel adapter still owns Bran/Finn. Rain sends two neighbours towards the
+inn; blue predawn keeps four guests indoors. Blackout uses the existing night
+routes (tavern/inn/home), with two carried lamps. Background shelter visibility
+is owned by resident-life only outside shops, and never overrides named actors
+or physically moving residents. There is no second weather AI.
+
+Validation includes a native three-day W/E stay with two bed rests, a Day 2
+save/reload, all five human/cat portrait conversations, 16 human routes and 520
+lane cells, five cat jumps, all six weather states and nineteen cameras. Inn
+weather changes were checked while indoors and after returning outside.

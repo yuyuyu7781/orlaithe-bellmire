@@ -3,7 +3,7 @@ const human={baker:'また来たんだね。最初の籠は、もう表に出し
 const cat={baker:'また来たのかい。粉の袋には乗らないでおくれ。',bookseller:'また君かい。机の下なら、静かに通れるよ。',boatworker:'また魚籠を見に来たのか。今日は、まだ空だぞ。',starmaker:'またあの光を見に来たのかな。小さな歯車は、触らないでね。',greenBard:'そこは暖かいね。今日は、ゆっくり歩いているんだね。'};
 export function rememberedDialogue(stay,character,{profile,index}){
  if(!stay)return null;const id=character.id,d=stay.data,m=d.memories[id]??{},mode=m[profile];
- if(id==='greenBard'&&profile==='human'&&m.cat?.visits>0&&m.cat.lastDay<d.currentDay&&d.flags.finnLowViewDay!==d.currentDay){d.flags.finnLowViewDay=d.currentDay;stay.note('finn-low-view:'+d.currentDay,'フィンは、昨日の低い景色を知っているような言い方をした。',{kind:'person'});return '昨日は、ずいぶん低いところから街を見ていたね。今日は、鐘の音が少し近いかな。';}
+ if(id==='greenBard'&&profile==='human'&&m.cat?.visits>0&&m.cat.lastDay===d.currentDay-1&&d.flags.finnLowViewDay!==d.currentDay){d.flags.finnLowViewDay=d.currentDay;stay.note('finn-low-view:'+d.currentDay,'フィンは、昨日の低い景色を知っているような言い方をした。',{kind:'person'});return '昨日は、ずいぶん低いところから街を見ていたね。今日は、鐘の音が少し近いかな。';}
  if(!mode?.visits)return null;
  if(mode.lastDay<d.currentDay)return profile==='cat'?cat[id]:({baker:'また顔を見られてうれしいよ。今朝も、窯はもう温まっている。',bookseller:'昨日の頁の続きは、今日もここにありますよ。',boatworker:'水の具合は、昨日とは少し違うな。',starmaker:'昨夜の星図を、今朝もう一度確かめていたんです。',greenBard:'ひと晩たつと、同じ路地も少し違って見えるね。'})[id];
  const observation=stayObservation(stay,id,{profile,index});if(observation)return observation;

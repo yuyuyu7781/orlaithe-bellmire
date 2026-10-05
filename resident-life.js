@@ -9,7 +9,7 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
   block:new THREE.BoxGeometry(1,1,1),ball:new THREE.SphereGeometry(1,6,4),
   limb:new THREE.CylinderGeometry(.5,.5,1,6),hair:new THREE.SphereGeometry(1,8,4,0,Math.PI*2,0,1.45)
  },parts=new Map(Object.keys(geometries).map(k=>[k,[]])),records=[],movingMap=new Map(moving.map(q=>[q.object,q])),identity=new Map(Object.entries(actors).map(([id,o])=>[o,id]));
- const world=new THREE.Vector3(),frustum=new THREE.Frustum(),projection=new THREE.Matrix4(),sphere=new THREE.Sphere(new THREE.Vector3(),1.4);let lastPose=-Infinity,period='day';
+ const world=new THREE.Vector3(),frustum=new THREE.Frustum(),projection=new THREE.Matrix4(),sphere=new THREE.Sphere(new THREE.Vector3(),1.4);let lastPose=-Infinity,period='day',weather='clear',getArea=()=> 'town';
  function add(kind,parent,position,size,color){const node=new THREE.Object3D();node.position.set(...position);node.scale.set(...size);parent.add(node);parts.get(kind).push({node,color:new THREE.Color(color),owner:parent});return node;}
  function contactLegs(parent,base,sx,sy,sz,color){const positions=[],normals=[],colors=[];
   const g=new THREE.BoxGeometry(1,1,1).toNonIndexed(),normalMatrix=new THREE.Matrix3(),matrix=new THREE.Matrix4(),v=new THREE.Vector3(),n=new THREE.Vector3();
@@ -57,7 +57,7 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
   if(role.prop==='crate'){add('block',prop,[0,-.02/sy,0],[.40/sx,.28/sy,.29/sz],0x8c7354);for(const x of [-.15,.15])add('block',prop,[x/sx,-.02/sy,.15/sz],[.035/sx,.28/sy,.025/sz],0x5e4c39);}
   if(role.prop==='broom'){prop.position.x=.32/sx;add('limb',prop,[0,-.25/sy,0],[.028/sx,.88/sy,.028/sz],0x877051);add('block',prop,[0,-.72/sy,0],[.23/sx,.10/sy,.08/sz],0xaca07a);}
   const footRest=feet[0]?.name==='Resident grounded boots and trousers'?feet[0].geometry.attributes.position.array.slice():null;
-  const record={footRest,object:o,head,body,baseBody:body.rotation.clone(),baseHead:head.rotation.clone(),arms,feet,variation,role,id,moving:!!motion,seated:entry.seated,prop,scale:{sx,sy,sz},lastTime:null};records.push(record);o.userData.residentLife={role:id??role.activity,posture:role.posture,heightFactor:variation.height,shoulderFactor:variation.shoulders,gaitSpeed:.92+variation.seed*.16,gaitAmplitude:.94+variation.seed*.12};
+  const record={initialVisible:o.visible,initialParent:o.parent,index,footRest,object:o,head,body,baseBody:body.rotation.clone(),baseHead:head.rotation.clone(),arms,feet,variation,role,id,moving:!!motion,seated:entry.seated,prop,scale:{sx,sy,sz},lastTime:null};records.push(record);o.userData.residentLife={role:id??role.activity,posture:role.posture,heightFactor:variation.height,shoulderFactor:variation.shoulders,gaitSpeed:.92+variation.seed*.16,gaitAmplitude:.94+variation.seed*.12};
   o.updateWorldMatrix(true,true);
   // No terrain re-placement: maintain each original foot/seat world height.
   if(!entry.seated){const contact=new THREE.Box3().setFromObject(feet[0]??o,true).min.y;o.position.y+=(b.min.y-contact)/(o.parent?.getWorldScale(new THREE.Vector3()).y??1);}
@@ -71,7 +71,12 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
   const quiet=period==='night'?.55:1;
   if(camera){camera.updateMatrixWorld();frustum.setFromProjectionMatrix(projection.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse));}
   const active=new Set();
-  for(const r of records){const {object:o,head,body,arms,variation:v,role}=r;if(!visible(o))continue;
+  for(const r of records){const {object:o,head,body,arms,variation:v,role}=r;
+   // Existing scheduled/walking people keep their own physical route state.
+   // A few background neighbours stay indoors in bad weather; room actors
+   // remain exclusively controlled by the shop system.
+   if(getArea()==='town'&&!r.id&&!r.moving&&!o.userData.dailyLife&&o.parent===r.initialParent){const sheltered=weather==='dawn'&&period==='morning'?r.index%3!==0:weather==='rain'?r.index%3===1:weather==='blackout'?r.index%4!==0:false;o.visible=r.initialVisible&&!sheltered;}
+   if(!visible(o))continue;
    o.getWorldPosition(sphere.center);sphere.center.y+=.85;const distance=camera?camera.position.distanceTo(sphere.center):0,inView=!camera||frustum.intersectsSphere(sphere),interval=distance<18&&inView?1/residentLifeSettings.idleRate:distance<42&&inView?.25:getQuality()==='mobile'?2:1;
    const pose=force||(poseTick&&Math.abs(time-(r.lastTime??-Infinity))>=interval);if(pose)r.lastTime=time;
    if(pose&&r.footRest){const p=r.feet[0].geometry.attributes.position,walking=['walking','goingHome'].includes(r.currentState);for(let i=0;i<p.count;i++){const k=i*3,sign=r.footRest[k]<0?-1:1,swing=walking?Math.sin((r.walkPhase??time*4)+sign*Math.PI/2):0;p.array[k]=r.footRest[k];p.array[k+1]=r.footRest[k+1]+Math.max(0,swing)*.045;p.array[k+2]=r.footRest[k+2]+swing*.10;}p.needsUpdate=true;}
@@ -95,5 +100,5 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
   root.visible=true;for(const {mesh,list}of batches){let count=0;for(const p of list)if(active.has(p.owner)&&visible(p.node)){mesh.setMatrixAt(count,p.node.matrixWorld);mesh.setColorAt(count,p.color);count++;}mesh.count=count;mesh.visible=count>0;mesh.instanceMatrix.needsUpdate=true;mesh.instanceColor.needsUpdate=true;}
  }
  update(0,{force:true});
- return {root,records,update,setPeriod(value){period=value;},stats:{residents:records.length,standing:records.filter(r=>!r.seated).length,seated:records.filter(r=>r.seated).length,heldProps:records.filter(r=>r.role.prop).length,detailInstances:[...parts.values()].reduce((n,p)=>n+p.length,0),detailBatches:batches.length,contactMeshes:records.filter(r=>!r.seated&&!r.moving).length,addedLights:0,activities:[...new Set(records.map(r=>r.role.activity))]}};
+ return {root,records,update,setPeriod(value){period=value;},setEnvironment(value,area=getArea){weather=value;getArea=area;},stats:{residents:records.length,standing:records.filter(r=>!r.seated).length,seated:records.filter(r=>r.seated).length,heldProps:records.filter(r=>r.role.prop).length,detailInstances:[...parts.values()].reduce((n,p)=>n+p.length,0),detailBatches:batches.length,contactMeshes:records.filter(r=>!r.seated&&!r.moving).length,addedLights:0,activities:[...new Set(records.map(r=>r.role.activity))]}};
 }

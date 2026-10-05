@@ -10,12 +10,14 @@ export function createStayAtmosphere({THREE,stay,townLife,inspections,dialogue,a
   }else{
    // The existing wall chart has a circle; these irregular pin-size dots need
    // not be the same emblem as the upstream stone's straight cuts.
-   for(let i=0;i<9;i++){const dot=new THREE.Mesh(new THREE.BoxGeometry(.013,.014,.006),ink),a=i*Math.PI*2/9;dot.position.set(Math.cos(a)*.12,Math.sin(a)*.12,.025);dot.userData.walkSoft=true;root.add(dot);}
+   for(let i=0;i<9;i++){const dot=new THREE.Mesh(new THREE.BoxGeometry(.013,.014,.006),ink),a=i*Math.PI*2/9;dot.position.set(Math.cos(a)*.12,Math.sin(a)*.12,.078);dot.userData.walkSoft=true;root.add(dot);}
   }marks.push({id,root});
  }
+ const belfry=entries.get('belfry-mark'),belfryText=belfry?.text;
  let busy=false,bellChanged=false;
  function sync(){if(busy)return;busy=true;try{
   const d=stay.data,day=d.currentDay;for(const m of marks)m.root.visible=day>=2;
+  if(belfry)belfry.text=belfryText+(day>=3&&bellChanged?' 近くで、昨日と鐘の響きが違ったという話を聞いた。':'');
   const mooring=entries.get('moorings'),chart=entries.get('star-chart');
   if(mooring)mooring.text=baseTexts.get('moorings')+(day>=2?' 杭の石片には、数えにくい短い溝が並ぶ。上流の石に、少し似ている。':'');
   if(chart)chart.text=baseTexts.get('star-chart')+(day>=2?' 円の縁に九つの小さな点。水辺で見た線とは違うが、同じ数にも見える。':'');
@@ -24,8 +26,8 @@ export function createStayAtmosphere({THREE,stay,townLife,inspections,dialogue,a
   if(day>=2&&stone&&d.discoveries['star-chart'])stay.note('related-star-circle','水路の線と、星図の円を囲む点。数え直すと、どちらも九つだった。',{kind:'place'});
  }finally{busy=false;}}
  stay.onChange(sync);townLife.onChange(sync);sync();
- ambientAudio.onBell(trigger=>{if(trigger.day>=3){bellChanged=true;if(stay.data.discoveries['belfry-mark'])stay.note('bell-different','宿で、昨日と鐘の響きが違ったという話を聞いた。',{kind:'rumor'});}});
- inspections.onPresent(({entry,kind})=>{if(kind==='talk')return;if(entry.id==='belfry-mark'&&stay.data.currentDay>=3&&bellChanged)stay.note('bell-different','宿で、昨日と鐘の響きが違ったという話を聞いた。',{kind:'rumor'});sync();});
+ ambientAudio.onBell(trigger=>{if(trigger.day>=3){bellChanged=true;sync();}});
+ inspections.onPresent(({entry,kind})=>{if(kind==='talk')return;if(entry.id==='belfry-mark'&&stay.data.currentDay>=3&&bellChanged)stay.note('bell-different','鐘楼への道で、昨日と鐘の響きが違ったという話を聞いた。',{kind:'rumor'});sync();});
  dialogue.onSpeak(({character,text,profile})=>{
   if(profile!=='human'||stay.data.currentDay<2)return;
   if(character.id==='starmaker'&&/九つの点/.test(text))stay.note('nerissa-old-chart','ネリッサは、円を九つの点が囲む古い星図を知っていた。意味はまだ分からないという。',{kind:'person'});

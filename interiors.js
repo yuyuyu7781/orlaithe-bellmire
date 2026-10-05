@@ -25,7 +25,9 @@ export function buildInterior({THREE,shop}){
  const door=box(0,0,4.36,1.42,2.30,.08,wood);door.name='外へ出る扉';lamp(-.95,1.8,4.2);
  const oil=material('oil',0xe3b57a,0xffac54);oil.userData.blackoutBackup=true;
  // Keep one counter oil lamp; ordinary window material stays dark in a blackout.
- box(shop.id==='orrery'?2.6:-2.9,.86,2.4,.14,.22,.14,oil,false);
+ box(-3.34,1.55,2.4,.22,.04,.24,wood,false);
+ box(-3.34,1.59,2.4,.14,.22,.14,oil,false);
+ box(-3.34,1.81,2.4,.20,.035,.20,dark,false);
  const ambient=new THREE.AmbientLight(0xffe4bd,.95);root.add(ambient);
  // A small recessed window and timber framing break up the quiet side wall.
  box(-3.405,1.16,-.9,.028,.88,.66,glow,false);for(const z of [-1.26,-.9,-.54])box(-3.38,1.12,z,.055,.99,.045,wood,false);for(const y of [1.12,1.58,2.08])box(-3.38,y,-.9,.06,.045,.78,wood,false);
