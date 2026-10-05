@@ -31,7 +31,7 @@ export function enrichHarbor({THREE,scene,grounding,walking,supports,water,water
   if(!visible(o))return;if(o.userData.harborRole==='boat')boats.push(o);if(!o.isMesh||o.isInstancedMesh)return;const b=new THREE.Box3().setFromObject(o,true),g=o.geometry.parameters??{};
   if(['stone','ground'].includes(o.userData.storybookKind)&&g.width)backing.push(b);
   if(g.width>=.12&&g.width<=.26&&g.height>1.2&&g.depth<=.26&&b.max.z>34)posts.push({o,b});
-  if(o.material===water||o.material===water101){const old=o.material;if(!materials.has(old)){const m=old.clone();m.roughness=.76;m.metalness=.01;materials.set(old,{material:m,base:m.color.clone()});}o.material=materials.get(old).material;waterSurfaces.push(o);
+  if(o.material===water||o.material===water101){const old=o.material,role=o.userData.waterRole??'harbor',tone=role.startsWith('spring')?'spring':role==='shallow-stream'?'stream':role==='wheel-pool'||role==='short-timber-feed'?'mill':role.startsWith('tailrace')?'tailrace':'harbor',key=old.uuid+':'+tone;if(!materials.has(key)){const m=old.clone();m.roughness=.76;m.metalness=.01;m.color.multiplyScalar({spring:1.07,stream:1.01,mill:.93,tailrace:.96,harbor:1}[tone]);materials.set(key,{material:m,base:m.color.clone()});}o.material=materials.get(key).material;waterSurfaces.push(o);
    if(old===water101){
     // Subdivide only the original flat top; keep the five other faces and the
     // exact water-volume bounds. No overlay, depth fighting or extra draw.

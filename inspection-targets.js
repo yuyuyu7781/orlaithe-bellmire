@@ -11,7 +11,7 @@ export function createInspectionTargets({culture,well,moorings,wheel,millrace,la
     ['bookshop',sign('Crooked Leaf'),'古書店の木看板','本の背に、小さな星が押されている。棚の順序を尋ねると、季節の話が返ってくる。',[0,-.035,.86]],
     ['moorings',moorings,'港の係留杭','縄を掛ける前に、木札を裏返す船乗りがいる。港の印には、星と円が重ねて彫られている。',[0,.2,0]],
     ['mill',wheel,'水車','上の段丘から来た水が、下の羽根を押している。粉屋は水音で、朝の仕事量を決めるという。'],
-    ['leat',millrace.root,'街の導水路','岩の足元から落ちた水が、浅い石水路を通って水車へ向かう。短い木の導水口には、何度も直した跡が残っている。',millrace.upstream.stonePoint.toArray()],
+    ['leat',millrace.root,'街の導水路','岩の二つの段から落ちた水が、浅瀬を曲がって町の石水路へ入る。短い木の導水口には、何度も直した跡が残っている。',millrace.upstream.stonePoint.toArray()],
     ['cable-stop',landings,'ケーブルカーの停留所','荷物をひとつ、席をひとつ。小さな鐘を鳴らしてから、向こうの段丘へ綱を送る。'],
     ['orrery',sign('Orrery House'),'天球儀店の星と円','真鍮の円には、数え直したような小さな傷がある。九つ目の星には、名前を付けない人もいる。',[0,-.035,.86]],
     ['belfry-mark',details.belfry,'鐘楼への道の古い印','鐘の音を数える子どもは、今もいるらしい。九本目の溝には、いつも少し苔が残る。',[0,.45,.16]],
