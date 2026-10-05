@@ -44,6 +44,7 @@ import {createNavigation} from './navigation.js';
 import {createShopSystem} from './shop-system.js';
 import {clearHumanRoutes} from './human-routes.js';
 import {createWalkingSystem} from './walking.js';
+import {supportTownHouses,auditTownGround} from './town-ground-audit.js';
 import {createGroundingSystem} from './grounding.js';
 import {createResidentScale} from './resident-scale.js';
 import {createResidentLife} from './resident-life.js';
@@ -102,7 +103,10 @@ const townGround=[box(0,-2,0,112,3,90,grass),
 box(-10,1,-3,90,2.5,62,stone2),box(-18,3.45,-14,69,2.8,42,stone),box(-12,6.2,-24,51,3.1,27,stone2)];
 // broken retaining walls and planted ledges make the hill feel accumulated rather than terraced
 [[-49,2,21,2,5,18],[-47,2,-2,2,5,13],[-43,4.5,-20,2,5,16],[16,2,-14,2,5,17],[8,6.5,-33,2,5,12]].forEach(q=>box(...q,stone2));
-for(let i=0;i<18;i++){const x=-48+bellRand()*62,z=-34+bellRand()*68,y=.2+bellRand()*7;const r=.7+bellRand()*1.7;const rock=new THREE.Mesh(new THREE.DodecahedronGeometry(r,0),stone2);rock.position.set(x,y,z);rock.scale.y=.55+bellRand()*.7;rock.rotation.set(bellRand(),bellRand(),bellRand());scene.add(rock)}
+// Retired ungrounded random boulders: 18 legacy rocks could float above roads
+// or disappear inside terraces. Deliberate spring/harbor stones remain intact.
+for(let i=0;i<18*8;i++)bellRand(); // Preserve subsequent seeded town details.
+
 
 
 // Register a whole vignette so goods, wheels and foliage keep their relative positions.
@@ -1136,6 +1140,7 @@ const grounding=createGroundingSystem({THREE,scene,objects:groundedObjects,
 // on the same terrace; the existing contact placement settles her feet.
 shopResidents[1].position.set(6.8,3.5,2.25);
 grounding.placeAll();
+const houseSupports=supportTownHouses({THREE,scene,grounding,box,material:stone2});
 const culture=addTownCulture({THREE,scene,grounding,groundedObjects,lit,well,well106:squareWell,
   bookTable:bookDisplay,
   landings:[[39.88,lowerLandingY+.58,12.6],[39.88,upperLandingY+.58,-26.7]]});

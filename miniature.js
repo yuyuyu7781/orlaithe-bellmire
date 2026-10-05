@@ -25,7 +25,7 @@ export function enrichMiniature({THREE,scene,walking,grounding,lit,wallMaterials
  const batch=createDetailBatch(THREE,scene,'Miniature facade and stone details');
  const inside=o=>{for(let p=o;p;p=p.parent)if(ignored.includes(p)||!p.visible)return true;return false;};
  scene.updateMatrixWorld(true);const walls=[],occupied=[];
- scene.traverse(o=>{if(!o.isMesh||inside(o)||o.isInstancedMesh)return;const g=o.geometry.parameters??{},b=new THREE.Box3().setFromObject(o,true);occupied.push({object:o,b});if(wallMaterials.some(m=>m===o.material||m.uuid===o.material.userData.storybookSource)&&g.width>=3&&g.width<16&&g.depth>=3&&g.depth<16&&g.height>=3)walls.push({object:o,b});});
+ scene.traverse(o=>{if(!o.isMesh||inside(o)||o.isInstancedMesh||o.userData.houseFoundation)return;const g=o.geometry.parameters??{},b=new THREE.Box3().setFromObject(o,true);occupied.push({object:o,b});if(wallMaterials.some(m=>m===o.material||m.uuid===o.material.userData.storybookSource)&&g.width>=3&&g.width<16&&g.depth>=3&&g.depth<16&&g.height>=3)walls.push({object:o,b});});
  // Keep the outermost shell where historical layers share the same frontage.
  const shells=walls.filter(w=>!walls.some(q=>q!==w&&q.b.containsBox(w.b)&&q.b.getSize(new THREE.Vector3()).length()>w.b.getSize(new THREE.Vector3()).length()+.01));
  let windows=0,planters=0,awnings=0,pavers=0,coping=0,shutters=0,lattices=0,bays=0,roundVents=0,householdDetails=0,existingWindowsFramed=0,railWindows=0,shopVines=0;const faces=[],roles={};
