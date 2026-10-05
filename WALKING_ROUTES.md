@@ -139,3 +139,20 @@ service margins before walking collision capture. Existing three cat passages,
 shop entrance destinations, main lane standard and sixteen route tests remain.
 The quay crossing avoids the existing safety lamp and uses the lower dry shore
 as its footing height. See `WATERCOURSE.md` for shared layout/data ownership.
+
+## v19.2–v20.5 audit
+
+Human collision radius remains 0.24m (body diameter 0.48m); major straight lanes
+should provide at least 0.90m clear width, turns at least 1.20m, and a 1.50m
+entrance stopping area where the existing frontage permits it. Clearance means
+real meshes at body height, not canopy/group bounding boxes. Cat radius remains
+0.13m. Low cat storage shelves preserve a full human bypass.
+
+Six previously unsupported building shells are now carried by stone plinths;
+the raised market porch at (-8,23) uses corner piers and retains its open space.
+Eighteen old random boulders were removed rather than lifted into busy streets.
+The tavern routes from square, market, harbor and mill were exercised with native
+forward input, including the real doorway approach. Plaza-to-bakery uses the
+existing quay/stair connection; a test planner reaching its search budget is not
+proof that the town is disconnected. Route and contact results are recorded in
+`tools/v205-validation.json` after the final browser run.
