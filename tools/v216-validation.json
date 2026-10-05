@@ -1,0 +1,353 @@
+{
+  "version": "21.6",
+  "baseline": "cd1a435a3646510862be3f337c7a870d0d480994",
+  "environmentSettingsChanged": false,
+  "upstreamRedesigned": false,
+  "physicalPhoneTested": false,
+  "browser": "Chromium / SwiftShader; PC and 390x844 viewport",
+  "checks": {
+    "sevenDayStoryAndReload": "passed",
+    "sixNativeInnRests": "passed",
+    "nativeHumanRoutes": 15,
+    "originalCatPassages": "passed",
+    "fiveShopsHumanCatPortrait": "passed",
+    "nativeRelationshipObservation": "passed",
+    "nativeMarksUnlockAnomaly": "passed",
+    "nativeCatClueAndReload": "passed",
+    "quietViewImmediateReturn": "passed",
+    "cameras": 19,
+    "weatherModes": 6,
+    "qualityModes": 3,
+    "registeredGroundAudit": "passed",
+    "diagnosticsAndMute": "passed"
+  },
+  "scheduledResidentsBefore": 11,
+  "scheduledResidentsAfter": 20,
+  "positionalTownResidents": 25,
+  "townResidentTotal": 31,
+  "performance": [
+    {
+      "baseline": true,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 3007,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2668,
+          "triangles": 106927,
+          "ms": 32,
+          "textures": 19,
+          "programs": 21,
+          "p95Ms": 48.19999998807907
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 3007,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 34928,
+          "ms": 2.5,
+          "textures": 19,
+          "programs": 21,
+          "p95Ms": 4.799999982118607
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 3007,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2668,
+          "triangles": 106927,
+          "ms": 27.5,
+          "textures": 19,
+          "programs": 21,
+          "p95Ms": 49.79999998211861
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 3007,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 34928,
+          "ms": 2,
+          "textures": 19,
+          "programs": 21,
+          "p95Ms": 18.099999994039536
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 3007,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2654,
+          "triangles": 106913,
+          "ms": 23,
+          "textures": 19,
+          "programs": 32,
+          "p95Ms": 47.69999998807907
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 3007,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 141,
+          "triangles": 34914,
+          "ms": 3.0999999940395355,
+          "textures": 19,
+          "programs": 32,
+          "p95Ms": 16.400000005960464
+        }
+      ],
+      "median": 655.9000000059605
+    },
+    {
+      "baseline": false,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 3010,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2670,
+          "triangles": 107035,
+          "ms": 20.19999998807907,
+          "textures": 19,
+          "programs": 21,
+          "p95Ms": 32.099999994039536
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 3010,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 34928,
+          "ms": 2,
+          "textures": 19,
+          "programs": 21,
+          "p95Ms": 6.100000023841858
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 3010,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2670,
+          "triangles": 107035,
+          "ms": 14.5,
+          "textures": 19,
+          "programs": 21,
+          "p95Ms": 30.80000001192093
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 3010,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 34928,
+          "ms": 1.5,
+          "textures": 19,
+          "programs": 21,
+          "p95Ms": 2
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 3010,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2656,
+          "triangles": 107021,
+          "ms": 13.599999994039536,
+          "textures": 19,
+          "programs": 32,
+          "p95Ms": 30.30000001192093
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 3010,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 141,
+          "triangles": 34914,
+          "ms": 2.600000023841858,
+          "textures": 19,
+          "programs": 32,
+          "p95Ms": 19.899999976158142
+        }
+      ],
+      "median": 255.59999999403954
+    }
+  ],
+  "residentUpdates": [
+    {
+      "baseline": true,
+      "measurements": [
+        {
+          "quality": "high",
+          "median": 0.29999998211860657,
+          "p95": 0.699999988079071,
+          "max": 3.699999988079071,
+          "scheduled": 11,
+          "stats": {
+            "scheduled": 11,
+            "period": "day",
+            "outsideVisible": 8,
+            "walking": 8,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 8,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 11
+          }
+        },
+        {
+          "quality": "standard",
+          "median": 0.29999998211860657,
+          "p95": 1.399999976158142,
+          "max": 15.300000011920929,
+          "scheduled": 11,
+          "stats": {
+            "scheduled": 11,
+            "period": "day",
+            "outsideVisible": 8,
+            "walking": 4,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 8,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 11
+          }
+        },
+        {
+          "quality": "mobile",
+          "median": 0.20000001788139343,
+          "p95": 1.0999999940395355,
+          "max": 2.699999988079071,
+          "scheduled": 11,
+          "stats": {
+            "scheduled": 11,
+            "period": "day",
+            "outsideVisible": 8,
+            "walking": 3,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 8,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 11
+          }
+        }
+      ]
+    },
+    {
+      "baseline": false,
+      "measurements": [
+        {
+          "quality": "high",
+          "median": 0.5999999940395355,
+          "p95": 2.899999976158142,
+          "max": 23.69999998807907,
+          "scheduled": 20,
+          "stats": {
+            "scheduled": 20,
+            "period": "day",
+            "outsideVisible": 17,
+            "walking": 1,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 17,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 20
+          }
+        },
+        {
+          "quality": "standard",
+          "median": 0.5,
+          "p95": 2.2000000178813934,
+          "max": 15.099999994039536,
+          "scheduled": 20,
+          "stats": {
+            "scheduled": 20,
+            "period": "day",
+            "outsideVisible": 17,
+            "walking": 1,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 17,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 20
+          }
+        },
+        {
+          "quality": "mobile",
+          "median": 0.29999998211860657,
+          "p95": 0.800000011920929,
+          "max": 15.5,
+          "scheduled": 20,
+          "stats": {
+            "scheduled": 20,
+            "period": "day",
+            "outsideVisible": 17,
+            "walking": 1,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 17,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 20
+          }
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Software-rendered shared cloud timings are not physical phone benchmarks.",
+    "Registered ground audit is not exhaustive verification of every decorative vertex.",
+    "Remaining seated actors vary activity rather than using long-distance routes."
+  ]
+}

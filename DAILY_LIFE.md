@@ -114,3 +114,9 @@ visitor destination differences across several days, five human/cat shop
 conversations and portraits, PC/mobile navigation/map, and 19 views/six weather/
 follow/inspection/WebGL. Scene mesh/light counts remain unchanged in the focused
 simulation check. No physical-phone frame-time claim is made.
+
+## v21.6 の拡張
+
+共通管理20人、主要人物と旧来歩行を含め31住民中25人に位置移動を持つ。
+近傍バケット、短い近隣ルート、立ち話、鐘への小さな反応を追加。
+現在の仕様・検証と制限は [CHAPTER_ONE.md](CHAPTER_ONE.md) を参照。

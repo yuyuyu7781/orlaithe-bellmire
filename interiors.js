@@ -81,7 +81,7 @@ export function buildInterior({THREE,shop}){
  // Quiet back-room details reuse materials, without changing the entry route.
  if(shop.id==='bakery'){box(0,1.9,-2.9,1.2,.06,.05,wood,false);box(-.85,0,-2.9,.08,2.1,.08,wood);box(-.85,1.6,-2.9,.40,.35,.04,linen,false);workstations.push([1.3,0,-2.6],[1.05,0,-1.95]);}
  if(shop.id==='bookshop'){box(-.9,0,-3.1,.10,1.95,.15,wood);box(-.9,1.85,-3.1,.12,.08,1.0,wood,false);workstations.push([1.7,0,-2.7],[1.25,0,-2.65],[1.4,0,-1.2]);}
- if(shop.id==='tavern'){const plate=box(0,1.11,-2.7,.36,.03,.24,paper,false),cup=box(-.55,1.11,-2.7,.15,.18,.15,linen,false);plate.userData.interiorVariant=cup.userData.interiorVariant='night-table';workstations.push([1.1,0,-1.6],[.6,0,-1.4]);}
+ if(shop.id==='tavern'){const plate=box(0,1.001,-2.7,.36,.03,.24,paper,false),cup=box(-.55,1.001,-2.7,.15,.18,.15,linen,false);plate.userData.interiorVariant=cup.userData.interiorVariant='night-table';workstations.push([1.1,0,-1.6],[.6,0,-1.4]);}
  if(shop.id==='orrery'){box(.0,0,-4.05,.65,1.3,.18,wood);box(0,1.4,-4.08,.48,.62,.025,paper,false);workstations.push([1.7,0,-2.95],[.65,0,-2.65],[.45,0,-1.1]);}
  root.updateMatrixWorld(true);for(const o of obstacles)o.bounds.setFromObject(o.object,true);
  const bounds=new THREE.Box3(new THREE.Vector3(196.58,0,-4.32),new THREE.Vector3(203.42,0,4.32));

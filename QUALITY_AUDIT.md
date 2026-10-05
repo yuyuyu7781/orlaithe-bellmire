@@ -59,3 +59,13 @@ Software-renderer wall times are host-load dependent, not physical-phone FPS.
 Existing near/mid/far throttling, room visibility and Mobile budgets remain.
 Full crowd deadlock resolution and complete long-distance schedules for every
 background actor remain future work.
+
+## v21.6 first-region validation
+
+Baseline `cd1a435`; see `CHAPTER_ONE.md` and `tools/v216-validation.json`.
+Seven-day simulation and native inn rests/reload pass; 15 native human routes,
+original cat passages, five shops, portraits, 19 cameras, six weather states,
+three qualities, diagnostics and mute pass. Registered ground audit reports no
+unsupported building/goods or standing feet errors. Interior books and cups
+were separately corrected to their supporting shelf/counter surfaces.
+Physical mobile hardware and prolonged maximum crowd stress remain untested.
