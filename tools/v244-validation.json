@@ -1,0 +1,1480 @@
+{
+  "version": "Orlaithe v24.4",
+  "baseline": "7c3aa159e1d9bee34f89b84ce1f7fa6b72ba91b7",
+  "environmentSettingsChanged": false,
+  "physicalSmartphoneTested": false,
+  "browser": "Chromium / software WebGL",
+  "results": {
+    "walkingTrip": {
+      "locked": {
+        "rejected": true,
+        "unchanged": true,
+        "options": [
+          {
+            "id": "bellmire",
+            "disabled": false
+          },
+          {
+            "id": "nine-stones",
+            "disabled": true
+          },
+          {
+            "id": "lake-lun",
+            "disabled": true
+          }
+        ]
+      },
+      "innGate": {
+        "samples": 555,
+        "maxEyeDelta": 0.0030028609397421135,
+        "feet": [
+          -53,
+          6.262000000186264,
+          5
+        ]
+      },
+      "out": {
+        "samples": 2754,
+        "maxEyeDelta": 0.02859883480531522,
+        "feet": [
+          -188,
+          10.003666666770977,
+          -29
+        ]
+      },
+      "stonesToRoad": {
+        "samples": 502,
+        "maxEyeDelta": 0.0087379988877192,
+        "feet": [
+          -206.1,
+          9.491575735792505,
+          -23
+        ]
+      },
+      "descent": {
+        "samples": 1875,
+        "maxEyeDelta": 0.061929698520840404,
+        "feet": [
+          -300,
+          6.12,
+          -27
+        ]
+      },
+      "entryPier": {
+        "samples": 575,
+        "maxEyeDelta": 0.029940599763922826,
+        "feet": [
+          -322,
+          6.150000000298024,
+          -24
+        ]
+      },
+      "regions": {
+        "current": "lake-lun",
+        "data": [
+          {
+            "id": "bellmire",
+            "visited": true
+          },
+          {
+            "id": "nine-stones",
+            "visited": true
+          },
+          {
+            "id": "lake-lun",
+            "visited": true
+          }
+        ],
+        "nav": [
+          "lake-entry",
+          "lake-pier",
+          "lake-path",
+          "nine-stones"
+        ],
+        "safe": 6.150000000298024
+      },
+      "pierEntry": {
+        "samples": 575,
+        "maxEyeDelta": 0.029696681098666744,
+        "feet": [
+          -300,
+          6.12,
+          -27
+        ]
+      },
+      "return": {
+        "samples": 1875,
+        "maxEyeDelta": 0.06471657116659912,
+        "feet": [
+          -206.1,
+          9.491575735792505,
+          -23
+        ]
+      },
+      "roadStones": {
+        "samples": 502,
+        "maxEyeDelta": 0.00945161950373219,
+        "feet": [
+          -188,
+          10.003666666770977,
+          -29
+        ]
+      },
+      "town": {
+        "samples": 2754,
+        "maxEyeDelta": 0.02859889147153183,
+        "feet": [
+          -53,
+          6.262000000186264,
+          5
+        ]
+      },
+      "gateInn": {
+        "samples": 539,
+        "maxEyeDelta": 0.0030028669058905777,
+        "feet": [
+          -32.965,
+          6.249999976158142,
+          2.5
+        ]
+      },
+      "revisits": [
+        {
+          "id": "lake-lun",
+          "ok": true,
+          "feet": [
+            -300,
+            6.12,
+            -27
+          ],
+          "spots": 8,
+          "selected": "lake-lun"
+        },
+        {
+          "id": "nine-stones",
+          "ok": true,
+          "feet": [
+            -173,
+            9.853666666770977,
+            -28
+          ],
+          "spots": 8,
+          "selected": "nine-stones"
+        },
+        {
+          "id": "bellmire",
+          "ok": true,
+          "feet": [
+            -32.965,
+            6.249999976158142,
+            2.5
+          ],
+          "spots": 19,
+          "selected": "bellmire"
+        }
+      ],
+      "rest": {
+        "day": 2,
+        "feet": [
+          200.7,
+          3.1999999982118608,
+          -2
+        ],
+        "room": "inn",
+        "visits": [
+          {
+            "id": "bellmire",
+            "visited": true
+          },
+          {
+            "id": "nine-stones",
+            "visited": true
+          },
+          {
+            "id": "lake-lun",
+            "visited": true
+          }
+        ]
+      },
+      "reload": {
+        "day": 2,
+        "regions": [
+          {
+            "id": "bellmire",
+            "visited": true
+          },
+          {
+            "id": "nine-stones",
+            "visited": true
+          },
+          {
+            "id": "lake-lun",
+            "visited": true
+          }
+        ],
+        "journal": [
+          {
+            "id": "nine:visit",
+            "day": 1,
+            "text": "街道の先に、九つの古い石があった。",
+            "kind": "place",
+            "playerMode": "human"
+          },
+          {
+            "id": "lake:visit",
+            "day": 1,
+            "text": "街道を下ると、静かな湖岸に出た。",
+            "kind": "place",
+            "playerMode": "human"
+          },
+          {
+            "id": "morning:2",
+            "day": 2,
+            "text": "宿屋の窓に、次の朝の光が入った。",
+            "kind": "stay",
+            "playerMode": "human"
+          }
+        ],
+        "canRevisit": true
+      }
+    },
+    "exploration": {
+      "human": [
+        {
+          "id": "lake:water",
+          "text": "静かな湖面\n\n対岸は空の下に残っている。岸へ寄る水だけが、小さく石を洗う。\n\n閉じる"
+        },
+        {
+          "id": "lake:peg",
+          "text": "古い係留杭\n\n木は水に触れるところだけ黒い。縄を結び直した跡が、何度も重なっている。\n\n閉じる"
+        },
+        {
+          "id": "lake:shore-mark",
+          "text": "水際の浅い刻み\n\n水のそばに、閉じない円と浅い線。石群の傷と同じとは言えない。\n\n閉じる"
+        },
+        {
+          "id": "lake:boat",
+          "text": "湖の小舟\n\n小さな舟。岸から離れた跡はなく、濡れた縄が桟橋につながっている。\n\n閉じる"
+        }
+      ],
+      "view": {
+        "active": true,
+        "blocked": true
+      },
+      "cat": [
+        {
+          "id": "lake:cat-rope",
+          "text": "桟橋脇の古い紐\n\n木の下に、水と古い紐の匂い。結び目の内側だけ、まだ乾いていた。\n\n閉じる"
+        },
+        {
+          "id": "lake:cat-reeds",
+          "text": "葦の間の丸い欠片\n\n葦を抜けると、小さな丸い欠片。水の匂いの奥に、冷たい石が残る。\n\n閉じる"
+        }
+      ],
+      "crawl": {
+        "cat": 6.027113420486221,
+        "human": null
+      },
+      "catReturn": {
+        "samples": 1848,
+        "maxEyeDelta": 0.06521113414765978,
+        "feet": [
+          -206.1,
+          9.491575735792505,
+          -23
+        ]
+      },
+      "catOut": {
+        "samples": 1580,
+        "maxEyeDelta": 0.06242477605488794,
+        "feet": [
+          -300,
+          6.12,
+          -27
+        ]
+      },
+      "audit": [
+        {
+          "id": "rock",
+          "ground": 6.0176069160543335,
+          "bottom": 6.017606914266194,
+          "delta": -1.7881394143159923e-09
+        },
+        {
+          "id": "log",
+          "ground": 6.069583172740687,
+          "bottom": 6.0695831721446405,
+          "delta": -5.960467674981373e-10
+        },
+        {
+          "id": "peg",
+          "ground": 6.044988005166534,
+          "bottom": 6.044988011126998,
+          "delta": 5.960464122267695e-09
+        }
+      ],
+      "safeWater": {
+        "human": null,
+        "cat": null,
+        "nearEdge": null
+      },
+      "audio": {
+        "okay": true,
+        "stats": {
+          "zones": 14,
+          "configured": 7,
+          "enabled": true,
+          "contexts": 1
+        },
+        "gain": 0.09985893449680545,
+        "muted": true
+      },
+      "reload": {
+        "day": 2,
+        "visited": [
+          {
+            "id": "bellmire",
+            "visited": true
+          },
+          {
+            "id": "nine-stones",
+            "visited": false
+          },
+          {
+            "id": "lake-lun",
+            "visited": true
+          }
+        ],
+        "discoveries": [
+          "lake:visit",
+          "outskirts-visit",
+          "lake:water",
+          "lake:peg",
+          "lake:shore-mark",
+          "lake:boat",
+          "lake:cat-rope",
+          "lake:cat-reeds"
+        ],
+        "notes": [
+          {
+            "id": "lake:visit",
+            "day": 1,
+            "text": "街道を下ると、静かな湖岸に出た。",
+            "kind": "place",
+            "playerMode": "human"
+          },
+          {
+            "id": "lake:water",
+            "day": 1,
+            "text": "対岸は空の下に残っている。岸へ寄る水だけが、小さく石を洗う。",
+            "kind": "place",
+            "playerMode": "human"
+          },
+          {
+            "id": "lake:peg",
+            "day": 1,
+            "text": "木は水に触れるところだけ黒い。縄を結び直した跡が、何度も重なっている。",
+            "kind": "place",
+            "playerMode": "human"
+          },
+          {
+            "id": "lake:shore-mark",
+            "day": 1,
+            "text": "水のそばに、閉じない円と浅い線。石群の傷と同じとは言えない。",
+            "kind": "place",
+            "playerMode": "human"
+          },
+          {
+            "id": "lake:boat",
+            "day": 1,
+            "text": "小さな舟。岸から離れた跡はなく、濡れた縄が桟橋につながっている。",
+            "kind": "place",
+            "playerMode": "human"
+          },
+          {
+            "id": "quiet:lake:pier-view",
+            "day": 1,
+            "text": "桟橋で立ち止まると、岸の水音だけが近くなった。",
+            "kind": "stay",
+            "playerMode": "human"
+          },
+          {
+            "id": "lake:cat-rope",
+            "day": 1,
+            "text": "木の下に、水と古い紐の匂い。結び目の内側だけ、まだ乾いていた。",
+            "kind": "cat-discovery",
+            "playerMode": "cat"
+          },
+          {
+            "id": "lake:cat-reeds",
+            "day": 1,
+            "text": "葦を抜けると、小さな丸い欠片。水の匂いの奥に、冷たい石が残る。",
+            "kind": "cat-discovery",
+            "playerMode": "cat"
+          }
+        ],
+        "safeRevisit": true
+      }
+    },
+    "mobile": {
+      "jump": {
+        "jumped": true,
+        "feet": [
+          -312,
+          6.357606917842473,
+          -32
+        ]
+      },
+      "layout": {
+        "panel": {
+          "x": 8,
+          "right": 252.0625,
+          "y": 8,
+          "bottom": 180,
+          "width": 244.0625
+        },
+        "selector": {
+          "x": 71.015625,
+          "right": 216.015625,
+          "y": 24,
+          "bottom": 48,
+          "width": 145
+        },
+        "map": {
+          "x": 182,
+          "right": 380,
+          "y": 351.5,
+          "bottom": 609,
+          "width": 198
+        },
+        "overflow": false,
+        "projection": [
+          130.85714285714283,
+          67.2
+        ],
+        "title": "Lake Lun\n猫 · 上が北 · 古い桟橋\n拡大\n閉じる",
+        "quality": "mobile"
+      },
+      "expanded": {
+        "overflow": false,
+        "spots": 8,
+        "height": 372
+      }
+    },
+    "weather": [
+      {
+        "weather": "clear",
+        "fog": 0.003484,
+        "water": "65858a"
+      },
+      {
+        "weather": "dawn",
+        "fog": 0.003744,
+        "water": "566f7c"
+      },
+      {
+        "weather": "rain",
+        "fog": 0.004056,
+        "water": "536f76"
+      },
+      {
+        "weather": "fog",
+        "fog": 0.0145,
+        "water": "65858a"
+      },
+      {
+        "weather": "night",
+        "fog": 0.00364,
+        "water": "455f68"
+      },
+      {
+        "weather": "blackout",
+        "fog": 0.004056,
+        "water": "455f68"
+      },
+      {
+        "cameras": [
+          [
+            "bellmire",
+            19
+          ],
+          [
+            "nine-stones",
+            8
+          ],
+          [
+            "lake-lun",
+            8
+          ]
+        ],
+        "regionalNav": [
+          "lake-entry",
+          "lake-pier",
+          "lake-path",
+          "nine-stones"
+        ],
+        "contextLost": false
+      }
+    ],
+    "regionalUI": [
+      {
+        "exitCamera": [
+          -301,
+          29,
+          0
+        ],
+        "lakePreset": [
+          -301,
+          29,
+          0
+        ],
+        "walking": false
+      },
+      {
+        "selected": "nine-stones",
+        "current": "nine-stones",
+        "walking": true,
+        "feet": [
+          -173,
+          9.853666666770977,
+          -28
+        ],
+        "spots": [
+          "nine-overview",
+          "nine-stones",
+          "nine-hill",
+          "nine-road",
+          "nine-bellmire",
+          "nine-lake",
+          "nine-rest",
+          "nine-sign"
+        ],
+        "targets": [
+          "nine-stones",
+          "nine-hill",
+          "bellmire",
+          "lake-lun"
+        ]
+      },
+      {
+        "selected": "bellmire",
+        "current": "bellmire",
+        "walking": true,
+        "feet": [
+          -32.965,
+          6.249999976158142,
+          2.5
+        ],
+        "spots": [
+          "overview",
+          "alley",
+          "streetwalk",
+          "bakery",
+          "bookshop",
+          "inn",
+          "tavern",
+          "orrery",
+          "square",
+          "roofgarden",
+          "mill",
+          "archway",
+          "canal",
+          "rooftop",
+          "belfry",
+          "drone",
+          "train",
+          "resident",
+          "catview"
+        ],
+        "targets": [
+          "bakery",
+          "bookshop",
+          "inn",
+          "tavern",
+          "orrery",
+          "bellmire",
+          "outskirts",
+          "hill",
+          "harbor",
+          "mill",
+          "square",
+          "cable",
+          "belfry",
+          "nine-stones"
+        ]
+      },
+      {
+        "selected": "lake-lun",
+        "current": "lake-lun",
+        "walking": true,
+        "feet": [
+          -300,
+          6.12,
+          -27
+        ],
+        "spots": [
+          "lake-overview",
+          "lake-shore",
+          "lake-pier",
+          "lake-path",
+          "lake-boat",
+          "lake-water",
+          "lake-far-shore",
+          "lake-nine"
+        ],
+        "targets": [
+          "lake-entry",
+          "lake-pier",
+          "lake-path",
+          "nine-stones"
+        ]
+      }
+    ],
+    "returnDialogue": [
+      {
+        "id": "starmaker",
+        "lines": [
+          "ネリッサ\n天球儀店\n天体と機械に親しむ、天球儀店の店主。\n\n水のそばでも、似た形が残っているのね。水が作った傷なのかしら。\n\n閉じる",
+          "ネリッサ\n天球儀店\n天体と機械に親しむ、天球儀店の店主。\n\n水のそばでも、似た形が残っているのね。水が作った傷なのかしら。\n\n閉じる",
+          "ネリッサ\n天球儀店\n天体と機械に親しむ、天球儀店の店主。\n\n水のそばでも、似た形が残っているのね。水が作った傷なのかしら。\n\n閉じる",
+          "ネリッサ\n天球儀店\n天体と機械に親しむ、天球儀店の店主。\n\n水のそばでも、似た形が残っているのね。水が作った傷なのかしら。\n\n閉じる"
+        ]
+      },
+      {
+        "id": "greenBard",
+        "lines": [
+          "フィン\n緑の吟遊詩人\n緑の外套と木の弦楽器を持つ旅人。\n\n湖は、昔から何でも映すわけじゃない。\n\n閉じる",
+          "フィン\n緑の吟遊詩人\n緑の外套と木の弦楽器を持つ旅人。\n\n湖は、昔から何でも映すわけじゃない。\n\n閉じる",
+          "フィン\n緑の吟遊詩人\n緑の外套と木の弦楽器を持つ旅人。\n\n湖は、昔から何でも映すわけじゃない。\n\n閉じる",
+          "フィン\n緑の吟遊詩人\n緑の外套と木の弦楽器を持つ旅人。\n\n湖は、昔から何でも映すわけじゃない。\n\n閉じる"
+        ]
+      }
+    ],
+    "performance": [
+      {
+        "baseline": true,
+        "measurements": [
+          {
+            "quality": "high",
+            "region": "Bellmire",
+            "frame": 285,
+            "calls": 2603,
+            "triangles": 105341,
+            "points": 0,
+            "lines": 216,
+            "meshes": 3145,
+            "lights": 14,
+            "casters": 193,
+            "transparent": 34,
+            "residentUpdateMedian": 0.19999998807907104,
+            "residentUpdateP95": 3.300000011920929,
+            "npc": {
+              "scheduled": 20,
+              "period": "day",
+              "outsideVisible": 17,
+              "walking": 1,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 17,
+              "detourRequests": 0,
+              "updated": 0,
+              "near": 0,
+              "mid": 0,
+              "far": 20
+            }
+          },
+          {
+            "quality": "standard",
+            "region": "Bellmire",
+            "frame": 405,
+            "calls": 2603,
+            "triangles": 105341,
+            "points": 0,
+            "lines": 216,
+            "meshes": 3145,
+            "lights": 14,
+            "casters": 193,
+            "transparent": 34,
+            "residentUpdateMedian": 0.19999998807907104,
+            "residentUpdateP95": 1.2999999523162842,
+            "npc": {
+              "scheduled": 20,
+              "period": "day",
+              "outsideVisible": 17,
+              "walking": 1,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 17,
+              "detourRequests": 0,
+              "updated": 0,
+              "near": 0,
+              "mid": 0,
+              "far": 20
+            }
+          },
+          {
+            "quality": "mobile",
+            "region": "Bellmire",
+            "frame": 413,
+            "calls": 2589,
+            "triangles": 105327,
+            "points": 0,
+            "lines": 216,
+            "meshes": 3145,
+            "lights": 14,
+            "casters": 193,
+            "transparent": 34,
+            "residentUpdateMedian": 0.10000002384185791,
+            "residentUpdateP95": 0.9000000357627869,
+            "npc": {
+              "scheduled": 20,
+              "period": "day",
+              "outsideVisible": 17,
+              "walking": 1,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 17,
+              "detourRequests": 0,
+              "updated": 0,
+              "near": 0,
+              "mid": 0,
+              "far": 20
+            }
+          },
+          {
+            "quality": "high",
+            "region": "Nine Stones",
+            "frame": 533,
+            "calls": 61,
+            "triangles": 11032,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3145,
+            "lights": 14,
+            "casters": 193,
+            "transparent": 34,
+            "residentUpdateMedian": 0.10000002384185791,
+            "residentUpdateP95": 3.100000023841858,
+            "npc": {
+              "scheduled": 20,
+              "period": "day",
+              "outsideVisible": 17,
+              "walking": 1,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 17,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 1,
+              "mid": 0,
+              "far": 19
+            }
+          },
+          {
+            "quality": "standard",
+            "region": "Nine Stones",
+            "frame": 653,
+            "calls": 61,
+            "triangles": 11032,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3145,
+            "lights": 14,
+            "casters": 193,
+            "transparent": 34,
+            "residentUpdateMedian": 0.19999998807907104,
+            "residentUpdateP95": 4.400000035762787,
+            "npc": {
+              "scheduled": 20,
+              "period": "day",
+              "outsideVisible": 17,
+              "walking": 1,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 17,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 1,
+              "mid": 0,
+              "far": 19
+            }
+          },
+          {
+            "quality": "mobile",
+            "region": "Nine Stones",
+            "frame": 661,
+            "calls": 47,
+            "triangles": 11018,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3145,
+            "lights": 14,
+            "casters": 193,
+            "transparent": 34,
+            "residentUpdateMedian": 0.10000002384185791,
+            "residentUpdateP95": 0.8999999761581421,
+            "npc": {
+              "scheduled": 20,
+              "period": "day",
+              "outsideVisible": 17,
+              "walking": 1,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 17,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 1,
+              "mid": 0,
+              "far": 19
+            }
+          }
+        ]
+      },
+      {
+        "baseline": false,
+        "measurements": [
+          {
+            "quality": "high",
+            "region": "Bellmire",
+            "frame": 285,
+            "calls": 2603,
+            "triangles": 105341,
+            "points": 0,
+            "lines": 216,
+            "meshes": 3166,
+            "lights": 14,
+            "casters": 193,
+            "transparent": 34,
+            "residentUpdateMedian": 0.19999998807907104,
+            "residentUpdateP95": 4.100000023841858,
+            "npc": {
+              "scheduled": 20,
+              "period": "day",
+              "outsideVisible": 17,
+              "walking": 1,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 17,
+              "detourRequests": 0,
+              "updated": 0,
+              "near": 0,
+              "mid": 0,
+              "far": 20
+            }
+          },
+          {
+            "quality": "standard",
+            "region": "Bellmire",
+            "frame": 405,
+            "calls": 2603,
+            "triangles": 105341,
+            "points": 0,
+            "lines": 216,
+            "meshes": 3166,
+            "lights": 14,
+            "casters": 193,
+            "transparent": 34,
+            "residentUpdateMedian": 0.19999998807907104,
+            "residentUpdateP95": 5.5,
+            "npc": {
+              "scheduled": 20,
+              "period": "day",
+              "outsideVisible": 17,
+              "walking": 1,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 17,
+              "detourRequests": 0,
+              "updated": 0,
+              "near": 0,
+              "mid": 0,
+              "far": 20
+            }
+          },
+          {
+            "quality": "mobile",
+            "region": "Bellmire",
+            "frame": 413,
+            "calls": 2589,
+            "triangles": 105327,
+            "points": 0,
+            "lines": 216,
+            "meshes": 3166,
+            "lights": 14,
+            "casters": 193,
+            "transparent": 34,
+            "residentUpdateMedian": 0.19999998807907104,
+            "residentUpdateP95": 2,
+            "npc": {
+              "scheduled": 20,
+              "period": "day",
+              "outsideVisible": 17,
+              "walking": 1,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 17,
+              "detourRequests": 0,
+              "updated": 0,
+              "near": 0,
+              "mid": 0,
+              "far": 20
+            }
+          },
+          {
+            "quality": "high",
+            "region": "Nine Stones",
+            "frame": 533,
+            "calls": 61,
+            "triangles": 10812,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3166,
+            "lights": 14,
+            "casters": 193,
+            "transparent": 34,
+            "residentUpdateMedian": 0.19999998807907104,
+            "residentUpdateP95": 3.099999964237213,
+            "npc": {
+              "scheduled": 20,
+              "period": "day",
+              "outsideVisible": 17,
+              "walking": 1,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 17,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 1,
+              "mid": 0,
+              "far": 19
+            }
+          },
+          {
+            "quality": "standard",
+            "region": "Nine Stones",
+            "frame": 653,
+            "calls": 61,
+            "triangles": 10812,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3166,
+            "lights": 14,
+            "casters": 193,
+            "transparent": 34,
+            "residentUpdateMedian": 0.19999998807907104,
+            "residentUpdateP95": 1.5999999642372131,
+            "npc": {
+              "scheduled": 20,
+              "period": "day",
+              "outsideVisible": 17,
+              "walking": 1,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 17,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 1,
+              "mid": 0,
+              "far": 19
+            }
+          },
+          {
+            "quality": "mobile",
+            "region": "Nine Stones",
+            "frame": 661,
+            "calls": 47,
+            "triangles": 10798,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3166,
+            "lights": 14,
+            "casters": 193,
+            "transparent": 34,
+            "residentUpdateMedian": 0.19999998807907104,
+            "residentUpdateP95": 1.2000000476837158,
+            "npc": {
+              "scheduled": 20,
+              "period": "day",
+              "outsideVisible": 17,
+              "walking": 1,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 17,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 1,
+              "mid": 0,
+              "far": 19
+            }
+          },
+          {
+            "quality": "high",
+            "region": "Lake Lun",
+            "frame": 781,
+            "calls": 36,
+            "triangles": 10372,
+            "points": 0,
+            "lines": 1,
+            "meshes": 3166,
+            "lights": 14,
+            "casters": 193,
+            "transparent": 34,
+            "residentUpdateMedian": 0.19999998807907104,
+            "residentUpdateP95": 2.100000023841858,
+            "npc": {
+              "scheduled": 20,
+              "period": "day",
+              "outsideVisible": 17,
+              "walking": 1,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 17,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 20
+            }
+          },
+          {
+            "quality": "standard",
+            "region": "Lake Lun",
+            "frame": 901,
+            "calls": 36,
+            "triangles": 10372,
+            "points": 0,
+            "lines": 1,
+            "meshes": 3166,
+            "lights": 14,
+            "casters": 193,
+            "transparent": 34,
+            "residentUpdateMedian": 0.19999998807907104,
+            "residentUpdateP95": 2.300000011920929,
+            "npc": {
+              "scheduled": 20,
+              "period": "day",
+              "outsideVisible": 17,
+              "walking": 1,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 17,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 20
+            }
+          },
+          {
+            "quality": "mobile",
+            "region": "Lake Lun",
+            "frame": 909,
+            "calls": 22,
+            "triangles": 10358,
+            "points": 0,
+            "lines": 1,
+            "meshes": 3166,
+            "lights": 14,
+            "casters": 193,
+            "transparent": 34,
+            "residentUpdateMedian": 0.19999998807907104,
+            "residentUpdateP95": 1.4000000357627869,
+            "npc": {
+              "scheduled": 20,
+              "period": "day",
+              "outsideVisible": 17,
+              "walking": 1,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 17,
+              "detourRequests": 0,
+              "updated": 0,
+              "near": 0,
+              "mid": 0,
+              "far": 20
+            }
+          }
+        ]
+      }
+    ],
+    "finalAudit": {
+      "oldStones": [
+        {
+          "position": [
+            -197,
+            11.25158453230396,
+            -34
+          ],
+          "rotation": [
+            0.06,
+            0,
+            0.036,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            0.8
+          ]
+        },
+        {
+          "position": [
+            -195,
+            10.074480255887767,
+            -27
+          ],
+          "rotation": [
+            0,
+            0.63,
+            0,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            0.45
+          ]
+        },
+        {
+          "position": [
+            -190,
+            10.88076651590672,
+            -24
+          ],
+          "rotation": [
+            -0.1,
+            1.26,
+            -0.06,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            1.125
+          ]
+        },
+        {
+          "position": [
+            -184,
+            10.999276069780366,
+            -25
+          ],
+          "rotation": [
+            0.12,
+            1.8900000000000001,
+            0.072,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            0.8
+          ]
+        },
+        {
+          "position": [
+            -181,
+            11.273413141684543,
+            -31
+          ],
+          "rotation": [
+            -0.08,
+            2.52,
+            -0.048,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            0.8823529411764706
+          ]
+        },
+        {
+          "position": [
+            -184,
+            10.866046162473264,
+            -36
+          ],
+          "rotation": [
+            0.06,
+            3.15,
+            0.036,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            0.6666666666666667
+          ]
+        },
+        {
+          "position": [
+            -190,
+            10.9359525604302,
+            -38
+          ],
+          "rotation": [
+            0.18,
+            3.7800000000000002,
+            0.108,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            0.7222222222222222
+          ]
+        },
+        {
+          "position": [
+            -195,
+            10.231514702778217,
+            -38
+          ],
+          "rotation": [
+            -0.04,
+            4.41,
+            -0.024,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            0.9090909090909091
+          ]
+        },
+        {
+          "position": [
+            -199,
+            11.218346247224398,
+            -30
+          ],
+          "rotation": [
+            0.04,
+            5.04,
+            0.024,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            1.3333333333333333
+          ]
+        }
+      ],
+      "selector": {
+        "id": "lake-lun",
+        "nav": [
+          "lake-entry",
+          "lake-pier",
+          "lake-path",
+          "nine-stones"
+        ],
+        "visited": [
+          {
+            "id": "bellmire",
+            "visited": true
+          },
+          {
+            "id": "nine-stones",
+            "visited": true
+          },
+          {
+            "id": "lake-lun",
+            "visited": true
+          }
+        ]
+      },
+      "collapse": {
+        "collapsed": true,
+        "rows": "none"
+      },
+      "newStones": [
+        {
+          "position": [
+            -197,
+            11.25158453230396,
+            -34
+          ],
+          "rotation": [
+            0.06,
+            0,
+            0.036,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            0.8
+          ]
+        },
+        {
+          "position": [
+            -195,
+            10.074480255887767,
+            -27
+          ],
+          "rotation": [
+            0,
+            0.63,
+            0,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            0.45
+          ]
+        },
+        {
+          "position": [
+            -190,
+            10.88076651590672,
+            -24
+          ],
+          "rotation": [
+            -0.1,
+            1.26,
+            -0.06,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            1.125
+          ]
+        },
+        {
+          "position": [
+            -184,
+            10.999276069780366,
+            -25
+          ],
+          "rotation": [
+            0.12,
+            1.8900000000000001,
+            0.072,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            0.8
+          ]
+        },
+        {
+          "position": [
+            -181,
+            11.273413141684543,
+            -31
+          ],
+          "rotation": [
+            -0.08,
+            2.52,
+            -0.048,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            0.8823529411764706
+          ]
+        },
+        {
+          "position": [
+            -184,
+            10.866046162473264,
+            -36
+          ],
+          "rotation": [
+            0.06,
+            3.15,
+            0.036,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            0.6666666666666667
+          ]
+        },
+        {
+          "position": [
+            -190,
+            10.9359525604302,
+            -38
+          ],
+          "rotation": [
+            0.18,
+            3.7800000000000002,
+            0.108,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            0.7222222222222222
+          ]
+        },
+        {
+          "position": [
+            -195,
+            10.231514702778217,
+            -38
+          ],
+          "rotation": [
+            -0.04,
+            4.41,
+            -0.024,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            0.9090909090909091
+          ]
+        },
+        {
+          "position": [
+            -199,
+            11.218346247224398,
+            -30
+          ],
+          "rotation": [
+            0.04,
+            5.04,
+            0.024,
+            "XYZ"
+          ],
+          "scale": [
+            1,
+            1,
+            1.3333333333333333
+          ]
+        }
+      ],
+      "reload": {
+        "visited": [
+          {
+            "id": "bellmire",
+            "visited": true
+          },
+          {
+            "id": "nine-stones",
+            "visited": true
+          },
+          {
+            "id": "lake-lun",
+            "visited": true
+          }
+        ],
+        "revisit": true,
+        "lost": false
+      }
+    }
+  },
+  "regressions": {
+    "fiveShopsHumanCatPortraitsLogEntryExit": true,
+    "original19ViewsSixWeatherFollowAnimationWebGL": true
+  }
+}
