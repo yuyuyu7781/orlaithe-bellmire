@@ -18,12 +18,13 @@ export function buildLunmereInterior({THREE,shop}){
   for(const x of [-2,2]){table(x,-.3);box(x,0,.7,1.5,.43,.36,wood);seats.push({position:[x,0,.7],yaw:Math.PI});for(const dx of [-.3,.3]){const cup=box(x+dx,.85,-.3,.12,.15,.12,linen,false);cup.userData.interiorVariant='night-table';}}
   box(1.6,0,-3.9,3.6,.9,.7,wood);notice('meal','湖の食卓','小さな皿には、焼いた魚と乾いた草の香りが残っている。',box(1.3,.9,-3.9,.35,.025,.25,paper,false));
  }else if(shop.type==='workshop'){
-  table(2,-2,2,1);for(let i=0;i<3;i++)box(-2.6,0,-3.5+i*.25,.65,.38,.18,wood);box(-2.6,1,-4.7,2.3,.95,.05,linen,false);notice('tools','舟底の道具','刃の先に、濡れた木の削り屑がついている。',box(2,.86,-2,.55,.04,.12,accent,false));
+  table(2,-2,2,1);if(shop.craftTemplate){const craft=shop.craftTemplate.clone();craft.position.set(-2,.16,0);craft.scale.setScalar(.85);root.add(craft);obstacles.push({object:craft,bounds:new THREE.Box3(),isFloor:false});}for(let i=0;i<3;i++)box(-2.6,0,-3.5+i*.25,.65,.38,.18,wood);box(-2.6,1,-4.7,2.3,.95,.05,linen,false);notice('tools','舟底の道具','刃の先に、濡れた木の削り屑がついている。',box(2,.86,-2,.55,.04,.12,accent,false));
  }else{
   for(const x of [-2.5,0,2.5]){box(x,0,-4.1,1.65,2.1,.5,wood);for(let i=0;i<3;i++)for(let j=0;j<3;j++)box(x-.5+j*.5,.3+i*.56,-3.8,.3,.28,.14,j%2?linen:accent,false);}
   table(2,-1.7);notice('stock','乾物と旅の布','紙包みには、湖の岸で採れた草の名が書かれている。',box(2,.85,-1.7,.5,.12,.35,paper,false));
  }
  workstations.push([1.1,0,-.8],[.45,0,-2.3]);root.updateMatrixWorld(true);for(const o of obstacles)o.bounds.setFromObject(o.object,true);
  const policy={id:shop.id,spawn:new THREE.Vector3(200,0,3.6),obstacles,groundAt(x,z){return x>196.12&&x<203.88&&z>-4.88&&z<4.88?0:null;}};
- return {root,policy,door,inspect,beds,seats,workstations,npcPosition:[1.1,0,-.8],catRoutes:[],ambient,materials,shop,exit:[200,0,3.8],stats:{meshes:root.children.filter(o=>o.isMesh).length,obstacles:obstacles.length}};
+let meshCount=0;root.traverse(o=>{if(o.isMesh)meshCount++;});
+ return {root,policy,door,inspect,beds,seats,workstations,npcPosition:[1.1,0,-.8],catRoutes:[],ambient,materials,shop,exit:[200,0,3.8],stats:{meshes:meshCount,obstacles:obstacles.length}};
 }

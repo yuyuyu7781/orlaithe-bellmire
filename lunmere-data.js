@@ -21,4 +21,4 @@ export const lakeTownEvents=[
  ['lun-guest-bag','宿の忘れ物','小さな袋が、受付の脇に残っている。持ち主は湖岸まで歩いていったようだ。','袋はなくなっている。宿帳の端に、短い礼が書き足されていた。','lun:bag','lunHost',1],
  ['lun-late-goods','遅れている荷','商店の空の籠には、果実の葉だけが残っている。','空だった籠に、乾いた果実の包みが届いていた。','lun:goods','lunHost',1],
  ['lun-low-water','水位の跡','岸の平たい石に、途切れた円が見える。濡れたところだけ、線が少し濃い。',null,'lun:water-mark','lunWatcher',0]
-].map(([id,label,text,resolvedText,source,person,settlesAfter])=>({id,label,text,resolvedText,source,area:id.startsWith('lake')?'Lake Lun':'Lunmere',kind:'daily',priority:-.15,enabled:true,rumorIds:[person],rumor:text,settlesAfter,...(id==='lake-morning-wood'?{periods:['morning']}:{})}));
+].map(([id,label,text,resolvedText,source,person,settlesAfter])=>({id,label,text,resolvedText,source,area:id.startsWith('lake')?'Lake Lun':'Lunmere',catText:'水と古い木の匂いがする。'+text,kind:'daily',priority:-.15,enabled:true,rumorIds:[person],rumor:text,settlesAfter,...(id==='lake-morning-wood'?{periods:['morning']}:id==='lun-wet-net'?{weather:['rain','fog']}:{})}));
