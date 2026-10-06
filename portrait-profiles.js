@@ -16,6 +16,9 @@ export function portraitFraming(profile,image={},variant='default'){
  return {normal:safe(normal),mobile:safe(mobile)};
 }
 const profiles={
+ lunHost:{intro:'湖畔の宿を守る、穏やかな主人。',motif:'window',palette:{cloth:'#7d8982',wash:'#a9b9b4'}},
+ lunBoat:{intro:'濡れた縄と舟底に慣れた働き手。',motif:'rope',palette:{cloth:'#677e85',wash:'#9bafb3'}},
+ lunWatcher:{intro:'毎朝、岸の石と霧を見ている人。',motif:'circle',palette:{cloth:'#8e9176',wash:'#b8b9a0'}},
  baker:{mood:'親しみと朝の温もり',impression:'働き者の、穏やかな包容力',intro:'窯の温もりを袖に残したパン屋。',portraitDirection:'40代前後。丸みのある顔、そばかす、栗色〜赤茶の髪。生成りのブラウスとくすんだ赤茶のエプロン。健康的で親しみやすく、パン屋らしい生活感。胸上、朝の窯の柔らかな反射。',palette:{paper:'#e7dbc0',wash:'#c19a76',cloth:'#95654c',hair:'#685247',ink:'#514438'},motif:'loaf'},
  bookseller:{mood:'静かで思慮深い',impression:'古い頁と過ごす、控えめな親切',intro:'頁の折り目まで覚えている古書店主。',portraitDirection:'40代半ば。細めの顔、やや長い鼻、灰褐色〜焦げ茶の髪と少し寝癖、眼鏡も可。痩せ型、茶・灰・深緑の服。古書店主らしい静けさと生活感。胸上、紙色の余白と低い琥珀の灯り。',palette:{paper:'#e1dcc9',wash:'#9ba99e',cloth:'#526b65',hair:'#625b50',ink:'#454d47'},motif:'book'},
  boatworker:{mood:'実直で気さく',impression:'潮風に慣れた、頼もしい働き手',intro:'縄と荷物を扱う、港の働き手。',portraitDirection:'30代後半〜40代前半。日焼けした肌、骨太、短めの暗褐色髪、薄い無精ひげ。青灰・革・生成りの仕事着と縄。港で働く現場の人として、勇者や美形を強調しない。半身、港の水を背景へ薄く溶かす。',palette:{paper:'#ded9c4',wash:'#91a5a7',cloth:'#5a7277',hair:'#615349',ink:'#424d50'},motif:'rope'},

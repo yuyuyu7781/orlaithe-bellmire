@@ -7,6 +7,7 @@ export function auditGroundContacts(app){
  const p=r.object.getWorldPosition(new THREE.Vector3()),feet=new THREE.Box3();for(const o of r.feet)feet.union(new THREE.Box3().setFromObject(o,true));if(feet.isEmpty())continue;
  const ground=walking.groundAt(p.x,p.z,feet.min.y,walking.profiles.human);report.actors.push({id:r.id??r.index,position:p.toArray(),feet:feet.min.y,ground,gap:ground===null?null:feet.min.y-ground});
  }
+ report.lunmereShells=(app.lunmere?.shells??[]).map(s=>{const b=new THREE.Box3().setFromObject(s.object,true),p=b.getCenter(new THREE.Vector3()),ground=app.lunmere.heightAt(p.x,p.z);return {name:s.object.name,ground,bottom:b.min.y,gap:ground===null?null:b.min.y-ground};});report.lunmereShellIssues=report.lunmereShells.filter(s=>s.gap===null||Math.abs(s.gap)>.05);
  report.actorContactIssues=report.actors.filter(e=>e.ground===null||Math.abs(e.gap)>.12);
  return report;
 }

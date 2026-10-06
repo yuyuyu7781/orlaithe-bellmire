@@ -1,11 +1,12 @@
+import {lunmereCharacters,lakeTownEvents} from './lunmere-data.js';
 import {seasonProfiles} from './town-calendar.js';
 import {townEventDefinitions} from './shop-data.js';
 
 export const SAVE_KEY='bellmire.stay.v1';
 export const SAVE_VERSION=1;
 const phases=['morning','day','evening','night'],weather=['clear','rain','fog','blackout','dawn','night'];
-const people=['baker','bookseller','boatworker','starmaker','greenBard'];
-const eventIds=townEventDefinitions.map(e=>e.id),eventStages=['unseen','heard','noticed','resolved'];
+const people=['baker','bookseller','boatworker','starmaker','greenBard',...lunmereCharacters.map(c=>c.id)];
+const eventIds=[...townEventDefinitions,...lakeTownEvents].map(e=>e.id),eventStages=['unseen','heard','noticed','resolved'];
 const object=v=>v&&typeof v==='object'&&!Array.isArray(v),integer=(n,fallback=1)=>Number.isSafeInteger(n)&&n>=1?Math.min(n,9999):fallback;
 const short=(s,max=500)=>typeof s==='string'?s.slice(0,max):'';
 export function defaultStay(){return {version:SAVE_VERSION,currentDay:1,dayPhase:'day',dayStart:1,weather:'clear',season:'spring',events:{},discoveries:{},memories:{},flags:{},journal:[],threads:{},weatherHistory:[]};}
