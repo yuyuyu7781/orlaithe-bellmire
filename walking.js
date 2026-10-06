@@ -10,7 +10,7 @@ export const walkingProfiles={
 export const humanRouteStandard={minimumWidth:1.2,landingDepth:1.2,maximumRiser:.25};
 
 export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,surfaces,
-  surfaceMaterials,dynamicObjects,ignoredObjects,waterMaterials,trackBounds,spawn}){
+  surfaceMaterials,dynamicObjects,ignoredObjects,waterMaterials,trackBounds,spawn,terrainSamplers=[]}){
   const state={active:false,profile:walkingProfiles.human,feet:spawn.clone(),yaw:-Math.PI*.83,pitch:-.05};
   const input={keys:new Set(),touch:new Set(),forward:0,right:0};
   const ground=[],floors=[],obstacles=[],waterZones=[],catSteps=[];let jumpState=null;
@@ -79,6 +79,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     if(area)return area.groundAt(x,z,currentY,profile);
     let y=-Infinity;
     for(const b of ground)if(contains(b,x,z))y=Math.max(y,b.max.y);
+    for(const sample of terrainSamplers){const h=sample(x,z);if(h!==null&&Number.isFinite(h))y=Math.max(y,h);}
     if(!Number.isFinite(y))return null;
     // Bridge only the tiny seams between existing dock planks, not open water.
     for(const b of floors)if(x>=b.min.x-.025&&x<=b.max.x+.025&&z>=b.min.z-.025&&z<=b.max.z+.025&&b.max.y<=currentY+profile.stepUp+.001)y=Math.max(y,b.max.y);

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v22.5 — Orlaithe miniature</title>
+<title>Bellmire v23.3 — Orlaithe miniature</title>
 <link rel="stylesheet" href="./portrait.css">
 <link rel="stylesheet" href="./navigation.css">
 <link rel="stylesheet" href="./stay.css">
@@ -23,7 +23,7 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v22.5</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v23.3</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
 <div class="row"><button id="walk">人間で歩く</button><button id="catWalk">猫で歩く</button><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div>
 <div class="row"><label>時刻 <select id="timePeriod" aria-label="街の時間帯"><option value="morning">朝</option><option value="day" selected>昼</option><option value="evening">夕</option><option value="night">夜</option></select></label><label>品質 <select id="qualitySelect" aria-label="描画品質"><option value="standard">Standard</option><option value="high">High</option><option value="mobile">Mobile</option></select></label></div>
@@ -1155,7 +1155,7 @@ const harborGoods=addHarborGoods(culture);
 const outskirts=buildOutskirts({THREE,scene,box});
 const nineStones=buildNineStones({THREE,scene,box});
 const walking=createWalkingSystem({THREE,scene,camera,controls,canvas:renderer.domElement,
-  terrain:[...townGround,...outskirts.floors,...nineStones.floors,cliffSkirts[1],...cliffSkirts[4].children],surfaces:harborSupports,
+  terrainSamplers:[nineStones.heightAt],terrain:[...townGround,...outskirts.floors,...nineStones.floors,cliffSkirts[1],...cliffSkirts[4].children],surfaces:harborSupports,
   surfaceMaterials:[path,v8Stone,stone101],dynamicObjects:[train,p0,bard,shopResidents[4],talkingDockWorker,shopResidents[1]],
   ignoredObjects:[...residents,residentV8,cat,...smoke,wheel,orrery],
   waterMaterials:[water,water101],
