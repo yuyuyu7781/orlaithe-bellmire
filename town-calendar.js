@@ -12,7 +12,7 @@ export function townRhythm(day,period='day',weather='clear',season='spring'){
  return {seasonal,cycleDay,weekIndex:Math.floor((Math.max(1,day)-1)/7),weekly,market,gathering,season,marketMultiplier:market?1.20:cycleDay===5?.85:1};
 }
 export const visitorPlans=[
- {id:'lake-traveller',name:'湖からの旅人',role:'旅人',origin:'outskirts',days:[3,4,5,6],schedule:{morning:'inn',day:'square',evening:'inn',night:'inn'},stayPatterns:[{day:'market'},{day:'square'}],coat:0x7a766a,accent:0x998975,hair:0x6c5546,prop:'parcel',text:'ルンメアから来た。向こうは三日ずっと雨だったよ。',second:'湖の道でも、円に細い線を添えた石を見た気がする。どの岸だったかは、もう曖昧だけれど。'},
+ {id:'lake-traveller',name:'湖からの旅人',role:'旅人',origin:'nine',days:[3,4,5,6],schedule:{morning:'inn',day:'square',evening:'inn',night:'inn'},stayPatterns:[{day:'nine'},{day:'square'}],coat:0x7a766a,accent:0x998975,hair:0x6c5546,prop:'parcel',text:'ルンメアから来た。向こうは三日ずっと雨だったよ。',second:'湖の道でも、円に細い線を添えた石を見た気がする。どの岸だったかは、もう曖昧だけれど。'},
  {id:'cloth-merchant',name:'布を持ってきた商人',role:'行商人',origin:'outskirts',days:[4],schedule:{morning:'market',day:'market',evening:'market',night:'inn'},stayPatterns:[{morning:'harbor',evening:'harbor'},{morning:'market',evening:'inn'}],coat:0x6c686e,accent:0x9b8373,hair:0x594b3c,prop:'parcel',text:'今日の市に合わせて、丘を越えてきたんだ。この布は雨でも乾きやすいよ。'},
  {id:'boat-carrier',name:'舟で来た荷運び人',role:'荷運び人',origin:'harbor',days:[2,3,4,5],schedule:{morning:'harbor',day:'market',evening:'tavern',night:'inn'},stayPatterns:[{day:'harbor'},{day:'market'},{day:'market',evening:'inn'}],coat:0x65767a,accent:0xa0977e,hair:0x5a483b,prop:'crate',text:'湖からの荷は、今日は軽い。市の籠は、先に上へ運んでおこう。'}
 ];

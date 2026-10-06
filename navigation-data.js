@@ -1,7 +1,10 @@
+import {nineLayout} from './nine-stones.js';
 import {outskirtsLayout} from './outskirts.js';
 // Positions are feet on verified outdoor routes, never building centres.
 // Shops reuse the actual entrance chosen by the existing shop system.
 export const townLandmarks=[
+ {id:'nine-stones',name:'Nine Stones',short:'九',position:nineLayout.centre},
+ {id:'bellmire',name:'Bellmire',short:'町',position:outskirtsLayout.gate},
  {id:'outskirts',name:'町外れ',short:'外',position:outskirtsLayout.gate},
  {id:'hill',name:'町を振り返る丘',short:'丘',position:outskirtsLayout.hill},
  {id:'harbor',name:'港',short:'港',position:[0,1.38,32]},

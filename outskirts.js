@@ -35,8 +35,6 @@ export function buildOutskirts({THREE,scene,box}){
  const rest=slab(-108,8.9,-11.4,1.3,.25,.5,stone);rest.name='Lookout resting stone';
  const ribbon=slab(-77,7.10,4.4,.12,.015,.30,wood);ribbon.name='Thread behind the roadside wall';
  // A visible broken rail closes the playable hill, while a dry trail suggests continuation.
- for(const z of [-16,-12])slab(-111,9.45,z,.15,.85,.15,wood);
- for(const y of [8.95,9.25])slab(-111,y,-14,.12,.09,9.4,wood);const closure=slab(-111,9.20,-13.9,.16,.16,1.5,wood);closure.rotation.x=.20;closure.name='Repair timber across the old road';
  const beyond=slab(-118,8.67,-14,13,.08,1.8,path);beyond.userData.walkSoft=true;
  // A modest shoulder rest and dry side path, built on the same supported bank.
  const batch=createDetailBatch(THREE,root,'Outskirts low walls and wild verge');
@@ -63,7 +61,7 @@ export function buildOutskirts({THREE,scene,box}){
  const signFace=new THREE.Mesh(new THREE.PlaneGeometry(.72,.18),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(signCanvas),side:THREE.DoubleSide}));signFace.position.set(-54.5,7.06,7.872);signFace.userData.walkSoft=true;root.add(signFace);
  const targets=[
  {id:'outskirts-rest',object:bench,label:'道端の木陰',text:'腰を下ろす高さに板が渡してある。遠くの屋根は、ここでは重ならずに見える。'},
- {id:'outskirts-sign',object:sign,label:'西の古い道標',text:'ルンメア、ルン湖。丘の先を指す文字は何度も書き直されている。古い街道の傷んだ縁に、修理の木が渡してある。遠い道は、その向こうへ続いている。'},
+ {id:'outskirts-sign',object:sign,label:'西の古い道標',text:'ルンメア、ルン湖。丘の先を指す文字は何度も書き直されている。丘の先には九つの石があるという。街道は、草の多い土地へ続いている。'},
  {id:'outskirts-stone',object:oldStone,label:'道端の古い石',text:'浅い円のそばに、細い線が幾つか残っている。町の水辺で見たものに、少し似ている。'},
  {id:'outskirts-lookout',object:rest,label:'町を振り返る丘',text:'深緑の屋根が段々に重なり、その向こうに鐘楼と港の水が見える。道は町の外でも続いている。'},
  {id:'outskirts-thread',object:ribbon,label:'石壁の裏の紐',text:'草の匂いに混じって、旅の荷物の匂いがする。短い紐は、石の暖かい側へ寄っていた。',profiles:['cat']}
