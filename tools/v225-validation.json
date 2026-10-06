@@ -1,0 +1,594 @@
+{
+  "version": "22.5",
+  "baseline": "dfaa0a5b87e4c0ca13087415d8bc41d0ad501de2",
+  "environmentSettingsChanged": false,
+  "upstreamChanged": false,
+  "physicalPhoneTested": false,
+  "scenario": {
+    "stones": [
+      {
+        "name": "Nine Stones 1",
+        "ground": 10
+      },
+      {
+        "name": "Nine Stones 2",
+        "ground": 10
+      },
+      {
+        "name": "Nine Stones 3",
+        "ground": 10
+      },
+      {
+        "name": "Nine Stones 4",
+        "ground": 10
+      },
+      {
+        "name": "Nine Stones 5",
+        "ground": 10
+      },
+      {
+        "name": "Nine Stones 6",
+        "ground": 10
+      },
+      {
+        "name": "Nine Stones 7",
+        "ground": 10
+      },
+      {
+        "name": "Nine Stones 8",
+        "ground": 10
+      },
+      {
+        "name": "Nine Stones 9",
+        "ground": 10
+      }
+    ],
+    "jumpTargets": 3,
+    "wind": {
+      "day": 1,
+      "playerMode": "cat",
+      "period": "evening",
+      "label": "石の間に低い響きが残った。風が止むと、聞こえなくなった。"
+    },
+    "audio": {
+      "enabled": true,
+      "gain": 0.23870314190673061,
+      "stats": {
+        "zones": 13,
+        "configured": 6,
+        "enabled": false,
+        "contexts": 1
+      }
+    },
+    "dialogue": [
+      {
+        "id": "bookseller",
+        "lines": [
+          "昔の記録では、石の数が違うものもある。数え方も、同じだったかどうか。",
+          "ネリッサが、古い図版を探しに来ました。今日は机に出してあります。",
+          "昔の記録では、石の数が違うものもある。数え方も、同じだったかどうか。",
+          "ネリッサが、古い図版を探しに来ました。今日は机に出してあります。",
+          "昔の記録では、石の数が違うものもある。数え方も、同じだったかどうか。",
+          "ネリッサが、古い図版を探しに来ました。今日は机に出してあります。",
+          "昔の記録では、石の数が違うものもある。数え方も、同じだったかどうか。",
+          "昔の記録では、石の数が違うものもある。数え方も、同じだったかどうか。",
+          "ネリッサが、古い図版を探しに来ました。今日は机に出してあります。",
+          "昔の記録では、石の数が違うものもある。数え方も、同じだったかどうか。"
+        ]
+      },
+      {
+        "id": "starmaker",
+        "lines": [
+          "その配置……古い星図に少し似ています。でも、同じとは限りません。",
+          "本屋で見た図版を、もう一度確かめたいんです。",
+          "その配置……古い星図に少し似ています。でも、同じとは限りません。",
+          "本屋で見た図版を、もう一度確かめたいんです。",
+          "その配置……古い星図に少し似ています。でも、同じとは限りません。",
+          "本屋で見た図版を、もう一度確かめたいんです。",
+          "その配置……古い星図に少し似ています。でも、同じとは限りません。",
+          "その配置……古い星図に少し似ています。でも、同じとは限りません。",
+          "本屋で見た図版を、もう一度確かめたいんです。",
+          "その配置……古い星図に少し似ています。でも、同じとは限りません。"
+        ]
+      },
+      {
+        "id": "greenBard",
+        "lines": [
+          "昔からあるよ。少なくとも、僕が知る限りでは。",
+          "話の途中で帰る人がいると、街の続きが分かるものだよ。",
+          "昔からあるよ。少なくとも、僕が知る限りでは。",
+          "話の途中で帰る人がいると、街の続きが分かるものだよ。",
+          "昔からあるよ。少なくとも、僕が知る限りでは。",
+          "話の途中で帰る人がいると、街の続きが分かるものだよ。",
+          "昔からあるよ。少なくとも、僕が知る限りでは。",
+          "昔からあるよ。少なくとも、僕が知る限りでは。",
+          "話の途中で帰る人がいると、街の続きが分かるものだよ。",
+          "昔からあるよ。少なくとも、僕が知る限りでは。"
+        ]
+      }
+    ],
+    "return": {
+      "samples": 1586,
+      "maxEyeDelta": 0.03244758018023575,
+      "feet": [
+        -109,
+        8.66200000010431,
+        -14
+      ]
+    },
+    "saved": {
+      "nine:visit": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "day",
+        "label": "街道の先に、九つの古い石があった。"
+      },
+      "nine:stone-3": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "day",
+        "label": "欠けた面に数本の浅い線。水辺の石とは違うのに、指が同じところで止まる。"
+      },
+      "nine:stone-5": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "day",
+        "label": "円は閉じていない。風に削られたのか、はじめからそうだったのか。"
+      },
+      "nine:stone-9": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "day",
+        "label": "小さな窪みが散っている。星図の点にも、ただの傷にも見える。"
+      },
+      "nine:cat-lines": {
+        "day": 1,
+        "playerMode": "cat",
+        "period": "day",
+        "label": "草と冷たい石の匂い。倒れた石の裏側にも、浅い線が続いている。"
+      },
+      "nine:cat-circle": {
+        "day": 1,
+        "playerMode": "cat",
+        "period": "day",
+        "label": "低い草の間に、輪の一部が残る。石の上からは見えなかった。"
+      },
+      "nine:wind": {
+        "day": 1,
+        "playerMode": "cat",
+        "period": "evening",
+        "label": "石の間に低い響きが残った。風が止むと、聞こえなくなった。"
+      }
+    },
+    "reload": {
+      "nine:visit": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "day",
+        "label": "街道の先に、九つの古い石があった。"
+      },
+      "nine:stone-3": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "day",
+        "label": "欠けた面に数本の浅い線。水辺の石とは違うのに、指が同じところで止まる。"
+      },
+      "nine:stone-5": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "day",
+        "label": "円は閉じていない。風に削られたのか、はじめからそうだったのか。"
+      },
+      "nine:stone-9": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "day",
+        "label": "小さな窪みが散っている。星図の点にも、ただの傷にも見える。"
+      },
+      "nine:cat-lines": {
+        "day": 1,
+        "playerMode": "cat",
+        "period": "day",
+        "label": "草と冷たい石の匂い。倒れた石の裏側にも、浅い線が続いている。"
+      },
+      "nine:cat-circle": {
+        "day": 1,
+        "playerMode": "cat",
+        "period": "day",
+        "label": "低い草の間に、輪の一部が残る。石の上からは見えなかった。"
+      },
+      "nine:wind": {
+        "day": 1,
+        "playerMode": "cat",
+        "period": "evening",
+        "label": "石の間に低い響きが残った。風が止むと、聞こえなくなった。"
+      }
+    }
+  },
+  "nativeRoundTrip": {
+    "innGate": {
+      "samples": 555,
+      "maxEyeDelta": 0.0030028609397421135,
+      "feet": [
+        -53,
+        6.262000000186264,
+        5
+      ]
+    },
+    "out": {
+      "samples": 2754,
+      "maxEyeDelta": 0.03246072407590361,
+      "feet": [
+        -188,
+        10.003666666770977,
+        -29
+      ]
+    },
+    "back": {
+      "samples": 2766,
+      "maxEyeDelta": 0.03244758018023575,
+      "feet": [
+        -53,
+        6.262000000186264,
+        5
+      ]
+    },
+    "gateInn": {
+      "samples": 539,
+      "maxEyeDelta": 0.0030028669058905777,
+      "feet": [
+        -32.965,
+        6.249999976158142,
+        2.5
+      ]
+    }
+  },
+  "traveller": {
+    "rest": {
+      "feet": [
+        -175.65322582636352,
+        10,
+        -32.064677417363654
+      ],
+      "state": "working",
+      "activity": "resting"
+    },
+    "samples": [
+      {
+        "feet": [
+          -175.65322582636352,
+          10,
+          -32.064677417363654
+        ],
+        "state": "walking",
+        "destination": "inn"
+      },
+      {
+        "feet": [
+          -77.11992268092092,
+          7.083428571614835,
+          0.26156819964584305
+        ],
+        "state": "walking",
+        "destination": "inn"
+      },
+      {
+        "feet": [
+          -32.965,
+          6.249999976158142,
+          2.5
+        ],
+        "state": "inside",
+        "destination": "inn"
+      },
+      {
+        "feet": [
+          -32.965,
+          6.249999976158142,
+          2.5
+        ],
+        "state": "inside",
+        "destination": "inn"
+      },
+      {
+        "feet": [
+          -32.965,
+          6.249999976158142,
+          2.5
+        ],
+        "state": "inside",
+        "destination": "inn"
+      },
+      {
+        "feet": [
+          -32.965,
+          6.249999976158142,
+          2.5
+        ],
+        "state": "inside",
+        "destination": "inn"
+      }
+    ]
+  },
+  "mobile": [
+    {
+      "jumped": true,
+      "feet": [
+        -195.00865917693224,
+        10.479999989271164,
+        -26.99785535738622
+      ]
+    },
+    {
+      "quality": "high",
+      "frame": 27,
+      "calls": 228,
+      "triangles": 3538,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "quality": "standard",
+      "frame": 42,
+      "calls": 38,
+      "triangles": 1538,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "quality": "mobile",
+      "frame": 43,
+      "calls": 214,
+      "triangles": 3524,
+      "points": 0,
+      "lines": 0
+    }
+  ],
+  "weather": [
+    {
+      "weather": "clear",
+      "fog": 0.003484
+    },
+    {
+      "weather": "dawn",
+      "fog": 0.003744
+    },
+    {
+      "weather": "rain",
+      "fog": 0.004056
+    },
+    {
+      "weather": "fog",
+      "fog": 0.0145
+    },
+    {
+      "weather": "night",
+      "fog": 0.00364
+    },
+    {
+      "weather": "blackout",
+      "fog": 0.004056
+    }
+  ],
+  "performance": [
+    {
+      "baseline": true,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 3010,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2670,
+          "triangles": 107035,
+          "ms": 35,
+          "textures": 19,
+          "programs": 21,
+          "p95Ms": 84.80000001192093
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 3010,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 34928,
+          "ms": 4.199999988079071,
+          "textures": 19,
+          "programs": 21,
+          "p95Ms": 6.400000035762787
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 3010,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2670,
+          "triangles": 107035,
+          "ms": 16,
+          "textures": 19,
+          "programs": 21,
+          "p95Ms": 40.5
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 3010,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 34928,
+          "ms": 12.199999988079071,
+          "textures": 19,
+          "programs": 21,
+          "p95Ms": 46.10000002384186
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 3010,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2656,
+          "triangles": 107021,
+          "ms": 57.60000002384186,
+          "textures": 19,
+          "programs": 32,
+          "p95Ms": 116.5
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 3010,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 141,
+          "triangles": 34914,
+          "ms": 4.600000023841858,
+          "textures": 19,
+          "programs": 32,
+          "p95Ms": 23
+        }
+      ],
+      "median": 1017.1000000238419
+    },
+    {
+      "baseline": false,
+      "results": [
+        {
+          "view": "overview",
+          "quality": "high",
+          "meshes": 3141,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2801,
+          "triangles": 109577,
+          "ms": 21.80000001192093,
+          "textures": 20,
+          "programs": 21,
+          "p95Ms": 47
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "high",
+          "meshes": 3141,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 34928,
+          "ms": 4.699999988079071,
+          "textures": 20,
+          "programs": 21,
+          "p95Ms": 27.399999976158142
+        },
+        {
+          "view": "overview",
+          "quality": "standard",
+          "meshes": 3141,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2801,
+          "triangles": 109577,
+          "ms": 26.80000001192093,
+          "textures": 20,
+          "programs": 21,
+          "p95Ms": 59.19999998807907
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "standard",
+          "meshes": 3141,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 155,
+          "triangles": 34928,
+          "ms": 3,
+          "textures": 20,
+          "programs": 21,
+          "p95Ms": 6.099999964237213
+        },
+        {
+          "view": "overview",
+          "quality": "mobile",
+          "meshes": 3141,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 2787,
+          "triangles": 109563,
+          "ms": 47.19999998807907,
+          "textures": 20,
+          "programs": 32,
+          "p95Ms": 55.30000001192093
+        },
+        {
+          "view": "harbor-walk",
+          "quality": "mobile",
+          "meshes": 3141,
+          "lights": 14,
+          "transparent": 34,
+          "casters": 193,
+          "calls": 141,
+          "triangles": 34914,
+          "ms": 3.199999988079071,
+          "textures": 20,
+          "programs": 32,
+          "p95Ms": 27.600000023841858
+        }
+      ],
+      "median": 1033.9000000357628
+    }
+  ],
+  "checks": {
+    "nativeInnRestsThroughDay7": "passed",
+    "fiveShopsHumanCatPortrait": "passed",
+    "staticChecks": "passed",
+    "existingCamerasFollowAnimationsWebGL": "passed",
+    "cameras": 19,
+    "weatherModes": 6,
+    "qualityModes": 3
+  },
+  "limitations": [
+    "Software-rendered cloud timing is not physical phone performance.",
+    "Lunmere / Lake Lun are not playable."
+  ],
+  "regionSteadyRender": [
+    {
+      "quality": "high",
+      "frame": 300,
+      "calls": 54,
+      "triangles": 1776,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "quality": "standard",
+      "frame": 420,
+      "calls": 54,
+      "triangles": 1776,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "quality": "mobile",
+      "frame": 428,
+      "calls": 40,
+      "triangles": 1762,
+      "points": 0,
+      "lines": 0
+    }
+  ]
+}
