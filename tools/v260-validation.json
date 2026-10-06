@@ -1,0 +1,2546 @@
+{
+  "baselineCommit": "4140d488d006c2662437b5d9f2b5a786a40c5e9e",
+  "date": "2026-10-06",
+  "runtime": "Chromium / Playwright / software WebGL; 960x640 desktop and390x844 touch viewport; physical smartphone not available",
+  "scope": "Lake Lun additions and fourth region Lunmere; Bellmire watercourse and Nine Stones stone layout unchanged",
+  "checks": {
+    "legacyCamerasWeatherFollowAnimation": true,
+    "legacyLakeTouchJumpUI": true,
+    "sevenNativeInnRestsAndReload": true,
+    "allStaticScripts": true
+  },
+  "performance": [
+    {
+      "baseline": true,
+      "measurements": [
+        {
+          "quality": "high",
+          "region": "Bellmire",
+          "frame": 285,
+          "calls": 2603,
+          "triangles": 105341,
+          "points": 0,
+          "lines": 216,
+          "meshes": 3166,
+          "lights": 14,
+          "casters": 193,
+          "transparent": 34,
+          "residentUpdateMedian": 0.19999998807907104,
+          "residentUpdateP95": 1.9000000357627869,
+          "npc": {
+            "scheduled": 20,
+            "period": "day",
+            "outsideVisible": 17,
+            "walking": 1,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 17,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 20
+          }
+        },
+        {
+          "quality": "standard",
+          "region": "Bellmire",
+          "frame": 405,
+          "calls": 2603,
+          "triangles": 105341,
+          "points": 0,
+          "lines": 216,
+          "meshes": 3166,
+          "lights": 14,
+          "casters": 193,
+          "transparent": 34,
+          "residentUpdateMedian": 0.19999998807907104,
+          "residentUpdateP95": 2.399999976158142,
+          "npc": {
+            "scheduled": 20,
+            "period": "day",
+            "outsideVisible": 17,
+            "walking": 1,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 17,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 20
+          }
+        },
+        {
+          "quality": "mobile",
+          "region": "Bellmire",
+          "frame": 413,
+          "calls": 2589,
+          "triangles": 105327,
+          "points": 0,
+          "lines": 216,
+          "meshes": 3166,
+          "lights": 14,
+          "casters": 193,
+          "transparent": 34,
+          "residentUpdateMedian": 0.10000002384185791,
+          "residentUpdateP95": 1,
+          "npc": {
+            "scheduled": 20,
+            "period": "day",
+            "outsideVisible": 17,
+            "walking": 1,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 17,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 20
+          }
+        },
+        {
+          "quality": "high",
+          "region": "Nine Stones",
+          "frame": 533,
+          "calls": 61,
+          "triangles": 10812,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3166,
+          "lights": 14,
+          "casters": 193,
+          "transparent": 34,
+          "residentUpdateMedian": 0.19999998807907104,
+          "residentUpdateP95": 1.199999988079071,
+          "npc": {
+            "scheduled": 20,
+            "period": "day",
+            "outsideVisible": 17,
+            "walking": 1,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 17,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 1,
+            "mid": 0,
+            "far": 19
+          }
+        },
+        {
+          "quality": "standard",
+          "region": "Nine Stones",
+          "frame": 653,
+          "calls": 61,
+          "triangles": 10812,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3166,
+          "lights": 14,
+          "casters": 193,
+          "transparent": 34,
+          "residentUpdateMedian": 0.19999998807907104,
+          "residentUpdateP95": 1.4000000357627869,
+          "npc": {
+            "scheduled": 20,
+            "period": "day",
+            "outsideVisible": 17,
+            "walking": 1,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 17,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 1,
+            "mid": 0,
+            "far": 19
+          }
+        },
+        {
+          "quality": "mobile",
+          "region": "Nine Stones",
+          "frame": 661,
+          "calls": 47,
+          "triangles": 10798,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3166,
+          "lights": 14,
+          "casters": 193,
+          "transparent": 34,
+          "residentUpdateMedian": 0.19999998807907104,
+          "residentUpdateP95": 1.5,
+          "npc": {
+            "scheduled": 20,
+            "period": "day",
+            "outsideVisible": 17,
+            "walking": 1,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 17,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 1,
+            "mid": 0,
+            "far": 19
+          }
+        },
+        {
+          "quality": "high",
+          "region": "Lake Lun",
+          "frame": 781,
+          "calls": 36,
+          "triangles": 10372,
+          "points": 0,
+          "lines": 1,
+          "meshes": 3166,
+          "lights": 14,
+          "casters": 193,
+          "transparent": 34,
+          "residentUpdateMedian": 0.20000004768371582,
+          "residentUpdateP95": 1.699999988079071,
+          "npc": {
+            "scheduled": 20,
+            "period": "day",
+            "outsideVisible": 17,
+            "walking": 1,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 17,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 0,
+            "mid": 0,
+            "far": 20
+          }
+        },
+        {
+          "quality": "standard",
+          "region": "Lake Lun",
+          "frame": 901,
+          "calls": 36,
+          "triangles": 10372,
+          "points": 0,
+          "lines": 1,
+          "meshes": 3166,
+          "lights": 14,
+          "casters": 193,
+          "transparent": 34,
+          "residentUpdateMedian": 0.20000004768371582,
+          "residentUpdateP95": 1.699999988079071,
+          "npc": {
+            "scheduled": 20,
+            "period": "day",
+            "outsideVisible": 17,
+            "walking": 1,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 17,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 0,
+            "mid": 0,
+            "far": 20
+          }
+        },
+        {
+          "quality": "mobile",
+          "region": "Lake Lun",
+          "frame": 909,
+          "calls": 22,
+          "triangles": 10358,
+          "points": 0,
+          "lines": 1,
+          "meshes": 3166,
+          "lights": 14,
+          "casters": 193,
+          "transparent": 34,
+          "residentUpdateMedian": 0.19999998807907104,
+          "residentUpdateP95": 1.699999988079071,
+          "npc": {
+            "scheduled": 20,
+            "period": "day",
+            "outsideVisible": 17,
+            "walking": 1,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 17,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 20
+          }
+        }
+      ]
+    },
+    {
+      "baseline": false,
+      "measurements": [
+        {
+          "quality": "high",
+          "region": "Bellmire",
+          "frame": 285,
+          "calls": 2603,
+          "triangles": 105341,
+          "points": 0,
+          "lines": 216,
+          "meshes": 3379,
+          "lights": 14,
+          "casters": 205,
+          "transparent": 34,
+          "residentUpdateMedian": 0.3999999761581421,
+          "residentUpdateP95": 3.899999976158142,
+          "npc": {
+            "scheduled": 34,
+            "period": "day",
+            "outsideVisible": 31,
+            "walking": 15,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 34
+          }
+        },
+        {
+          "quality": "standard",
+          "region": "Bellmire",
+          "frame": 405,
+          "calls": 2603,
+          "triangles": 105341,
+          "points": 0,
+          "lines": 216,
+          "meshes": 3379,
+          "lights": 14,
+          "casters": 205,
+          "transparent": 34,
+          "residentUpdateMedian": 0.30000001192092896,
+          "residentUpdateP95": 2.600000023841858,
+          "npc": {
+            "scheduled": 34,
+            "period": "day",
+            "outsideVisible": 30,
+            "walking": 14,
+            "inside": 1,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 34
+          }
+        },
+        {
+          "quality": "mobile",
+          "region": "Bellmire",
+          "frame": 413,
+          "calls": 2589,
+          "triangles": 105327,
+          "points": 0,
+          "lines": 216,
+          "meshes": 3379,
+          "lights": 14,
+          "casters": 205,
+          "transparent": 34,
+          "residentUpdateMedian": 0.19999998807907104,
+          "residentUpdateP95": 1.100000023841858,
+          "npc": {
+            "scheduled": 34,
+            "period": "day",
+            "outsideVisible": 29,
+            "walking": 13,
+            "inside": 2,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 34
+          }
+        },
+        {
+          "quality": "high",
+          "region": "Nine Stones",
+          "frame": 533,
+          "calls": 61,
+          "triangles": 10812,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3379,
+          "lights": 14,
+          "casters": 205,
+          "transparent": 34,
+          "residentUpdateMedian": 0.20000004768371582,
+          "residentUpdateP95": 1.9000000357627869,
+          "npc": {
+            "scheduled": 34,
+            "period": "day",
+            "outsideVisible": 28,
+            "walking": 12,
+            "inside": 3,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 1,
+            "mid": 0,
+            "far": 33
+          }
+        },
+        {
+          "quality": "standard",
+          "region": "Nine Stones",
+          "frame": 653,
+          "calls": 61,
+          "triangles": 10812,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3379,
+          "lights": 14,
+          "casters": 205,
+          "transparent": 34,
+          "residentUpdateMedian": 0.19999998807907104,
+          "residentUpdateP95": 1.100000023841858,
+          "npc": {
+            "scheduled": 34,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 11,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 1,
+            "mid": 0,
+            "far": 33
+          }
+        },
+        {
+          "quality": "mobile",
+          "region": "Nine Stones",
+          "frame": 661,
+          "calls": 47,
+          "triangles": 10798,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3379,
+          "lights": 14,
+          "casters": 205,
+          "transparent": 34,
+          "residentUpdateMedian": 0.19999998807907104,
+          "residentUpdateP95": 2.699999988079071,
+          "npc": {
+            "scheduled": 34,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 11,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 1,
+            "mid": 0,
+            "far": 33
+          }
+        },
+        {
+          "quality": "high",
+          "region": "Lake Lun",
+          "frame": 781,
+          "calls": 81,
+          "triangles": 11910,
+          "points": 0,
+          "lines": 2,
+          "meshes": 3379,
+          "lights": 14,
+          "casters": 205,
+          "transparent": 34,
+          "residentUpdateMedian": 0.19999998807907104,
+          "residentUpdateP95": 1.600000023841858,
+          "npc": {
+            "scheduled": 34,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 11,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 0,
+            "mid": 0,
+            "far": 34
+          }
+        },
+        {
+          "quality": "standard",
+          "region": "Lake Lun",
+          "frame": 901,
+          "calls": 81,
+          "triangles": 11910,
+          "points": 0,
+          "lines": 2,
+          "meshes": 3379,
+          "lights": 14,
+          "casters": 205,
+          "transparent": 34,
+          "residentUpdateMedian": 0.19999998807907104,
+          "residentUpdateP95": 1.399999976158142,
+          "npc": {
+            "scheduled": 34,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 11,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 1,
+            "updated": 1,
+            "near": 0,
+            "mid": 0,
+            "far": 34
+          }
+        },
+        {
+          "quality": "mobile",
+          "region": "Lake Lun",
+          "frame": 909,
+          "calls": 67,
+          "triangles": 11896,
+          "points": 0,
+          "lines": 2,
+          "meshes": 3379,
+          "lights": 14,
+          "casters": 205,
+          "transparent": 34,
+          "residentUpdateMedian": 0.30000001192092896,
+          "residentUpdateP95": 5.599999964237213,
+          "npc": {
+            "scheduled": 34,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 10,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 1,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 34
+          }
+        },
+        {
+          "quality": "high",
+          "region": "Lunmere",
+          "frame": 1029,
+          "calls": 202,
+          "triangles": 13338,
+          "points": 0,
+          "lines": 1,
+          "meshes": 3379,
+          "lights": 14,
+          "casters": 205,
+          "transparent": 34,
+          "residentUpdateMedian": 0.3999999761581421,
+          "residentUpdateP95": 4.600000023841858,
+          "npc": {
+            "scheduled": 34,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 9,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 2,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 34
+          }
+        },
+        {
+          "quality": "standard",
+          "region": "Lunmere",
+          "frame": 1149,
+          "calls": 202,
+          "triangles": 13338,
+          "points": 0,
+          "lines": 1,
+          "meshes": 3379,
+          "lights": 14,
+          "casters": 205,
+          "transparent": 34,
+          "residentUpdateMedian": 0.30000001192092896,
+          "residentUpdateP95": 1.5999999642372131,
+          "npc": {
+            "scheduled": 34,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 9,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 2,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 34
+          }
+        },
+        {
+          "quality": "mobile",
+          "region": "Lunmere",
+          "frame": 1157,
+          "calls": 188,
+          "triangles": 13324,
+          "points": 0,
+          "lines": 1,
+          "meshes": 3379,
+          "lights": 14,
+          "casters": 205,
+          "transparent": 34,
+          "residentUpdateMedian": 0.19999998807907104,
+          "residentUpdateP95": 1.300000011920929,
+          "npc": {
+            "scheduled": 34,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 9,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 2,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 34
+          }
+        }
+      ]
+    }
+  ],
+  "fourRegionTrip": {
+    "locked": {
+      "rejected": true,
+      "unchanged": true,
+      "options": [
+        {
+          "id": "bellmire",
+          "disabled": false
+        },
+        {
+          "id": "nine-stones",
+          "disabled": true
+        },
+        {
+          "id": "lake-lun",
+          "disabled": true
+        },
+        {
+          "id": "lunmere",
+          "disabled": true
+        }
+      ]
+    },
+    "innGate": {
+      "samples": 555,
+      "maxEyeDelta": 0.0030028609397421135,
+      "feet": [
+        -53,
+        6.262000000186264,
+        5
+      ]
+    },
+    "out": {
+      "samples": 2754,
+      "maxEyeDelta": 0.02859883480531522,
+      "feet": [
+        -188,
+        10.003666666770977,
+        -29
+      ]
+    },
+    "stonesToRoad": {
+      "samples": 502,
+      "maxEyeDelta": 0.0087379988877192,
+      "feet": [
+        -206.1,
+        9.491575735792505,
+        -23
+      ]
+    },
+    "descent": {
+      "samples": 1875,
+      "maxEyeDelta": 0.061929698520840404,
+      "feet": [
+        -300,
+        6.12,
+        -27
+      ]
+    },
+    "entryPier": {
+      "samples": 575,
+      "maxEyeDelta": 0.029940599763922826,
+      "feet": [
+        -322,
+        6.150000000298024,
+        -24
+      ]
+    },
+    "regions": {
+      "current": "lake-lun",
+      "data": [
+        {
+          "id": "bellmire",
+          "visited": true
+        },
+        {
+          "id": "nine-stones",
+          "visited": true
+        },
+        {
+          "id": "lake-lun",
+          "visited": true
+        },
+        {
+          "id": "lunmere",
+          "visited": false
+        }
+      ],
+      "nav": [
+        "lake-entry",
+        "lake-pier",
+        "lake-path",
+        "nine-stones",
+        "lunmere"
+      ],
+      "safe": 6.150000000298024
+    },
+    "lakeToLun": {
+      "samples": 795,
+      "maxEyeDelta": 0.02860775859787168,
+      "feet": [
+        -309,
+        6.0404114621822895,
+        4.440892336997638e-18
+      ]
+    },
+    "lunRoad": {
+      "samples": 2064,
+      "maxEyeDelta": 0.001998760886256612,
+      "feet": [
+        -408,
+        6.16,
+        20
+      ]
+    },
+    "lunSquare": {
+      "samples": 567,
+      "maxEyeDelta": 0,
+      "feet": [
+        -430,
+        6.16,
+        22
+      ]
+    },
+    "lunToLake": {
+      "samples": 567,
+      "maxEyeDelta": 0,
+      "feet": [
+        -408,
+        6.16,
+        20
+      ]
+    },
+    "returnLun": {
+      "samples": 2055,
+      "maxEyeDelta": 0.0020723174688210833,
+      "feet": [
+        -309,
+        6.0404114621822895,
+        3.469446951953614e-18
+      ]
+    },
+    "pierEntry": {
+      "samples": 750,
+      "maxEyeDelta": 0.01413274814362886,
+      "feet": [
+        -299.99999999999966,
+        6.120000000000004,
+        -27.000000000000046
+      ]
+    },
+    "return": {
+      "samples": 1875,
+      "maxEyeDelta": 0.06471657116659912,
+      "feet": [
+        -206.1,
+        9.491575735792505,
+        -23
+      ]
+    },
+    "roadStones": {
+      "samples": 502,
+      "maxEyeDelta": 0.00945161950373219,
+      "feet": [
+        -188,
+        10.003666666770977,
+        -29
+      ]
+    },
+    "town": {
+      "samples": 2754,
+      "maxEyeDelta": 0.02859889147153183,
+      "feet": [
+        -53,
+        6.262000000186264,
+        5
+      ]
+    },
+    "gateInn": {
+      "samples": 539,
+      "maxEyeDelta": 0.0030028669058905777,
+      "feet": [
+        -32.965,
+        6.249999976158142,
+        2.5
+      ]
+    },
+    "revisits": [
+      {
+        "id": "lunmere",
+        "ok": true,
+        "feet": [
+          -400,
+          6.16,
+          20
+        ],
+        "spots": 10,
+        "selected": "lunmere"
+      },
+      {
+        "id": "lake-lun",
+        "ok": true,
+        "feet": [
+          -300,
+          6.12,
+          -27
+        ],
+        "spots": 8,
+        "selected": "lake-lun"
+      },
+      {
+        "id": "nine-stones",
+        "ok": true,
+        "feet": [
+          -173,
+          9.853666666770977,
+          -28
+        ],
+        "spots": 8,
+        "selected": "nine-stones"
+      },
+      {
+        "id": "bellmire",
+        "ok": true,
+        "feet": [
+          -32.965,
+          6.249999976158142,
+          2.5
+        ],
+        "spots": 19,
+        "selected": "bellmire"
+      }
+    ],
+    "rest": {
+      "day": 2,
+      "feet": [
+        200.7,
+        3.1999999982118608,
+        -2
+      ],
+      "room": "inn",
+      "visits": [
+        {
+          "id": "bellmire",
+          "visited": true
+        },
+        {
+          "id": "nine-stones",
+          "visited": true
+        },
+        {
+          "id": "lake-lun",
+          "visited": true
+        },
+        {
+          "id": "lunmere",
+          "visited": true
+        }
+      ]
+    },
+    "reload": {
+      "day": 2,
+      "regions": [
+        {
+          "id": "bellmire",
+          "visited": true
+        },
+        {
+          "id": "nine-stones",
+          "visited": true
+        },
+        {
+          "id": "lake-lun",
+          "visited": true
+        },
+        {
+          "id": "lunmere",
+          "visited": true
+        }
+      ],
+      "journal": [
+        {
+          "id": "nine:visit",
+          "day": 1,
+          "text": "街道の先に、九つの古い石があった。",
+          "kind": "place",
+          "playerMode": "human"
+        },
+        {
+          "id": "lake:visit",
+          "day": 1,
+          "text": "街道を下ると、静かな湖岸に出た。",
+          "kind": "place",
+          "playerMode": "human"
+        },
+        {
+          "id": "lunmere-arrival",
+          "day": 1,
+          "text": "湖の道の先に、Lunmereの小さな屋根が並んでいた。",
+          "kind": "place",
+          "playerMode": "human"
+        },
+        {
+          "id": "morning:2",
+          "day": 2,
+          "text": "宿屋の窓に、次の朝の光が入った。",
+          "kind": "stay",
+          "playerMode": "human"
+        }
+      ],
+      "canRevisit": true
+    }
+  },
+  "newRegionPlay": {
+    "visited": [
+      {
+        "id": "bellmire",
+        "visited": true
+      },
+      {
+        "id": "nine-stones",
+        "visited": false
+      },
+      {
+        "id": "lake-lun",
+        "visited": false
+      },
+      {
+        "id": "lunmere",
+        "visited": true
+      }
+    ],
+    "event:lun-low-water": {
+      "entry": "event:lun-low-water",
+      "text": "岸の平たい石に、途切れた円が見える。濡れたところだけ、線が少し濃い。"
+    },
+    "event:lun-guest-bag": {
+      "entry": "event:lun-guest-bag",
+      "text": "小さな袋が、受付の脇に残っている。持ち主は湖岸まで歩いていったようだ。"
+    },
+    "event:lun-skiff-repair": {
+      "entry": "event:lun-skiff-repair",
+      "text": "舟底の継ぎ目には、まだ濃い木の色が残る。"
+    },
+    "host": {
+      "speaker": {
+        "day": 1,
+        "speaker": "イーラ",
+        "speakerId": "lunHost",
+        "text": "靴は入口で乾かしておいで。湖から来る道は、晴れていても湿っているから。",
+        "time": "morning",
+        "timestamp": "2026-10-06T21:50:52.874Z",
+        "playerMode": "human",
+        "location": "lun-inn",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:lun-inn:morning"
+      },
+      "memories": {
+        "human": {
+          "visits": 1,
+          "firstDay": 1,
+          "lastDay": 1
+        }
+      }
+    },
+    "rest": {
+      "day": 2,
+      "phase": "morning",
+      "feet": [
+        201.25,
+        0,
+        -3.3
+      ],
+      "room": "lun-inn",
+      "valid": true
+    },
+    "lun:cat-fish": "lun:cat-fish",
+    "lun:cat-circle": "lun:cat-circle",
+    "passages": [
+      {
+        "samples": 34,
+        "maxEyeDelta": 0,
+        "feet": [
+          -408,
+          6.16,
+          7
+        ]
+      },
+      {
+        "samples": 34,
+        "maxEyeDelta": 0,
+        "feet": [
+          -417,
+          6.16,
+          33
+        ]
+      },
+      {
+        "samples": 34,
+        "maxEyeDelta": 0,
+        "feet": [
+          -432,
+          6.16,
+          0
+        ]
+      }
+    ],
+    "before": {
+      "day": 2,
+      "events": {
+        "delayed-grain": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "unaddressed-crate": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "missing-folio": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "upstream-stone": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "ninth-bell": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "cat-bread": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "cat-ribbon": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "loose-cart-wheel": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "late-cask": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "moved-cloth": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "absent-skiff": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "inn-parcel": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "cat-old-key": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "lake-parcel": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "lake-knot": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "lake-morning-wood": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "lun-skiff-repair": {
+          "state": "noticed",
+          "heardAt": null,
+          "noticedAt": "morning",
+          "resolvedAt": null,
+          "noticedDay": 1
+        },
+        "lun-wet-net": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "lun-guest-bag": {
+          "state": "resolved",
+          "heardAt": null,
+          "noticedAt": "morning",
+          "resolvedAt": "morning",
+          "noticedDay": 1,
+          "resolvedDay": 2
+        },
+        "lun-late-goods": {
+          "state": "unseen",
+          "heardAt": null,
+          "noticedAt": null,
+          "resolvedAt": null
+        },
+        "lun-low-water": {
+          "state": "noticed",
+          "heardAt": null,
+          "noticedAt": "morning",
+          "resolvedAt": null,
+          "noticedDay": 1
+        }
+      },
+      "discoveries": {
+        "region:lunmere": {
+          "day": 1,
+          "period": "day",
+          "playerMode": "human",
+          "label": "Lunmere"
+        },
+        "outskirts-visit": {
+          "day": 1,
+          "playerMode": "human",
+          "period": "day",
+          "label": "町の外へ"
+        },
+        "lun-low-water": {
+          "id": "lun-low-water",
+          "playerMode": "human",
+          "period": "morning",
+          "day": 1,
+          "location": "Lunmere"
+        },
+        "event:lun-low-water": {
+          "day": 1,
+          "playerMode": "human",
+          "period": "morning",
+          "label": "水位の跡"
+        },
+        "lun-guest-bag": {
+          "id": "lun-guest-bag",
+          "playerMode": "human",
+          "period": "morning",
+          "day": 1,
+          "location": "Lunmere"
+        },
+        "event:lun-guest-bag": {
+          "day": 1,
+          "playerMode": "human",
+          "period": "morning",
+          "label": "宿の忘れ物"
+        },
+        "lun-skiff-repair": {
+          "id": "lun-skiff-repair",
+          "playerMode": "human",
+          "period": "morning",
+          "day": 1,
+          "location": "Lunmere"
+        },
+        "event:lun-skiff-repair": {
+          "day": 1,
+          "playerMode": "human",
+          "period": "morning",
+          "label": "修理中の舟"
+        },
+        "lun:cat-fish": {
+          "day": 2,
+          "period": "morning",
+          "playerMode": "cat",
+          "label": "舟小屋の魚籠"
+        },
+        "lun:cat-circle": {
+          "day": 2,
+          "period": "morning",
+          "playerMode": "cat",
+          "label": "草の下の石片"
+        }
+      },
+      "memories": {
+        "lunHost": {
+          "human": {
+            "visits": 1,
+            "firstDay": 1,
+            "lastDay": 1
+          }
+        }
+      },
+      "journal": [
+        {
+          "id": "lunmere-arrival",
+          "day": 1,
+          "text": "湖の道の先に、Lunmereの小さな屋根が並んでいた。",
+          "kind": "place",
+          "playerMode": "human"
+        },
+        {
+          "id": "place:event:lun-low-water:human",
+          "day": 1,
+          "text": "岸の平たい石に、途切れた円が見える。濡れたところだけ、線が少し濃い。",
+          "kind": "place",
+          "playerMode": "human"
+        },
+        {
+          "id": "event:lun-low-water",
+          "day": 1,
+          "text": "岸の平たい石に、途切れた円が見える。濡れたところだけ、線が少し濃い。",
+          "kind": "event",
+          "playerMode": "human"
+        },
+        {
+          "id": "place:event:lun-guest-bag:human",
+          "day": 1,
+          "text": "小さな袋が、受付の脇に残っている。持ち主は湖岸まで歩いていったようだ。",
+          "kind": "place",
+          "playerMode": "human"
+        },
+        {
+          "id": "event:lun-guest-bag",
+          "day": 1,
+          "text": "小さな袋が、受付の脇に残っている。持ち主は湖岸まで歩いていったようだ。",
+          "kind": "event",
+          "playerMode": "human"
+        },
+        {
+          "id": "place:event:lun-skiff-repair:human",
+          "day": 1,
+          "text": "舟底の継ぎ目には、まだ濃い木の色が残る。",
+          "kind": "place",
+          "playerMode": "human"
+        },
+        {
+          "id": "event:lun-skiff-repair",
+          "day": 1,
+          "text": "舟底の継ぎ目には、まだ濃い木の色が残る。",
+          "kind": "event",
+          "playerMode": "human"
+        },
+        {
+          "id": "met:lunHost:human",
+          "day": 1,
+          "text": "イーラと、街の暮らしについて少し話した。",
+          "kind": "person",
+          "playerMode": "human"
+        },
+        {
+          "id": "settled:lun-guest-bag",
+          "day": 2,
+          "text": "袋はなくなっている。宿帳の端に、短い礼が書き足されていた。",
+          "kind": "event",
+          "playerMode": "human"
+        },
+        {
+          "id": "morning:2",
+          "day": 2,
+          "text": "宿屋の窓に、次の朝の光が入った。",
+          "kind": "stay",
+          "playerMode": "human"
+        },
+        {
+          "id": "lun:cat-fish",
+          "day": 2,
+          "text": "魚と濡れた縄の匂いが、籠の底に残っている。細い古い紐が一本、木の隙間に挟まっている。",
+          "kind": "cat",
+          "playerMode": "cat"
+        },
+        {
+          "id": "lun:cat-circle",
+          "day": 2,
+          "text": "草の下に、小さな丸い石片がある。縁の浅い傷には、水の匂いが残る。",
+          "kind": "cat",
+          "playerMode": "cat"
+        }
+      ]
+    },
+    "reload": {
+      "day": 2,
+      "lunmere": true,
+      "cats": true,
+      "memories": {
+        "human": {
+          "visits": 1,
+          "firstDay": 1,
+          "lastDay": 1
+        }
+      },
+      "events": {
+        "delayed-grain": {
+          "state": "unseen"
+        },
+        "unaddressed-crate": {
+          "state": "unseen"
+        },
+        "missing-folio": {
+          "state": "unseen"
+        },
+        "upstream-stone": {
+          "state": "unseen"
+        },
+        "ninth-bell": {
+          "state": "unseen"
+        },
+        "cat-bread": {
+          "state": "unseen"
+        },
+        "cat-ribbon": {
+          "state": "unseen"
+        },
+        "loose-cart-wheel": {
+          "state": "unseen"
+        },
+        "late-cask": {
+          "state": "unseen"
+        },
+        "moved-cloth": {
+          "state": "unseen"
+        },
+        "absent-skiff": {
+          "state": "unseen"
+        },
+        "inn-parcel": {
+          "state": "unseen"
+        },
+        "cat-old-key": {
+          "state": "unseen"
+        },
+        "lake-parcel": {
+          "state": "unseen"
+        },
+        "lake-knot": {
+          "state": "unseen"
+        },
+        "lake-morning-wood": {
+          "state": "unseen"
+        },
+        "lun-skiff-repair": {
+          "state": "noticed",
+          "noticedDay": 1,
+          "noticedAt": "morning"
+        },
+        "lun-wet-net": {
+          "state": "unseen"
+        },
+        "lun-guest-bag": {
+          "state": "resolved",
+          "noticedDay": 1,
+          "resolvedDay": 2,
+          "noticedAt": "morning",
+          "resolvedAt": "morning"
+        },
+        "lun-late-goods": {
+          "state": "unseen"
+        },
+        "lun-low-water": {
+          "state": "noticed",
+          "noticedDay": 1,
+          "noticedAt": "morning"
+        }
+      },
+      "journal": [
+        {
+          "id": "lunmere-arrival",
+          "day": 1,
+          "text": "湖の道の先に、Lunmereの小さな屋根が並んでいた。",
+          "kind": "place",
+          "playerMode": "human"
+        },
+        {
+          "id": "place:event:lun-low-water:human",
+          "day": 1,
+          "text": "岸の平たい石に、途切れた円が見える。濡れたところだけ、線が少し濃い。",
+          "kind": "place",
+          "playerMode": "human"
+        },
+        {
+          "id": "event:lun-low-water",
+          "day": 1,
+          "text": "岸の平たい石に、途切れた円が見える。濡れたところだけ、線が少し濃い。",
+          "kind": "event",
+          "playerMode": "human"
+        },
+        {
+          "id": "place:event:lun-guest-bag:human",
+          "day": 1,
+          "text": "小さな袋が、受付の脇に残っている。持ち主は湖岸まで歩いていったようだ。",
+          "kind": "place",
+          "playerMode": "human"
+        },
+        {
+          "id": "event:lun-guest-bag",
+          "day": 1,
+          "text": "小さな袋が、受付の脇に残っている。持ち主は湖岸まで歩いていったようだ。",
+          "kind": "event",
+          "playerMode": "human"
+        },
+        {
+          "id": "place:event:lun-skiff-repair:human",
+          "day": 1,
+          "text": "舟底の継ぎ目には、まだ濃い木の色が残る。",
+          "kind": "place",
+          "playerMode": "human"
+        },
+        {
+          "id": "event:lun-skiff-repair",
+          "day": 1,
+          "text": "舟底の継ぎ目には、まだ濃い木の色が残る。",
+          "kind": "event",
+          "playerMode": "human"
+        },
+        {
+          "id": "met:lunHost:human",
+          "day": 1,
+          "text": "イーラと、街の暮らしについて少し話した。",
+          "kind": "person",
+          "playerMode": "human"
+        },
+        {
+          "id": "settled:lun-guest-bag",
+          "day": 2,
+          "text": "袋はなくなっている。宿帳の端に、短い礼が書き足されていた。",
+          "kind": "event",
+          "playerMode": "human"
+        },
+        {
+          "id": "morning:2",
+          "day": 2,
+          "text": "宿屋の窓に、次の朝の光が入った。",
+          "kind": "stay",
+          "playerMode": "human"
+        },
+        {
+          "id": "lun:cat-fish",
+          "day": 2,
+          "text": "魚と濡れた縄の匂いが、籠の底に残っている。細い古い紐が一本、木の隙間に挟まっている。",
+          "kind": "cat",
+          "playerMode": "cat"
+        },
+        {
+          "id": "lun:cat-circle",
+          "day": 2,
+          "text": "草の下に、小さな丸い石片がある。縁の浅い傷には、水の匂いが残る。",
+          "kind": "cat",
+          "playerMode": "cat"
+        }
+      ],
+      "revisit": true
+    }
+  },
+  "principals": [
+    {
+      "speaker": {
+        "day": 1,
+        "speaker": "イーラ",
+        "speakerId": "lunHost",
+        "text": "靴は入口で乾かしておいで。湖から来る道は、晴れていても湿っているから。",
+        "time": "morning",
+        "timestamp": "2026-10-06T21:55:38.213Z",
+        "playerMode": "human",
+        "location": "lun-inn",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:lun-inn:morning"
+      },
+      "portrait": "fallback"
+    },
+    {
+      "speaker": {
+        "day": 1,
+        "speaker": "テヴ",
+        "speakerId": "lunBoat",
+        "text": "舟底の継ぎ目を直している。今日は漕ぐより、乾かす日だな。",
+        "time": "morning",
+        "timestamp": "2026-10-06T21:55:38.425Z",
+        "playerMode": "human",
+        "location": "lun-boats",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:lun-boats:morning"
+      },
+      "portrait": "fallback"
+    },
+    {
+      "speaker": {
+        "day": 1,
+        "speaker": "マレン",
+        "speakerId": "lunWatcher",
+        "text": "岸の石が出ているね。毎年こういう日がある。昨日と同じ岸でも、少し違って見えるよ。",
+        "time": "morning",
+        "timestamp": "2026-10-06T21:55:39.532Z",
+        "playerMode": "human",
+        "location": "town",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:town:morning"
+      },
+      "portrait": "fallback"
+    }
+  ],
+  "audioWeatherAndBoat": {
+    "enabled": true,
+    "before": {
+      "zones": 19,
+      "configured": 7,
+      "enabled": true,
+      "contexts": 1
+    },
+    "gain": 0.04191659058750433,
+    "muted": "suspended",
+    "noticed": "noticed",
+    "resolved": "resolved",
+    "boat": {
+      "id": "lake-skiff",
+      "dock": "moored",
+      "board": [
+        -321,
+        6.15,
+        -24
+      ],
+      "seat": [
+        -321,
+        6,
+        -27
+      ],
+      "routes": [
+        "lunmere-pier"
+      ]
+    },
+    "cameras": [
+      {
+        "id": "bellmire",
+        "spots": 19
+      },
+      {
+        "id": "nine-stones",
+        "spots": 8
+      },
+      {
+        "id": "lake-lun",
+        "spots": 8
+      },
+      {
+        "id": "lunmere",
+        "spots": 10
+      }
+    ],
+    "modes": [
+      {
+        "weather": "rain",
+        "goals": [
+          "lun-inn",
+          "lun-diner",
+          "lun-inn",
+          "lun-diner",
+          "lun-inn",
+          "lun-diner",
+          "lun-inn",
+          "lun-diner",
+          "lun-inn",
+          "lun-diner",
+          "lun-inn",
+          "lun-diner",
+          "lun-inn",
+          "lun-diner"
+        ]
+      },
+      {
+        "weather": "blackout",
+        "goals": [
+          "lun-inn",
+          "lun-diner",
+          "lun-inn",
+          "lun-diner",
+          "lun-inn",
+          "lun-diner",
+          "lun-inn",
+          "lun-diner",
+          "lun-inn",
+          "lun-diner",
+          "lun-inn",
+          "lun-diner",
+          "lun-inn",
+          "lun-diner"
+        ]
+      },
+      {
+        "weather": "dawn",
+        "goals": [
+          "lun-inn",
+          "lun-boats",
+          "lun-shore",
+          "lun-diner",
+          "lun-inn",
+          "lun-diner",
+          "lun-inn",
+          "lun-diner",
+          "lun-inn",
+          "lun-diner",
+          "lun-inn",
+          "lun-diner",
+          "lun-inn",
+          "lun-diner"
+        ]
+      },
+      {
+        "weather": "clear",
+        "goals": [
+          "lun-inn",
+          "lake-rest",
+          "lun-square",
+          "lun-store",
+          "lun-square",
+          "lun-square",
+          "lun-inn",
+          "lun-square",
+          "lun-square",
+          "lake-rest",
+          "lun-square",
+          "lun-square",
+          "lun-inn",
+          "lun-square"
+        ]
+      }
+    ],
+    "legacyFinn": "フィン",
+    "roomCount": 0
+  },
+  "groundingAndMobile": {
+    "checks": [
+      {
+        "weather": "clear",
+        "contextLost": false,
+        "water": 5600890,
+        "oil": 0.2
+      },
+      {
+        "weather": "rain",
+        "contextLost": false,
+        "water": 4743783,
+        "oil": 0.2
+      },
+      {
+        "weather": "fog",
+        "contextLost": false,
+        "water": 5600890,
+        "oil": 0.2
+      },
+      {
+        "weather": "dawn",
+        "contextLost": false,
+        "water": 6586249,
+        "oil": 0.2
+      },
+      {
+        "weather": "night",
+        "contextLost": false,
+        "water": 3493723,
+        "oil": 0.7
+      },
+      {
+        "weather": "blackout",
+        "contextLost": false,
+        "water": 3493723,
+        "oil": 1.2
+      }
+    ],
+    "panel": {
+      "height": 340,
+      "right": 382
+    },
+    "overflow": false,
+    "newShellIssues": [],
+    "newActorIssues": [],
+    "mapTitle": "Lunmere\nBellmire → Nine Stones → Lake Lun → Lunmere\n猫 · 上が北 · 淡い線は主な街路\n拡大\n閉じる"
+  },
+  "catJump": {
+    "jumping": true,
+    "feet": [
+      -403,
+      6.520000007152557,
+      16
+    ],
+    "safe": true
+  },
+  "dailyTraffic": [
+    {
+      "period": "morning",
+      "actors": [
+        {
+          "index": 31,
+          "destination": "lun-inn",
+          "state": "inside",
+          "inside": "lun-inn",
+          "feet": [
+            -422.3192421824835,
+            6.16,
+            37.899707828220556
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 32,
+          "destination": "lun-boats",
+          "state": "inside",
+          "inside": "lun-boats",
+          "feet": [
+            -413,
+            6.16,
+            8.4
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 33,
+          "destination": "lun-shore",
+          "state": "talking",
+          "inside": null,
+          "feet": [
+            -430.6570292817082,
+            6.16,
+            -2.0930916018416195
+          ],
+          "remaining": 0,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 34,
+          "destination": "lun-store",
+          "state": "inside",
+          "inside": "lun-store",
+          "feet": [
+            -443.27667655815236,
+            6.16,
+            35.533080117791116
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 35,
+          "destination": "lun-diner",
+          "state": "inside",
+          "inside": "lun-diner",
+          "feet": [
+            -438,
+            6.16,
+            9.9
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 36,
+          "destination": "lun-pier",
+          "state": "working",
+          "inside": null,
+          "feet": [
+            -417.6807578175165,
+            6.159999998211861,
+            -3.000292171779449
+          ],
+          "remaining": 0,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 37,
+          "destination": "lun-inn",
+          "state": "inside",
+          "inside": "lun-inn",
+          "feet": [
+            -422.20765410373815,
+            6.16,
+            38.01400915738322
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 38,
+          "destination": "lun-boats",
+          "state": "inside",
+          "inside": "lun-boats",
+          "feet": [
+            -413.1916807111429,
+            6.16,
+            7.582162299123048
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 39,
+          "destination": "lun-shore",
+          "state": "talking",
+          "inside": null,
+          "feet": [
+            -431.5854415997775,
+            6.16,
+            -1.351917857293171
+          ],
+          "remaining": 0,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 40,
+          "destination": "lun-store",
+          "state": "inside",
+          "inside": "lun-store",
+          "feet": [
+            -442.3196169941923,
+            6.16,
+            38.57244424657512
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 41,
+          "destination": "lun-diner",
+          "state": "inside",
+          "inside": "lun-diner",
+          "feet": [
+            -438,
+            6.16,
+            9.9
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 42,
+          "destination": "lun-pier",
+          "state": "working",
+          "inside": null,
+          "feet": [
+            -418.80654735496864,
+            6.16,
+            0.5825415868354211
+          ],
+          "remaining": 0,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 43,
+          "destination": "lun-inn",
+          "state": "inside",
+          "inside": "lun-inn",
+          "feet": [
+            -421.16515714690485,
+            6.16,
+            42.52311516799744
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 44,
+          "destination": "lun-boats",
+          "state": "inside",
+          "inside": "lun-boats",
+          "feet": [
+            -412.0750286611884,
+            6.16,
+            12.416486896072758
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        }
+      ]
+    },
+    {
+      "period": "day",
+      "actors": [
+        {
+          "index": 31,
+          "destination": "lun-inn",
+          "state": "inside",
+          "inside": "lun-inn",
+          "feet": [
+            -422.3192421824835,
+            6.16,
+            37.899707828220556
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 32,
+          "destination": "lake-rest",
+          "state": "working",
+          "inside": null,
+          "feet": [
+            -309,
+            6.072937374665101,
+            -13
+          ],
+          "remaining": 0,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 33,
+          "destination": "lun-square",
+          "state": "walking",
+          "inside": null,
+          "feet": [
+            -432,
+            6.16,
+            -1.355000000000001
+          ],
+          "remaining": 4,
+          "visible": true,
+          "blocked": -3.9
+        },
+        {
+          "index": 34,
+          "destination": "lun-store",
+          "state": "inside",
+          "inside": "lun-store",
+          "feet": [
+            -443.27667655815236,
+            6.16,
+            35.533080117791116
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 35,
+          "destination": "lun-square",
+          "state": "talking",
+          "inside": null,
+          "feet": [
+            -429.2311332474405,
+            6.16,
+            25.107324841169813
+          ],
+          "remaining": 0,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 36,
+          "destination": "lun-square",
+          "state": "talking",
+          "inside": null,
+          "feet": [
+            -427.7483660715853,
+            6.16,
+            23.854281064690667
+          ],
+          "remaining": 0,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 37,
+          "destination": "lun-inn",
+          "state": "inside",
+          "inside": "lun-inn",
+          "feet": [
+            -422.20765410373815,
+            6.16,
+            38.01400915738322
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 38,
+          "destination": "lun-square",
+          "state": "talking",
+          "inside": null,
+          "feet": [
+            -430.1055490487906,
+            6.16,
+            24.229287132913385
+          ],
+          "remaining": 0,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 39,
+          "destination": "lun-square",
+          "state": "walking",
+          "inside": null,
+          "feet": [
+            -433.09497360370733,
+            6.16,
+            -1.2822290204915079
+          ],
+          "remaining": 928,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 40,
+          "destination": "lake-rest",
+          "state": "walking",
+          "inside": null,
+          "feet": [
+            -309,
+            6.072917112082269,
+            -11.985000000000003
+          ],
+          "remaining": 1,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 41,
+          "destination": "lun-square",
+          "state": "working",
+          "inside": null,
+          "feet": [
+            -435.2255542286857,
+            6.16,
+            23.07564808748072
+          ],
+          "remaining": 0,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 42,
+          "destination": "lun-square",
+          "state": "talking",
+          "inside": null,
+          "feet": [
+            -427.03373159619906,
+            6.16,
+            22.788614335109468
+          ],
+          "remaining": 0,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 43,
+          "destination": "lun-inn",
+          "state": "inside",
+          "inside": "lun-inn",
+          "feet": [
+            -421.16515714690485,
+            6.16,
+            42.52311516799744
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 44,
+          "destination": "lun-square",
+          "state": "talking",
+          "inside": null,
+          "feet": [
+            -427.378491663641,
+            6.16,
+            23.111713535082195
+          ],
+          "remaining": 0,
+          "visible": true,
+          "blocked": 0
+        }
+      ]
+    },
+    {
+      "period": "evening",
+      "actors": [
+        {
+          "index": 31,
+          "destination": "lun-diner",
+          "state": "walking",
+          "inside": null,
+          "feet": [
+            -425.4129999999966,
+            6.16,
+            22
+          ],
+          "remaining": 3,
+          "visible": true,
+          "blocked": 0.29999999999999416
+        },
+        {
+          "index": 32,
+          "destination": "lun-diner",
+          "state": "walking",
+          "inside": null,
+          "feet": [
+            -385.4897676487467,
+            6.16,
+            18.286780960196488
+          ],
+          "remaining": 5,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 33,
+          "destination": "lun-diner",
+          "state": "walking",
+          "inside": null,
+          "feet": [
+            -432,
+            6.16,
+            -1.355000000000001
+          ],
+          "remaining": 5,
+          "visible": true,
+          "blocked": -2.999999999999999
+        },
+        {
+          "index": 34,
+          "destination": "lun-diner",
+          "state": "inside",
+          "inside": "lun-diner",
+          "feet": [
+            -438,
+            6.16,
+            9.9
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 35,
+          "destination": "lun-diner",
+          "state": "inside",
+          "inside": "lun-diner",
+          "feet": [
+            -438,
+            6.16,
+            9.9
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 36,
+          "destination": "lun-diner",
+          "state": "inside",
+          "inside": "lun-diner",
+          "feet": [
+            -436.68306530298423,
+            6.16,
+            12.03973383506517
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 37,
+          "destination": "home",
+          "state": "working",
+          "inside": null,
+          "feet": [
+            -419.71529626876566,
+            6.16,
+            42.803668375197766
+          ],
+          "remaining": 0,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 38,
+          "destination": "home",
+          "state": "walking",
+          "inside": null,
+          "feet": [
+            -425.90000000000487,
+            6.16,
+            22
+          ],
+          "remaining": 280,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 39,
+          "destination": "home",
+          "state": "walking",
+          "inside": null,
+          "feet": [
+            -433.06105476039903,
+            6.16,
+            -1.3625942403964817
+          ],
+          "remaining": 346,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 40,
+          "destination": "home",
+          "state": "walking",
+          "inside": null,
+          "feet": [
+            -401.0240000000049,
+            6.16,
+            20
+          ],
+          "remaining": 6,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 41,
+          "destination": "home",
+          "state": "working",
+          "inside": null,
+          "feet": [
+            -432.1260079379899,
+            6.16,
+            19.05037003421809
+          ],
+          "remaining": 0,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 42,
+          "destination": "home",
+          "state": "walking",
+          "inside": null,
+          "feet": [
+            -426.3920000000003,
+            6.16,
+            22
+          ],
+          "remaining": 4,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 43,
+          "destination": "home",
+          "state": "working",
+          "inside": null,
+          "feet": [
+            -422.2031659444751,
+            6.16,
+            41.88016459433225
+          ],
+          "remaining": 0,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 44,
+          "destination": "home",
+          "state": "walking",
+          "inside": null,
+          "feet": [
+            -427.4349999999991,
+            6.16,
+            22
+          ],
+          "remaining": 281,
+          "visible": true,
+          "blocked": 0
+        }
+      ]
+    },
+    {
+      "period": "night",
+      "actors": [
+        {
+          "index": 31,
+          "destination": "lun-inn",
+          "state": "inside",
+          "inside": "lun-inn",
+          "feet": [
+            -422,
+            6.16,
+            38.9
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 32,
+          "destination": "lun-boats",
+          "state": "walking",
+          "inside": null,
+          "feet": [
+            -424.9869806194054,
+            6.16,
+            21.999172219483093
+          ],
+          "remaining": 3,
+          "visible": true,
+          "blocked": 0.4499999999999941
+        },
+        {
+          "index": 33,
+          "destination": "lun-shore",
+          "state": "working",
+          "inside": null,
+          "feet": [
+            -430.92870674329527,
+            6.16,
+            -2.6616556539008336
+          ],
+          "remaining": 0,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 34,
+          "destination": "home",
+          "state": "resting",
+          "inside": null,
+          "feet": [
+            -441.5,
+            6.16,
+            39.4
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 35,
+          "destination": "home",
+          "state": "resting",
+          "inside": null,
+          "feet": [
+            -436.04911134081516,
+            6.16,
+            11.801078769711328
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 36,
+          "destination": "home",
+          "state": "goingHome",
+          "inside": null,
+          "feet": [
+            -426.880000000001,
+            6.16,
+            22
+          ],
+          "remaining": 4,
+          "visible": true,
+          "blocked": -3.400000000000002
+        },
+        {
+          "index": 37,
+          "destination": "home",
+          "state": "resting",
+          "inside": null,
+          "feet": [
+            -420.5,
+            6.16,
+            43.6
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 38,
+          "destination": "home",
+          "state": "goingHome",
+          "inside": null,
+          "feet": [
+            -425.90000000000487,
+            6.16,
+            22
+          ],
+          "remaining": 4,
+          "visible": true,
+          "blocked": 0.34999999999999415
+        },
+        {
+          "index": 39,
+          "destination": "home",
+          "state": "resting",
+          "inside": null,
+          "feet": [
+            -433.0509567464942,
+            6.16,
+            -1.3846807022852499
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 40,
+          "destination": "home",
+          "state": "goingHome",
+          "inside": null,
+          "feet": [
+            -425.2000715689069,
+            6.16,
+            21.563642869900786
+          ],
+          "remaining": 188,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 41,
+          "destination": "home",
+          "state": "resting",
+          "inside": null,
+          "feet": [
+            -436.5,
+            6.16,
+            14.6
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 42,
+          "destination": "home",
+          "state": "goingHome",
+          "inside": null,
+          "feet": [
+            -426.3920000000003,
+            6.16,
+            22
+          ],
+          "remaining": 5,
+          "visible": true,
+          "blocked": 0
+        },
+        {
+          "index": 43,
+          "destination": "home",
+          "state": "resting",
+          "inside": null,
+          "feet": [
+            -420.5,
+            6.16,
+            45.3
+          ],
+          "remaining": 0,
+          "visible": false,
+          "blocked": 0
+        },
+        {
+          "index": 44,
+          "destination": "home",
+          "state": "goingHome",
+          "inside": null,
+          "feet": [
+            -426.37518523770063,
+            6.16,
+            21.074583237695325
+          ],
+          "remaining": 601,
+          "visible": true,
+          "blocked": 0
+        }
+      ]
+    }
+  ]
+}

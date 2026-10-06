@@ -131,3 +131,8 @@ Lunmere settlement, controllable boats, larger lake travel, recorded water/wind/
 pier sounds and physical-phone performance remain future work. This region is
 intentionally a short shore visit. The nine/circle/star/water mysteries remain
 unresolved, and the existing town daily life continues.
+
+
+## v24.5–v26.0
+
+Lake Lun滞在の追加とLunmereへの湖畔道、四地域UI、検証結果は [LUNMERE.md](LUNMERE.md) を参照。既存湖・桟橋・小舟の形状は維持。
