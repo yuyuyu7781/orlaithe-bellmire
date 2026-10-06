@@ -1,0 +1,876 @@
+{
+  "version": "23.3",
+  "baseline": "7dd9040a444db9939ece27d6e8f6403987c738a6",
+  "environmentSettingsChanged": false,
+  "bellmireLayoutChanged": false,
+  "upstreamChanged": false,
+  "physicalPhoneTested": false,
+  "scenario": {
+    "stones": [
+      {
+        "name": "Nine Stones 1",
+        "ground": 9.830064244130499
+      },
+      {
+        "name": "Nine Stones 2",
+        "ground": 9.834480261252185
+      },
+      {
+        "name": "Nine Stones 3",
+        "ground": 9.778516697538635
+      },
+      {
+        "name": "Nine Stones 4",
+        "ground": 9.974646315428012
+      },
+      {
+        "name": "Nine Stones 5",
+        "ground": 10.0314653266833
+      },
+      {
+        "name": "Nine Stones 6",
+        "ground": 9.98551243738539
+      },
+      {
+        "name": "Nine Stones 7",
+        "ground": 9.758581873192536
+      },
+      {
+        "name": "Nine Stones 8",
+        "ground": 9.746408956845
+      },
+      {
+        "name": "Nine Stones 9",
+        "ground": 9.960245585147309
+      }
+    ],
+    "jumpTargets": 3,
+    "wind": {
+      "day": 1,
+      "playerMode": "cat",
+      "period": "evening",
+      "label": "石の間に低い響きが残った。風が止むと、聞こえなくなった。"
+    },
+    "audio": {
+      "enabled": true,
+      "gain": 0.23870314190673061,
+      "stats": {
+        "zones": 13,
+        "configured": 6,
+        "enabled": false,
+        "contexts": 1
+      }
+    },
+    "dialogue": [
+      {
+        "id": "bookseller",
+        "lines": [
+          "昔の記録では、石の数が違うものもある。数え方も、同じだったかどうか。",
+          "ネリッサが、古い図版を探しに来ました。今日は机に出してあります。",
+          "昔の記録では、石の数が違うものもある。数え方も、同じだったかどうか。",
+          "ネリッサが、古い図版を探しに来ました。今日は机に出してあります。",
+          "昔の記録では、石の数が違うものもある。数え方も、同じだったかどうか。",
+          "ネリッサが、古い図版を探しに来ました。今日は机に出してあります。",
+          "昔の記録では、石の数が違うものもある。数え方も、同じだったかどうか。",
+          "昔の記録では、石の数が違うものもある。数え方も、同じだったかどうか。",
+          "ネリッサが、古い図版を探しに来ました。今日は机に出してあります。",
+          "昔の記録では、石の数が違うものもある。数え方も、同じだったかどうか。"
+        ]
+      },
+      {
+        "id": "starmaker",
+        "lines": [
+          "その配置……古い星図に少し似ています。でも、同じとは限りません。",
+          "本屋で見た図版を、もう一度確かめたいんです。",
+          "その配置……古い星図に少し似ています。でも、同じとは限りません。",
+          "本屋で見た図版を、もう一度確かめたいんです。",
+          "その配置……古い星図に少し似ています。でも、同じとは限りません。",
+          "本屋で見た図版を、もう一度確かめたいんです。",
+          "その配置……古い星図に少し似ています。でも、同じとは限りません。",
+          "その配置……古い星図に少し似ています。でも、同じとは限りません。",
+          "本屋で見た図版を、もう一度確かめたいんです。",
+          "その配置……古い星図に少し似ています。でも、同じとは限りません。"
+        ]
+      },
+      {
+        "id": "greenBard",
+        "lines": [
+          "昔からあるよ。少なくとも、僕が知る限りでは。",
+          "話の途中で帰る人がいると、街の続きが分かるものだよ。",
+          "昔からあるよ。少なくとも、僕が知る限りでは。",
+          "話の途中で帰る人がいると、街の続きが分かるものだよ。",
+          "昔からあるよ。少なくとも、僕が知る限りでは。",
+          "話の途中で帰る人がいると、街の続きが分かるものだよ。",
+          "昔からあるよ。少なくとも、僕が知る限りでは。",
+          "昔からあるよ。少なくとも、僕が知る限りでは。",
+          "話の途中で帰る人がいると、街の続きが分かるものだよ。",
+          "昔からあるよ。少なくとも、僕が知る限りでは。"
+        ]
+      }
+    ],
+    "return": {
+      "samples": 1586,
+      "maxEyeDelta": 0.011628657449840318,
+      "feet": [
+        -109,
+        8.66200000010431,
+        -14
+      ]
+    },
+    "saved": {
+      "nine:visit": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "day",
+        "label": "街道の先に、九つの古い石があった。"
+      },
+      "nine:stone-3": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "day",
+        "label": "欠けた面に数本の浅い線。水辺の石とは違うのに、指が同じところで止まる。"
+      },
+      "nine:stone-5": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "day",
+        "label": "円は閉じていない。風に削られたのか、はじめからそうだったのか。"
+      },
+      "nine:stone-9": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "day",
+        "label": "小さな窪みが散っている。星図の点にも、ただの傷にも見える。"
+      },
+      "nine:cat-lines": {
+        "day": 1,
+        "playerMode": "cat",
+        "period": "day",
+        "label": "草と冷たい石の匂い。倒れた石の裏側にも、浅い線が続いている。"
+      },
+      "nine:cat-circle": {
+        "day": 1,
+        "playerMode": "cat",
+        "period": "day",
+        "label": "低い草の間に、輪の一部が残る。石の上からは見えなかった。"
+      },
+      "nine:wind": {
+        "day": 1,
+        "playerMode": "cat",
+        "period": "evening",
+        "label": "石の間に低い響きが残った。風が止むと、聞こえなくなった。"
+      }
+    },
+    "reload": {
+      "nine:visit": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "day",
+        "label": "街道の先に、九つの古い石があった。"
+      },
+      "nine:stone-3": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "day",
+        "label": "欠けた面に数本の浅い線。水辺の石とは違うのに、指が同じところで止まる。"
+      },
+      "nine:stone-5": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "day",
+        "label": "円は閉じていない。風に削られたのか、はじめからそうだったのか。"
+      },
+      "nine:stone-9": {
+        "day": 1,
+        "playerMode": "human",
+        "period": "day",
+        "label": "小さな窪みが散っている。星図の点にも、ただの傷にも見える。"
+      },
+      "nine:cat-lines": {
+        "day": 1,
+        "playerMode": "cat",
+        "period": "day",
+        "label": "草と冷たい石の匂い。倒れた石の裏側にも、浅い線が続いている。"
+      },
+      "nine:cat-circle": {
+        "day": 1,
+        "playerMode": "cat",
+        "period": "day",
+        "label": "低い草の間に、輪の一部が残る。石の上からは見えなかった。"
+      },
+      "nine:wind": {
+        "day": 1,
+        "playerMode": "cat",
+        "period": "evening",
+        "label": "石の間に低い響きが残った。風が止むと、聞こえなくなった。"
+      }
+    }
+  },
+  "nativeRoundTrip": {
+    "innGate": {
+      "samples": 555,
+      "maxEyeDelta": 0.0030028609397421135,
+      "feet": [
+        -53,
+        6.262000000186264,
+        5
+      ]
+    },
+    "out": {
+      "samples": 2754,
+      "maxEyeDelta": 0.02859883480531522,
+      "feet": [
+        -188,
+        10.003666666770977,
+        -29
+      ]
+    },
+    "back": {
+      "samples": 2766,
+      "maxEyeDelta": 0.02859889147153183,
+      "feet": [
+        -53,
+        6.262000000186264,
+        5
+      ]
+    },
+    "gateInn": {
+      "samples": 539,
+      "maxEyeDelta": 0.0030028669058905777,
+      "feet": [
+        -32.965,
+        6.249999976158142,
+        2.5
+      ]
+    }
+  },
+  "explorationAndGroundAudit": {
+    "human": [
+      {
+        "samples": 400,
+        "maxEyeDelta": 0.0037480588528850944,
+        "feet": [
+          -202,
+          10.051088150121327,
+          -35
+        ]
+      },
+      {
+        "samples": 309,
+        "maxEyeDelta": 0.001909063588586335,
+        "feet": [
+          -201,
+          9.95364379724196,
+          -23
+        ]
+      },
+      {
+        "samples": 559,
+        "maxEyeDelta": 0.0019033781122193005,
+        "feet": [
+          -179,
+          9.907001667360998,
+          -22
+        ]
+      },
+      {
+        "samples": 386,
+        "maxEyeDelta": 0.004383167307574709,
+        "feet": [
+          -178,
+          9.869488794201128,
+          -37
+        ]
+      },
+      {
+        "samples": 450,
+        "maxEyeDelta": 0.07601828743587724,
+        "feet": [
+          -195,
+          9.819810267925567,
+          -40
+        ]
+      },
+      {
+        "samples": 522,
+        "maxEyeDelta": 0.016704704293520223,
+        "feet": [
+          -206.6,
+          9.398096057026116,
+          -23
+        ]
+      }
+    ],
+    "cat": [
+      {
+        "samples": 284,
+        "maxEyeDelta": 0.0038546174693738777,
+        "feet": [
+          -202,
+          10.051088150121327,
+          -35
+        ]
+      },
+      {
+        "samples": 209,
+        "maxEyeDelta": 0.002237792065896471,
+        "feet": [
+          -201,
+          9.95364379724196,
+          -23
+        ]
+      },
+      {
+        "samples": 375,
+        "maxEyeDelta": 0.002231106547510464,
+        "feet": [
+          -179,
+          9.907001667360998,
+          -22
+        ]
+      },
+      {
+        "samples": 259,
+        "maxEyeDelta": 0.0042319384006805905,
+        "feet": [
+          -178,
+          9.869488794201128,
+          -37
+        ]
+      },
+      {
+        "samples": 309,
+        "maxEyeDelta": 0.06199822084891338,
+        "feet": [
+          -195,
+          9.819810267925567,
+          -40
+        ]
+      },
+      {
+        "samples": 381,
+        "maxEyeDelta": 0.019320903313976956,
+        "feet": [
+          -206.6,
+          9.398096057026116,
+          -23
+        ]
+      }
+    ],
+    "audit": [
+      {
+        "name": "Nine Stones 1",
+        "delta": -0.07000000000000028,
+        "buried": 0.07
+      },
+      {
+        "name": "Nine Stones 2",
+        "delta": 0,
+        "buried": 0
+      },
+      {
+        "name": "Nine Stones 3",
+        "delta": -0.09999999999999964,
+        "buried": 0.1
+      },
+      {
+        "name": "Nine Stones 4",
+        "delta": -0.03999999999999915,
+        "buried": 0.04
+      },
+      {
+        "name": "Nine Stones 5",
+        "delta": -0.08000000000000007,
+        "buried": 0.08
+      },
+      {
+        "name": "Nine Stones 6",
+        "delta": -0.05000000000000071,
+        "buried": 0.05
+      },
+      {
+        "name": "Nine Stones 7",
+        "delta": -0.11999999999999922,
+        "buried": 0.12
+      },
+      {
+        "name": "Nine Stones 8",
+        "delta": -0.03999999999999915,
+        "buried": 0.04
+      },
+      {
+        "name": "Nine Stones 9",
+        "delta": -0.0600000000000005,
+        "buried": 0.06
+      }
+    ],
+    "supports": [
+      {
+        "id": "rest",
+        "delta": -2.980232949312267e-09
+      },
+      {
+        "id": "signPost",
+        "delta": 1.192092824453539e-08
+      }
+    ],
+    "throttle": {
+      "near": 10,
+      "far": 0
+    },
+    "nextDay": {
+      "day": 2,
+      "chip": {
+        "day": 1,
+        "playerMode": "cat",
+        "period": "day",
+        "label": "湿った土の下に、丸みのある石片。浅い傷が地面の側へ続いている。"
+      },
+      "stones": [
+        [
+          -197,
+          11.25158453230396,
+          -34
+        ],
+        [
+          -195,
+          10.074480255887767,
+          -27
+        ],
+        [
+          -190,
+          10.88076651590672,
+          -24
+        ],
+        [
+          -184,
+          10.999276069780366,
+          -25
+        ],
+        [
+          -181,
+          11.273413141684543,
+          -31
+        ],
+        [
+          -184,
+          10.866046162473264,
+          -36
+        ],
+        [
+          -190,
+          10.9359525604302,
+          -38
+        ],
+        [
+          -195,
+          10.231514702778217,
+          -38
+        ],
+        [
+          -199,
+          11.218346247224398,
+          -30
+        ]
+      ]
+    }
+  },
+  "traveller": {
+    "rest": {
+      "feet": [
+        -175.65322582636352,
+        9.964970241535116,
+        -32.064677417363654
+      ],
+      "state": "working",
+      "activity": "resting"
+    },
+    "samples": [
+      {
+        "feet": [
+          -175.65322582636352,
+          9.964970241535116,
+          -32.064677417363654
+        ],
+        "state": "walking",
+        "destination": "inn"
+      },
+      {
+        "feet": [
+          -77.11992268092092,
+          7.083428571614835,
+          0.26156819964584305
+        ],
+        "state": "walking",
+        "destination": "inn"
+      },
+      {
+        "feet": [
+          -32.965,
+          6.249999976158142,
+          2.5
+        ],
+        "state": "inside",
+        "destination": "inn"
+      },
+      {
+        "feet": [
+          -32.965,
+          6.249999976158142,
+          2.5
+        ],
+        "state": "inside",
+        "destination": "inn"
+      },
+      {
+        "feet": [
+          -32.965,
+          6.249999976158142,
+          2.5
+        ],
+        "state": "inside",
+        "destination": "inn"
+      },
+      {
+        "feet": [
+          -32.965,
+          6.249999976158142,
+          2.5
+        ],
+        "state": "inside",
+        "destination": "inn"
+      }
+    ]
+  },
+  "mobileAndJump": [
+    {
+      "jumped": true,
+      "feet": [
+        -195.00865917693224,
+        10.31448025052335,
+        -26.99785535738622
+      ]
+    },
+    {
+      "quality": "high",
+      "frame": 27,
+      "calls": 231,
+      "triangles": 4002,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "quality": "standard",
+      "frame": 42,
+      "calls": 41,
+      "triangles": 2002,
+      "points": 0,
+      "lines": 0
+    },
+    {
+      "quality": "mobile",
+      "frame": 43,
+      "calls": 217,
+      "triangles": 3988,
+      "points": 0,
+      "lines": 0
+    }
+  ],
+  "weather": [
+    {
+      "weather": "clear",
+      "fog": 0.003484
+    },
+    {
+      "weather": "dawn",
+      "fog": 0.003744
+    },
+    {
+      "weather": "rain",
+      "fog": 0.004056
+    },
+    {
+      "weather": "fog",
+      "fog": 0.0145
+    },
+    {
+      "weather": "night",
+      "fog": 0.00364
+    },
+    {
+      "weather": "blackout",
+      "fog": 0.004056
+    }
+  ],
+  "performance": [
+    {
+      "baseline": true,
+      "measurements": [
+        {
+          "quality": "high",
+          "frame": 285,
+          "calls": 58,
+          "triangles": 10192,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3141,
+          "lights": 14,
+          "casters": 193,
+          "transparent": 34,
+          "regionUpdateMedian": 0
+        },
+        {
+          "quality": "standard",
+          "frame": 405,
+          "calls": 58,
+          "triangles": 10192,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3141,
+          "lights": 14,
+          "casters": 193,
+          "transparent": 34,
+          "regionUpdateMedian": 0
+        },
+        {
+          "quality": "mobile",
+          "frame": 413,
+          "calls": 44,
+          "triangles": 10178,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3141,
+          "lights": 14,
+          "casters": 193,
+          "transparent": 34,
+          "regionUpdateMedian": 0
+        }
+      ]
+    },
+    {
+      "baseline": false,
+      "measurements": [
+        {
+          "quality": "high",
+          "frame": 285,
+          "calls": 61,
+          "triangles": 11032,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3145,
+          "lights": 14,
+          "casters": 193,
+          "transparent": 34,
+          "regionUpdateMedian": 0
+        },
+        {
+          "quality": "standard",
+          "frame": 405,
+          "calls": 61,
+          "triangles": 11032,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3145,
+          "lights": 14,
+          "casters": 193,
+          "transparent": 34,
+          "regionUpdateMedian": 0
+        },
+        {
+          "quality": "mobile",
+          "frame": 413,
+          "calls": 47,
+          "triangles": 11018,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3145,
+          "lights": 14,
+          "casters": 193,
+          "transparent": 34,
+          "regionUpdateMedian": 0
+        }
+      ]
+    }
+  ],
+  "checks": {
+    "staticChecks": "passed",
+    "fiveShopsHumanCatPortrait": "passed",
+    "existingCamerasFollowAnimationsWebGL": "passed",
+    "cameras": 19,
+    "weatherModes": 6,
+    "qualityModes": 3,
+    "onwardAndNightBlackoutViews": "passed"
+  },
+  "limitations": [
+    "Cloud SwiftShader timings are not physical phone benchmarks.",
+    "Ground shades are stylized, not real-time stone shadows.",
+    "Lunmere / Lake Lun remain distant scenery."
+  ],
+  "stoneLayoutAcrossNextDayReload": {
+    "stable": true,
+    "stones": [
+      {
+        "position": [
+          -197,
+          11.25158453230396,
+          -34
+        ],
+        "rotation": [
+          0.06,
+          0,
+          0.036,
+          "XYZ"
+        ],
+        "scale": [
+          1,
+          1,
+          0.8
+        ]
+      },
+      {
+        "position": [
+          -195,
+          10.074480255887767,
+          -27
+        ],
+        "rotation": [
+          0,
+          0.63,
+          0,
+          "XYZ"
+        ],
+        "scale": [
+          1,
+          1,
+          0.45
+        ]
+      },
+      {
+        "position": [
+          -190,
+          10.88076651590672,
+          -24
+        ],
+        "rotation": [
+          -0.1,
+          1.26,
+          -0.06,
+          "XYZ"
+        ],
+        "scale": [
+          1,
+          1,
+          1.125
+        ]
+      },
+      {
+        "position": [
+          -184,
+          10.999276069780366,
+          -25
+        ],
+        "rotation": [
+          0.12,
+          1.8900000000000001,
+          0.072,
+          "XYZ"
+        ],
+        "scale": [
+          1,
+          1,
+          0.8
+        ]
+      },
+      {
+        "position": [
+          -181,
+          11.273413141684543,
+          -31
+        ],
+        "rotation": [
+          -0.08,
+          2.52,
+          -0.048,
+          "XYZ"
+        ],
+        "scale": [
+          1,
+          1,
+          0.8823529411764706
+        ]
+      },
+      {
+        "position": [
+          -184,
+          10.866046162473264,
+          -36
+        ],
+        "rotation": [
+          0.06,
+          3.15,
+          0.036,
+          "XYZ"
+        ],
+        "scale": [
+          1,
+          1,
+          0.6666666666666667
+        ]
+      },
+      {
+        "position": [
+          -190,
+          10.9359525604302,
+          -38
+        ],
+        "rotation": [
+          0.18,
+          3.7800000000000002,
+          0.108,
+          "XYZ"
+        ],
+        "scale": [
+          1,
+          1,
+          0.7222222222222222
+        ]
+      },
+      {
+        "position": [
+          -195,
+          10.231514702778217,
+          -38
+        ],
+        "rotation": [
+          -0.04,
+          4.41,
+          -0.024,
+          "XYZ"
+        ],
+        "scale": [
+          1,
+          1,
+          0.9090909090909091
+        ]
+      },
+      {
+        "position": [
+          -199,
+          11.218346247224398,
+          -30
+        ],
+        "rotation": [
+          0.04,
+          5.04,
+          0.024,
+          "XYZ"
+        ],
+        "scale": [
+          1,
+          1,
+          1.3333333333333333
+        ]
+      }
+    ]
+  }
+}

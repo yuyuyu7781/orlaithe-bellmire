@@ -76,3 +76,58 @@ Measured overview baseline→final: calls 2670→2801, triangles 107035→109577
 meshes 3010→3141; lights 14, shadow casters 193, transparent meshes 34 unchanged.
 Mobile overview calls 2656→2787. Exact region-facing stable renders are recorded
 in tools/v225-validation.json; walking-town rendering remains frustum culled.
+
+## v22.6–v23.3 landscape and onward road
+
+Baseline `7dd9040`. The existing Nine Stones layout is retained. The rectangular
+field top is replaced with a low-poly triangulated surface: a shallow central
+hollow, roughly 10–20cm ripples, and a short downhill shore near the onward sign.
+`nine-terrain.js` caches grid heights; `nineHeight` interpolates exactly the same
+triangles that are rendered. The optional walking terrain sampler is bounded
+to this field; existing Bellmire and interior ground policies remain unchanged.
+
+Nine stones retain stable positions and IDs. Their thickness, vertex shades,
+lean, damage and depths differ. Bases are intentionally sunk by 0–12cm; the
+fallen jumping stone stays at ground height. Stone vertex colour uses a separate
+material so existing walls/goods keep their colour. Three marked stones remain;
+no new runic stones are added. Opaque batched ground shade is longer in morning,
+shorter at midday and hidden at night, without extra light or shadow caster.
+
+Thirty grass clumps share one instanced mesh. Near the field, the existing
+half-second region update applies a very small shear and periodic gentle gust.
+At Bellmire, these matrix updates stop. The rare fog/evening sound now requires
+accumulated stronger gust intervals; it is a quiet 1.9-second filtered noise
+with a soft envelope, not a tone or melody. Existing mute/autoplay applies.
+
+The cold camp/rest trace is inspectable. One additional cat-only rounded chip
+lies in grass near the low stone. The ring-view hill interaction is human-only;
+the town-facing view remains available to both profiles. Stable discovery IDs,
+Journal and version-1 save validation are reused; next-day reload was checked.
+
+The existing onward sign retains only Lunmere / Lake Lun on its face. A short
+curving earth continuation descends toward the flooded wash. Two surviving
+pieces of a small crossing and the missing middle explain the boundary. Across
+it, the road bends down through sparse trees and low blue-grey land; a small
+horizontal water hint lies farther away. These are distant scenery, not the
+third region. `nineLayout.onward` exposes the shore/destination/status/hint data
+for a later extension. Bellmire's belfry, terraces and roofs remain visible;
+night windows persist and blackout visibly reduces them.
+
+Browser validation included native inn/field/inn round trip, human and cat
+circuits, sign/shore, three stones, all three cat discoveries, cat jump, short
+views, wind/mute, return replies, Journal, next-day reload, deterministic stone
+positions, traveller rest-to-inn, five shops/portraits, six weather modes and
+19 cameras/follow/WebGL. Stone bases and rest/post supports were audited against
+actual triangle heights. Regional update test: 10 grass updates nearby, zero
+for the same interval at the Bellmire hill. All static checks also pass.
+
+Same-view remeasurement: High/Standard 58→61 calls, Mobile 44→47; the previous
+54/40 snapshot used a different captured scene state. Triangles 10192→11032
+(High/Standard); scene meshes 3141→3145. Lights 14, transparent meshes 34 and
+shadow casters 193 remain unchanged. SwiftShader timing is not physical mobile
+performance; some short update samples fall below timer resolution.
+See `tools/v233-validation.json` for actual results.
+
+Remaining: real smartphone measurement, longer visitor/crowd runs, richer wind
+recordings and the actual third region. Ground shades are stylized batched
+patches, not physical real-time stone shadows; distant scenery is not walkable.

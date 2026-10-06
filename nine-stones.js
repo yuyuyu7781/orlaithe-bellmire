@@ -1,6 +1,6 @@
 import {nineHeight,buildNineTerrain} from './nine-terrain.js';
 import {createDetailBatch} from './miniature.js';
-export const nineLayout={road:[[-109,8.65,-14],[-120,8.65,-14],[-136,9.1,-17],[-151,9.5,-23],[-169,9.8,-28],[-188,10,-29]],centre:[-190,10,-30],lookout:[-187,11.25,-43],returnView:[-173,10.25,-22]};
+export const nineLayout={road:[[-109,8.65,-14],[-120,8.65,-14],[-136,9.1,-17],[-151,9.5,-23],[-169,9.8,-28],[-188,10,-29]],centre:[-190,10,-30],lookout:[-187,11.25,-43],returnView:[-173,10.25,-22],onward:{destination:'Lunmere / Lake Lun',status:'flooded',shore:[-206.6,-23],farRoad:[-224,9,-29],lakeHint:[-263,5.8,-13]}};
 // A second region uses the same supported floor and collision policy as town.
 export function buildNineStones({THREE,scene,box}){
  const root=new THREE.Group();root.name='Nine Stones open upland';scene.add(root);
@@ -37,11 +37,12 @@ export function buildNineStones({THREE,scene,box}){
  const lowWater=new THREE.MeshStandardMaterial({color:0x657f7d,roughness:.8});const wash=slab(-211,8.8,-29,7,.08,30,lowWater);wash.userData.walkSoft=true;
  for(let i=0;i<10;i++){const x=-202.2-i*.43,z=-23-.08*Math.sin(i*.6),y=nineHeight(x,z);batch.add('block',earth,[x,y+.008,z],[.48,.016,1.25]);}
  // The old crossing lost its middle span. Water remains visible between banks.
- for(const [x,y,z]of [[-207,9.14,-22.4],[-214.5,9.05,-22.4]]){batch.add('block',wood,[x,y,z],[1.1,.12,.48]);batch.add('block',wood,[x-.3,y-.65,z],[.12,1.3,.12]);}
- batch.add('leaf',grass,[-222,7,-30],[12,4,18]);batch.add('leaf',grass,[-246,5.5,-15],[17,2,13]);batch.add('block',lowWater,[-263,5.0,-13],[22,.05,4]);batch.add('leaf',grass,[-278,4.7,-13],[12,1.7,9]);
- for(const [x,z]of [[-223,-24],[-229,-28]]){batch.add('block',wood,[x,8.3,z],[.18,1.4,.18]);batch.add('leaf',dark,[x,9.2,z],[1.2,1.4,1]);}batch.add('block',earth,[-224,9,-29],[18,.05,1.5]);
+ for(const [x,y,z]of [[-207,9.14,-22.4],[-214.5,8.2,-22.4]]){batch.add('block',wood,[x,y,z],[1.1,.12,.48]);batch.add('block',wood,[x-.3,y-.65,z],[.12,1.3,.12]);}
+ batch.add('leaf',grass,[-224,7.7,-30],[13,1.5,18]);batch.add('leaf',grass,[-246,5.5,-15],[17,.65,13]);batch.add('block',lowWater,[-263,5.8,-13],[22,.05,4]);batch.add('leaf',grass,[-278,4.7,-13],[12,1.7,9]);
+ for(const [x,z]of [[-223,-24],[-229,-28]]){batch.add('block',wood,[x,8.3,z],[.18,1.4,.18]);batch.add('leaf',dark,[x,9.2,z],[1.2,1.4,1]);}for(let i=0;i<9;i++){const x=-216-i*2,y=8.9-.012*(x+224)**2;batch.add('block',earth,[x,y+.008,-29],[2.1,.016,1.5]);}
+ const shadeBatch=createDetailBatch(THREE,root,'Nine Stones soft ground shade');const shadeMaterial=new THREE.MeshStandardMaterial({color:0x626a5b,roughness:1});for(const [x,z,h,w]of placements){const px=x+.4,pz=z-.4;shadeBatch.add('leaf',shadeMaterial,[px,nineHeight(px,pz)+.012,pz],[w*.7,.012,h*.65]);}const groundShade=shadeBatch.finish().root,shadeMesh=groundShade.children[0],shadeBases=Array.from({length:shadeMesh.count},(_,i)=>{const m=new THREE.Matrix4();shadeMesh.getMatrixAt(i,m);return m});
  const details=batch.finish();const windy=windBatch.finish();const windMesh=windy.root.children[0],windBases=Array.from({length:windMesh.count},(_,i)=>{const m=new THREE.Matrix4();windMesh.getMatrixAt(i,m);return m});
- return {heightAt:nineHeight,field,windMesh,windBases,root,floors,roadPoints,catSteps,stones,rest,signPost,sign,targets:targets.map(t=>({kind:'inspect',profiles:['human','cat'],range:3,localPoint:[0,0,0],...t})),materials:{grass,earth,stone,stoneSurface,dark},addedLights:0};
+ return {heightAt:nineHeight,field,groundShade,shadeMesh,shadeBases,windMesh,windBases,root,floors,roadPoints,catSteps,stones,rest,signPost,sign,targets:targets.map(t=>({kind:'inspect',profiles:['human','cat'],range:3,localPoint:[0,0,0],...t})),materials:{grass,earth,stone,stoneSurface,dark},addedLights:0};
 }
 export function connectNineStones({region,walking,inspections,stay,townLife,dialogue,ambientAudio}){
  let timer=0,windTime=0,grassUpdates=0;const windMatrix=region.windBases[0].clone();
@@ -49,7 +50,7 @@ export function connectNineStones({region,walking,inspections,stay,townLife,dial
  function record(id,text,kind='place'){stay.data.discoveries[id]={day:stay.data.currentDay,playerMode:walking.state.profile.id,period:townLife.state.period,label:text};stay.note(id,text,{kind,playerMode:walking.state.profile.id});stay.changed();}
  inspections.onPresent(({entry})=>{if(!entry.id.startsWith('nine:'))return;const cat=entry.profiles?.length===1&&entry.profiles[0]==='cat';record(entry.id,entry.id==='nine:lookout'?'上から見ると、九石は円の名残のようにも見える。':cat?entry.text:entry.text??entry.label,cat?'cat-discovery':'place');});
  // Existing ambient context and mute apply; no new audio context or clock.
- function paint(){const wet=townLife.state.weather==='rain';region.materials.stone.color.set(wet?0x7d8580:0x92978e);region.materials.stoneSurface.color.copy(region.materials.stone.color);region.materials.grass.color.set(wet?0x657260:townLife.state.season==='autumn'?0x858166:0x78806a);}
+ function paint(){for(let i=0;i<region.shadeBases.length;i++){windMatrix.copy(region.shadeBases[i]);const factor=townLife.state.period==='morning'?1.25:townLife.state.period==='evening'?1:.55;for(const n of [8,9,10])windMatrix.elements[n]*=factor;region.shadeMesh.setMatrixAt(i,windMatrix);}region.shadeMesh.instanceMatrix.needsUpdate=true;region.groundShade.visible=townLife.state.period!=='night';const wet=townLife.state.weather==='rain';region.materials.stone.color.set(wet?0x7d8580:0x92978e);region.materials.stoneSurface.color.copy(region.materials.stone.color);region.materials.grass.color.set(wet?0x657260:townLife.state.season==='autumn'?0x858166:0x78806a);}
  townLife.onChange(paint);paint();
  ambientAudio.zones.push({id:'nine-wind',area:'town',position:nineLayout.centre,radius:50,gain:.25,src:null});
  function update(dt){timer+=dt;if(timer<.5)return;const elapsed=timer;timer=0;windTime+=elapsed;if(!walking.active)return;const p=walking.state.feet;if(p.x>-165)return;const near=Math.hypot(p.x+190,p.z+30)<45;if(near){const gust=.5+.5*Math.sin(windTime*.19);for(let i=0;i<region.windBases.length;i++){windMatrix.copy(region.windBases[i]);windMatrix.elements[4]+=(.02+.05*gust)*Math.sin(windTime*1.2+i*.7);region.windMesh.setMatrixAt(i,windMatrix);}region.windMesh.instanceMatrix.needsUpdate=true;grassUpdates++;}if(!stay.data.discoveries['nine:visit']&&p.x<-176)record('nine:visit','街道の先に、九つの古い石があった。');
