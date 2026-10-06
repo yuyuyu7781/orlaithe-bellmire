@@ -12,7 +12,7 @@ export function buildNineStones({THREE,scene,box}){
  for(let i=0;i<9;i++){const f=slab(-187,10+(i+1)*.14,-37-i*.65,5,6.5+(i+1)*.14,1,grass);f.userData.walkSurface=true;floors.push(f);}
  const top=slab(-187,11.26,-43,7,7.76,4,grass);top.userData.walkSurface=true;floors.push(top);
  const placements=[[-197,-34,2.8,1.0,.8,.06],[-195,-27,.48,2.0,.9,0],[-190,-24,2.1,.8,.9,-.10],[-184,-25,1.9,1,.8,.12],[-181,-31,2.4,.85,.75,-.08],[-184,-36,1.7,1.2,.8,.06],[-190,-38,2.3,.9,.65,.18],[-195,-38,.95,1.1,1.0,-.04],[-199,-30,2.5,.75,1.0,.04]];
- placements.forEach(([x,z,h,w,d,tilt],i)=>{const geo=new THREE.CylinderGeometry(w*.37,w*.52,h,5+i%3,1);const o=new THREE.Mesh(geo,stone);o.position.set(x,10+h/2,z);o.rotation.set(tilt,i*.63,tilt*.6);o.castShadow=false;root.add(o);o.name='Nine Stones '+(i+1);stones.push(o);if(i===1||i===7){o.userData.catStep=true;catSteps.push(o);}if([2,4,8].includes(i))targets.push({id:'nine:stone-'+(i+1),object:o,label:['欠けた石の線','風化した円','石の小さな窪み'][[2,4,8].indexOf(i)],text:['欠けた面に数本の浅い線。水辺の石とは違うのに、指が同じところで止まる。','円は閉じていない。風に削られたのか、はじめからそうだったのか。','小さな窪みが散っている。星図の点にも、ただの傷にも見える。'][[2,4,8].indexOf(i)]});});
+ placements.forEach(([x,z,h,w,d,tilt],i)=>{const geo=new THREE.CylinderGeometry(w*.37,w*.52,h,5+i%3,1);const vertices=geo.attributes.position;for(let v=0;v<vertices.count;v++){const y=vertices.getY(v);if(y>0)vertices.setY(v,y-(i===2?.24*Math.max(0,vertices.getX(v)):0));vertices.setX(v,vertices.getX(v)*(1+.06*Math.sin(v*2.3+i)));}geo.computeVertexNormals();const o=new THREE.Mesh(geo,stone);o.position.set(x,10+h/2,z);o.rotation.set(tilt,i*.63,tilt*.6);o.castShadow=false;root.add(o);o.updateWorldMatrix(true,true);o.position.y+=10-new THREE.Box3().setFromObject(o,true).min.y;o.name='Nine Stones '+(i+1);stones.push(o);if(i===1||i===7){o.userData.catStep=true;catSteps.push(o);}if([2,4,8].includes(i))targets.push({id:'nine:stone-'+(i+1),object:o,label:['欠けた石の線','風化した円','石の小さな窪み'][[2,4,8].indexOf(i)],text:['欠けた面に数本の浅い線。水辺の石とは違うのに、指が同じところで止まる。','円は閉じていない。風に削られたのか、はじめからそうだったのか。','小さな窪みが散っている。星図の点にも、ただの傷にも見える。'][[2,4,8].indexOf(i)]});});
  const batch=createDetailBatch(THREE,root,'Nine Stones sparse verge');
  for(let i=0;i<30;i++){const x=-177-(i%10)*2.4,z=-22-Math.floor(i/10)*8;batch.add('leaf',dark,[x,10.12,z],[.16,.24,.13]);}
  for(let i=0;i<6;i++)batch.add('block',stone,[-151-i*.8,9.7,-19],[.72,.4,.32]);
@@ -21,7 +21,8 @@ export function buildNineStones({THREE,scene,box}){
  batch.add('block',wood,[-177,10.05,-33],[.6,.1,.13]);batch.add('block',dark,[-177.4,10.03,-33],[.7,.06,.6]);
  // Three modest physical marks; no emissive runes or particle system.
  for(const i of [2,4,8]){const q=placements[i];for(let j=0;j<3;j++)batch.add('block',dark,[q[0]-.2+j*.13,10.55+j*.03,q[1]+q[4]*.47],[.035,.24,.025]);}
- const catMark=slab(-194.9,10.07,-26.4,.24,.025,.16,dark);catMark.userData.walkSoft=true;
+ const arc=new THREE.Mesh(new THREE.TorusGeometry(.18,.009,3,10,Math.PI*1.4),dark);arc.position.set(-181,10.65,-30.60);arc.userData.walkSoft=true;root.add(arc);
+ const catMark=slab(-195,10.07,-25.7,.24,.025,.16,dark);catMark.userData.walkSoft=true;
  targets.push({id:'nine:cat-lines',object:catMark,label:'倒石の裏の線',text:'草と冷たい石の匂い。倒れた石の裏側にも、浅い線が続いている。',profiles:['cat'],range:1.4});
  const lowMark=slab(-199.4,10.06,-30.5,.18,.018,.18,dark);lowMark.userData.walkSoft=true;targets.push({id:'nine:cat-circle',object:lowMark,label:'草の中の小さな輪',text:'低い草の間に、輪の一部が残る。石の上からは見えなかった。',profiles:['cat'],range:1.4});
  const view=slab(-187,11.3,-43,.4,.04,.4,earth);view.userData.walkSoft=true;targets.push({id:'nine:lookout',object:view,label:'石群を見渡す低い丘',kind:'quiet-view',verb:'眺める',viewEye:[-187,13,-43],viewFocus:[-191,10.6,-30],text:'離れて見ると、円の名残のようにも見える。'});
@@ -37,12 +38,14 @@ export function buildNineStones({THREE,scene,box}){
 export function connectNineStones({region,walking,inspections,stay,townLife,dialogue,ambientAudio}){
  let timer=0;
  for(const entry of inspections.resolver.entries.values()){if(entry.kind!=='talk')continue;const c=entry.character,prior=c.calendarReply;c.calendarReply=args=>prior?.(args)??(args.profile==='human'&&stay.data.discoveries['nine:visit']&&args.index%3===1?{starmaker:'その配置……古い星図に少し似ています。でも、同じとは限りません。',bookseller:'昔の記録では、石の数が違うものもある。数え方も、同じだったかどうか。',greenBard:'昔からあるよ。少なくとも、僕が知る限りでは。'}[c.id]??null:null);}
- function record(id,text,kind='place'){stay.data.discoveries[id]={day:stay.data.currentDay,playerMode:walking.state.profile.id,period:townLife.state.period,label:text};stay.note(id,text,{kind});stay.changed();}
+ function record(id,text,kind='place'){stay.data.discoveries[id]={day:stay.data.currentDay,playerMode:walking.state.profile.id,period:townLife.state.period,label:text};stay.note(id,text,{kind,playerMode:walking.state.profile.id});stay.changed();}
  inspections.onPresent(({entry})=>{if(!entry.id.startsWith('nine:'))return;const cat=entry.profiles?.length===1&&entry.profiles[0]==='cat';record(entry.id,entry.id==='nine:lookout'?'上から見ると、九石は円の名残のようにも見える。':cat?entry.text:entry.text??entry.label,cat?'cat-discovery':'place');});
  // Existing ambient context and mute apply; no new audio context or clock.
+ function paint(){const wet=townLife.state.weather==='rain';region.materials.stone.color.set(wet?0x7d8580:0x92978e);region.materials.grass.color.set(wet?0x657260:townLife.state.season==='autumn'?0x858166:0x78806a);}
+ townLife.onChange(paint);paint();
  ambientAudio.zones.push({id:'nine-wind',area:'town',position:nineLayout.centre,radius:50,gain:.25,src:null});
  function update(dt){timer+=dt;if(timer<.5)return;const elapsed=timer;timer=0;if(!walking.active)return;const p=walking.state.feet;if(p.x>-165)return;if(!stay.data.discoveries['nine:visit']&&p.x<-176)record('nine:visit','街道の先に、九つの古い石があった。');
-  if(p.x<-178&&!stay.data.discoveries['nine:wind']&&['fog','rain'].includes(townLife.state.weather)){windSeconds+=elapsed;if(windSeconds>18){record('nine:wind','石の間に低い響きが残った。風が止むと、聞こえなくなった。');ambientAudio.stoneResonance?.();}}else windSeconds=0;
+  if(p.x<-178&&!stay.data.discoveries['nine:wind']&&townLife.state.period==='evening'&&townLife.state.weather==='fog'){windSeconds+=elapsed;if(windSeconds>18){record('nine:wind','石の間に低い響きが残った。風が止むと、聞こえなくなった。');ambientAudio.stoneResonance?.();}}else windSeconds=0;
  }
  let windSeconds=0;return{update,get visited(){return !!stay.data.discoveries['nine:visit']}};
 }
