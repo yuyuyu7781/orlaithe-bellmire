@@ -32,5 +32,6 @@ export function createNavigation({walking,shopSystem,stay=null,panel=document.ge
   if(room)return;
   arrow.style.transform='rotate('+reading.bearing+'rad)';distance.textContent=target.name+' · '+Math.round(reading.distance)+'m（直線）';guide.setAttribute('aria-label',target.name+'の方角の目安。道沿いに進んでください。');
  }
- return {destinations,state,tools,guide,notice,choose,update,destroy(){tools.remove();guide.remove();notice.remove();}};
+ function setDestinations(list){const id=state.selected?.id;destinations.splice(0,destinations.length,...list.map(d=>({...d,position:[...d.position]})));select.replaceChildren(new Option("案内なし",""));for(const d of destinations)select.add(new Option(d.name,d.id));choose(id??"");}
+ return {setDestinations,destinations,state,tools,guide,notice,choose,update,destroy(){tools.remove();guide.remove();notice.remove();}};
 }

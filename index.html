@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Bellmire v23.3 — Orlaithe miniature</title>
+<title>Orlaithe v24.4 — Orlaithe miniature</title>
 <link rel="stylesheet" href="./portrait.css">
 <link rel="stylesheet" href="./navigation.css">
 <link rel="stylesheet" href="./stay.css">
@@ -19,11 +19,12 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 
 
 .room-label{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:4;color:#eee5ce;background:#292c27dd;border:1px solid #a1926d88;border-radius:7px;padding:7px 13px;font:13px Georgia,serif;pointer-events:none}.room-label[hidden]{display:none}@media(max-width:700px){.room-label{top:68px;font-size:12px;white-space:nowrap}}
+.region-picker{display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1px solid #9c927b;font-size:12px;flex-wrap:wrap}.region-picker select{max-width:150px;background:#ece2cc;color:#443e33;border:1px solid #a19882;border-radius:5px;padding:4px}.region-location{font-size:10px;color:#c4bdab}#views{max-height:156px;overflow-y:auto}@media(max-width:700px){.region-picker{padding:5px 8px}.region-location{display:none}}
 </style></head>
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v23.3</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v24.4</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
 <div class="row"><button id="walk">人間で歩く</button><button id="catWalk">猫で歩く</button><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div>
 <div class="row"><label>時刻 <select id="timePeriod" aria-label="街の時間帯"><option value="morning">朝</option><option value="day" selected>昼</option><option value="evening">夕</option><option value="night">夜</option></select></label><label>品質 <select id="qualitySelect" aria-label="描画品質"><option value="standard">Standard</option><option value="high">High</option><option value="mobile">Mobile</option></select></label></div>
@@ -40,6 +41,8 @@ import * as THREE from 'three';
 import {createMinimap} from './minimap.js';
 import {townRoads} from './town-roads.js';
 import {buildNineStones,connectNineStones} from './nine-stones.js';
+import {buildLakeLun,connectLakeLun} from './lake-lun.js';
+import {createRegionData,createRegions} from './regions.js';
 import {buildOutskirts} from './outskirts.js';
 import {createNavigation} from './navigation.js';
 import {createShopSystem} from './shop-system.js';
@@ -1078,7 +1081,7 @@ pedestrianSteps(41.2,9.2,10.3,1,lowerLandingY,1.2,3);
 
 let view='overview',followMode=false,followIdx=0;
 const viewMap={overview:[[30,78,65],[-2,7,6]],alley:[[-15,6,36],[-9,5,23]],streetwalk:[[-34,4.4,34],[-18,3.5,24]],resident:[[-4,4.3,29],[-9,3.1,24]],catview:[[-25,3.3,16],[-20,2.0,18]],bakery:[[-39,7,34],[-31,4,24]],bookshop:[[-25,7,38],[-18,6,29]],inn:[[-49,11,11],[-39,8,-1]],tavern:[[-10,8,27],[-10,5.2,12.2]],orrery:[[15,17,12],[3,12,-3]],square:[[-31,6,16],[-24,2,7]],roofgarden:[[-38,18,-8],[-28,11,-18]],mill:[[26.5,10.6,25.5],[21,5.8,27]],archway:[[39,10,21],[28,5,9]],canal:[[24,72,36],[20,4,9]],rooftop:[[-5,21,13],[-20,7,0]],belfry:[[-4,27,-17],[-13,23,-32]],drone:[[0,33,45],[-8,6,-5]],train:[[51,7,19],[43.5,2.5,12]]};
-function setView(v){if(walking.active)walking.leave();view=v;followMode=false;document.getElementById('follow').classList.remove('active');const[p,t]=viewMap[v];camera.position.fromArray(p);controls.target.fromArray(t);controls.enabled=!['drone','train'].includes(v);quality.update(2);document.querySelectorAll('#views button').forEach(b=>b.classList.toggle('active',b.dataset.v===v))}
+function setView(v){if(!viewMap[v]){regionSystem.camera(v);return;}if(walking.active)walking.leave();view=v;followMode=false;document.getElementById('follow').classList.remove('active');const[p,t]=viewMap[v];camera.position.fromArray(p);controls.target.fromArray(t);controls.enabled=!['drone','train'].includes(v);quality.update(2);document.querySelectorAll('#views button').forEach(b=>b.classList.toggle('active',b.dataset.v===v))}
 function setWeather(w){rain.visible=w==='rain';atmosphere.apply(w);townLife.setWeather(w);document.getElementById("timePeriod").value=townLife.state.period;document.querySelectorAll('#weather button').forEach(b=>b.classList.toggle('active',b.dataset.w===w))}
 document.getElementById('weather').onclick=e=>e.target.dataset.w&&setWeather(e.target.dataset.w);document.getElementById('views').onclick=e=>e.target.dataset.v&&setView(e.target.dataset.v);residentSel.onchange=e=>followIdx=+e.target.value;
 follow.onclick=()=>{if(walking.active){walking.leave();setView(view)}followMode=!followMode;follow.classList.toggle('active',followMode);controls.enabled=!followMode};fullscreen.onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen?.();toggle.onclick=()=>{panel.classList.toggle('collapsed');toggle.textContent=panel.classList.contains('collapsed')?'操作':'街を見る'};if(innerWidth<701)panel.classList.add('collapsed');
@@ -1086,11 +1089,11 @@ follow.onclick=()=>{if(walking.active){walking.leave();setView(view)}followMode=
 const catPath=[new THREE.Vector3(-39,3.5,11.4),new THREE.Vector3(-36,3.5,11.4),new THREE.Vector3(-33,3.5,11.4),new THREE.Vector3(-30,3.5,11.4),new THREE.Vector3(-27,3.5,11.4)];
 function walkPath(points,u,out){const n=points.length-1,q=Math.min(n-.0001,u*n),i=Math.floor(q),f=q-i;out.lerpVectors(points[i],points[i+1],f);return points[Math.min(i+1,n)]}
 const _catPos=new THREE.Vector3();
-const clock=new THREE.Clock();let previousFrame=0;function animate(){requestAnimationFrame(animate);const t=clock.getElapsedTime(),dt=Math.min(.05,Math.max(0,t-previousFrame));previousFrame=t;if(wheel)wheel.rotation.z=-t*.22;millrace.update(t);if(orrery)orrery.rotation.y=t*.08;if(orrery)orrery.rotation.x=Math.sin(t*.05)*.12;updateCableCar(t);
+const clock=new THREE.Clock();let previousFrame=0,farDetailTime=0;function animate(){requestAnimationFrame(animate);const t=clock.getElapsedTime(),dt=Math.min(.05,Math.max(0,t-previousFrame));previousFrame=t;farDetailTime+=dt;const townDetails=camera.position.x>-165||followMode||farDetailTime>=(quality.current==='mobile'?1:.5);if(townDetails){farDetailTime=0;if(wheel)wheel.rotation.z=-t*.22;millrace.update(t);if(orrery)orrery.rotation.y=t*.08;if(orrery)orrery.rotation.x=Math.sin(t*.05)*.12;updateCableCar(t);
 routes.forEach((r,i)=>{const phase=t*r.s+i,u=(Math.sin(phase)+1)/2,forward=Math.cos(phase)>=0;r.p.position.lerpVectors(r.a,r.b,u);r.p.lookAt(forward?r.b:r.a);const gait=r.p.userData.residentLife;const swing=Math.sin(t*5*(gait?.gaitSpeed??1)+i)*.48*(gait?.gaitAmplitude??1);r.p.userData.legs[0].rotation.x=swing;r.p.userData.legs[1].rotation.x=-swing;r.p.userData.arms[0].rotation.x=-swing*.7;r.p.userData.arms[1].rotation.x=swing*.7;grounding.actor(r.p,r.p.userData.legs)});
 const ru=(Math.sin(t*.11)+1)/2,rForward=Math.cos(t*.11)>=0;residentV8.position.lerpVectors(new THREE.Vector3(-1,3.5,18),new THREE.Vector3(5,3.5,18),ru);residentV8.rotation.y=rForward?Math.PI/2:-Math.PI/2;const rs=Math.sin(t*4.8)*.42;residentLegs[0].rotation.x=rs;residentLegs[1].rotation.x=-rs;residentArms[0].rotation.x=-rs*.65;residentArms[1].rotation.x=rs*.65;grounding.actor(residentV8,residentLegs);
 const raw=(Math.sin(t*.115)+1)/2,cu=raw<.08?0:raw>.92?1:(raw-.08)/.84;walkPath(catPath,cu,_catPos);cat.position.copy(_catPos);cat.rotation.y=Math.cos(t*.115)>=0?0:Math.PI;const cs=Math.sin(t*7.5)*.5;catLegs[0].rotation.z=cs;catLegs[1].rotation.z=-cs;catLegs[2].rotation.z=-cs;catLegs[3].rotation.z=cs;tail.rotation.z=.15+Math.sin(t*2.2)*.18;grounding.actor(cat,catLegs);
-smoke.forEach((q,i)=>{const u=(t*.09+i/smoke.length)%1;const cs=chimneySources[i%chimneySources.length];q.position.set(cs[0]+Math.sin(t*.4+i)*.45,cs[1]+u*12,cs[2]+Math.cos(t*.35+i)*.35);q.scale.setScalar(.5+u*2.3);q.material.opacity=.14*(q.userData.lifeSmokeFactor??1)*(1-u)});rain.position.set(walking.active&&!shopSystem.current&&walking.state.feet.x<-53?walking.state.feet.x:0,0,walking.active&&!shopSystem.current&&walking.state.feet.x<-53?walking.state.feet.z:0);if(rain.visible){const p=rg.attributes.position.array;for(let i=0;i<N;i++){p[i*3+1]-=.48;if(p[i*3+1]<0)p[i*3+1]=65}rg.attributes.position.needsUpdate=true}townLife.tick(dt,walking.active&&!walking.state.inputBlocked&&!document.hidden);shopSystem.update(dt);residentDay.update(dt);storyThread.update(dt);nineStay.update(dt);if(!walking.active&&view==='catview'&&!followMode){const cp=cat.position.clone();camera.position.lerp(cp.clone().add(new THREE.Vector3(-4.2,2.5,4.6)),.08);controls.target.lerp(cp.clone().add(new THREE.Vector3(0,catViewSettings.focusHeight,0)),.10);}if(!walking.active&&view==='drone'&&!followMode){camera.position.set(Math.sin(t*.07)*52,29+Math.sin(t*.11)*4,Math.cos(t*.07)*52);camera.lookAt(-8,6,-4)}if(!walking.active&&view==='train'&&!followMode){camera.position.copy(train.position).add(new THREE.Vector3(7.5,5.5,7));controls.target.copy(train.position).add(new THREE.Vector3(0,1.2,0));camera.lookAt(controls.target)}if(followMode){const p=residents[followIdx],d=new THREE.Vector3(),focus=shopSystem.trackingPoint(p);p.getWorldDirection(d);camera.position.lerp(focus.clone().add(new THREE.Vector3(0,2.8,0)).add(d.multiplyScalar(-4.5)),.07);camera.lookAt(focus.clone().add(new THREE.Vector3(0,1.4,0)))}if(walking.active)walking.update(dt);else controls.update();quietStay.update(dt);inspections.update(dt);navigation.update(dt);minimap.update(dt);ambientAudio.update(dt);atmosphere.update(walking.active);quality.update(dt);residentLife.update(t);diagnostics.before();composer.render();diagnostics.update()}
+smoke.forEach((q,i)=>{const u=(t*.09+i/smoke.length)%1;const cs=chimneySources[i%chimneySources.length];q.position.set(cs[0]+Math.sin(t*.4+i)*.45,cs[1]+u*12,cs[2]+Math.cos(t*.35+i)*.35);q.scale.setScalar(.5+u*2.3);q.material.opacity=.14*(q.userData.lifeSmokeFactor??1)*(1-u)});}rain.position.set(walking.active&&!shopSystem.current&&walking.state.feet.x<-53?walking.state.feet.x:0,0,walking.active&&!shopSystem.current&&walking.state.feet.x<-53?walking.state.feet.z:0);if(rain.visible){const p=rg.attributes.position.array;for(let i=0;i<N;i++){p[i*3+1]-=.48;if(p[i*3+1]<0)p[i*3+1]=65}rg.attributes.position.needsUpdate=true}townLife.tick(dt,walking.active&&!walking.state.inputBlocked&&!document.hidden);shopSystem.update(dt);residentDay.update(dt);storyThread.update(dt);nineStay.update(dt);lakeStay.update(dt);regionSystem.update(dt);if(!walking.active&&view==='catview'&&!followMode){const cp=cat.position.clone();camera.position.lerp(cp.clone().add(new THREE.Vector3(-4.2,2.5,4.6)),.08);controls.target.lerp(cp.clone().add(new THREE.Vector3(0,catViewSettings.focusHeight,0)),.10);}if(!walking.active&&view==='drone'&&!followMode){camera.position.set(Math.sin(t*.07)*52,29+Math.sin(t*.11)*4,Math.cos(t*.07)*52);camera.lookAt(-8,6,-4)}if(!walking.active&&view==='train'&&!followMode){camera.position.copy(train.position).add(new THREE.Vector3(7.5,5.5,7));controls.target.copy(train.position).add(new THREE.Vector3(0,1.2,0));camera.lookAt(controls.target)}if(followMode){const p=residents[followIdx],d=new THREE.Vector3(),focus=shopSystem.trackingPoint(p);p.getWorldDirection(d);camera.position.lerp(focus.clone().add(new THREE.Vector3(0,2.8,0)).add(d.multiplyScalar(-4.5)),.07);camera.lookAt(focus.clone().add(new THREE.Vector3(0,1.4,0)))}if(walking.active)walking.update(dt);else controls.update();quietStay.update(dt);inspections.update(dt);navigation.update(dt);minimap.update(dt);ambientAudio.update(dt);atmosphere.update(walking.active);quality.update(dt);residentLife.update(t);diagnostics.before();composer.render();diagnostics.update()}
 // Add v10.8+ construction above this finalization point. Preserve the legacy
 // checkpoints; retire intentionally replaced meshes explicitly instead of
 // extending geometry filters to newly built waterfront groups.
@@ -1154,11 +1157,12 @@ const miniatureGoods=addMiniatureGoods(culture);
 const harborGoods=addHarborGoods(culture);
 const outskirts=buildOutskirts({THREE,scene,box});
 const nineStones=buildNineStones({THREE,scene,box});
+const lakeLun=buildLakeLun({THREE,scene,box});
 const walking=createWalkingSystem({THREE,scene,camera,controls,canvas:renderer.domElement,
-  terrainSamplers:[nineStones.heightAt],terrain:[...townGround,...outskirts.floors,...nineStones.floors,cliffSkirts[1],...cliffSkirts[4].children],surfaces:harborSupports,
+  terrainSamplers:[nineStones.heightAt,lakeLun.heightAt],terrain:[...townGround,...outskirts.floors,...nineStones.floors,...lakeLun.floors,cliffSkirts[1],...cliffSkirts[4].children],surfaces:harborSupports,
   surfaceMaterials:[path,v8Stone,stone101],dynamicObjects:[train,p0,bard,shopResidents[4],talkingDockWorker,shopResidents[1]],
   ignoredObjects:[...residents,residentV8,cat,...smoke,wheel,orrery],
-  waterMaterials:[water,water101],
+  waterMaterials:[water,water101,lakeLun.materials.water],
   trackBounds:new THREE.Box3(new THREE.Vector3(42.15,1,-28.8),new THREE.Vector3(44.85,9,14)),
   spawn:new THREE.Vector3(0,harborLevels.quay,32)
 });
@@ -1167,7 +1171,7 @@ const humanRoutes=clearHumanRoutes({THREE,walking,grounding,catPassages});
 const inspectTargets=createInspectionTargets({culture,well:squareWell,
   moorings:inspectionMooring,
   wheel,millrace,landings:culture.landingBells[0],details:lifeDetails});
-inspectTargets.push(...outskirts.targets,...nineStones.targets);
+inspectTargets.push(...outskirts.targets,...nineStones.targets,...lakeLun.targets);
 const inspections=createInspectionSystem({THREE,scene,camera,walking,targets:inspectTargets,
   ignored:[...residents,residentV8,cat,...smoke,train,axle]});
 let stayStorage=null;try{stayStorage=localStorage;}catch{}
@@ -1211,7 +1215,7 @@ const residentDay=createResidentDay({THREE,walking,grounding,residentLife,townLi
 const visitorSystem=connectVisitors({THREE,people:visitorPeople.people,residentLife,residentDay,inspections,walking,shopSystem,townLife,stay:stayState});
 const namedTravel=createNamedTravel({THREE,walking,shopSystem,residentDay,dialogue,townLife,getQuality:()=>quality.current});
 const townEvents=createTownEvents({THREE,scene,culture,inspectTargets,inspections,walking,townLife,shopSystem,dialogue,stay:stayState});
-const catExploration=addCatExploration({THREE,walking,grounding,inspections,shopSystem,extraSteps:[...outskirts.catSteps,...nineStones.catSteps]});
+const catExploration=addCatExploration({THREE,walking,grounding,inspections,shopSystem,extraSteps:[...outskirts.catSteps,...nineStones.catSteps,...lakeLun.catSteps]});
 const ambientAudio=createAmbientAudio({camera,walking,shopSystem,townLife,getQuality:()=>quality.current});
 const restSystem=createRestSystem({THREE,walking,inspections,shopSystem,townLife,stay:stayState});
 window.BellmireStay=Object.freeze({get day(){return townLife.state.dayIndex},setSeason(season){townLife.setSeason(season);},resetProgress(){if(confirm('旅の記録と滞在の進行を初期化しますか。'))restSystem.reset();}});
@@ -1224,6 +1228,7 @@ const residentRelations=connectResidentRelations({THREE,residentLife,residentDay
 const storyThread=createStoryThread({THREE,stay:stayState,townLife,inspections,dialogue,ambientAudio,residentLife,walking,shopSystem,catPassages});
 const interiorLife=createInteriorLife({THREE,shopSystem,townLife});
 const nineStay=connectNineStones({region:nineStones,walking,inspections,stay:stayState,townLife,dialogue,ambientAudio});
+const lakeStay=connectLakeLun({lake:lakeLun,walking,inspections,stay:stayState,townLife,dialogue,ambientAudio,shopSystem});
 const quietStay=createQuietStay({THREE,camera,walking,shopSystem,inspections,stay:stayState});
 const stayAtmosphere=createStayAtmosphere({THREE,stay:stayState,townLife,inspections,dialogue,ambientAudio});
 const minimap=createMinimap({walking,shopSystem,inspections,navigation,buildings:miniature.shells,roads:[...Object.values(townRoads),outskirts.roadPoints,nineStones.roadPoints]});
@@ -1234,6 +1239,9 @@ townLife.onChange(harborDetails.applyTime);harborDetails.applyTime(townLife.stat
 const atmosphere=createAtmosphere({THREE,scene,camera,renderer,bloom,hemi,sun,dynamicRoots:[train,wheel,cat,...residents,residentV8]});
 const seasons=createSeasons({THREE,scene,townLife,sun});
 const quality=createQualitySystem({THREE,scene,camera,renderer,composer,bloom,sun});
+const bellmireCameraNames=Object.fromEntries([...document.querySelectorAll('#views button')].map(b=>[b.dataset.v,b.textContent]));
+const regionData=createRegionData(Object.entries(viewMap).map(([id,[eye,focus]])=>({id,name:bellmireCameraNames[id],eye,focus})),navigation.destinations.map(d=>({...d,position:[...d.position]})));
+const regionSystem=createRegions({THREE,regions:regionData,walking,stay:stayState,shopSystem,inspections,quietStay,navigation,minimap,getWalkingProfile:()=>walking.state.profile.id,roads:{bellmire:[...Object.values(townRoads),outskirts.roadPoints,nineStones.roadPoints],nine:[nineStones.roadPoints,lakeLun.roadPoints],lake:[lakeLun.roadPoints,[[-313,6,-45],[-313,6,-14]],[[-315,6,-24],[-324,6,-24]]]},setCamera:c=>{if(walking.active)walking.leave();view=c.id;followMode=false;follow.classList.remove('active');controls.enabled=true;camera.position.fromArray(c.eye);controls.target.fromArray(c.focus);camera.lookAt(controls.target);quality.update(2);document.querySelectorAll('#views button').forEach(b=>b.classList.toggle('active',b.dataset.v===c.id));}});
 const diagnostics=createTownDiagnostics({renderer,quality,residentDay,visitorSystem});
 quality.set(matchMedia('(pointer:coarse)').matches?'mobile':'standard');document.getElementById('qualitySelect').value=quality.current;document.getElementById('qualitySelect').onchange=e=>quality.set(e.target.value);
 townLife.onChange(state=>atmosphere.applyPeriod(state.period));
