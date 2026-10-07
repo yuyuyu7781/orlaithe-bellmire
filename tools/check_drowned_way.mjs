@@ -1,0 +1,8 @@
+import assert from 'node:assert/strict';
+import {selectLakeWater,setLakeWaterPhase,lakeWaterOffset} from '../lake-water-level.js';
+import {drownedLayout,drownedHeight,drownedBoatBlocked} from '../drowned-way.js';
+import {defaultStay,validateStay} from '../stay-state.js';
+const d=defaultStay();assert.equal(selectLakeWater(d).phase,'normal');d.currentDay=3;assert.equal(selectLakeWater(d).phase,'low');d.discoveries['drowned:rumor']={day:3};d.currentDay=4;d.waterLevelState=selectLakeWater(d);assert.equal(d.waterLevelState.phase,'veryLow');d.weather='rain';assert.equal(selectLakeWater(d).phase,'veryLow');d.currentDay=5;d.waterLevelState=selectLakeWater(d);assert.equal(d.waterLevelState.phase,'veryLow');d.currentDay=6;d.waterLevelState=selectLakeWater(d);assert.equal(d.waterLevelState.phase,'low');d.currentDay=7;assert.equal(selectLakeWater(d).phase,'normal');d.currentDay=11;assert.equal(selectLakeWater(d).phase,'veryLow');
+assert.deepEqual(validateStay({...d,threads:{drowned:{stage:'linked'}}}).threads.drowned,{stage:'linked'});assert.equal(validateStay({...d,waterLevelState:{day:4,phase:'bad',firstLowDay:'4'}}).waterLevelState.phase,'normal');
+for(const phase of ['normal','low','veryLow']){setLakeWaterPhase(phase);const [x,y,z]=drownedLayout.route[3];assert.equal(drownedHeight(x,z)!==null,phase==='veryLow');assert.equal(drownedBoatBlocked(x,z),phase!=='normal');assert.equal(drownedHeight(-360,-33),null);assert.equal(drownedHeight(-351,-36.7),null);if(phase==='veryLow')assert.ok(y>5.65+lakeWaterOffset()+.15);}
+setLakeWaterPhase('normal');console.log('PASS deterministic next-morning opening / daily rain stability / recurrence / old and malformed saves / submerged endpoint / boat exclusion');

@@ -9,11 +9,13 @@ const people=['baker','bookseller','boatworker','starmaker','greenBard',...lunme
 const eventIds=[...townEventDefinitions,...lakeTownEvents].map(e=>e.id),eventStages=['unseen','heard','noticed','resolved'];
 const object=v=>v&&typeof v==='object'&&!Array.isArray(v),integer=(n,fallback=1)=>Number.isSafeInteger(n)&&n>=1?Math.min(n,9999):fallback;
 const short=(s,max=500)=>typeof s==='string'?s.slice(0,max):'';
-export function defaultStay(){return {version:SAVE_VERSION,currentDay:1,dayPhase:'day',dayStart:1,weather:'clear',season:'spring',events:{},discoveries:{},memories:{},flags:{},journal:[],threads:{},weatherHistory:[],boatDock:'lunmere'};}
+export function defaultStay(){return {version:SAVE_VERSION,currentDay:1,dayPhase:'day',dayStart:1,weather:'clear',season:'spring',events:{},discoveries:{},memories:{},flags:{},journal:[],threads:{},weatherHistory:[],boatDock:'lunmere',waterLevelState:{day:0,phase:'normal',firstLowDay:null}};}
 // Whitelist and bounds protect every consumer; storage never supplies DOM/paths.
 export function validateStay(raw){
  const d=defaultStay();if(!object(raw)||raw.version!==SAVE_VERSION)return d;
  d.boatDock=['lunmere','lake','caerith'].includes(raw.boatDock)?raw.boatDock:'lunmere';
+ const level=raw.waterLevelState;if(object(level)){d.waterLevelState={day:Number.isSafeInteger(level.day)&&level.day>=1?integer(level.day):0,phase:['normal','low','veryLow'].includes(level.phase)?level.phase:'normal',firstLowDay:Number.isSafeInteger(level.firstLowDay)&&level.firstLowDay>=4?integer(level.firstLowDay):null};}
+ const drowned=raw.threads?.drowned;if(object(drowned))d.threads.drowned={stage:['unseen','heard','discovered','explored','marked','linked'].includes(drowned.stage)?drowned.stage:'unseen'};
  d.season=Object.hasOwn(seasonProfiles,raw.season)?raw.season:'spring';d.currentDay=integer(raw.currentDay);d.dayStart=integer(raw.dayStart);d.dayPhase=phases.includes(raw.dayPhase)?raw.dayPhase:'day';d.weather=weather.includes(raw.weather)?raw.weather:'clear';
  const thread=raw.threads?.bell;if(object(thread)){d.threads.bell={stage:['unseen','heard','chart','linked','anomaly','afterglow'].includes(thread.stage)?thread.stage:'unseen',anomalyDay:Number.isSafeInteger(thread.anomalyDay)?integer(thread.anomalyDay):null,catFound:thread.catFound===true};}
  for(const id of eventIds){const e=raw.events?.[id];if(object(e)&&eventStages.includes(e.state)){d.events[id]={state:e.state};for(const key of ['heardDay','noticedDay','resolvedDay','returnedDay'])if(Number.isSafeInteger(e[key])&&e[key]>=1)d.events[id][key]=integer(e[key]);for(const key of ['heardAt','noticedAt','resolvedAt'])if(phases.includes(e[key]))d.events[id][key]=e[key];}}

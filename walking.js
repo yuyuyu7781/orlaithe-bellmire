@@ -13,7 +13,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   surfaceMaterials,dynamicObjects,ignoredObjects,waterMaterials,trackBounds,spawn,terrainSamplers=[]}){
   const state={active:false,profile:walkingProfiles.human,feet:spawn.clone(),yaw:-Math.PI*.83,pitch:-.05};
   const input={keys:new Set(),touch:new Set(),forward:0,right:0};
-  const ground=[],floors=[],obstacles=[],waterZones=[],catSteps=[];let jumpState=null;
+  const ground=[],floors=[],obstacles=[],waterZones=[],waterSurfaces=[],catSteps=[];let jumpState=null;
   const upAxis=new THREE.Vector3(0,1,0),direction=new THREE.Vector3(),euler=new THREE.Euler(0,0,0,'YXZ');
   const dynamicBounds=dynamicObjects.map(object=>({object,bounds:new THREE.Box3()}));
   const terrainSet=new Set(terrain),surfaceSet=new Set(surfaces),ignored=new Set(ignoredObjects);
@@ -27,7 +27,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     for(let p=object;p;p=p.parent)if(ignored.has(p)||dynamicObjects.includes(p))return;
     const bounds=new THREE.Box3().setFromObject(object,true),g=object.geometry.parameters||{};
     if(terrainSet.has(object)){ground.push(bounds);return}
-    if(waterMaterials.includes(object.material)){waterZones.push(bounds);return}
+    if(waterMaterials.includes(object.material)){waterZones.push(bounds);waterSurfaces.push({object,bounds});return}
     // Only named decks and low stone/path slabs are floors; never roofs or cargo.
     const isFloor=surfaceSet.has(object)||object.userData.walkSurface||
       (object.geometry.type==='BoxGeometry'&&surfaceMaterials.includes(object.material)&&g.height<=.65&&Math.min(g.width,g.depth)>=.2);
@@ -67,7 +67,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   let actorIgnore=null;
   let area=null;const leaveListeners=new Set();
   function setArea(policy=null){area=policy;state.area=policy?.id??'town';}
-  function relocate(feet,{yaw=state.yaw,pitch=0}={}){const y=canStand(feet.x,feet.z,feet.y);if(y===null)throw Error('Unsafe walking destination');state.feet.set(feet.x,y,feet.z);state.yaw=yaw;state.pitch=pitch;clearInput();eyeY=y+state.profile.eyeHeight;updateCamera(0);}
+  function relocate(feet,{yaw=state.yaw,pitch=0}={}){const y=canStand(feet.x,feet.z,feet.y);if(y===null)throw Error('Unsafe walking destination');jumpState=null;state.feet.set(feet.x,y,feet.z);state.yaw=yaw;state.pitch=pitch;clearInput();eyeY=y+state.profile.eyeHeight;updateCamera(0);}
   function nearby(x,z,profile=state.profile){
     const found=new Set(),r=profile.radius;
     for(let ix=Math.floor((x-r)/cellSize);ix<=Math.floor((x+r)/cellSize);ix++)
@@ -83,7 +83,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     if(!Number.isFinite(y))return null;
     // Bridge only the tiny seams between existing dock planks, not open water.
     for(const b of floors)if(x>=b.min.x-.025&&x<=b.max.x+.025&&z>=b.min.z-.025&&z<=b.max.z+.025&&b.max.y<=currentY+profile.stepUp+.001)y=Math.max(y,b.max.y);
-    if(profile.id==='cat')for(const step of catSteps){const b=step.bounds;if(contains(b,x,z)&&b.max.y<=currentY+profile.stepUp+.001)y=Math.max(y,b.max.y);}
+    if(profile.id==='cat')for(const step of catSteps){if(!visible(step.object))continue;const b=step.bounds;if(contains(b,x,z)&&b.max.y<=currentY+profile.stepUp+.001)y=Math.max(y,b.max.y);}
     for(const b of waterZones)if(contains(b,x,z)&&b.max.y>=y-.04)return null;
     return y;
   }
@@ -108,7 +108,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
       if(edge===null||Math.abs(edge-y)>Math.max(p.stepUp,p.stepDown)+.001)return null;
     }
     if(area){for(const o of area.obstacles)if(intersectsBody(o.bounds,x,z,y,o.isFloor,o.round,p))return null;}
-    else for(const o of nearby(x,z,p))if(!o.disabled&&intersectsBody(o.bounds,x,z,y,o.isFloor,o.round,p))return null;
+    else for(const o of nearby(x,z,p))if(!o.disabled&&(!o.object||visible(o.object))&&intersectsBody(o.bounds,x,z,y,o.isFloor,o.round,p))return null;
     for(const o of dynamicBounds)if(o.object!==actorIgnore&&visible(o.object)&&intersectsBody(o.bounds,x,z,y,false,o.round??null,p))return null;
     return y;
   }
@@ -129,10 +129,10 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   function registerCatStep(object){object.updateWorldMatrix(true,true);const entry={object,bounds:new THREE.Box3().setFromObject(object,true)};catSteps.push(entry);object.userData.catStep=true;return entry;}
   function jumpPoint(from,to,t){const horizontal=Math.max(0,Math.min(1,(t-.22)/.56)),apex=Math.max(from.y,to.y)+.22,p=from.clone().lerp(to,horizontal);p.y=t<.22?from.y+(apex-from.y)*Math.sin(t/.22*Math.PI/2):t>.78?apex+(to.y-apex)*(1-Math.cos((t-.78)/.22*Math.PI/2)):apex+Math.sin((t-.22)/.56*Math.PI)*.03;return p;}
   function jump(){if(state.inputBlocked||!state.active||state.profile.id!=='cat'||jumpState)return false;refreshDynamic();const p={...state.profile,stepUp:1.05,stepDown:1.05},forward=new THREE.Vector3(-Math.sin(state.yaw),0,-Math.cos(state.yaw));
-    const candidates=catSteps.map(step=>({step,point:step.bounds.getCenter(new THREE.Vector3()).setY(step.bounds.max.y)})).filter(q=>{const delta=q.point.clone().sub(state.feet);return Math.hypot(delta.x,delta.z)<1.35&&delta.y>=-.95&&delta.y<=.90&&delta.clone().setY(0).normalize().dot(forward)>.15;}).sort((a,b)=>a.point.distanceTo(state.feet)-b.point.distanceTo(state.feet));
+    const candidates=catSteps.filter(step=>visible(step.object)).map(step=>({step,point:step.bounds.getCenter(new THREE.Vector3()).setY(step.bounds.max.y)})).filter(q=>{const delta=q.point.clone().sub(state.feet);return Math.hypot(delta.x,delta.z)<1.35&&delta.y>=-.95&&delta.y<=.90&&delta.clone().setY(0).normalize().dot(forward)>.15;}).sort((a,b)=>a.point.distanceTo(state.feet)-b.point.distanceTo(state.feet));
     candidates.push({step:null,point:state.feet.clone().addScaledVector(forward,.55)});
     for(const q of candidates){const y=canStand(q.point.x,q.point.z,state.feet.y,p);if(y===null)continue;q.point.y=y;if(Math.abs(y-state.feet.y)>.95)continue;let clear=true;
-      for(let i=1;i<=12;i++){const t=i/12,pos=jumpPoint(state.feet,q.point,t);if(groundAt(pos.x,pos.z,state.feet.y,p)===null){clear=false;break;}for(const o of nearby(pos.x,pos.z,p)){let belongs=false;for(let a=o.object;a;a=a.parent)if(a===q.step?.object)belongs=true;if(!belongs&&!o.disabled&&intersectsBody(o.bounds,pos.x,pos.z,pos.y,o.isFloor,o.round,p)){clear=false;break;}}if(!clear)break;}
+      for(let i=1;i<=12;i++){const t=i/12,pos=jumpPoint(state.feet,q.point,t);if(groundAt(pos.x,pos.z,state.feet.y,p)===null){clear=false;break;}for(const o of nearby(pos.x,pos.z,p)){let belongs=false;for(let a=o.object;a;a=a.parent)if(a===q.step?.object)belongs=true;if(!belongs&&!o.disabled&&(!o.object||visible(o.object))&&intersectsBody(o.bounds,pos.x,pos.z,pos.y,o.isFloor,o.round,p)){clear=false;break;}}if(!clear)break;}
       if(clear){jumpState={from:state.feet.clone(),to:q.point.clone(),elapsed:0,duration:.42};clearInput();return true;}
     }return false;
   }
@@ -228,10 +228,10 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   function inspectClearance(x,z,y,id='human'){
     const profile=walkingProfiles[id];if(!profile)throw Error('Unknown walking profile');
     const floor=groundAt(x,z,y,profile),support=canStand(x,z,y,profile);
-    const blocked=floor===null?[]:[...nearby(x,z,profile),...dynamicBounds.filter(o=>visible(o.object))].filter(o=>!o.disabled&&intersectsBody(o.bounds,x,z,floor,o.isFloor,o.round,profile));
+    const blocked=floor===null?[]:[...nearby(x,z,profile),...dynamicBounds.filter(o=>visible(o.object))].filter(o=>!o.disabled&&(!o.object||visible(o.object))&&intersectsBody(o.bounds,x,z,floor,o.isFloor,o.round,profile));
     return {walkable:support!==null,floor,blockers:blocked.map(o=>({name:o.object?.name||o.object?.geometry?.type||'track',min:o.bounds.min.toArray(),max:o.bounds.max.toArray()})),profile:id};
   }
   // Read-only world data also supports route validation and future actor policies.
   return {get active(){return state.active},state,input,setInputBlocked,enter,leave,update,groundAt,canStand,canStandAs,registerObstacle,refreshObstacle,registerCatStep,jump,catSteps,get jumping(){return !!jumpState;},setArea,relocate,onLeave(fn){leaveListeners.add(fn);return()=>leaveListeners.delete(fn);},profiles:walkingProfiles,lastLocations,
-    world:{ground,floors,obstacles,waterZones},refreshDynamic,inspectClearance,canStandTownAs,canStandActor,registerDynamicObject};
+    refreshWaterSurfaces(){for(const {object,bounds}of waterSurfaces){object.updateWorldMatrix(true,false);bounds.setFromObject(object,true);}},world:{ground,floors,obstacles,waterZones},refreshDynamic,inspectClearance,canStandTownAs,canStandActor,registerDynamicObject};
 }

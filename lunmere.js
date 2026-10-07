@@ -12,7 +12,7 @@ export function buildLunmere({THREE,scene,box,residentScale,lake}){
  const piece=(x,y,z,w,h,d,m,soft=false)=>{const o=box(x,y,z,w,h,d,m,root);o.userData.walkSoft=soft;return o;};
  function strip(points,width,m){const positions=[],indices=[];for(let i=0;i<points.length;i++){const a=points[Math.max(0,i-1)],b=points[Math.min(points.length-1,i+1)],len=Math.hypot(b[0]-a[0],b[2]-a[2]),nx=-(b[2]-a[2])/len*width/2,nz=(b[0]-a[0])/len*width/2,p=points[i];positions.push(p[0]+nx,p[1],p[2]+nz,p[0]-nx,p[1],p[2]-nz);if(i)indices.push(i*2-2,i*2,i*2-1,i*2-1,i*2,i*2+1);}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.setIndex(indices);g.computeVertexNormals();const o=new THREE.Mesh(g,m);o.userData.walkSoft=true;root.add(o);return o;}
  strip(layout.road,7,grass);strip(layout.road.map(p=>[p[0],p[1]+.005,p[2]]),2.5,stone);
- const land=piece(-431,5.85,26,68,.31,58,grass,true);floors.push(land);const inlet=piece(-421,5.76,-13,98,.02,22,water,true);
+ const land=piece(-431,4.85,26,68,1.31,58,grass,true);floors.push(land);const inlet=piece(-421,5.76,-13,98,.02,22,water,true);
  // A short supported bridge crosses a damp hollow, retaining the same route elevation.
  const bridge=piece(-360,5.97,14,5.5,.16,2.7,wood);bridge.userData.walkFloor=true;bridge.userData.walkSoft=true;floors.push(bridge);for(const x of [-362,-358])for(const z of [12.8,15.2])piece(x,5.5,z,.16,.63,.16,wood,true);
  const shops=lunmereShops.map(s=>({...s,craftTemplate:s.type==='workshop'?lake.boat:null,buildInterior:buildLunmereInterior}));

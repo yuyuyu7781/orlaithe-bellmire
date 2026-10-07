@@ -19,6 +19,11 @@ export function buildLakeLun({THREE,scene,box}){
  const bank=[];for(let j=0;j<26;j++){const z=-48+j*2,r=z+2,a=lakeEdge(z),b=lakeEdge(r);const v=[a,bankY(a,z),z],w=[-294,bankY(-294,z),z],q=[b,bankY(b,r),r],t=[-294,bankY(-294,r),r];bank.push(...v,...q,...t,...v,...t,...w);bank.push(...v,a,3.5,z,b,3.5,r,...v,b,3.5,r,...q);}mesh(bank,materials.grass,'Lake Lun gently irregular bank');
  const endBanks=[];for(const z of [-48,4]){const west=-371+4*Math.cos((z+20)*.09),east=lakeEdge(z),outside=z+(z<0?-8:8);for(let i=0;i<12;i++){const x=west+(east-west)*i/12,nx=west+(east-west)*(i+1)/12;// Open only the southern island-side shore; the lake, pier and eastern bank stay in place.
  if(z<0&&x<-339)continue;const a=[x,5.98,z],b=[nx,5.98,z],c=[nx,6.7+.3*Math.sin(i),outside],d=[x,6.7+.3*Math.sin(i),outside];if(z<0)endBanks.push(...a,...b,...c,...a,...c,...d);else endBanks.push(...a,...c,...b,...a,...d,...c);}}mesh(endBanks,materials.grass,'Lake Lun low enclosing end banks');
+ // Lower water reveals the old bank faces; retain the same shoreline and
+ // walking heights, supporting its edge below all three water states.
+ const coastFaces=[];function bankFace(a,b,reverse=false){const c=[a[0],4.85,a[2]],d=[b[0],4.85,b[2]];if(reverse)coastFaces.push(...a,...b,...c,...b,...d,...c);else coastFaces.push(...a,...c,...b,...b,...c,...d);}
+ for(let j=0;j<26;j++){const z=-48+j*2,n=z+2;bankFace([lakeEdge(z),5.98,z],[lakeEdge(n),5.98,n]);bankFace([-371+4*Math.cos((z+20)*.09),5.98,z],[-371+4*Math.cos((n+20)*.09),5.98,n],true);}
+ for(const z of [-48,4]){const west=-371+4*Math.cos((z+20)*.09),east=lakeEdge(z);for(let i=0;i<12;i++){const x=west+(east-west)*i/12,nx=west+(east-west)*(i+1)/12;if(z<0&&x<-339)continue;bankFace([x,5.98,z],[nx,5.98,z],z>0);}}mesh(coastFaces,materials.earth,'Lake Lun supported low-water banks');
  const water=[];for(let j=0;j<26;j++){const z=-48+j*2,r=z+2,a=lakeEdge(z),b=lakeEdge(r),far=-371+4*Math.cos((z+20)*.09),nextFar=-371+4*Math.cos((r+20)*.09);water.push(a,5.65,z,nextFar,5.65,r,b,5.65,r,a,5.65,z,far,5.65,z,nextFar,5.65,r);}const lake=mesh(water,materials.water,'Lake Lun enclosed water');lake.userData.walkSoft=false;
  function slab(x,y,z,w,h,d,m){const o=box(x,y-h,z,w,h,d,m,root);o.castShadow=false;return o;}
  // A narrow but turnable pier; open water is never part of the terrain sampler.
@@ -52,7 +57,7 @@ export function buildLakeLun({THREE,scene,box}){
  {id:'lake:cat-reeds',object:reedMark,label:'葦の間の丸い欠片',text:'葦を抜けると、小さな丸い欠片。水の匂いの奥に、冷たい石が残る。',profiles:['cat'],range:1.5},
  {id:'lake:pier-view',object:pier,label:'桟橋から湖を眺める',kind:'quiet-view',verb:'眺める',viewEye:[-322,7.5,-24],viewFocus:[-350,5.8,-24],text:'桟橋で立ち止まると、岸の水音だけが近くなった。'},
  {id:'lake:shore-view',object:log,label:'湖畔で休む',kind:'quiet-view',verb:'座る',viewEye:[-308,7,-17],viewFocus:[-349,6,-22],text:'湖の向こうにも、低い岸が続いていた。'});
- batch.finish();return{root,materials,floors,roadPoints,catSteps,targets:targets.map(t=>({kind:'inspect',profiles:['human','cat'],range:3,localPoint:[0,0,0],...t})),heightAt:lakeHeight,lake,pier,boat,rope,rock,log,peg,driftwood,addedLights:0};
+ batch.finish();return{waterTraces:batch.root.children.filter(o=>o.material===ripple),root,materials,floors,roadPoints,catSteps,targets:targets.map(t=>({kind:'inspect',profiles:['human','cat'],range:3,localPoint:[0,0,0],...t})),heightAt:lakeHeight,lake,pier,boat,rope,rock,log,peg,driftwood,addedLights:0};
 }
 export function connectLakeLun({lake,walking,inspections,stay,townLife,dialogue,ambientAudio,shopSystem}){
  const record=(id,text,cat=false)=>{if(stay.data.discoveries[id])return;stay.data.discoveries[id]={day:stay.data.currentDay,period:townLife.state.period,playerMode:walking.state.profile.id,label:text};stay.note(id,text,{kind:cat?'cat-discovery':'place',playerMode:walking.state.profile.id});stay.changed();};
