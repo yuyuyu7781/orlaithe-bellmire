@@ -42,7 +42,7 @@ export function connectDrownedWay({THREE,road,level,walking,boatTravel,inspectio
  if(d.discoveries['drowned:mark']&&(d.discoveries['nine:stone-3']||d.discoveries['nine:stone-5']||d.discoveries['nine:stone-9']))stay.note('drowned:nine-link','石の刻みは、Nine Stonesで見たものに少し似ていた。向きは違う。');
  if((d.discoveries['drowned:hollow']||d.discoveries['drowned:mark'])&&d.discoveries['caerith:foundation'])stay.note('drowned:caerith-link','島の欠けた輪と、石道の標石。大きさも、向きも違っていた。');
  const linked=!!d.discoveries['drowned:nerissa']||!!d.discoveries['drowned:nine-link']||d.journal.some(j=>j.id==='drowned:nine-link'||j.id==='drowned:caerith-link');const stage=baseStage==='marked'&&linked?'linked':baseStage;if(t.stage!==stage){t.stage=stage;stay.changed();}
- minimap.setSpecialMarkers?.(level.phase!=='normal'?[{id:'drowned-entry',name:'古い石段',short:'石',position:drownedLayout.entry}]:[]);
+ minimap.setSpecialMarkers?.(level.phase!=='normal'?[{id:'drowned-way',name:'古い石段',short:'石',position:drownedLayout.entry}]:[]);
  const key=level.phase+':'+discovered();if(key!==uiKey){uiKey=key;if(regions.current.id==='lake-lun'&&!boatTravel.active)regions.refreshArea();else regions.refresh();}
  }finally{busy=false;}}
  inspections.onPresent(({entry,text})=>{if(!entry.id.startsWith('drowned:'))return;remember(entry.id,entry.id==='drowned:entry'?'水が引いた湖岸に、古い石道が現れていた。':text);sync();});
