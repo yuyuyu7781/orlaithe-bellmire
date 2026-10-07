@@ -9,7 +9,11 @@ export function buildLunmereInterior({THREE,shop}){
  box(-3.89,1.3,1,.02,1.15,2,accent,false);box(-3.82,1.8,1,.05,.05,2.1,wood,false);box(2.6,1.05,-3.9,.16,.28,.16,glow,false);
  const table=(x,z,w=1.4,d=.8)=>{for(const dx of [-w/2+.1,w/2-.1])for(const dz of [-d/2+.1,d/2-.1])box(x+dx,0,z+dz,.09,.76,.09,wood);return box(x,.76,z,w,.09,d,wood);};
  const notice=(id,label,text,o)=>inspect.push({id:'inside:'+shop.id+':'+id,kind:'inspect',label,text,object:o,localPoint:[0,.3,0],profiles:['human','cat'],range:2.6,enabled:()=>root.visible});
- if(shop.type==='lodging'){
+ if(shop.type==='residential'){
+  table(-2,1.1,1.3,.7);box(-2,0,2,1.4,.42,.35,wood);seats.push({position:[-2,0,2],yaw:Math.PI});
+  const bed=box(2.2,0,-3.1,1.2,.4,1.9,wood);box(2.2,.4,-3.1,1.16,.12,1.85,linen,false);box(-2.6,0,-4.4,1.5,1.7,.45,wood);for(const y of [.45,.95,1.45])box(-2.6,y,-4.15,1.45,.08,.4,paper,false);
+  notice('window','湖側の小窓','窓枠に、干した布と水の匂いが残っている。',box(-3.8,1.4,1,.06,.08,1,wood,false));notice('table','小さな暮らしの机','机には、繕いかけの布と短い糸がある。',box(-2,.85,1.1,.45,.02,.3,linen,false));
+ }else if(shop.type==='lodging'){
   box(2.4,0,1,2,.9,.7,wood);table(-2,1.3);box(-2,0,2.2,1.5,.43,.36,wood);seats.push({position:[-2,0,2.2],yaw:Math.PI});
   // Two small ground-floor guest rooms off a 1.4m corridor; no false upstairs.
   for(const x of [-2.4,2.4]){box(x,0,-1.7,2.7,2.7,.12,wall);const bed=box(x,0,-3.55,1.2,.42,1.9,wood);box(x,.42,-3.55,1.15,.12,1.8,linen,false);box(x,.55,-4.12,.65,.12,.3,paper,false);table(x>0?3.45:-3.45,-2.3,.6,.55);const bag=box(x>0?3.2:-3.2,0,-4.55,.45,.3,.4,wood,false);bag.userData.interiorVariant='guest-bag';beds.push({object:bed,localPoint:[-.3,.5,0],wake:[200+(x>0?1.25:-1.25),0,-3.3],room:'lunmere-'+(x>0?'east':'west')});}

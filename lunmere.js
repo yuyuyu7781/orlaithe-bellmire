@@ -20,6 +20,7 @@ export function buildLunmere({THREE,scene,box,residentScale,lake}){
  for(let i=0;i<shops.length;i++){const s=shops[i],[x,z]=s.center,[w,d]=s.size;building(x,z,w,d,3.4,i);s.exterior={at:[x,6.16,z+d/2+.05],approach:[x,6.16,z+d/2+1.4],angle:0,normal:[0,0,1]};}
  for(const s of shops.filter(s=>['dining','supplies'].includes(s.type))){const [x,z]=s.center;piece(x,8.45,z+s.size[1]/2+.35,2.3,.07,.8,cloth,true);}
  layout.houses.forEach(([x,z],i)=>building(x,z,4.4+(i%2)*.5,4.3,2.8+(i%3)*.2,i+4));
+ for(const [i,name]of [[0,'岸辺の住まい'],[1,'木窓の住まい']]){const [x,z]=layout.houses[i];shops.push({id:'lun-house-'+i,name,center:[x,z],size:[4.4,4.3],type:'residential',hours:{morning:'open',day:'open',evening:'open',night:'closed'},buildInterior:buildLunmereInterior,exterior:{at:[x,6.16,z+2.2],approach:[x,6.16,z+3.55],angle:0,normal:[0,0,1]}});}
  const pier=piece(-418,6,-4.4,2.4,.16,5.2,wood);pier.userData.walkFloor=true;floors.push(pier);for(const x of [-419,-417])for(const z of [-2.5,-6.5])piece(x,5.2,z,.16,.8,.16,wet,true);
  const skiff=lake.boat.clone();skiff.name='Lunmereの係留舟';skiff.position.set(-420,5.88,-6);skiff.scale.setScalar(.8);skiff.traverse(o=>o.userData.walkSoft=true);root.add(skiff);const mooring=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-419,6.16,-5),new THREE.Vector3(-419.7,5.99,-5.8)]),new THREE.LineBasicMaterial({color:0x827969}));root.add(mooring);
  const bench=piece(-435,6.16,18,1.9,.43,.38,wood);catSteps.push(bench);
@@ -40,16 +41,17 @@ export function buildLunmere({THREE,scene,box,residentScale,lake}){
  const coats=coatColors.map((c,i)=>mat('coat'+i,c));
  for(let i=0;i<14;i++){const o=new THREE.Group();root.add(o);const body=new THREE.Mesh(bodyGeo,coats[i%4]);body.position.y=.65;const head=new THREE.Mesh(headGeo,skin);head.position.y=1.42;o.add(body,head);o.userData.community=true;o.userData.visitorRole={activity:i%3?'browsing':'rope',posture:'standing',prop:i%3?'basket':'rope',hair:0x514f43,accent:0x839384};const p=[-401-i*1.2,6.16,22];o.position.fromArray(p);residentScale.normalize(o,{head});o.name=lunmereCharacters[i]?.name??'Lunmereの住民 '+(i+1);people.push({object:o,index:i});if(i<3)actors[lunmereCharacters[i].id]=o;}
  const localPaths={};const center=[-430,6.16,22];const approaches=Object.fromEntries(shops.map(s=>[s.id,s.exterior.approach]));
+ localPaths['lun-finn']=[[-347,6.12,13],[-373,6.16,15],[-392,6.16,20],[-408,6.16,20],[-418,6.16,20],[-418,6.16,9],[-418,6.16,1]];
  localPaths['lun-square']=[center,[-429,6.16,23.5]];localPaths['lun-shore']=[center,[-430,6.16,12],[-432,6.16,12],[-432,6.16,-2]];localPaths['lun-pier']=[center,[-418,6.16,22],[-418,6.16,9],[-418,6.16,-2]];
  for(const s of shops){const p=approaches[s.id];localPaths[s.id]=s.id==='lun-inn'?[center,[-415,6.16,22],[-415,6.16,p[2]],p]:s.id==='lun-store'?[center,[-437,6.16,22],[-437,6.16,p[2]],p]:[center,[p[0],6.16,22],p];}
  const workIds=['lun-inn','lun-boats','lun-shore','lun-store','lun-diner','lun-pier'];
  for(let i=0;i<14;i++){const path=localPaths[workIds[i%6]],p=path.at(-1),x=p[0]+(i%6===5?-1.5:1.5),z=p[2]+3+Math.floor(i/6)*1.7;localPaths['lun-home-'+i]=[...path,[x,6.16,z]];}
- for(const path of Object.values(localPaths).filter((_,i)=>i<7))strip(path.map(p=>[p[0],p[1]+.007,p[2]]),1.4,stone);
+ for(const path of Object.entries(localPaths).filter(([id])=>['lun-square','lun-shore','lun-pier','lun-inn','lun-diner','lun-boats','lun-store'].includes(id)).map(([,path])=>path))strip(path.map(p=>[p[0],p[1]+.007,p[2]]),1.4,stone);
  const oil=glow.clone();oil.userData.blackoutBackup=true;materials.oil=oil;
  for(const [x,z]of [[-402,19],[-430,20],[-418,8]]){piece(x,6.16,z,.10,1.1,.10,wood,true);const lamp=piece(x,7.26,z,.18,.25,.18,oil,true);lamp.name='湖畔の小さな油灯';}
  localPaths['lake-rest']=[center,[-408,6.16,20],...layout.road.slice().reverse().slice(1,-1),[-309,6.04,-13]];
 localPaths['lake-rest-alt']=[...localPaths['lake-rest'].slice(0,-1),[-311,6.04,-13]];
- return {root,materials,windows,details,floors,catSteps,catRoutes,targets,sources,shells,people,actors,shops,localPaths,roadPoints:layout.road,heightAt:lunmereHeight,water:inlet,layout};
+ return {root,skiff,mooring,pier,materials,windows,details,floors,catSteps,catRoutes,targets,sources,shells,people,actors,shops,localPaths,roadPoints:layout.road,heightAt:lunmereHeight,water:inlet,layout};
 }
 export function connectLunmere({THREE,lunmere,residentLife,residentDay,walking,inspections,shopSystem,townLife,stay,dialogue,ambientAudio,townEvents}){
  const controllers=[];for(const {object,index:i}of lunmere.people){const record=residentLife.records.find(r=>r.object===object),work=['lun-inn','lun-boats','lun-shore','lun-store','lun-diner','lun-pier'][i%6];const schedule={morning:work,day:i===1?'lake-rest':i===9?'lake-rest-alt':i%3?'lun-square':work,evening:i<6?'lun-diner':'home',night:i===0?'lun-inn':i<3?work:'home'};const c=residentDay.addScheduled(record,{id:'lun-person-'+i,home:'lun-home-'+i,schedule,dawnPlace:i<3?work:(i%2?'lun-diner':'lun-inn'),shelter:i%2?'lun-diner':'lun-inn'});controllers.push(c);}

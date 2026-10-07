@@ -7,7 +7,7 @@ export function createMinimap({walking,shopSystem,inspections,navigation,buildin
  const caption=document.createElement('div');caption.className='town-map-caption';caption.textContent='上が北 · 淡い線は主な街路';
  const expand=document.createElement('button');expand.textContent='拡大';expand.setAttribute('aria-label','地図を拡大');
  const close=document.createElement('button');close.textContent='閉じる';close.setAttribute('aria-label','地図を閉じる');
- const buttons=document.createElement('div');buttons.className='town-map-buttons';buttons.append(expand,close);const chain=document.createElement('div');chain.className='town-map-caption';chain.textContent='Bellmire → Nine Stones → Lake Lun → Lunmere';root.append(heading,chain,canvas,caption,buttons);document.body.append(root);
+ const buttons=document.createElement('div');buttons.className='town-map-buttons';buttons.append(expand,close);const chain=document.createElement('div');chain.className='town-map-caption';chain.textContent='Bellmire → Nine Stones → Lake Lun → Lunmere → Isle of Caerith';root.append(heading,chain,canvas,caption,buttons);document.body.append(root);
  const toggle=document.createElement('button');toggle.id='mapToggle';toggle.textContent='地図';toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-controls','townMap');root.id='townMap';navigation.tools.append(toggle);
  let expanded=false,elapsed=0,width=180,height=150;const context=canvas.getContext('2d');
  let regionId="bellmire";const bounds={minX:-215,maxX:48,minZ:-48,maxZ:45};
@@ -17,7 +17,7 @@ export function createMinimap({walking,shopSystem,inspections,navigation,buildin
  toggle.onclick=()=>setOpen(!navigation.state.mapOpen);close.onclick=()=>setOpen(false);expand.onclick=()=>{expanded=!expanded;expand.textContent=expanded?'縮小':'拡大';expand.setAttribute('aria-label','地図を'+expand.textContent);resize();draw();};
  function draw(){
   context.clearRect(0,0,width,height);context.fillStyle='#ddd4bb';context.fillRect(0,0,width,height);
-  const shoreline=project(0,35.3)[1];if(regionId==="bellmire"){context.fillStyle='#829ba04d';context.fillRect(0,shoreline,width,height-shoreline);}else if(regionId==='lunmere'){context.fillStyle='#829ba04d';context.fillRect(0,0,width,project(-430,-3)[1]);}else if(regionId==="lake-lun"){context.fillStyle="#829ba04d";const shore=project(-316,0)[0];context.fillRect(0,0,shore,height);}
+  const shoreline=project(0,35.3)[1];if(regionId==="bellmire"){context.fillStyle='#829ba04d';context.fillRect(0,shoreline,width,height-shoreline);}else if(regionId==='caerith'){context.fillStyle='#829ba04d';context.fillRect(0,0,width,height);const c=project(-367,-76);context.beginPath();context.ellipse(c[0],c[1],17/(bounds.maxX-bounds.minX)*(width-24),19/(bounds.maxZ-bounds.minZ)*(height-20),0,0,Math.PI*2);context.fillStyle='#a9ae8455';context.fill();}else if(regionId==='lunmere'){context.fillStyle='#829ba04d';context.fillRect(0,0,width,project(-430,-3)[1]);}else if(regionId==="lake-lun"){context.fillStyle="#829ba04d";const shore=project(-316,0)[0];context.fillRect(0,0,shore,height);}
   context.fillStyle='#786b502b';context.strokeStyle='#7b6a4535';context.lineWidth=.5;
   for(const shell of (regionId==="bellmire"?buildings:(regionBuildings[regionId]??[]))){const a=project(shell.b.min.x,shell.b.min.z),b=project(shell.b.max.x,shell.b.max.z);context.fillRect(a[0],a[1],b[0]-a[0],b[1]-a[1]);}
   context.strokeStyle='#f5ecd4';context.lineWidth=expanded?2.3:1.5;context.lineJoin='round';
@@ -33,6 +33,6 @@ export function createMinimap({walking,shopSystem,inspections,navigation,buildin
  }
  function update(dt){const hidden=!walking.active||!navigation.state.mapOpen||!!shopSystem.current||!!inspections.opened;if(root.hidden!==hidden)root.hidden=hidden;if(hidden){elapsed=0;return;}elapsed+=dt;if(elapsed<.25)return;elapsed=0;draw();}
  const onResize=()=>{resize();if(!root.hidden)draw();};addEventListener('resize',onResize);
- function setRegion(r){regionId=r.id;Object.assign(bounds,r.mapBounds);roads=r.roads??roads;heading.textContent=r.name;heading.title='Bellmire → Nine Stones → Lake Lun → Lunmere';root.setAttribute("aria-label",r.name+"の簡易地図");draw();}
+ function setRegion(r){regionId=r.id;Object.assign(bounds,r.mapBounds);roads=r.roads??roads;heading.textContent=r.name;heading.title='Bellmire → Nine Stones → Lake Lun → Lunmere → Isle of Caerith';root.setAttribute("aria-label",r.name+"の簡易地図");draw();}
  resize();return {setRegion,root,setOpen,update,project,draw,destroy(){removeEventListener('resize',onResize);root.remove();toggle.remove();}};
 }

@@ -17,14 +17,15 @@ export function buildLakeLun({THREE,scene,box}){
  return mesh(points,mat,'Lake Lun descending '+(width>2?'verge':'old road'));}
  strip(4.4,0,materials.grass);strip(1.3,.006,materials.earth);
  const bank=[];for(let j=0;j<26;j++){const z=-48+j*2,r=z+2,a=lakeEdge(z),b=lakeEdge(r);const v=[a,bankY(a,z),z],w=[-294,bankY(-294,z),z],q=[b,bankY(b,r),r],t=[-294,bankY(-294,r),r];bank.push(...v,...q,...t,...v,...t,...w);bank.push(...v,a,3.5,z,b,3.5,r,...v,b,3.5,r,...q);}mesh(bank,materials.grass,'Lake Lun gently irregular bank');
- const endBanks=[];for(const z of [-48,4]){const west=-371+4*Math.cos((z+20)*.09),east=lakeEdge(z),outside=z+(z<0?-8:8);for(let i=0;i<12;i++){const x=west+(east-west)*i/12,nx=west+(east-west)*(i+1)/12;const a=[x,5.98,z],b=[nx,5.98,z],c=[nx,6.7+.3*Math.sin(i),outside],d=[x,6.7+.3*Math.sin(i),outside];if(z<0)endBanks.push(...a,...b,...c,...a,...c,...d);else endBanks.push(...a,...c,...b,...a,...d,...c);}}mesh(endBanks,materials.grass,'Lake Lun low enclosing end banks');
+ const endBanks=[];for(const z of [-48,4]){const west=-371+4*Math.cos((z+20)*.09),east=lakeEdge(z),outside=z+(z<0?-8:8);for(let i=0;i<12;i++){const x=west+(east-west)*i/12,nx=west+(east-west)*(i+1)/12;// Open only the southern island-side shore; the lake, pier and eastern bank stay in place.
+ if(z<0&&x<-339)continue;const a=[x,5.98,z],b=[nx,5.98,z],c=[nx,6.7+.3*Math.sin(i),outside],d=[x,6.7+.3*Math.sin(i),outside];if(z<0)endBanks.push(...a,...b,...c,...a,...c,...d);else endBanks.push(...a,...c,...b,...a,...d,...c);}}mesh(endBanks,materials.grass,'Lake Lun low enclosing end banks');
  const water=[];for(let j=0;j<26;j++){const z=-48+j*2,r=z+2,a=lakeEdge(z),b=lakeEdge(r),far=-371+4*Math.cos((z+20)*.09),nextFar=-371+4*Math.cos((r+20)*.09);water.push(a,5.65,z,nextFar,5.65,r,b,5.65,r,a,5.65,z,far,5.65,z,nextFar,5.65,r);}const lake=mesh(water,materials.water,'Lake Lun enclosed water');lake.userData.walkSoft=false;
  function slab(x,y,z,w,h,d,m){const o=box(x,y-h,z,w,h,d,m,root);o.castShadow=false;return o;}
  // A narrow but turnable pier; open water is never part of the terrain sampler.
  const pier=slab(-320,6.15,-24,9,.14,2.4,materials.wood);pier.userData.walkSurface=true;floors.push(pier);
  const batch=createDetailBatch(THREE,root,'Lake Lun sparse shore traces');
- for(let i=0;i<5;i++)batch.add('leaf',materials.grass,[-321-i*9,6,-52+Math.sin(i)*2],[8,1.5+(i%3)*.3,6]);
- for(let i=0;i<9;i++)batch.add('leaf',materials.grass,[-373,5.7,-46+i*6],[8,2+(i%3),7]);
+ for(let i=0;i<2;i++)batch.add('leaf',materials.grass,[-321-i*9,6,-52+Math.sin(i)*2],[8,1.5+(i%3)*.3,6]);
+ for(let i=1;i<9;i++)batch.add('leaf',materials.grass,[-373,5.7,-46+i*6],[8,2+(i%3),7]);
  const ripple=new THREE.MeshStandardMaterial({color:0x718d90,roughness:.85});for(let i=0;i<7;i++)batch.add('block',ripple,[-323-i*6,5.655,-30+Math.sin(i)*7],[2.2,.006,.05]);
  for(let i=0;i<12;i++){const z=-45+i*4,x=lakeEdge(z)+.4;for(let j=0;j<3;j++)batch.add('block',materials.reeds,[x+j*.09,bankY(x,z)+.2,z+j*.12],[.035,.4+j*.06,.04]);}
  for(const [x,y,z]of [[-240,8.1,-22],[-273,6.4,-40],[-297,6,-42],[-298,6,-13]]){batch.add('block',materials.wood,[x,y+.8,z],[.16,1.6,.16]);batch.add('leaf',materials.reeds,[x,y+2,z],[1.8,2.2,1.6]);}
@@ -51,7 +52,7 @@ export function buildLakeLun({THREE,scene,box}){
  {id:'lake:cat-reeds',object:reedMark,label:'葦の間の丸い欠片',text:'葦を抜けると、小さな丸い欠片。水の匂いの奥に、冷たい石が残る。',profiles:['cat'],range:1.5},
  {id:'lake:pier-view',object:pier,label:'桟橋から湖を眺める',kind:'quiet-view',verb:'眺める',viewEye:[-322,7.5,-24],viewFocus:[-350,5.8,-24],text:'桟橋で立ち止まると、岸の水音だけが近くなった。'},
  {id:'lake:shore-view',object:log,label:'湖畔で休む',kind:'quiet-view',verb:'座る',viewEye:[-308,7,-17],viewFocus:[-349,6,-22],text:'湖の向こうにも、低い岸が続いていた。'});
- batch.finish();return{root,materials,floors,roadPoints,catSteps,targets:targets.map(t=>({kind:'inspect',profiles:['human','cat'],range:3,localPoint:[0,0,0],...t})),heightAt:lakeHeight,lake,pier,boat,rock,log,peg,driftwood,addedLights:0};
+ batch.finish();return{root,materials,floors,roadPoints,catSteps,targets:targets.map(t=>({kind:'inspect',profiles:['human','cat'],range:3,localPoint:[0,0,0],...t})),heightAt:lakeHeight,lake,pier,boat,rope,rock,log,peg,driftwood,addedLights:0};
 }
 export function connectLakeLun({lake,walking,inspections,stay,townLife,dialogue,ambientAudio,shopSystem}){
  const record=(id,text,cat=false)=>{if(stay.data.discoveries[id])return;stay.data.discoveries[id]={day:stay.data.currentDay,period:townLife.state.period,playerMode:walking.state.profile.id,label:text};stay.note(id,text,{kind:cat?'cat-discovery':'place',playerMode:walking.state.profile.id});stay.changed();};

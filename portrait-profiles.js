@@ -1,6 +1,17 @@
 // Display/art direction only. Existing character identities, dialogue and 3D
 // actors remain in dialogue-data.js. These are provisional cards, not final art.
+// Null images keep the current draft cards; supplied paths can be enabled without
+// changing dialogue identities, room actors or the fallback/error behavior.
+export const lunmerePortraitAssets={
+ lunHost:{enabled:false,path:'./assets/portraits/eira-default.png',periods:{night:'./assets/portraits/eira-night.png'},expressions:{happy:'./assets/portraits/eira-happy.png'}},
+ lunBoat:{enabled:false,path:'./assets/portraits/tev-default.png',periods:{night:'./assets/portraits/tev-night.png'},expressions:{serious:'./assets/portraits/tev-serious.png'}},
+ lunWatcher:{enabled:false,path:'./assets/portraits/maren-default.png',periods:{night:'./assets/portraits/maren-night.png'},expressions:{serious:'./assets/portraits/maren-serious.png'}}
+};
+export function configuredLunmerePortrait(id,period,expression){const c=lunmerePortraitAssets[id];return c?.enabled?{src:c.periods?.[period]??c.expressions?.[expression]??c.path}:null;}
 const framing={
+ lunHost:{objectPositionX:50,objectPositionY:33,zoom:1.04,mobile:{zoom:1.02}},
+ lunBoat:{objectPositionX:50,objectPositionY:34,zoom:1.02,variants:{serious:{objectPositionY:31}}},
+ lunWatcher:{objectPositionX:50,objectPositionY:30,zoom:1.04,variants:{night:{objectPositionY:32}}},
  baker:{objectPositionX:50,objectPositionY:32,zoom:1.06,mobile:{objectPositionY:30,zoom:1.04}},
  bookseller:{objectPositionX:50,objectPositionY:29,zoom:1.03,mobile:{objectPositionY:27,zoom:1.02}},
  boatworker:{objectPositionX:50,objectPositionY:35,zoom:1,mobile:{objectPositionY:33,zoom:1}},

@@ -1,3 +1,4 @@
+import {regionActivity} from './region-activity.js';
 import {routineFor,actorBuckets} from './resident-routines.js';
 import {streetDetour} from './street-detour.js';
 import {nineLayout} from './nine-stones.js';
@@ -6,7 +7,7 @@ import {visitorPresent} from './town-calendar.js';
 import {residentStreetPaths} from './resident-routes.js';
 // Extend the original eight scheduled residents. Only the clock requests paths;
 // the same human feet/body policy validates every actual movement substep.
-export function createResidentDay({THREE,walking,grounding,residentLife,townLife,shopSystem,camera=null,getQuality=()=> 'standard',extraPaths={}}){
+export function createResidentDay({THREE,walking,grounding,residentLife,townLife,shopSystem,camera=null,getQuality=()=> 'standard',extraPaths={},getRegion=null}){
  const records=residentLife.records.filter(r=>!r.id&&!r.moving&&!r.seated&&!r.object.userData.community).slice(0,8);for(const r of records)walking.registerDynamicObject(r.object);
  const nodes=[],keys=new Map(),paths={};
  const key=p=>p.map(v=>v.toFixed(3)).join(',');
@@ -45,7 +46,7 @@ export function createResidentDay({THREE,walking,grounding,residentLife,townLife
  function update(dt=.016){if((shopSystem.current?.shop.id??null)!==lastRoom)refreshRoom();walking.refreshDynamic();
   counters.updated=counters.near=counters.mid=counters.far=0;
   const nearbyActors=actorBuckets(entries);const frustum=camera?new THREE.Frustum().setFromProjectionMatrix(new THREE.Matrix4().multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse)):null;
-  for(const e of entries){const distance=camera?camera.position.distanceTo(e.feet):0,tier=distance<18?'near':distance<42?'mid':'far';counters[tier]++;e.elapsed+=Math.min(.1,Math.max(0,dt));const remote=e.community&&distance>85&&(!walking.active||walking.state.feet.distanceTo(e.feet)>45)&&(!frustum||!frustum.intersectsSphere(new THREE.Sphere(e.feet.clone().add(new THREE.Vector3(0,.9,0)),1.2)));const rate=remote?(getQuality()==='mobile'?1:.75):shopSystem.current?.5:tier==='near'?0:tier==='mid'?.10:getQuality()==='mobile'?.5:.25;if(e.elapsed<rate)continue;const stepTime=Math.min(remote?1:.5,e.elapsed);e.elapsed=0;counters.updated++;
+  for(const e of entries){const distance=camera?camera.position.distanceTo(e.feet):0,tier=distance<18?'near':distance<42?'mid':'far';counters[tier]++;e.elapsed+=Math.min(.1,Math.max(0,dt));const budget=getRegion?regionActivity(getRegion(),e.community?'lunmere':'bellmire',getQuality()):{tier:'current',interval:0};const remote=(e.community||budget.tier==='remote')&&distance>85&&(!walking.active||walking.state.feet.distanceTo(e.feet)>45)&&(!frustum||!frustum.intersectsSphere(new THREE.Sphere(e.feet.clone().add(new THREE.Vector3(0,.9,0)),1.2)));const rate=remote?Math.max(budget.interval,getQuality()==='mobile'?1:.75):shopSystem.current?.5:tier==='near'?0:tier==='mid'?.10:getQuality()==='mobile'?.5:.25;if(e.elapsed<rate)continue;const stepTime=Math.min(remote?1.5:.5,e.elapsed);e.elapsed=0;counters.updated++;
    if(e.record.bellPause>0){e.record.bellPause-=stepTime;e.record.activity='listening';place(e);continue;}
    if(e.currentState==='waitingArrival'){e.arrivalWait=(e.arrivalWait??0)+stepTime;if(e.arrivalWait>2){e.arrivalWait=0;request(e);}place(e);continue;}
    if(e.departingShop){e.wait-=stepTime;if(e.wait<=0&&walking.canStandTownAs('human',e.feet.x,e.feet.z,e.feet.y,e.record.object)!==null){e.departingShop=null;e.visible=true;place(e);walking.refreshDynamic();}else place(e);continue;}

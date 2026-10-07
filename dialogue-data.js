@@ -1,4 +1,4 @@
-import {portraitProfile} from './portrait-profiles.js';
+import {portraitProfile,configuredLunmerePortrait} from './portrait-profiles.js';
 import {periodForWeather} from './scene-settings.js';
 
 // Stable character identities; illustrations and alternate actor/time lines
@@ -58,6 +58,6 @@ export function selectPortrait(character,{expression='default',time='day'}={}){
  const period=['morning','day','evening','night'].includes(time)?time:periodForWeather(time);
  const key={happy:'portraitHappy',serious:'portraitSerious',night:'portraitNight',default:'portraitDefault'}[expression];
  const variants=character.portraits;
- const candidate=variants?.periods?.[period]?.[expression]??(expression!=='default'?variants?.expressions?.[expression]??character[key]:null)??(period==='night'?character.portraitNight:null)??variants?.periods?.[period]?.default??variants?.expressions?.default??character.portraitDefault??character.portrait;
+ const candidate=configuredLunmerePortrait(character.id,period,expression)??variants?.periods?.[period]?.[expression]??(expression!=='default'?variants?.expressions?.[expression]??character[key]:null)??(period==='night'?character.portraitNight:null)??variants?.periods?.[period]?.default??variants?.expressions?.default??character.portraitDefault??character.portrait;
  if(typeof candidate==='string')return {src:candidate,alt:character.name};return candidate;
 }
