@@ -1,0 +1,7673 @@
+{
+  "baselineMain": "1b6cda3f1f3791786bc8b5b8e253f2abaf20afeb",
+  "environment": "Chromium / SwiftShader, static server 8001, no physical phone/GPU/speaker",
+  "simulation": {
+    "days": [
+      {
+        "day": 1,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 2,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 3,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "low",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 4,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 5,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 6,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 7,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 8,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 9,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "veryLow",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 10,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "veryLow",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 11,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "low",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 12,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 13,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 14,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 15,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "extremeLow",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 16,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "extremeLow",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 17,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "veryLow",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 18,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "low",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 19,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 20,
+        "open": [
+          [
+            "lowerWard",
+            false
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 21,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 22,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 23,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "veryLow",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 24,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "veryLow",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 25,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            false
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "extremeLow",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 26,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            true
+          ],
+          [
+            "civicWard",
+            false
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "extremeLow",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 27,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            true
+          ],
+          [
+            "civicWard",
+            true
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 28,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            true
+          ],
+          [
+            "civicWard",
+            true
+          ],
+          [
+            "scholarHeights",
+            false
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 29,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            true
+          ],
+          [
+            "civicWard",
+            true
+          ],
+          [
+            "scholarHeights",
+            true
+          ],
+          [
+            "oldQuarter",
+            false
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 30,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            true
+          ],
+          [
+            "civicWard",
+            true
+          ],
+          [
+            "scholarHeights",
+            true
+          ],
+          [
+            "oldQuarter",
+            true
+          ]
+        ],
+        "water": "veryLow",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 31,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            true
+          ],
+          [
+            "civicWard",
+            true
+          ],
+          [
+            "scholarHeights",
+            true
+          ],
+          [
+            "oldQuarter",
+            true
+          ]
+        ],
+        "water": "veryLow",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 32,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            true
+          ],
+          [
+            "civicWard",
+            true
+          ],
+          [
+            "scholarHeights",
+            true
+          ],
+          [
+            "oldQuarter",
+            true
+          ]
+        ],
+        "water": "low",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 33,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            true
+          ],
+          [
+            "civicWard",
+            true
+          ],
+          [
+            "scholarHeights",
+            true
+          ],
+          [
+            "oldQuarter",
+            true
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 34,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            true
+          ],
+          [
+            "civicWard",
+            true
+          ],
+          [
+            "scholarHeights",
+            true
+          ],
+          [
+            "oldQuarter",
+            true
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 35,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            true
+          ],
+          [
+            "civicWard",
+            true
+          ],
+          [
+            "scholarHeights",
+            true
+          ],
+          [
+            "oldQuarter",
+            true
+          ]
+        ],
+        "water": "extremeLow",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 36,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            true
+          ],
+          [
+            "civicWard",
+            true
+          ],
+          [
+            "scholarHeights",
+            true
+          ],
+          [
+            "oldQuarter",
+            true
+          ]
+        ],
+        "water": "extremeLow",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 37,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            true
+          ],
+          [
+            "civicWard",
+            true
+          ],
+          [
+            "scholarHeights",
+            true
+          ],
+          [
+            "oldQuarter",
+            true
+          ]
+        ],
+        "water": "veryLow",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 38,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            true
+          ],
+          [
+            "civicWard",
+            true
+          ],
+          [
+            "scholarHeights",
+            true
+          ],
+          [
+            "oldQuarter",
+            true
+          ]
+        ],
+        "water": "veryLow",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 39,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            true
+          ],
+          [
+            "civicWard",
+            true
+          ],
+          [
+            "scholarHeights",
+            true
+          ],
+          [
+            "oldQuarter",
+            true
+          ]
+        ],
+        "water": "low",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      },
+      {
+        "day": 40,
+        "open": [
+          [
+            "lowerWard",
+            true
+          ],
+          [
+            "canalWard",
+            true
+          ],
+          [
+            "civicWard",
+            true
+          ],
+          [
+            "scholarHeights",
+            true
+          ],
+          [
+            "oldQuarter",
+            true
+          ]
+        ],
+        "water": "normal",
+        "thread": {
+          "stage": "compared"
+        },
+        "scheduled": 115,
+        "events": 0
+      }
+    ],
+    "actorsPerDay": [
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78,
+      78
+    ],
+    "reload": {
+      "day": 40,
+      "thread": {
+        "stage": "compared"
+      },
+      "visited": [
+        "region:caerith",
+        "region:caer-veyra",
+        "region:caer-lowerWard",
+        "region:caer-canalWard",
+        "region:caer-civicWard",
+        "region:caer-scholarHeights",
+        "region:caer-oldQuarter"
+      ],
+      "revisit": true,
+      "feet": [
+        -588,
+        10,
+        -430
+      ],
+      "chapter": {
+        "bellmire": "present",
+        "lake-lands": "present",
+        "beyond-the-ring": "present",
+        "capital": "present"
+      }
+    }
+  },
+  "nativeCapitalJourneyFromFreshWorldSave": {
+    "walks": [
+      {
+        "samples": 325,
+        "maxEyeDelta": 0,
+        "feet": [
+          -446,
+          4.62,
+          -194
+        ]
+      },
+      {
+        "samples": 325,
+        "maxEyeDelta": 0,
+        "feet": [
+          -456,
+          4.62,
+          -203
+        ]
+      },
+      {
+        "samples": 392,
+        "maxEyeDelta": 0,
+        "feet": [
+          -464,
+          4.62,
+          -216
+        ]
+      },
+      {
+        "samples": 392,
+        "maxEyeDelta": 0,
+        "feet": [
+          -456,
+          4.62,
+          -229
+        ]
+      },
+      {
+        "samples": 368,
+        "maxEyeDelta": 0,
+        "feet": [
+          -468,
+          4.62,
+          -237
+        ]
+      },
+      {
+        "samples": 200,
+        "maxEyeDelta": 0.010662486138600435,
+        "feet": [
+          -474.0000000000002,
+          4.900000000000018,
+          -243.00000000000023
+        ]
+      },
+      {
+        "samples": 169,
+        "maxEyeDelta": 0.049449328723089714,
+        "feet": [
+          -479,
+          5.3,
+          -248
+        ]
+      },
+      {
+        "samples": 342,
+        "maxEyeDelta": 0.0018801560309720244,
+        "feet": [
+          -490,
+          5.8,
+          -256
+        ]
+      },
+      {
+        "samples": 568,
+        "maxEyeDelta": 0.0020278282050654184,
+        "feet": [
+          -508,
+          6.7,
+          -270
+        ]
+      },
+      {
+        "samples": 759,
+        "maxEyeDelta": 0.0014343817250264124,
+        "feet": [
+          -532,
+          7.4,
+          -289
+        ]
+      },
+      {
+        "samples": 693,
+        "maxEyeDelta": 0.0010709794226109182,
+        "feet": [
+          -553,
+          8,
+          -309
+        ]
+      },
+      {
+        "samples": 350,
+        "maxEyeDelta": 0.0006027751009245463,
+        "feet": [
+          -562,
+          8,
+          -320
+        ]
+      },
+      {
+        "samples": 400,
+        "maxEyeDelta": 0,
+        "feet": [
+          -578,
+          8,
+          -320
+        ]
+      },
+      {
+        "samples": 297,
+        "maxEyeDelta": 1.7763568394002505e-15,
+        "feet": [
+          -600,
+          8,
+          -308
+        ]
+      },
+      {
+        "samples": 157,
+        "maxEyeDelta": 0,
+        "feet": [
+          200,
+          0,
+          -4
+        ]
+      },
+      {
+        "samples": 947,
+        "maxEyeDelta": 0,
+        "feet": [
+          -600,
+          8,
+          -320.00000000000045
+        ]
+      },
+      {
+        "samples": 1000,
+        "maxEyeDelta": 0,
+        "feet": [
+          -640,
+          8,
+          -320
+        ]
+      },
+      {
+        "samples": 200,
+        "maxEyeDelta": 1.7763568394002505e-15,
+        "feet": [
+          -648,
+          8,
+          -320
+        ]
+      },
+      {
+        "samples": 130,
+        "maxEyeDelta": 0,
+        "feet": [
+          -648,
+          8,
+          -325.2
+        ]
+      },
+      {
+        "samples": 900,
+        "maxEyeDelta": 0,
+        "feet": [
+          -684.0000000000014,
+          8,
+          -325.2
+        ]
+      },
+      {
+        "samples": 257,
+        "maxEyeDelta": 0,
+        "feet": [
+          -676,
+          8,
+          -332
+        ]
+      },
+      {
+        "samples": 265,
+        "maxEyeDelta": 0,
+        "feet": [
+          -684,
+          8,
+          -320
+        ]
+      },
+      {
+        "samples": 758,
+        "maxEyeDelta": 0,
+        "feet": [
+          -684,
+          8,
+          -350.00000000000114
+        ]
+      },
+      {
+        "samples": 500,
+        "maxEyeDelta": 0,
+        "feet": [
+          -672,
+          8,
+          -366
+        ]
+      },
+      {
+        "samples": 792,
+        "maxEyeDelta": 0,
+        "feet": [
+          -644,
+          8,
+          -377
+        ]
+      },
+      {
+        "samples": 908,
+        "maxEyeDelta": 0,
+        "feet": [
+          -644,
+          8,
+          -412.5
+        ]
+      },
+      {
+        "samples": 597,
+        "maxEyeDelta": 0,
+        "feet": [
+          -644,
+          8,
+          -383
+        ]
+      },
+      {
+        "samples": 149,
+        "maxEyeDelta": 0,
+        "feet": [
+          200,
+          0,
+          -6
+        ],
+        "detour": true
+      },
+      {
+        "samples": 1035,
+        "maxEyeDelta": 0,
+        "feet": [
+          -644,
+          8,
+          -412.5
+        ]
+      },
+      {
+        "samples": 994,
+        "maxEyeDelta": 0,
+        "feet": [
+          -682.9,
+          8,
+          -410
+        ]
+      },
+      {
+        "samples": 452,
+        "maxEyeDelta": 0.04072008798958393,
+        "feet": [
+          -691.9000000000003,
+          16,
+          -425.00000000000057
+        ]
+      },
+      {
+        "samples": 952,
+        "maxEyeDelta": 0.005465924221944363,
+        "feet": [
+          -729.7703899405809,
+          16,
+          -424.4456722804932
+        ]
+      },
+      {
+        "samples": 217,
+        "maxEyeDelta": 0,
+        "feet": [
+          -730,
+          16,
+          -425
+        ]
+      },
+      {
+        "samples": 953,
+        "maxEyeDelta": 0,
+        "feet": [
+          -691.9,
+          16,
+          -425
+        ]
+      },
+      {
+        "samples": 450,
+        "maxEyeDelta": 0.09472258163193459,
+        "feet": [
+          -682.8999999999996,
+          8,
+          -409.99999999999943
+        ]
+      },
+      {
+        "samples": 994,
+        "maxEyeDelta": 0.0012477703911457638,
+        "feet": [
+          -644,
+          8,
+          -412.5
+        ]
+      },
+      {
+        "samples": 0,
+        "maxEyeDelta": 0,
+        "feet": [
+          -644,
+          8,
+          -412.5
+        ]
+      },
+      {
+        "samples": 994,
+        "maxEyeDelta": 1.7763568394002505e-15,
+        "feet": [
+          -605.1,
+          8,
+          -410
+        ]
+      },
+      {
+        "samples": 583,
+        "maxEyeDelta": 0.004393627777636411,
+        "feet": [
+          -595.1,
+          10,
+          -430
+        ]
+      },
+      {
+        "samples": 178,
+        "maxEyeDelta": 0.003313404984814028,
+        "feet": [
+          -588,
+          10,
+          -430
+        ]
+      },
+      {
+        "samples": 700,
+        "maxEyeDelta": 0,
+        "feet": [
+          -560,
+          10,
+          -430
+        ]
+      }
+    ],
+    "interactions": [
+      "cv:market",
+      "enter:cv-inn",
+      "talk:cvMira",
+      "rest:inn:caer-west",
+      "exit:cv-inn",
+      "cv:canal-level",
+      "cv:records-map",
+      "enter:cv-archive",
+      "inside:cv-archive:catalog",
+      "exit:cv-archive",
+      "cv:old-map",
+      "cv:old-number"
+    ],
+    "rest": {
+      "day": 8,
+      "feet": [
+        198.5,
+        0,
+        -4
+      ]
+    },
+    "result": {
+      "day": 11,
+      "wards": [
+        {
+          "id": "lowerWard",
+          "activity": "background",
+          "tier": "remote",
+          "interval": 1,
+          "details": false,
+          "animate": false,
+          "open": true
+        },
+        {
+          "id": "canalWard",
+          "activity": "background",
+          "tier": "remote",
+          "interval": 1,
+          "details": false,
+          "animate": false,
+          "open": true
+        },
+        {
+          "id": "civicWard",
+          "activity": "nearby",
+          "tier": "adjacent",
+          "interval": 0.5,
+          "details": false,
+          "animate": false,
+          "open": true
+        },
+        {
+          "id": "scholarHeights",
+          "activity": "background",
+          "tier": "remote",
+          "interval": 1,
+          "details": false,
+          "animate": false,
+          "open": true
+        },
+        {
+          "id": "oldQuarter",
+          "activity": "active",
+          "tier": "current",
+          "interval": 0,
+          "details": true,
+          "animate": true,
+          "open": true
+        }
+      ],
+      "thread": {
+        "stage": "compared"
+      },
+      "visited": [
+        "region:caerith",
+        "region:caer-lowerWard",
+        "region:caer-veyra",
+        "region:caer-canalWard",
+        "region:caer-civicWard",
+        "region:caer-scholarHeights",
+        "region:caer-oldQuarter"
+      ],
+      "feet": [
+        -553.8799999999998,
+        10,
+        -423.87999999999977
+      ]
+    },
+    "errors": []
+  },
+  "pathAudit": {
+    "count": 5252,
+    "bad": [],
+    "buildings": [
+      {
+        "id": "lowerWard",
+        "buildings": 17
+      },
+      {
+        "id": "canalWard",
+        "buildings": 10
+      },
+      {
+        "id": "civicWard",
+        "buildings": 12
+      },
+      {
+        "id": "scholarHeights",
+        "buildings": 15
+      },
+      {
+        "id": "oldQuarter",
+        "buildings": 14
+      }
+    ]
+  },
+  "groundingSample": {
+    "bad": [],
+    "good": 83,
+    "routes": [
+      {
+        "id": "cv-cat-lowerWard-0",
+        "ok": [
+          8,
+          8,
+          8
+        ]
+      },
+      {
+        "id": "cv-cat-lowerWard-1",
+        "ok": [
+          8,
+          8,
+          8
+        ]
+      },
+      {
+        "id": "cv-cat-lowerWard-2",
+        "ok": [
+          8,
+          8,
+          8
+        ]
+      },
+      {
+        "id": "cv-cat-lowerWard-3",
+        "ok": [
+          8,
+          8,
+          8
+        ]
+      },
+      {
+        "id": "cv-cat-lowerWard-4",
+        "ok": [
+          8,
+          8,
+          8
+        ]
+      },
+      {
+        "id": "cv-cat-canalWard-0",
+        "ok": [
+          8,
+          8,
+          8
+        ]
+      },
+      {
+        "id": "cv-cat-canalWard-1",
+        "ok": [
+          8,
+          8,
+          8
+        ]
+      },
+      {
+        "id": "cv-cat-canalWard-2",
+        "ok": [
+          8,
+          8,
+          8
+        ]
+      },
+      {
+        "id": "cv-cat-canalWard-3",
+        "ok": [
+          8,
+          8,
+          8
+        ]
+      },
+      {
+        "id": "cv-cat-canalWard-4",
+        "ok": [
+          8,
+          8,
+          8
+        ]
+      },
+      {
+        "id": "cv-cat-civicWard-0",
+        "ok": [
+          8,
+          8,
+          8
+        ]
+      },
+      {
+        "id": "cv-cat-civicWard-1",
+        "ok": [
+          8,
+          8,
+          8
+        ]
+      },
+      {
+        "id": "cv-cat-civicWard-2",
+        "ok": [
+          8,
+          8,
+          8
+        ]
+      },
+      {
+        "id": "cv-cat-civicWard-3",
+        "ok": [
+          8,
+          8,
+          8
+        ]
+      },
+      {
+        "id": "cv-cat-civicWard-4",
+        "ok": [
+          8,
+          8,
+          8
+        ]
+      },
+      {
+        "id": "cv-cat-scholarHeights-0",
+        "ok": [
+          16,
+          16,
+          16
+        ]
+      },
+      {
+        "id": "cv-cat-scholarHeights-1",
+        "ok": [
+          16,
+          16,
+          16
+        ]
+      },
+      {
+        "id": "cv-cat-scholarHeights-2",
+        "ok": [
+          16,
+          16,
+          16
+        ]
+      },
+      {
+        "id": "cv-cat-scholarHeights-3",
+        "ok": [
+          16,
+          16,
+          16
+        ]
+      },
+      {
+        "id": "cv-cat-scholarHeights-4",
+        "ok": [
+          16,
+          16,
+          16
+        ]
+      },
+      {
+        "id": "cv-cat-oldQuarter-0",
+        "ok": [
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "id": "cv-cat-oldQuarter-1",
+        "ok": [
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "id": "cv-cat-oldQuarter-2",
+        "ok": [
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "id": "cv-cat-oldQuarter-3",
+        "ok": [
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "id": "cv-cat-oldQuarter-4",
+        "ok": [
+          10,
+          10,
+          10
+        ]
+      },
+      {
+        "id": "cv-cat-oldQuarter-5",
+        "ok": [
+          10,
+          10,
+          10
+        ]
+      }
+    ],
+    "shops": [
+      {
+        "id": "cv-inn",
+        "p": [
+          -622,
+          8,
+          -290.1
+        ],
+        "y": 8
+      },
+      {
+        "id": "cv-diner",
+        "p": [
+          -605,
+          8,
+          -290.1
+        ],
+        "y": 8
+      },
+      {
+        "id": "cv-passage",
+        "p": [
+          -577,
+          8,
+          -331.6
+        ],
+        "y": 8
+      },
+      {
+        "id": "cv-guard",
+        "p": [
+          -577,
+          8,
+          -298.6
+        ],
+        "y": 8
+      },
+      {
+        "id": "cv-craft",
+        "p": [
+          -624,
+          8,
+          -332.6
+        ],
+        "y": 8
+      },
+      {
+        "id": "cv-sluice",
+        "p": [
+          -662,
+          8,
+          -335.1
+        ],
+        "y": 8
+      },
+      {
+        "id": "cv-guild",
+        "p": [
+          -707,
+          8,
+          -290.1
+        ],
+        "y": 8
+      },
+      {
+        "id": "cv-warehouse",
+        "p": [
+          -662,
+          8,
+          -288.6
+        ],
+        "y": 8
+      },
+      {
+        "id": "cv-inspection",
+        "p": [
+          -708,
+          8,
+          -336.6
+        ],
+        "y": 8
+      },
+      {
+        "id": "cv-records",
+        "p": [
+          -666,
+          8,
+          -379.6
+        ],
+        "y": 8
+      },
+      {
+        "id": "cv-archive",
+        "p": [
+          -622,
+          8,
+          -381.1
+        ],
+        "y": 8
+      },
+      {
+        "id": "cv-admin",
+        "p": [
+          -667,
+          8,
+          -425.6
+        ],
+        "y": 8
+      },
+      {
+        "id": "cv-bell",
+        "p": [
+          -621,
+          8,
+          -425.6
+        ],
+        "y": 8
+      },
+      {
+        "id": "cv-observatory",
+        "p": [
+          -752,
+          16,
+          -439.6
+        ],
+        "y": 16
+      },
+      {
+        "id": "cv-maps",
+        "p": [
+          -707,
+          16,
+          -395.6
+        ],
+        "y": 16
+      },
+      {
+        "id": "cv-academy",
+        "p": [
+          -752,
+          16,
+          -394.6
+        ],
+        "y": 16
+      },
+      {
+        "id": "cv-val",
+        "p": [
+          -580,
+          10,
+          -400.6
+        ],
+        "y": 10
+      },
+      {
+        "id": "cv-elda",
+        "p": [
+          -540,
+          10,
+          -401.6
+        ],
+        "y": 10
+      },
+      {
+        "id": "cv-old-bell",
+        "p": [
+          -540,
+          10,
+          -447.1
+        ],
+        "y": 10
+      },
+      {
+        "id": "cv-cellar",
+        "p": [
+          -580,
+          10,
+          -446.6
+        ],
+        "y": 10
+      }
+    ],
+    "controllers": 78
+  },
+  "cats": {
+    "routes": [
+      {
+        "id": "cv-cat-lowerWard-0",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -588,
+          8,
+          -338
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-lowerWard-1",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -612,
+          8,
+          -331
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-lowerWard-2",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -588,
+          8,
+          -324
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-lowerWard-3",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -612,
+          8,
+          -317
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-lowerWard-4",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -588,
+          8,
+          -310
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-canalWard-0",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -672,
+          8,
+          -338
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-canalWard-1",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -696,
+          8,
+          -331
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-canalWard-2",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -672,
+          8,
+          -324
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-canalWard-3",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -696,
+          8,
+          -310
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-canalWard-4",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -672,
+          8,
+          -310
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-civicWard-0",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -632,
+          8,
+          -428
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-civicWard-1",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -656,
+          8,
+          -421
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-civicWard-2",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -632,
+          8,
+          -414
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-civicWard-3",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -656,
+          8,
+          -407
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-civicWard-4",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -632,
+          8,
+          -400
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-scholarHeights-0",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -718,
+          16,
+          -443
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-scholarHeights-1",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -742,
+          16,
+          -436
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-scholarHeights-2",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -718,
+          16,
+          -429
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-scholarHeights-3",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -742,
+          16,
+          -422
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-scholarHeights-4",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -718,
+          16,
+          -415
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-oldQuarter-0",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -548,
+          10,
+          -448
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-oldQuarter-1",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -572,
+          10,
+          -441
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-oldQuarter-2",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -548,
+          10,
+          -434
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-oldQuarter-3",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -572,
+          10,
+          -427
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-oldQuarter-4",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -548,
+          10,
+          -420
+        ],
+        "human": null
+      },
+      {
+        "id": "cv-cat-oldQuarter-5",
+        "samples": 67,
+        "maxEyeDelta": 0,
+        "feet": [
+          -572,
+          10,
+          -413
+        ],
+        "human": null
+      }
+    ],
+    "saved": [
+      "cv:cat-lowerWard-0",
+      "cv:cat-lowerWard-1",
+      "cv:cat-canalWard-0",
+      "cv:cat-canalWard-1",
+      "cv:cat-civicWard-0",
+      "cv:cat-civicWard-1",
+      "cv:cat-scholarHeights-0",
+      "cv:cat-scholarHeights-1",
+      "cv:cat-oldQuarter-0",
+      "cv:cat-oldQuarter-1",
+      "cv:cat-oldQuarter-2"
+    ]
+  },
+  "jumps": [
+    {
+      "ward": "lowerWard",
+      "started": true,
+      "feet": [
+        -593,
+        8.41999999344349,
+        -309
+      ],
+      "raised": 0.4199999934434899
+    },
+    {
+      "ward": "canalWard",
+      "started": true,
+      "feet": [
+        -677,
+        8.41999999344349,
+        -309
+      ],
+      "raised": 0.4199999934434899
+    },
+    {
+      "ward": "civicWard",
+      "started": true,
+      "feet": [
+        -637,
+        8.41999999344349,
+        -399
+      ],
+      "raised": 0.4199999934434899
+    },
+    {
+      "ward": "scholarHeights",
+      "started": true,
+      "feet": [
+        -723,
+        16.41999999344349,
+        -414
+      ],
+      "raised": 0.4199999934434899
+    },
+    {
+      "ward": "oldQuarter",
+      "started": true,
+      "feet": [
+        -553,
+        10.41999999344349,
+        -419
+      ],
+      "raised": 0.4199999934434899
+    }
+  ],
+  "rooms": [
+    {
+      "id": "cv-inn",
+      "bad": [],
+      "room": {
+        "meshes": 31,
+        "obstacles": 23
+      },
+      "spawn": [
+        200,
+        0,
+        7.5
+      ],
+      "actor": true
+    },
+    {
+      "id": "cv-diner",
+      "bad": [],
+      "room": {
+        "meshes": 30,
+        "obstacles": 20
+      },
+      "spawn": [
+        200,
+        0,
+        5.5
+      ],
+      "actor": false
+    },
+    {
+      "id": "cv-passage",
+      "bad": [],
+      "room": {
+        "meshes": 84,
+        "obstacles": 21
+      },
+      "spawn": [
+        200,
+        0,
+        5.5
+      ],
+      "actor": true
+    },
+    {
+      "id": "cv-guard",
+      "bad": [],
+      "room": {
+        "meshes": 84,
+        "obstacles": 21
+      },
+      "spawn": [
+        200,
+        0,
+        5.5
+      ],
+      "actor": true
+    },
+    {
+      "id": "cv-craft",
+      "bad": [],
+      "room": {
+        "meshes": 89,
+        "obstacles": 21
+      },
+      "spawn": [
+        200,
+        0,
+        5.5
+      ],
+      "actor": false
+    },
+    {
+      "id": "cv-sluice",
+      "bad": [],
+      "room": {
+        "meshes": 85,
+        "obstacles": 21
+      },
+      "spawn": [
+        200,
+        0,
+        5.5
+      ],
+      "actor": true
+    },
+    {
+      "id": "cv-guild",
+      "bad": [],
+      "room": {
+        "meshes": 84,
+        "obstacles": 21
+      },
+      "spawn": [
+        200,
+        0,
+        5.5
+      ],
+      "actor": true
+    },
+    {
+      "id": "cv-warehouse",
+      "bad": [],
+      "room": {
+        "meshes": 84,
+        "obstacles": 21
+      },
+      "spawn": [
+        200,
+        0,
+        5.5
+      ],
+      "actor": false
+    },
+    {
+      "id": "cv-inspection",
+      "bad": [],
+      "room": {
+        "meshes": 85,
+        "obstacles": 21
+      },
+      "spawn": [
+        200,
+        0,
+        5.5
+      ],
+      "actor": false
+    },
+    {
+      "id": "cv-records",
+      "bad": [],
+      "room": {
+        "meshes": 84,
+        "obstacles": 21
+      },
+      "spawn": [
+        200,
+        0,
+        5.5
+      ],
+      "actor": true
+    },
+    {
+      "id": "cv-archive",
+      "bad": [],
+      "room": {
+        "meshes": 262,
+        "obstacles": 35
+      },
+      "spawn": [
+        200,
+        0,
+        9.5
+      ],
+      "actor": true
+    },
+    {
+      "id": "cv-admin",
+      "bad": [],
+      "room": {
+        "meshes": 84,
+        "obstacles": 21
+      },
+      "spawn": [
+        200,
+        0,
+        5.5
+      ],
+      "actor": true
+    },
+    {
+      "id": "cv-bell",
+      "bad": [],
+      "room": {
+        "meshes": 42,
+        "obstacles": 35
+      },
+      "spawn": [
+        200,
+        0,
+        5.5
+      ],
+      "actor": true,
+      "stairs": [
+        202.5,
+        3.76,
+        -6
+      ]
+    },
+    {
+      "id": "cv-observatory",
+      "bad": [],
+      "room": {
+        "meshes": 22,
+        "obstacles": 14
+      },
+      "spawn": [
+        200,
+        0,
+        5.5
+      ],
+      "actor": true
+    },
+    {
+      "id": "cv-maps",
+      "bad": [],
+      "room": {
+        "meshes": 270,
+        "obstacles": 35
+      },
+      "spawn": [
+        200,
+        0,
+        9.5
+      ],
+      "actor": true
+    },
+    {
+      "id": "cv-academy",
+      "bad": [],
+      "room": {
+        "meshes": 262,
+        "obstacles": 35
+      },
+      "spawn": [
+        200,
+        0,
+        9.5
+      ],
+      "actor": true
+    },
+    {
+      "id": "cv-val",
+      "bad": [],
+      "room": {
+        "meshes": 89,
+        "obstacles": 21
+      },
+      "spawn": [
+        200,
+        0,
+        5.5
+      ],
+      "actor": true
+    },
+    {
+      "id": "cv-elda",
+      "bad": [],
+      "room": {
+        "meshes": 41,
+        "obstacles": 15
+      },
+      "spawn": [
+        200,
+        0,
+        5.5
+      ],
+      "actor": true
+    },
+    {
+      "id": "cv-old-bell",
+      "bad": [],
+      "room": {
+        "meshes": 41,
+        "obstacles": 35
+      },
+      "spawn": [
+        200,
+        0,
+        5.5
+      ],
+      "actor": false
+    },
+    {
+      "id": "cv-cellar",
+      "bad": [],
+      "room": {
+        "meshes": 41,
+        "obstacles": 15
+      },
+      "spawn": [
+        200,
+        0,
+        5.5
+      ],
+      "actor": false
+    }
+  ],
+  "peopleAndFinn": {
+    "talks": [
+      {
+        "day": 30,
+        "speaker": "ミラ",
+        "speakerId": "cvMira",
+        "text": "まず靴を乾かして、何か食べて。街の話は、それからでいいよ。",
+        "time": "day",
+        "timestamp": "2026-10-08T13:04:21.704Z",
+        "playerMode": "human",
+        "location": "cv-inn",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:cv-inn:day"
+      },
+      {
+        "day": 30,
+        "speaker": "セドリック",
+        "speakerId": "cvCedric",
+        "text": "Violet Mireから来たのか。今日は泥がひどかっただろ。名前は、この欄へ。",
+        "time": "day",
+        "timestamp": "2026-10-08T13:04:22.083Z",
+        "playerMode": "human",
+        "location": "cv-passage",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:cv-passage:day"
+      },
+      {
+        "day": 30,
+        "speaker": "レオン",
+        "speakerId": "cvLeon",
+        "text": "門の内側では荷車が曲がる。広場へは、井戸の側を歩いて。",
+        "time": "day",
+        "timestamp": "2026-10-08T13:04:22.283Z",
+        "playerMode": "human",
+        "location": "cv-guard",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:cv-guard:day"
+      },
+      {
+        "day": 30,
+        "speaker": "ガレン",
+        "speakerId": "cvGaren",
+        "text": "水位標を見ろ。舟を入れる時は、下の門からだ。",
+        "time": "day",
+        "timestamp": "2026-10-08T13:04:22.651Z",
+        "playerMode": "human",
+        "location": "cv-sluice",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:cv-sluice:day"
+      },
+      {
+        "day": 30,
+        "speaker": "ソフィア",
+        "speakerId": "cvSophia",
+        "text": "荷は東の倉庫、空の舟は橋の向こう。そこだけ間違えなければ大丈夫。",
+        "time": "day",
+        "timestamp": "2026-10-08T13:04:22.936Z",
+        "playerMode": "human",
+        "location": "cv-guild",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:cv-guild:day"
+      },
+      {
+        "day": 30,
+        "speaker": "エドラス",
+        "speakerId": "cvEdras",
+        "text": "記録にないことと、存在しなかったことは、別です。土地の申請なら右の机へ。",
+        "time": "day",
+        "timestamp": "2026-10-08T13:04:23.046Z",
+        "playerMode": "human",
+        "location": "cv-records",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:cv-records:day"
+      },
+      {
+        "day": 30,
+        "speaker": "リュネ",
+        "speakerId": "cvLyune",
+        "text": "目録は残っています。本文は、ここにはありません。なかったとは言っていません。",
+        "time": "day",
+        "timestamp": "2026-10-08T13:04:23.571Z",
+        "playerMode": "human",
+        "location": "cv-archive",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:cv-archive:day"
+      },
+      {
+        "day": 30,
+        "speaker": "カシアン",
+        "speakerId": "cvCassian",
+        "text": "区画境界は、排水と通行の都合で変わります。古い名前が残ることもあります。",
+        "time": "day",
+        "timestamp": "2026-10-08T13:04:23.867Z",
+        "playerMode": "human",
+        "location": "cv-admin",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:cv-admin:day"
+      },
+      {
+        "day": 30,
+        "speaker": "オルム",
+        "speakerId": "cvOrm",
+        "text": "Bellmireの鐘か。何回ではなく、どれくらい間が空いた？ 点検ではそこを聞く。",
+        "time": "day",
+        "timestamp": "2026-10-08T13:04:24.127Z",
+        "playerMode": "human",
+        "location": "cv-bell",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:cv-bell:day"
+      },
+      {
+        "day": 30,
+        "speaker": "セレナ",
+        "speakerId": "cvSerena",
+        "text": "形だけでなく、見た方向と時刻も残してください。似ていることは、同じであることではありません。",
+        "time": "day",
+        "timestamp": "2026-10-08T13:04:24.387Z",
+        "playerMode": "human",
+        "location": "cv-observatory",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:cv-observatory:day"
+      },
+      {
+        "day": 30,
+        "speaker": "ユリオ",
+        "speakerId": "cvYulio",
+        "text": "この線、今の道にはありません。現地で確かめるなら、鐘のない鐘楼の方です。",
+        "time": "day",
+        "timestamp": "2026-10-08T13:04:24.728Z",
+        "playerMode": "human",
+        "location": "cv-maps",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:cv-maps:day"
+      },
+      {
+        "day": 30,
+        "speaker": "ノア",
+        "speakerId": "cvNoah",
+        "text": "これ、同じ形に見えません？ ……先生は、もう一度向きを測ろうって。",
+        "time": "day",
+        "timestamp": "2026-10-08T13:04:25.039Z",
+        "playerMode": "human",
+        "location": "cv-academy",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:cv-academy:day"
+      },
+      {
+        "day": 30,
+        "speaker": "ヴァル",
+        "speakerId": "cvVal",
+        "text": "使える石は戻す。合わない石は、横へ置く。",
+        "time": "day",
+        "timestamp": "2026-10-08T13:04:25.294Z",
+        "playerMode": "human",
+        "location": "cv-val",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:cv-val:day"
+      },
+      {
+        "day": 30,
+        "speaker": "エルダ",
+        "speakerId": "cvElda",
+        "text": "鐘のない鐘楼の方だよ。昔はここから水が見えたよ。",
+        "time": "day",
+        "timestamp": "2026-10-08T13:04:25.588Z",
+        "playerMode": "human",
+        "location": "cv-elda",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:cv-elda:day"
+      }
+    ],
+    "encounterStatus": {
+      "finn": {
+        "id": "capital-old",
+        "point": [
+          -566,
+          10,
+          -438
+        ],
+        "region": "caer-oldQuarter"
+      },
+      "val": [
+        -567.3499999999999,
+        10,
+        -438
+      ],
+      "enabled": true
+    },
+    "encounter": {
+      "day": 33,
+      "period": "evening",
+      "playerMode": "human",
+      "label": "ヴァルは外套を見て、「まだ使っているのか」と言った。フィンは「丈夫なんだ」と答えた。"
+    }
+  },
+  "alternateOldQuarterClues": {
+    "before": {
+      "old": false,
+      "elder": [
+        -598,
+        8,
+        -308
+      ],
+      "region": "caer-lowerWard"
+    },
+    "after": {
+      "clue": true,
+      "old": true
+    },
+    "cat": {
+      "clue": true,
+      "old": true
+    }
+  },
+  "mobile": {
+    "overflow": false,
+    "box": {
+      "x": 19,
+      "width": 352,
+      "height": 696.109375
+    },
+    "wards": 5,
+    "paused": true,
+    "quality": "mobile",
+    "world": {
+      "active": true,
+      "cityButton": true
+    }
+  },
+  "weather": {
+    "rows": [
+      {
+        "weather": "clear",
+        "ward": "lowerWard",
+        "feet": [
+          0,
+          1.38,
+          32
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "dormant",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "dormant",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "dormant",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "dormant",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "dormant",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "clear",
+        "ward": "canalWard",
+        "feet": [
+          -650,
+          8,
+          -320
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "clear",
+        "ward": "civicWard",
+        "feet": [
+          -644,
+          8,
+          -377
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "clear",
+        "ward": "scholarHeights",
+        "feet": [
+          -700,
+          16,
+          -425
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "clear",
+        "ward": "oldQuarter",
+        "feet": [
+          -588,
+          10,
+          -430
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "rain",
+        "ward": "lowerWard",
+        "feet": [
+          -588,
+          10,
+          -430
+        ],
+        "wet": "929fa2",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "rain",
+        "ward": "canalWard",
+        "feet": [
+          -650,
+          8,
+          -320
+        ],
+        "wet": "929fa2",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "rain",
+        "ward": "civicWard",
+        "feet": [
+          -644,
+          8,
+          -377
+        ],
+        "wet": "929fa2",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "rain",
+        "ward": "scholarHeights",
+        "feet": [
+          -700,
+          16,
+          -425
+        ],
+        "wet": "929fa2",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "rain",
+        "ward": "oldQuarter",
+        "feet": [
+          -588,
+          10,
+          -430
+        ],
+        "wet": "929fa2",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "fog",
+        "ward": "lowerWard",
+        "feet": [
+          -588,
+          10,
+          -430
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "fog",
+        "ward": "canalWard",
+        "feet": [
+          -650,
+          8,
+          -320
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "fog",
+        "ward": "civicWard",
+        "feet": [
+          -644,
+          8,
+          -377
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "fog",
+        "ward": "scholarHeights",
+        "feet": [
+          -700,
+          16,
+          -425
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "fog",
+        "ward": "oldQuarter",
+        "feet": [
+          -588,
+          10,
+          -430
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "blackout",
+        "ward": "lowerWard",
+        "feet": [
+          -588,
+          10,
+          -430
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "blackout",
+        "ward": "canalWard",
+        "feet": [
+          -650,
+          8,
+          -320
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "blackout",
+        "ward": "civicWard",
+        "feet": [
+          -644,
+          8,
+          -377
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "blackout",
+        "ward": "scholarHeights",
+        "feet": [
+          -700,
+          16,
+          -425
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "blackout",
+        "ward": "oldQuarter",
+        "feet": [
+          -588,
+          10,
+          -430
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "dawn",
+        "ward": "lowerWard",
+        "feet": [
+          -588,
+          10,
+          -430
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "dawn",
+        "ward": "canalWard",
+        "feet": [
+          -650,
+          8,
+          -320
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "dawn",
+        "ward": "civicWard",
+        "feet": [
+          -644,
+          8,
+          -377
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "dawn",
+        "ward": "scholarHeights",
+        "feet": [
+          -700,
+          16,
+          -425
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "dawn",
+        "ward": "oldQuarter",
+        "feet": [
+          -588,
+          10,
+          -430
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "night",
+        "ward": "lowerWard",
+        "feet": [
+          -588,
+          10,
+          -430
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "night",
+        "ward": "canalWard",
+        "feet": [
+          -650,
+          8,
+          -320
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "night",
+        "ward": "civicWard",
+        "feet": [
+          -644,
+          8,
+          -377
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "night",
+        "ward": "scholarHeights",
+        "feet": [
+          -700,
+          16,
+          -425
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          }
+        ]
+      },
+      {
+        "weather": "night",
+        "ward": "oldQuarter",
+        "feet": [
+          -588,
+          10,
+          -430
+        ],
+        "wet": "c6c0a7",
+        "lights": 8,
+        "budget": [
+          {
+            "id": "lowerWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "canalWard",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "civicWard",
+            "activity": "nearby",
+            "tier": "adjacent",
+            "interval": 0.75,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "scholarHeights",
+            "activity": "background",
+            "tier": "remote",
+            "interval": 1.5,
+            "details": false,
+            "animate": false,
+            "open": true
+          },
+          {
+            "id": "oldQuarter",
+            "activity": "active",
+            "tier": "current",
+            "interval": 0,
+            "details": true,
+            "animate": true,
+            "open": true
+          }
+        ]
+      }
+    ],
+    "mobile": {
+      "overflow": false,
+      "portrait": true,
+      "speaker": "ミラ"
+    }
+  },
+  "saveCompatibility": {
+    "old": {
+      "day": 14,
+      "memories": {
+        "lunHost": {
+          "human": {
+            "visits": 2,
+            "firstDay": 4,
+            "lastDay": 13
+          }
+        },
+        "lunBoat": {
+          "human": {
+            "visits": 5,
+            "firstDay": 2,
+            "lastDay": 12
+          }
+        },
+        "lunWatcher": {
+          "cat": {
+            "visits": 1,
+            "firstDay": 5,
+            "lastDay": 5
+          }
+        }
+      },
+      "threads": {
+        "ring": {
+          "stage": "discovered"
+        },
+        "drowned": {
+          "stage": "unseen"
+        },
+        "bell": {
+          "stage": "afterglow",
+          "anomalyDay": 6,
+          "catFound": true
+        },
+        "hollowCrown": {
+          "stage": "unseen"
+        },
+        "violetMire": {
+          "stage": "unseen"
+        },
+        "caerVeyraRecords": {
+          "stage": "unseen"
+        }
+      },
+      "journal": [
+        {
+          "id": "met:lunBoat:human",
+          "day": 2,
+          "text": "ローワンと、街の暮らしについて少し話した。",
+          "kind": "person",
+          "playerMode": "human"
+        },
+        {
+          "id": "met:lunHost:human",
+          "day": 4,
+          "text": "マレンと、街の暮らしについて少し話した。",
+          "kind": "person",
+          "playerMode": "human"
+        },
+        {
+          "id": "met:lunWatcher:cat",
+          "day": 5,
+          "text": "イーラのそばへ、低い足音で寄った。",
+          "kind": "cat",
+          "playerMode": "human"
+        },
+        {
+          "id": "season:autumn",
+          "day": 14,
+          "text": "市場の布と乾いた葉に、季節の違いが見える。",
+          "kind": "place",
+          "playerMode": "human"
+        },
+        {
+          "id": "lunmere-arrival",
+          "day": 14,
+          "text": "湖の道の先に、Lunmereの小さな屋根が並んでいた。",
+          "kind": "place",
+          "playerMode": "human"
+        }
+      ],
+      "boat": "caerith",
+      "names": [
+        [
+          "lunHost",
+          "マレン",
+          "柳の宿の女将"
+        ],
+        [
+          "lunBoat",
+          "ローワン",
+          "渡し守・舟小屋の人"
+        ],
+        [
+          "lunWatcher",
+          "イーラ",
+          "岸辺の小商店の店主"
+        ]
+      ],
+      "entryLabels": [
+        "マレン（柳の宿の女将）",
+        "ローワン（渡し守・舟小屋の人）",
+        "イーラ（岸辺の小商店の店主）"
+      ],
+      "status": {
+        "available": true,
+        "error": null,
+        "writes": 1
+      }
+    },
+    "new": {
+      "day": 1,
+      "history": [
+        {
+          "day": 1,
+          "region": "bellmire",
+          "mode": "human",
+          "travelMode": "road"
+        }
+      ],
+      "water": "normal",
+      "crown": {
+        "stage": "unseen"
+      },
+      "registered": 14
+    }
+  },
+  "performanceBeforeAfter": [
+    {
+      "baseline": true,
+      "rows": [
+        {
+          "name": "Bellmire",
+          "quality": "high",
+          "frame": 255,
+          "calls": 2603,
+          "triangles": 105269,
+          "points": 0,
+          "lines": 216,
+          "meshes": 3589,
+          "visibleMeshes": 3327,
+          "frustumMeshes": 2844,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.5999999642372131,
+          "updateP95": 3.5,
+          "npc": {
+            "scheduled": 37,
+            "period": "day",
+            "outsideVisible": 31,
+            "walking": 15,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 23,
+            "sleeping": 23
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Bellmire",
+          "quality": "standard",
+          "frame": 345,
+          "calls": 2603,
+          "triangles": 105269,
+          "points": 0,
+          "lines": 216,
+          "meshes": 3589,
+          "visibleMeshes": 3324,
+          "frustumMeshes": 2844,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.30000001192092896,
+          "updateP95": 3,
+          "npc": {
+            "scheduled": 37,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 11,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 23,
+            "sleeping": 23
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Bellmire",
+          "quality": "mobile",
+          "frame": 351,
+          "calls": 2589,
+          "triangles": 105255,
+          "points": 0,
+          "lines": 216,
+          "meshes": 3589,
+          "visibleMeshes": 3315,
+          "frustumMeshes": 2844,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.40000003576278687,
+          "updateP95": 11.699999988079071,
+          "npc": {
+            "scheduled": 37,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 11,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 23,
+            "sleeping": 23
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Nine Stones",
+          "quality": "high",
+          "frame": 441,
+          "calls": 57,
+          "triangles": 2396,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3589,
+          "visibleMeshes": 3311,
+          "frustumMeshes": 42,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.5,
+          "updateP95": 5.599999964237213,
+          "npc": {
+            "scheduled": 37,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 11,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 1,
+            "mid": 0,
+            "far": 36
+          },
+          "dynamicCollision": {
+            "active": 33,
+            "sleeping": 13
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Nine Stones",
+          "quality": "standard",
+          "frame": 531,
+          "calls": 57,
+          "triangles": 2396,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3589,
+          "visibleMeshes": 3311,
+          "frustumMeshes": 42,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.40000003576278687,
+          "updateP95": 8.400000035762787,
+          "npc": {
+            "scheduled": 37,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 10,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 1,
+            "mid": 0,
+            "far": 36
+          },
+          "dynamicCollision": {
+            "active": 33,
+            "sleeping": 13
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Nine Stones",
+          "quality": "mobile",
+          "frame": 537,
+          "calls": 43,
+          "triangles": 2382,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3589,
+          "visibleMeshes": 3317,
+          "frustumMeshes": 42,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.30000001192092896,
+          "updateP95": 8.5,
+          "npc": {
+            "scheduled": 37,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 10,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 1,
+            "mid": 0,
+            "far": 36
+          },
+          "dynamicCollision": {
+            "active": 34,
+            "sleeping": 12
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Lake Lun normal",
+          "quality": "high",
+          "frame": 627,
+          "calls": 110,
+          "triangles": 4858,
+          "points": 0,
+          "lines": 2,
+          "meshes": 3589,
+          "visibleMeshes": 3317,
+          "frustumMeshes": 93,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.3999999761581421,
+          "updateP95": 0.7999999523162842,
+          "npc": {
+            "scheduled": 37,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 10,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 34,
+            "sleeping": 12
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Lake Lun normal",
+          "quality": "standard",
+          "frame": 717,
+          "calls": 110,
+          "triangles": 4858,
+          "points": 0,
+          "lines": 2,
+          "meshes": 3589,
+          "visibleMeshes": 3317,
+          "frustumMeshes": 93,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.30000001192092896,
+          "updateP95": 4.399999976158142,
+          "npc": {
+            "scheduled": 37,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 10,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 34,
+            "sleeping": 12
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Lake Lun normal",
+          "quality": "mobile",
+          "frame": 723,
+          "calls": 96,
+          "triangles": 4844,
+          "points": 0,
+          "lines": 2,
+          "meshes": 3589,
+          "visibleMeshes": 3311,
+          "frustumMeshes": 93,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.3999999761581421,
+          "updateP95": 0.9000000357627869,
+          "npc": {
+            "scheduled": 37,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 10,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 33,
+            "sleeping": 13
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Lunmere",
+          "quality": "high",
+          "frame": 813,
+          "calls": 215,
+          "triangles": 7918,
+          "points": 0,
+          "lines": 1,
+          "meshes": 3589,
+          "visibleMeshes": 3318,
+          "frustumMeshes": 195,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.30000001192092896,
+          "updateP95": 3.399999976158142,
+          "npc": {
+            "scheduled": 37,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 8,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 1,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 10,
+            "sleeping": 36
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Lunmere",
+          "quality": "standard",
+          "frame": 903,
+          "calls": 215,
+          "triangles": 7918,
+          "points": 0,
+          "lines": 1,
+          "meshes": 3589,
+          "visibleMeshes": 3318,
+          "frustumMeshes": 195,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.19999998807907104,
+          "updateP95": 1.2000000476837158,
+          "npc": {
+            "scheduled": 37,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 7,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 2,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 10,
+            "sleeping": 36
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Lunmere",
+          "quality": "mobile",
+          "frame": 909,
+          "calls": 201,
+          "triangles": 7928,
+          "points": 0,
+          "lines": 1,
+          "meshes": 3589,
+          "visibleMeshes": 3318,
+          "frustumMeshes": 195,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.10000002384185791,
+          "updateP95": 0.5,
+          "npc": {
+            "scheduled": 37,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 7,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 10,
+            "sleeping": 36
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Caerith",
+          "quality": "high",
+          "frame": 999,
+          "calls": 60,
+          "triangles": 2570,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3589,
+          "visibleMeshes": 3311,
+          "frustumMeshes": 45,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.19999998807907104,
+          "updateP95": 0.699999988079071,
+          "npc": {
+            "scheduled": 37,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 6,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 10,
+            "sleeping": 36
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Caerith",
+          "quality": "standard",
+          "frame": 1089,
+          "calls": 60,
+          "triangles": 2570,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3589,
+          "visibleMeshes": 3311,
+          "frustumMeshes": 45,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.19999998807907104,
+          "updateP95": 0.30000001192092896,
+          "npc": {
+            "scheduled": 37,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 5,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 10,
+            "sleeping": 36
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Caerith",
+          "quality": "mobile",
+          "frame": 1095,
+          "calls": 46,
+          "triangles": 2556,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3589,
+          "visibleMeshes": 3317,
+          "frustumMeshes": 45,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.19999998807907104,
+          "updateP95": 4.300000011920929,
+          "npc": {
+            "scheduled": 37,
+            "period": "day",
+            "outsideVisible": 27,
+            "walking": 5,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 31,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 10,
+            "sleeping": 36
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Drowned Way",
+          "quality": "high",
+          "frame": 1185,
+          "calls": 83,
+          "triangles": 5578,
+          "points": 0,
+          "lines": 1,
+          "meshes": 3589,
+          "visibleMeshes": 3382,
+          "frustumMeshes": 67,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.2999999523162842,
+          "updateP95": 7.700000047683716,
+          "npc": {
+            "scheduled": 37,
+            "period": "morning",
+            "outsideVisible": 30,
+            "walking": 24,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 124,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 41,
+            "sleeping": 5
+          },
+          "water": "veryLow"
+        },
+        {
+          "name": "Drowned Way",
+          "quality": "standard",
+          "frame": 1275,
+          "calls": 83,
+          "triangles": 5578,
+          "points": 0,
+          "lines": 1,
+          "meshes": 3589,
+          "visibleMeshes": 3382,
+          "frustumMeshes": 67,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.30000001192092896,
+          "updateP95": 10.200000047683716,
+          "npc": {
+            "scheduled": 37,
+            "period": "morning",
+            "outsideVisible": 30,
+            "walking": 24,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 124,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 41,
+            "sleeping": 5
+          },
+          "water": "veryLow"
+        },
+        {
+          "name": "Drowned Way",
+          "quality": "mobile",
+          "frame": 1281,
+          "calls": 69,
+          "triangles": 5564,
+          "points": 0,
+          "lines": 1,
+          "meshes": 3589,
+          "visibleMeshes": 3376,
+          "frustumMeshes": 67,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.30000001192092896,
+          "updateP95": 8.300000011920929,
+          "npc": {
+            "scheduled": 37,
+            "period": "morning",
+            "outsideVisible": 30,
+            "walking": 17,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 124,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 40,
+            "sleeping": 6
+          },
+          "water": "veryLow"
+        },
+        {
+          "name": "Lake Lun extremeLow",
+          "quality": "high",
+          "frame": 1371,
+          "calls": 139,
+          "triangles": 10548,
+          "points": 0,
+          "lines": 2,
+          "meshes": 3589,
+          "visibleMeshes": 3381,
+          "frustumMeshes": 122,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.20000004768371582,
+          "updateP95": 0.699999988079071,
+          "npc": {
+            "scheduled": 37,
+            "period": "morning",
+            "outsideVisible": 30,
+            "walking": 16,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 223,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 40,
+            "sleeping": 6
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Lake Lun extremeLow",
+          "quality": "standard",
+          "frame": 1461,
+          "calls": 139,
+          "triangles": 10548,
+          "points": 0,
+          "lines": 2,
+          "meshes": 3589,
+          "visibleMeshes": 3381,
+          "frustumMeshes": 122,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.20000004768371582,
+          "updateP95": 2.700000047683716,
+          "npc": {
+            "scheduled": 37,
+            "period": "morning",
+            "outsideVisible": 30,
+            "walking": 16,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 223,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 40,
+            "sleeping": 6
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Lake Lun extremeLow",
+          "quality": "mobile",
+          "frame": 1467,
+          "calls": 125,
+          "triangles": 10534,
+          "points": 0,
+          "lines": 2,
+          "meshes": 3589,
+          "visibleMeshes": 3381,
+          "frustumMeshes": 122,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.30000001192092896,
+          "updateP95": 0.6000000238418579,
+          "npc": {
+            "scheduled": 37,
+            "period": "morning",
+            "outsideVisible": 30,
+            "walking": 15,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 223,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 40,
+            "sleeping": 6
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "The Ring",
+          "quality": "high",
+          "frame": 1557,
+          "calls": 55,
+          "triangles": 5802,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3589,
+          "visibleMeshes": 3399,
+          "frustumMeshes": 40,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.19999998807907104,
+          "updateP95": 0.3999999761581421,
+          "npc": {
+            "scheduled": 37,
+            "period": "morning",
+            "outsideVisible": 26,
+            "walking": 10,
+            "inside": 5,
+            "addedResidents": 3,
+            "pathRequests": 223,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 13,
+            "sleeping": 33
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "The Ring",
+          "quality": "standard",
+          "frame": 1647,
+          "calls": 55,
+          "triangles": 5802,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3589,
+          "visibleMeshes": 3399,
+          "frustumMeshes": 40,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.10000002384185791,
+          "updateP95": 0.19999998807907104,
+          "npc": {
+            "scheduled": 37,
+            "period": "morning",
+            "outsideVisible": 26,
+            "walking": 10,
+            "inside": 5,
+            "addedResidents": 3,
+            "pathRequests": 223,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 13,
+            "sleeping": 33
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "The Ring",
+          "quality": "mobile",
+          "frame": 1653,
+          "calls": 41,
+          "triangles": 5788,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3589,
+          "visibleMeshes": 3405,
+          "frustumMeshes": 40,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.10000002384185791,
+          "updateP95": 0.20000004768371582,
+          "npc": {
+            "scheduled": 37,
+            "period": "morning",
+            "outsideVisible": 26,
+            "walking": 9,
+            "inside": 5,
+            "addedResidents": 3,
+            "pathRequests": 223,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 13,
+            "sleeping": 33
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Hollow Crown",
+          "quality": "high",
+          "frame": 1743,
+          "calls": 53,
+          "triangles": 4908,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3589,
+          "visibleMeshes": 3439,
+          "frustumMeshes": 38,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.10000002384185791,
+          "updateP95": 0.20000004768371582,
+          "npc": {
+            "scheduled": 37,
+            "period": "morning",
+            "outsideVisible": 26,
+            "walking": 9,
+            "inside": 5,
+            "addedResidents": 3,
+            "pathRequests": 223,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 13,
+            "sleeping": 33
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Hollow Crown",
+          "quality": "standard",
+          "frame": 1833,
+          "calls": 53,
+          "triangles": 4908,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3589,
+          "visibleMeshes": 3433,
+          "frustumMeshes": 38,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.10000002384185791,
+          "updateP95": 0.20000004768371582,
+          "npc": {
+            "scheduled": 37,
+            "period": "morning",
+            "outsideVisible": 26,
+            "walking": 9,
+            "inside": 5,
+            "addedResidents": 3,
+            "pathRequests": 223,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 13,
+            "sleeping": 33
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Hollow Crown",
+          "quality": "mobile",
+          "frame": 1839,
+          "calls": 39,
+          "triangles": 4894,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3589,
+          "visibleMeshes": 3433,
+          "frustumMeshes": 38,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.10000002384185791,
+          "updateP95": 0.40000003576278687,
+          "npc": {
+            "scheduled": 37,
+            "period": "morning",
+            "outsideVisible": 26,
+            "walking": 9,
+            "inside": 5,
+            "addedResidents": 3,
+            "pathRequests": 223,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 13,
+            "sleeping": 33
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Violet Mire",
+          "quality": "high",
+          "frame": 1929,
+          "calls": 74,
+          "triangles": 10616,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3589,
+          "visibleMeshes": 3465,
+          "frustumMeshes": 55,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.19999998807907104,
+          "updateP95": 1.300000011920929,
+          "npc": {
+            "scheduled": 37,
+            "period": "morning",
+            "outsideVisible": 27,
+            "walking": 10,
+            "inside": 6,
+            "addedResidents": 3,
+            "pathRequests": 225,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 2,
+            "sleeping": 44
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Violet Mire",
+          "quality": "standard",
+          "frame": 2019,
+          "calls": 74,
+          "triangles": 10616,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3589,
+          "visibleMeshes": 3465,
+          "frustumMeshes": 55,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.19999998807907104,
+          "updateP95": 1.2000000476837158,
+          "npc": {
+            "scheduled": 37,
+            "period": "morning",
+            "outsideVisible": 27,
+            "walking": 10,
+            "inside": 6,
+            "addedResidents": 3,
+            "pathRequests": 225,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 2,
+            "sleeping": 44
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Violet Mire",
+          "quality": "mobile",
+          "frame": 2025,
+          "calls": 60,
+          "triangles": 10602,
+          "points": 0,
+          "lines": 0,
+          "meshes": 3589,
+          "visibleMeshes": 3465,
+          "frustumMeshes": 55,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.10000002384185791,
+          "updateP95": 0.5,
+          "npc": {
+            "scheduled": 37,
+            "period": "morning",
+            "outsideVisible": 27,
+            "walking": 10,
+            "inside": 6,
+            "addedResidents": 3,
+            "pathRequests": 225,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 37
+          },
+          "dynamicCollision": {
+            "active": 2,
+            "sleeping": 44
+          },
+          "water": "extremeLow"
+        }
+      ]
+    },
+    {
+      "baseline": false,
+      "rows": [
+        {
+          "name": "Bellmire",
+          "quality": "high",
+          "frame": 255,
+          "calls": 2622,
+          "triangles": 105497,
+          "points": 0,
+          "lines": 216,
+          "meshes": 4317,
+          "visibleMeshes": 3504,
+          "frustumMeshes": 2863,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.6000000238418579,
+          "updateP95": 8.699999988079071,
+          "npc": {
+            "scheduled": 115,
+            "period": "day",
+            "outsideVisible": 109,
+            "walking": 93,
+            "inside": 0,
+            "addedResidents": 3,
+            "pathRequests": 109,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 23,
+            "sleeping": 101
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Bellmire",
+          "quality": "standard",
+          "frame": 345,
+          "calls": 2622,
+          "triangles": 105497,
+          "points": 0,
+          "lines": 216,
+          "meshes": 4317,
+          "visibleMeshes": 3501,
+          "frustumMeshes": 2863,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.9000000357627869,
+          "updateP95": 8.099999964237213,
+          "npc": {
+            "scheduled": 115,
+            "period": "day",
+            "outsideVisible": 105,
+            "walking": 89,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 109,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 23,
+            "sleeping": 101
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Bellmire",
+          "quality": "mobile",
+          "frame": 351,
+          "calls": 2608,
+          "triangles": 105483,
+          "points": 0,
+          "lines": 216,
+          "meshes": 4317,
+          "visibleMeshes": 3492,
+          "frustumMeshes": 2863,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.5,
+          "updateP95": 5,
+          "npc": {
+            "scheduled": 115,
+            "period": "day",
+            "outsideVisible": 105,
+            "walking": 89,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 109,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 23,
+            "sleeping": 101
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Nine Stones",
+          "quality": "high",
+          "frame": 441,
+          "calls": 57,
+          "triangles": 2396,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3488,
+          "frustumMeshes": 42,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.7000000476837158,
+          "updateP95": 11.300000011920929,
+          "npc": {
+            "scheduled": 115,
+            "period": "day",
+            "outsideVisible": 105,
+            "walking": 89,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 109,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 1,
+            "mid": 0,
+            "far": 114
+          },
+          "dynamicCollision": {
+            "active": 33,
+            "sleeping": 91
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Nine Stones",
+          "quality": "standard",
+          "frame": 531,
+          "calls": 57,
+          "triangles": 2396,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3488,
+          "frustumMeshes": 42,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.5999999642372131,
+          "updateP95": 8.100000023841858,
+          "npc": {
+            "scheduled": 115,
+            "period": "day",
+            "outsideVisible": 105,
+            "walking": 69,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 109,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 1,
+            "mid": 0,
+            "far": 114
+          },
+          "dynamicCollision": {
+            "active": 33,
+            "sleeping": 91
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Nine Stones",
+          "quality": "mobile",
+          "frame": 537,
+          "calls": 43,
+          "triangles": 2382,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3494,
+          "frustumMeshes": 42,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.6000000238418579,
+          "updateP95": 3.399999976158142,
+          "npc": {
+            "scheduled": 115,
+            "period": "day",
+            "outsideVisible": 105,
+            "walking": 42,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 109,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 1,
+            "mid": 0,
+            "far": 114
+          },
+          "dynamicCollision": {
+            "active": 34,
+            "sleeping": 90
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Lake Lun normal",
+          "quality": "high",
+          "frame": 627,
+          "calls": 139,
+          "triangles": 7518,
+          "points": 0,
+          "lines": 2,
+          "meshes": 4317,
+          "visibleMeshes": 3494,
+          "frustumMeshes": 122,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.800000011920929,
+          "updateP95": 11.400000035762787,
+          "npc": {
+            "scheduled": 115,
+            "period": "day",
+            "outsideVisible": 105,
+            "walking": 28,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 109,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 34,
+            "sleeping": 90
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Lake Lun normal",
+          "quality": "standard",
+          "frame": 717,
+          "calls": 139,
+          "triangles": 7518,
+          "points": 0,
+          "lines": 2,
+          "meshes": 4317,
+          "visibleMeshes": 3494,
+          "frustumMeshes": 122,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.7000000476837158,
+          "updateP95": 1.7000000476837158,
+          "npc": {
+            "scheduled": 115,
+            "period": "day",
+            "outsideVisible": 105,
+            "walking": 27,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 109,
+            "detourRequests": 0,
+            "updated": 1,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 34,
+            "sleeping": 90
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Lake Lun normal",
+          "quality": "mobile",
+          "frame": 723,
+          "calls": 125,
+          "triangles": 7504,
+          "points": 0,
+          "lines": 2,
+          "meshes": 4317,
+          "visibleMeshes": 3488,
+          "frustumMeshes": 122,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.5,
+          "updateP95": 0.9000000357627869,
+          "npc": {
+            "scheduled": 115,
+            "period": "day",
+            "outsideVisible": 105,
+            "walking": 21,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 109,
+            "detourRequests": 0,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 33,
+            "sleeping": 91
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Lunmere",
+          "quality": "high",
+          "frame": 813,
+          "calls": 253,
+          "triangles": 10034,
+          "points": 0,
+          "lines": 1,
+          "meshes": 4317,
+          "visibleMeshes": 3495,
+          "frustumMeshes": 233,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.800000011920929,
+          "updateP95": 5.800000011920929,
+          "npc": {
+            "scheduled": 115,
+            "period": "day",
+            "outsideVisible": 105,
+            "walking": 13,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 109,
+            "detourRequests": 1,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 10,
+            "sleeping": 114
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Lunmere",
+          "quality": "standard",
+          "frame": 903,
+          "calls": 253,
+          "triangles": 10034,
+          "points": 0,
+          "lines": 1,
+          "meshes": 4317,
+          "visibleMeshes": 3495,
+          "frustumMeshes": 233,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.5999999642372131,
+          "updateP95": 2.099999964237213,
+          "npc": {
+            "scheduled": 115,
+            "period": "day",
+            "outsideVisible": 105,
+            "walking": 11,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 109,
+            "detourRequests": 2,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 10,
+            "sleeping": 114
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Lunmere",
+          "quality": "mobile",
+          "frame": 909,
+          "calls": 239,
+          "triangles": 10044,
+          "points": 0,
+          "lines": 1,
+          "meshes": 4317,
+          "visibleMeshes": 3495,
+          "frustumMeshes": 233,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.3999999761581421,
+          "updateP95": 1.199999988079071,
+          "npc": {
+            "scheduled": 115,
+            "period": "day",
+            "outsideVisible": 105,
+            "walking": 11,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 109,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 10,
+            "sleeping": 114
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Caerith",
+          "quality": "high",
+          "frame": 999,
+          "calls": 102,
+          "triangles": 6116,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3488,
+          "frustumMeshes": 87,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.40000003576278687,
+          "updateP95": 1.199999988079071,
+          "npc": {
+            "scheduled": 115,
+            "period": "day",
+            "outsideVisible": 104,
+            "walking": 9,
+            "inside": 5,
+            "addedResidents": 3,
+            "pathRequests": 109,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 10,
+            "sleeping": 114
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Caerith",
+          "quality": "standard",
+          "frame": 1089,
+          "calls": 102,
+          "triangles": 6116,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3488,
+          "frustumMeshes": 87,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.30000001192092896,
+          "updateP95": 0.7000000476837158,
+          "npc": {
+            "scheduled": 115,
+            "period": "day",
+            "outsideVisible": 103,
+            "walking": 7,
+            "inside": 6,
+            "addedResidents": 3,
+            "pathRequests": 109,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 10,
+            "sleeping": 114
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Caerith",
+          "quality": "mobile",
+          "frame": 1095,
+          "calls": 88,
+          "triangles": 6102,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3494,
+          "frustumMeshes": 87,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.30000001192092896,
+          "updateP95": 1,
+          "npc": {
+            "scheduled": 115,
+            "period": "day",
+            "outsideVisible": 103,
+            "walking": 7,
+            "inside": 6,
+            "addedResidents": 3,
+            "pathRequests": 109,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 10,
+            "sleeping": 114
+          },
+          "water": "normal"
+        },
+        {
+          "name": "Drowned Way",
+          "quality": "high",
+          "frame": 1185,
+          "calls": 88,
+          "triangles": 6074,
+          "points": 0,
+          "lines": 1,
+          "meshes": 4317,
+          "visibleMeshes": 3545,
+          "frustumMeshes": 72,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.5,
+          "updateP95": 2.300000011920929,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 52,
+            "walking": 27,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 290,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 41,
+            "sleeping": 83
+          },
+          "water": "veryLow"
+        },
+        {
+          "name": "Drowned Way",
+          "quality": "standard",
+          "frame": 1275,
+          "calls": 88,
+          "triangles": 6074,
+          "points": 0,
+          "lines": 1,
+          "meshes": 4317,
+          "visibleMeshes": 3545,
+          "frustumMeshes": 72,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.40000003576278687,
+          "updateP95": 1,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 52,
+            "walking": 27,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 290,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 41,
+            "sleeping": 83
+          },
+          "water": "veryLow"
+        },
+        {
+          "name": "Drowned Way",
+          "quality": "mobile",
+          "frame": 1281,
+          "calls": 74,
+          "triangles": 6060,
+          "points": 0,
+          "lines": 1,
+          "meshes": 4317,
+          "visibleMeshes": 3539,
+          "frustumMeshes": 72,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.5,
+          "updateP95": 3.799999952316284,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 52,
+            "walking": 20,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 290,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 40,
+            "sleeping": 84
+          },
+          "water": "veryLow"
+        },
+        {
+          "name": "Lake Lun extremeLow",
+          "quality": "high",
+          "frame": 1371,
+          "calls": 168,
+          "triangles": 13208,
+          "points": 0,
+          "lines": 2,
+          "meshes": 4317,
+          "visibleMeshes": 3544,
+          "frustumMeshes": 151,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.5,
+          "updateP95": 4.899999976158142,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 52,
+            "walking": 19,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 455,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 40,
+            "sleeping": 84
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Lake Lun extremeLow",
+          "quality": "standard",
+          "frame": 1461,
+          "calls": 168,
+          "triangles": 13208,
+          "points": 0,
+          "lines": 2,
+          "meshes": 4317,
+          "visibleMeshes": 3544,
+          "frustumMeshes": 151,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.3999999761581421,
+          "updateP95": 1.300000011920929,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 52,
+            "walking": 19,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 455,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 40,
+            "sleeping": 84
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Lake Lun extremeLow",
+          "quality": "mobile",
+          "frame": 1467,
+          "calls": 154,
+          "triangles": 13194,
+          "points": 0,
+          "lines": 2,
+          "meshes": 4317,
+          "visibleMeshes": 3544,
+          "frustumMeshes": 151,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.30000001192092896,
+          "updateP95": 0.800000011920929,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 52,
+            "walking": 18,
+            "inside": 4,
+            "addedResidents": 3,
+            "pathRequests": 455,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 40,
+            "sleeping": 84
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "The Ring",
+          "quality": "high",
+          "frame": 1557,
+          "calls": 64,
+          "triangles": 7222,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3562,
+          "frustumMeshes": 49,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.3999999761581421,
+          "updateP95": 1.4000000357627869,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 48,
+            "walking": 13,
+            "inside": 5,
+            "addedResidents": 3,
+            "pathRequests": 455,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 13,
+            "sleeping": 111
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "The Ring",
+          "quality": "standard",
+          "frame": 1647,
+          "calls": 64,
+          "triangles": 7222,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3562,
+          "frustumMeshes": 49,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.5999999642372131,
+          "updateP95": 5.5,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 48,
+            "walking": 13,
+            "inside": 5,
+            "addedResidents": 3,
+            "pathRequests": 455,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 13,
+            "sleeping": 111
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "The Ring",
+          "quality": "mobile",
+          "frame": 1653,
+          "calls": 50,
+          "triangles": 7208,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3568,
+          "frustumMeshes": 49,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.5,
+          "updateP95": 4.699999988079071,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 48,
+            "walking": 12,
+            "inside": 5,
+            "addedResidents": 3,
+            "pathRequests": 455,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 13,
+            "sleeping": 111
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Hollow Crown",
+          "quality": "high",
+          "frame": 1743,
+          "calls": 53,
+          "triangles": 4908,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3602,
+          "frustumMeshes": 38,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.30000001192092896,
+          "updateP95": 1,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 48,
+            "walking": 12,
+            "inside": 5,
+            "addedResidents": 3,
+            "pathRequests": 455,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 13,
+            "sleeping": 111
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Hollow Crown",
+          "quality": "standard",
+          "frame": 1833,
+          "calls": 53,
+          "triangles": 4908,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3596,
+          "frustumMeshes": 38,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.30000001192092896,
+          "updateP95": 1.800000011920929,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 48,
+            "walking": 12,
+            "inside": 5,
+            "addedResidents": 3,
+            "pathRequests": 455,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 13,
+            "sleeping": 111
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Hollow Crown",
+          "quality": "mobile",
+          "frame": 1839,
+          "calls": 39,
+          "triangles": 4894,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3596,
+          "frustumMeshes": 38,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.3999999761581421,
+          "updateP95": 1.2000000476837158,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 48,
+            "walking": 12,
+            "inside": 5,
+            "addedResidents": 3,
+            "pathRequests": 455,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 13,
+            "sleeping": 111
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Violet Mire",
+          "quality": "high",
+          "frame": 1929,
+          "calls": 235,
+          "triangles": 16218,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3628,
+          "frustumMeshes": 216,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.699999988079071,
+          "updateP95": 10.5,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 49,
+            "walking": 13,
+            "inside": 6,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 2,
+            "sleeping": 122
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Violet Mire",
+          "quality": "standard",
+          "frame": 2019,
+          "calls": 235,
+          "triangles": 16218,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3628,
+          "frustumMeshes": 216,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.30000001192092896,
+          "updateP95": 5.099999964237213,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 49,
+            "walking": 13,
+            "inside": 6,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 2,
+            "sleeping": 122
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Violet Mire",
+          "quality": "mobile",
+          "frame": 2025,
+          "calls": 221,
+          "triangles": 16204,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3628,
+          "frustumMeshes": 216,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.6000000238418579,
+          "updateP95": 13.600000023841858,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 49,
+            "walking": 13,
+            "inside": 6,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 2,
+            "sleeping": 122
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Lower Ward",
+          "quality": "high",
+          "frame": 2115,
+          "calls": 235,
+          "triangles": 16486,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3644,
+          "frustumMeshes": 216,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.40000003576278687,
+          "updateP95": 1.899999976158142,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 48,
+            "walking": 11,
+            "inside": 7,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 22,
+            "sleeping": 102
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Lower Ward",
+          "quality": "standard",
+          "frame": 2205,
+          "calls": 232,
+          "triangles": 16054,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3641,
+          "frustumMeshes": 213,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.40000003576278687,
+          "updateP95": 5.299999952316284,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 43,
+            "walking": 5,
+            "inside": 12,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 21,
+            "sleeping": 103
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Lower Ward",
+          "quality": "mobile",
+          "frame": 2211,
+          "calls": 161,
+          "triangles": 8468,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3572,
+          "frustumMeshes": 156,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.30000001192092896,
+          "updateP95": 1.199999988079071,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 42,
+            "walking": 4,
+            "inside": 13,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 2,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 2,
+            "sleeping": 122
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Canal Ward",
+          "quality": "high",
+          "frame": 2301,
+          "calls": 116,
+          "triangles": 5410,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3631,
+          "frustumMeshes": 101,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.40000003576278687,
+          "updateP95": 0.800000011920929,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 42,
+            "walking": 4,
+            "inside": 13,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 2,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 21,
+            "sleeping": 103
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Canal Ward",
+          "quality": "standard",
+          "frame": 2391,
+          "calls": 116,
+          "triangles": 5410,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3625,
+          "frustumMeshes": 101,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.3999999761581421,
+          "updateP95": 1.600000023841858,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 42,
+            "walking": 2,
+            "inside": 13,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 2,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 21,
+            "sleeping": 103
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Canal Ward",
+          "quality": "mobile",
+          "frame": 2397,
+          "calls": 102,
+          "triangles": 5396,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3565,
+          "frustumMeshes": 101,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.2999999523162842,
+          "updateP95": 0.6000000238418579,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 42,
+            "walking": 2,
+            "inside": 13,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 1,
+            "sleeping": 123
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Civic Ward",
+          "quality": "high",
+          "frame": 2487,
+          "calls": 96,
+          "triangles": 5378,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3633,
+          "frustumMeshes": 81,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.3999999761581421,
+          "updateP95": 0.9000000357627869,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 42,
+            "walking": 1,
+            "inside": 13,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 21,
+            "sleeping": 103
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Civic Ward",
+          "quality": "standard",
+          "frame": 2577,
+          "calls": 96,
+          "triangles": 5378,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3633,
+          "frustumMeshes": 81,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.3999999761581421,
+          "updateP95": 0.8999999761581421,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 42,
+            "walking": 1,
+            "inside": 13,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 21,
+            "sleeping": 103
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Civic Ward",
+          "quality": "mobile",
+          "frame": 2583,
+          "calls": 82,
+          "triangles": 5364,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3624,
+          "frustumMeshes": 81,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.5,
+          "updateP95": 2.100000023841858,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 42,
+            "walking": 1,
+            "inside": 13,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 18,
+            "sleeping": 106
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Scholar Heights",
+          "quality": "high",
+          "frame": 2673,
+          "calls": 66,
+          "triangles": 3984,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3568,
+          "frustumMeshes": 51,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.40000003576278687,
+          "updateP95": 0.699999988079071,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 42,
+            "walking": 1,
+            "inside": 13,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 0,
+            "sleeping": 124
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Scholar Heights",
+          "quality": "standard",
+          "frame": 2763,
+          "calls": 66,
+          "triangles": 3984,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3574,
+          "frustumMeshes": 51,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.3999999761581421,
+          "updateP95": 1,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 42,
+            "walking": 1,
+            "inside": 13,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 0,
+            "sleeping": 124
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Scholar Heights",
+          "quality": "mobile",
+          "frame": 2769,
+          "calls": 52,
+          "triangles": 3970,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3574,
+          "frustumMeshes": 51,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.20000004768371582,
+          "updateP95": 0.5,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 42,
+            "walking": 1,
+            "inside": 13,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 0,
+            "sleeping": 124
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Old Quarter",
+          "quality": "high",
+          "frame": 2859,
+          "calls": 99,
+          "triangles": 4630,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3558,
+          "frustumMeshes": 84,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.30000001192092896,
+          "updateP95": 4.100000023841858,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 42,
+            "walking": 1,
+            "inside": 13,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 1,
+            "sleeping": 123
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Old Quarter",
+          "quality": "standard",
+          "frame": 2949,
+          "calls": 99,
+          "triangles": 4630,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3552,
+          "frustumMeshes": 84,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.30000001192092896,
+          "updateP95": 1.199999988079071,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 42,
+            "walking": 1,
+            "inside": 13,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 1,
+            "sleeping": 123
+          },
+          "water": "extremeLow"
+        },
+        {
+          "name": "Old Quarter",
+          "quality": "mobile",
+          "frame": 2955,
+          "calls": 85,
+          "triangles": 4616,
+          "points": 0,
+          "lines": 0,
+          "meshes": 4317,
+          "visibleMeshes": 3549,
+          "frustumMeshes": 84,
+          "lights": 14,
+          "casters": 207,
+          "transparent": 34,
+          "updateMedian": 0.30000001192092896,
+          "updateP95": 0.699999988079071,
+          "npc": {
+            "scheduled": 115,
+            "period": "morning",
+            "outsideVisible": 42,
+            "walking": 1,
+            "inside": 13,
+            "addedResidents": 3,
+            "pathRequests": 457,
+            "detourRequests": 3,
+            "updated": 0,
+            "near": 0,
+            "mid": 0,
+            "far": 115
+          },
+          "dynamicCollision": {
+            "active": 0,
+            "sleeping": 124
+          },
+          "water": "extremeLow"
+        }
+      ]
+    }
+  ],
+  "verificationLimits": [
+    "40-day run is accelerated state simulation with milestone fixtures; native fresh-world journey is tested separately.",
+    "Rooms are API entry/exit/ground checks; central bell stair is native keyboard traversal.",
+    "Boating in fresh-world scenario supplies the production control keys programmatically.",
+    "No new portrait images or recorded city audio."
+  ]
+}

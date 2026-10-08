@@ -1,0 +1,14 @@
+async function approach(page,id){return page.evaluate(id=>{const entry=app.inspections.resolver.entries.get(id),w=app.walking,profile=w.state.profile.id,eye=w.state.profile.eyeHeight,target=app.inspections.resolver.position(entry,undefined,profile),step=.12,start=w.state.feet.clone(),heap=[],seen=new Map();
+ const key=n=>Math.round(n.x/step)+','+Math.round(n.z/step)+','+Math.round(n.y*100);
+ function push(n){n.f=n.g+1.1*Math.hypot(n.x-target.x,n.z-target.z);heap.push(n);let i=heap.length-1;while(i){const p=(i-1)>>1;if(heap[p].f<=n.f)break;heap[i]=heap[p];i=p}heap[i]=n;}
+ function pop(){const t=heap[0],last=heap.pop();if(heap.length){let i=0;while(true){let c=i*2+1;if(c>=heap.length)break;if(c+1<heap.length&&heap[c+1].f<heap[c].f)c++;if(heap[c].f>=last.f)break;heap[i]=heap[c];i=c}heap[i]=last}return t;}
+ push({x:start.x,y:start.y,z:start.z,g:0});let count=0;while(heap.length&&count<90000){const n=pop(),k=key(n);if(seen.has(k)&&seen.get(k)<=n.g)continue;seen.set(k,n.g);count++;let usable=false;
+ if(Math.hypot(n.x-target.x,n.z-target.z)<entry.range-.1&&Math.abs(Math.atan2(target.y-(n.y+eye),Math.hypot(n.x-target.x,n.z-target.z)))<=1.25){app.camera.position.set(n.x,n.y+eye,n.z);app.camera.lookAt(target);usable=app.inspections.resolver.resolve({feet:new app.THREE.Vector3(n.x,n.y,n.z),profile})?.id===id;}
+ if(usable){let p=n,path=[];while(p){path.push([p.x,p.y,p.z]);p=p.parent;}w.update(0);return path.reverse();}
+ for(const[dx,dz]of[[step,0],[-step,0],[0,step],[0,-step],[step,step],[step,-step],[-step,step],[-step,-step]]){const x=n.x+dx,z=n.z+dz,y=w.canStand(x,z,n.y);if(y===null||w.canStand(n.x+dx/2,n.z+dz/2,n.y)===null)continue;push({x,z,y,g:n.g+Math.hypot(dx,dz),parent:n});}}
+ throw Error('Talk unreachable '+id+' '+profile+' nodes '+count);
+},id);}
+async function move(page,path){await page.keyboard.down('w');try{return await page.evaluate(path=>{const w=app.walking;let samples=0;for(const[x,y,z]of path){let stuck=0;for(let i=0;i<4000;i++){const dx=x-w.state.feet.x,dz=z-w.state.feet.z,d=Math.hypot(dx,dz);if(d<.004)break;const before=w.state.feet.clone();w.state.yaw=Math.atan2(-dx,-dz);w.state.pitch=0;w.update(Math.min(.016,d/w.state.profile.speed));samples++;if(w.canStand(w.state.feet.x,w.state.feet.z,w.state.feet.y)===null)throw Error('invalid feet');if(before.distanceTo(w.state.feet)<1e-6)stuck++;else stuck=0;if(stuck>5)throw Error('blocked route');}}return samples;},path);}finally{await page.keyboard.up('w');}}
+async function face(page,id){await page.evaluate(id=>{const w=app.walking,p=app.inspections.resolver.position(app.inspections.resolver.entries.get(id),undefined,w.state.profile.id),dx=p.x-w.state.feet.x,dz=p.z-w.state.feet.z;w.state.yaw=Math.atan2(-dx,-dz);w.state.pitch=Math.atan2(p.y-app.camera.position.y,Math.hypot(dx,dz));w.update(0);app.inspections.update(.2);if(app.inspections.selected?.id!==id)throw Error('Talk not selected '+id);},id);}
+
+module.exports={approach,move,face};
