@@ -4,7 +4,8 @@ import {evaluateConditions} from './progression-data.js';
 import {crownOpen} from './hollow-crown.js';
 import {regionActivity} from './region-activity.js';
 export {mireLayout} from './violet-mire-data.js';
-let unlocked=false;
+let unlocked=false,royalExtended=false;
+export const extendRoyalRoad=v=>royalExtended=!!v;
 export const setMireUnlocked=v=>unlocked=!!v;
 export const mireOpen=()=>unlocked;
 export function pathReading(points,x,z){let best={distance:Infinity};for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i],dx=b[0]-a[0],dz=b[2]-a[2],t=Math.max(0,Math.min(1,((x-a[0])*dx+(z-a[2])*dz)/(dx*dx+dz*dz))),d=Math.hypot(x-a[0]-dx*t,z-a[2]-dz*t);if(d<best.distance)best={distance:d,height:a[1]+(b[1]-a[1])*t};}return best;}
@@ -13,7 +14,7 @@ const inMire=(x,z)=>((x+458)/26)**2+((z+216)/35)**2<1;
 const deep=(x,z)=>L.pools.some(p=>((x-p.x)/p.rx)**2+((z-p.z)/p.rz)**2<1);
 export function mireHeight(x,z){if(!unlocked)return null;const boarding=pathReading(L.boardwalk,x,z);if(boarding.distance<1.35)return boarding.height;const transition=pathReading(L.transition,x,z);if(z>-183.5&&transition.distance<1.25)return crownOpen()?transition.height:null;const b=pathReading(L.boardwalk,x,z),r=pathReading(L.royalRoad,x,z);if(b.distance<1.35)return b.height;if(r.distance<1.2)return r.height;if(inMire(x,z)&&!deep(x,z))return bedY(x,z);return null;}
 export const mireDryVolume=(x,z,y)=>mireHeight(x,z)!==null&&y<6;
-export function mireBlocked(x,z,y,profile){if(!unlocked)return false;if(inMire(x,z)&&deep(x,z)&&pathReading(L.boardwalk,x,z).distance>1.35)return true;const r=pathReading(L.royalRoad,x,z);return z<-248.1&&x<-476&&r.distance<2;}
+export function mireBlocked(x,z,y,profile){if(!unlocked)return false;if(inMire(x,z)&&deep(x,z)&&pathReading(L.boardwalk,x,z).distance>1.35)return true;const r=pathReading(L.royalRoad,x,z);return !royalExtended&&z<-248.1&&x<-476&&r.distance<2;}
 export const mireCleft=(x,z)=>unlocked&&crownOpen()&&z<-151&&z>-160&&x<-417&&pathReading(L.transition,x,z).distance<1.3;
 export function buildVioletMire({THREE,scene,box,residentScale,lake}){
  const root=new THREE.Group();root.name='Violet Mire';root.visible=false;scene.add(root);const details=new THREE.Group();root.add(details);
@@ -32,7 +33,7 @@ export function buildVioletMire({THREE,scene,box,residentScale,lake}){
  for(let i=0;i<12;i++){const t=i/11,x=-424-12*t,z=-158-18*t;batch.add('leaf',stone,[x+2,2.6+1.2*t,z],[1.3,1.1,.9]);batch.add('block',wood,[x,2.4+1.1*t,z],[1.8,.12,.2],-.5);}
  // Dry rest shelter, small work traces, and a better-paved road beyond the mire.
  for(const x of[-474,-470])for(const z of[-226,-230])batch.add('block',wood,[x,5.6,z],[.13,2.2,.13]);batch.add('block',wood,[-472,6.78,-228],[4.8,.16,4.8]);batch.add('block',wood,[-472,4.86,-228],[3.2,.7,1]);batch.add('leaf',stone,[-475,4.7,-232],[.65,.2,.5]);
- for(let i=0;i<5;i++)batch.add('leaf',stone,[-479+(i%2)*.7,5.32,-249-i*.8],[.7,.45,.6]);batch.finish();
+ for(let i=0;i<5;i++)batch.add('leaf',stone,[-483+(i%2)*.7,5.32,-247-i*.8],[.7,.45,.6]);batch.finish();
  const flood=box(-437,4.5,-178,3.4,.025,7,water,root);flood.userData.walkSoft=true;flood.visible=false;
  const targets=[],catSteps=[],routes=[];const marker=(x,z,w=.35,h=.12,d=.3)=>{const y=x>-438&&z>-182?pathReading(L.transition,x,z).height:bedY(x,z);const o=box(x,y-.025,z,w,h,d,stone,details);o.userData.walkSoft=true;return o;};
  const notice=(id,label,text,x,z,profiles=['human','cat'],kind='inspect')=>{const e={id:'mire:'+id,label,text,object:marker(x,z),localPoint:[0,.16,0],range:2.8,profiles,kind};targets.push(e);return e;};
