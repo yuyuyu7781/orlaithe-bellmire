@@ -7,7 +7,7 @@ export function createMinimap({walking,shopSystem,inspections,navigation,buildin
  const caption=document.createElement('div');caption.className='town-map-caption';caption.textContent='上が北 · 淡い線は主な街路';
  const expand=document.createElement('button');expand.textContent='拡大';expand.setAttribute('aria-label','地図を拡大');
  const close=document.createElement('button');close.textContent='閉じる';close.setAttribute('aria-label','地図を閉じる');
- const buttons=document.createElement('div');buttons.className='town-map-buttons';buttons.append(expand,close);const chain=document.createElement('div');chain.className='town-map-caption';chain.textContent='Bellmire → Nine Stones → Lake Lun → Lunmere → Isle of Caerith';root.append(heading,chain,canvas,caption,buttons);document.body.append(root);
+ const buttons=document.createElement('div');buttons.className='town-map-buttons';buttons.append(expand,close);const chain=document.createElement('div');chain.className='town-map-caption';chain.textContent='Bellmire → Nine Stones → Lake Lun / Lunmere → Caerith / 沈んだ道 → The Ring → Hollow Crown → Violet Mire';root.append(heading,chain,canvas,caption,buttons);document.body.append(root);
  const toggle=document.createElement('button');toggle.id='mapToggle';toggle.textContent='地図';toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-controls','townMap');root.id='townMap';navigation.tools.append(toggle);
  let expanded=false,elapsed=0,width=180,height=150;const context=canvas.getContext('2d');
  let regionId="bellmire";const bounds={minX:-215,maxX:48,minZ:-48,maxZ:45};
@@ -34,6 +34,6 @@ export function createMinimap({walking,shopSystem,inspections,navigation,buildin
  }
  function update(dt){const hidden=!walking.active||!navigation.state.mapOpen||!!shopSystem.current||!!inspections.opened;if(root.hidden!==hidden)root.hidden=hidden;if(hidden){elapsed=0;return;}elapsed+=dt;if(elapsed<.25)return;elapsed=0;draw();}
  const onResize=()=>{resize();if(!root.hidden)draw();};addEventListener('resize',onResize);
- function setRegion(r){regionId=r.id;Object.assign(bounds,r.mapBounds);roads=r.roads??roads;heading.textContent=r.name;heading.title='Bellmire → Nine Stones → Lake Lun → Lunmere → Isle of Caerith';root.setAttribute("aria-label",r.name+"の簡易地図");draw();}
+ function setRegion(r){regionId=r.id;Object.assign(bounds,r.mapBounds);roads=r.roads??roads;heading.textContent=r.name;heading.title='Bellmire → Nine Stones → Lake Lun / Lunmere → Caerith / 沈んだ道 → The Ring → Hollow Crown → Violet Mire';root.setAttribute("aria-label",r.name+"の簡易地図");draw();}
  resize();return {setSpecialMarkers(list){specialMarkers=list;},setRegion,root,setOpen,update,project,draw,destroy(){removeEventListener('resize',onResize);root.remove();toggle.remove();}};
 }

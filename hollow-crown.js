@@ -1,10 +1,11 @@
+import {evaluateConditions} from './progression-data.js';
 import {createDetailBatch} from './miniature.js';
 import {crownStage} from './story-thread-data.js';
 import {ringOpen} from './the-ring.js';
 export const crownLayout={id:'hollow-crown',center:[-411,1.6,-146],radius:14,entry:[-411,2.14,-133],bounds:{minX:-429,maxX:-393,minZ:-164,maxZ:-97},passage:[[-405,4.8,-94],[-405,4.5,-98],[-405,3.6,-105],[-407,2.8,-113],[-411,2.4,-123],[-411,2.14,-133]]};
 let unlocked=false;
 export const crownOpen=()=>unlocked&&ringOpen();
-export function crownEligible(data){const seen=id=>!!data.discoveries?.[id];return seen('ring:visit')&&['ring:center','ring:cat-2','ring:nerissa-reply','ring:direction'].some(seen);}
+export function crownEligible(data){return evaluateConditions('crown-observation',data);}
 export function setCrownUnlocked(value){unlocked=!!value;}
 export function passageReading(x,z){let best={distance:Infinity};for(let i=1;i<crownLayout.passage.length;i++){const a=crownLayout.passage[i-1],b=crownLayout.passage[i],dx=b[0]-a[0],dz=b[2]-a[2],t=Math.max(0,Math.min(1,((x-a[0])*dx+(z-a[2])*dz)/(dx*dx+dz*dz))),distance=Math.hypot(x-a[0]-dx*t,z-a[2]-dz*t);if(distance<best.distance)best={distance,height:a[1]+(b[1]-a[1])*t,segment:i};}return best;}
 const inBounds=(x,z)=>x>-430&&x<-392&&z<-92&&z>-165;
@@ -21,10 +22,10 @@ export function buildHollowCrown({THREE,scene,box,lake}){
  }
  // An uneven floor and inward rock shelves make an open-roof depression.
  for(let i=0;i<64;i++){const a=i/64*Math.PI*2,b=(i+1)/64*Math.PI*2;for(const [inner,outer]of [[0,7],[7,14.7]]){const v=[-411+Math.cos(a)*inner,floorY(-411+Math.cos(a)*inner,-146+Math.sin(a)*inner)-.025,-146+Math.sin(a)*inner],w=[-411+Math.cos(b)*inner,floorY(-411+Math.cos(b)*inner,-146+Math.sin(b)*inner)-.025,-146+Math.sin(b)*inner],q=[-411+Math.cos(a)*outer,floorY(-411+Math.cos(a)*outer,-146+Math.sin(a)*outer)-.025,-146+Math.sin(a)*outer],r=[-411+Math.cos(b)*outer,floorY(-411+Math.cos(b)*outer,-146+Math.sin(b)*outer)-.025,-146+Math.sin(b)*outer];tri(v,w,r);tri(v,r,q);}
-  if(i<14||i>18){const h=3.6+(i%7)*.3,r=15.7+.35*Math.sin(i*1.7),x=-411+Math.cos(a)*r,z=-146+Math.sin(a)*r;batch.add(i%5===0?'block':'leaf',stone,[x,floorY(x,z)+h/2,z],i%5===0?[1.65,h,2.1]:[1.6,h/2,1.45],-a,new THREE.Color(i%3?0xc8cfca:0xa6b5b2));if(i%4===0)batch.add('block',pale,[x-.2,3.2,z],[.10,1.15,.05],-a);if(i%5===2)batch.add('leaf',moss,[x-Math.cos(a)*1.1,2.4,z-Math.sin(a)*1.1],[.8,.14,.4]);}
+  if((i<14||i>18)&&(i<38||i>42)){const h=3.6+(i%7)*.3,r=15.7+.35*Math.sin(i*1.7),x=-411+Math.cos(a)*r,z=-146+Math.sin(a)*r;batch.add(i%5===0?'block':'leaf',stone,[x,floorY(x,z)+h/2,z],i%5===0?[1.65,h,2.1]:[1.6,h/2,1.45],-a,new THREE.Color(i%3?0xc8cfca:0xa6b5b2));if(i%4===0)batch.add('block',pale,[x-.2,3.2,z],[.10,1.15,.05],-a);if(i%5===2)batch.add('leaf',moss,[x-Math.cos(a)*1.1,2.4,z-Math.sin(a)*1.1],[.8,.14,.4]);}
  }
  // Continuous bank supports the irregular rock ridges; no floating crown of boulders.
- for(let i=0;i<64;i++){const a=i/64*Math.PI*2,b=(i+1)/64*Math.PI*2;const vertex=(angle,r,y)=>[-411+Math.cos(angle)*r,y,-146+Math.sin(angle)*r];const v=vertex(a,14.7,floorY(-411+Math.cos(a)*14.7,-146+Math.sin(a)*14.7)-.03),w=vertex(b,14.7,floorY(-411+Math.cos(b)*14.7,-146+Math.sin(b)*14.7)-.03),q=vertex(a,18.4,3.65+.15*Math.sin(a*3)),r=vertex(b,18.4,3.65+.15*Math.sin(b*3));if(i<13||i>19){tri(v,w,r);tri(v,r,q);}const outer=22+.8*Math.sin(a*5),outerB=22+.8*Math.sin(b*5),u=vertex(a,outer,5.8+.35*Math.sin(a*4)),t=vertex(b,outerB,5.8+.35*Math.sin(b*4));if(i<13||i>19){tri(q,r,t);tri(q,t,u);tri(u,t,vertex(b,outerB,-.1));tri(u,vertex(b,outerB,-.1),vertex(a,outer,-.1));}}
+ for(let i=0;i<64;i++){const a=i/64*Math.PI*2,b=(i+1)/64*Math.PI*2;const vertex=(angle,r,y)=>[-411+Math.cos(angle)*r,y,-146+Math.sin(angle)*r];const v=vertex(a,14.7,floorY(-411+Math.cos(a)*14.7,-146+Math.sin(a)*14.7)-.03),w=vertex(b,14.7,floorY(-411+Math.cos(b)*14.7,-146+Math.sin(b)*14.7)-.03),q=vertex(a,18.4,3.65+.15*Math.sin(a*3)),r=vertex(b,18.4,3.65+.15*Math.sin(b*3));if((i<13||i>19)&&(i<38||i>42)){tri(v,w,r);tri(v,r,q);}const outer=22+.8*Math.sin(a*5),outerB=22+.8*Math.sin(b*5),u=vertex(a,outer,5.8+.35*Math.sin(a*4)),t=vertex(b,outerB,5.8+.35*Math.sin(b*4));if((i<13||i>19)&&(i<38||i>42)){tri(q,r,t);tri(q,t,u);tri(u,t,vertex(b,outerB,-.1));tri(u,vertex(b,outerB,-.1),vertex(a,outer,-.1));}}
  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(points,3));g.computeVertexNormals();const bed=new THREE.Mesh(g,earth);bed.receiveShadow=true;bed.userData.walkSoft=true;root.add(bed);
  for(const[x,z]of[[-414,-146],[-405,-148]])batch.add('block',lake.materials.water,[x,floorY(x,z)+.01,z],[1.5,.016,.7]);batch.finish();root.traverse(o=>o.userData.walkSoft=true);
  const targets=[],catSteps=[],routes=[];

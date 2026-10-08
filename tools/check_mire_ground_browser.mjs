@@ -1,0 +1,4 @@
+import {mireHeight,mireBlocked,mireLayout,mireOpen,pathReading} from '../violet-mire.js';
+import {crownOpen} from '../hollow-crown.js';
+// Read-only runtime audit: call with a loaded world, unlocked mire and exposed Crown.
+export function auditMireGround({walking,mire}){if(!mireOpen())throw Error('Unlock Mire first');const issues=[],paths=[mireLayout.boardwalk,...(crownOpen()?[mireLayout.transition]:[])];let samples=0;for(const profile of ['human','cat'])for(const points of paths)for(let i=1;i<points.length;i++){const a=points[i-1],b=points[i];for(let j=0;j<=30;j++){const t=j/30,x=a[0]+(b[0]-a[0])*t,z=a[2]+(b[2]-a[2])*t,y=mireHeight(x,z);samples++;if(y===null||walking.canStandTownAs(profile,x,z,y)===null)issues.push({profile,x,z,y});}}return{samples,issues,poolsBlocked:mire.waterPools.every(p=>mireBlocked(p.x,p.z,4.5,walking.profiles.human)),catSteps:mire.catSteps.length};}

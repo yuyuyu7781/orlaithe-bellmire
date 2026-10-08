@@ -1,4 +1,4 @@
-import {evaluateConditions,regionVisited} from './progression-data.js';
+import {evaluateConditions,regionVisited,conditionSets} from './progression-data.js';
 // The world is a travel graph, not a second navigation or scheduling system.
 // Map positions are deliberately abstracted from the miniature's world axes.
 const node=(id,displayName,type,worldPosition,mapPosition,ambientProfile,flags)=>({id,displayName,type,worldPosition,mapPosition,ambientProfile,flags,mapIcon:type,mapLabel:displayName,entryPoints:[],connections:[],travelMode:[]});
@@ -30,13 +30,14 @@ worldNodes.find(n=>n.id==='drowned-way').parentRegion='lake-lun';
 // No public names for unbuilt lands. Reserved graph slots can be populated later.
 export const futureWorldSlots=[{id:'caer-veyra',worldPosition:null,mapPosition:[638,133]}];
 const unlocks={'drowned-way':'low-water','the-ring':'extreme-water','hollow-crown':'descent','violet-mire':'mire-land','caer-veyra':'royal-road'};
-for(const n of worldNodes){n.unlockType=unlocks[n.id]?'conditional':'visit';n.unlockConditions=unlocks[n.id]??{};}
+const hints={'drowned-way':'drowned:rumor','hollow-crown':'crown:entrance','violet-mire':'mire:exit','caer-veyra':'mire:sign'};
+for(const n of worldNodes){n.rumorFlag=hints[n.id]??null;n.unlockType=unlocks[n.id]?'conditional':'visit';n.unlockConditions=unlocks[n.id]??{};Object.assign(n,conditionSets[unlocks[n.id]]??{});}
 for(const n of worldNodes){n.connections=worldConnections.filter(e=>e.from===n.id||e.to===n.id).map(e=>e.id);n.travelMode=[...new Set(worldConnections.filter(e=>n.connections.includes(e.id)).map(e=>e.type))];}
 export const hasDiscovery=(data,id)=>!!data.discoveries?.[id];
 export function connectionAvailable(edge,data){return !!edge&&evaluateConditions(edge.availability??{},data);}
 export function worldSnapshot(data,regions=[],current='bellmire'){
  const seen=id=>hasDiscovery(data,id);const nodes=worldNodes.map(n=>{
-  const region=regions.find(r=>r.id===(n.parentRegion??n.id)),visited=regionVisited(data,n.id)||n.flags.some(seen),hint=n.id==='drowned-way'?'drowned:rumor':n.id==='hollow-crown'?'crown:entrance':n.id==='violet-mire'?'mire:exit':n.id==='caer-veyra'?'mire:sign':null,discovered=visited||n.id==='drowned-way'&&seen('drowned:entry'),rumored=!discovered&&!!hint&&seen(hint),available=evaluateConditions(n.unlockConditions,data)&&n.type!=='rumor';
+  const region=regions.find(r=>r.id===(n.parentRegion??n.id)),visited=regionVisited(data,n.id)||n.flags.some(seen),hint=n.rumorFlag,discovered=visited||n.id==='drowned-way'&&seen('drowned:entry'),rumored=!discovered&&!!hint&&seen(hint),available=evaluateConditions(n.unlockConditions,data)&&n.type!=='rumor';
   return {...n,entryPoints:region?[{id:'safe',position:region.entryPoint}]:[],visited,discovered,rumored,current:n.id===current,availability:available?'open':n.type==='rumor'?'unbuilt':'submerged',revisitable:visited&&available&&!!region,nameVisible:visited||discovered||n.type==='rumor'&&rumored,hidden:!discovered&&!rumored};
  });
  const byId=new Map(nodes.map(n=>[n.id,n]));return{nodes,connections:worldConnections.filter(e=>!byId.get(e.from).hidden&&!byId.get(e.to).hidden).map(e=>({...e,available:connectionAvailable(e,data)}))};

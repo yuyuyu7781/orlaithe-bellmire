@@ -1,3 +1,4 @@
+import {worldVisitorPlan} from './character-graph.js';
 import {visitorPlans} from './town-calendar.js';
 // Three ordinary adults reuse the town's scale, silhouette and instance details.
 export function createVisitorPeople({THREE,scene,residentScale}){
@@ -11,11 +12,12 @@ export function createVisitorPeople({THREE,scene,residentScale}){
  }return {root,people};
 }
 export function connectVisitors({THREE,people,residentLife,residentDay,inspections,walking,shopSystem,townLife,stay}){
- const entries=[];
+ const entries=[];const worldPlans=new Map();
+ const refreshPlans=()=>{for(const {plan}of people){const trip=worldVisitorPlan(plan,stay.data);worldPlans.set(plan.id,trip);plan.worldTrip=trip;}};townLife.onChange(()=>{refreshPlans();residentDay.refreshSchedules(e=>!!e.visitor);});refreshPlans();
  for(const {plan,object}of people){const record=residentLife.records.find(r=>r.object===object),controller=residentDay.addVisitor(record,plan),entry={id:'visitor:'+plan.id,kind:'visitor-talk',verb:'話す',label:plan.name+'（'+plan.role+'）',object,localPoint:[0,1.30,0],localPoints:{cat:[0,1.05,0]},range:3.1,profiles:['human','cat'],enabled:()=>controller.visible||controller.inside===shopSystem.current?.shop.id,plan,controller};inspections.resolver.register(entry);entries.push(entry);}
- inspections.handlers.set('visitor-talk',entry=>{const mode=walking.state.profile.id,seen=stay.data.discoveries[entry.id],text=mode==='cat'?'「おや。この街の猫かい。荷物の紐には爪をかけないでおくれ。」':entry.plan.second&&seen?entry.plan.second:entry.plan.text;
+ inspections.handlers.set('visitor-talk',entry=>{const mode=walking.state.profile.id,seen=stay.data.discoveries[entry.id],worldPlan=worldPlans.get(entry.plan.id),text=mode==='cat'?'「おや。この街の猫かい。荷物の紐には爪をかけないでおくれ。」':entry.plan.second&&seen?entry.plan.second:worldPlan?.target==='violet-mire'?'木道の湿地へ戻る途中なんだ。石道と湖岸を通ってきたよ。':worldPlan?.target==='lunmere'?'湖畔の宿へ向かう途中だよ。荷を濡らさないうちに。':entry.plan.text;
   inspections.present(entry,{text});if(!seen){stay.data.discoveries[entry.id]={day:townLife.state.dayIndex,period:townLife.state.period,playerMode:mode,label:entry.plan.name};stay.note('met:'+entry.id,entry.plan.name+'に会った。'+(mode==='human'?entry.plan.text:'荷の陰で、旅の匂いを嗅いだ。'),{kind:'visitor',playerMode:mode});}
   else if(mode==='human'&&entry.plan.second)stay.note('visitor-circle','湖の道にも、円と細い線のある石があったと旅人は言った。どの岸かは、曖昧らしい。',{kind:'rumor'});
  });
- return {entries,get stats(){return {types:entries.length,present:entries.filter(e=>e.controller.spawned&&!e.controller.departed).length,walking:entries.filter(e=>e.controller.currentState==='walking').length};}};
+ return {entries,worldPlans,get stats(){return {types:entries.length,present:entries.filter(e=>e.controller.spawned&&!e.controller.departed).length,walking:entries.filter(e=>e.controller.currentState==='walking').length};}};
 }
