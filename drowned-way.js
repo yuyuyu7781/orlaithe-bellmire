@@ -1,3 +1,4 @@
+import {recordTravel} from './world-graph.js';
 import {createDetailBatch} from './miniature.js';
 import {lakeWaterPhase} from './lake-water-level.js';
 export const drownedLayout={id:'drowned-way',entry:[-312,6.04,-43],width:2.8,bounds:{minX:-353,maxX:-309,minZ:-47,maxZ:-34},route:[[-312,6.04,-43],[-317,5.95,-43],[-321,5.54,-43],[-331,5.50,-42],[-340,5.46,-40],[-350,5.44,-37]],futureDirection:[-360,5.03,-33]};
@@ -32,7 +33,7 @@ export function buildDrownedWay({THREE,scene,box,lake}){
 export function connectDrownedWay({THREE,road,level,walking,boatTravel,inspections,shopSystem,stay,townLife,dialogue,regions,minimap}){
  let busy=false,elapsed=0,uiKey='';stay.data.threads.drowned??={stage:'unseen'};
  const discovered=()=>!!stay.data.discoveries['drowned:entry'];
- function remember(id,text,mode=walking.state.profile.id){if(stay.data.discoveries[id])return false;stay.data.discoveries[id]={day:stay.data.currentDay,period:stay.data.dayPhase,playerMode:mode,label:id};stay.note(id,text,{kind:mode==='cat'?'cat':'place',playerMode:mode});stay.changed();return true;}
+ function remember(id,text,mode=walking.state.profile.id){if(stay.data.discoveries[id])return false;if(id==='drowned:walk')recordTravel(stay.data,'drowned-way',walking.state.profile.id);stay.data.discoveries[id]={day:stay.data.currentDay,period:stay.data.dayPhase,playerMode:mode,label:id};stay.note(id,text,{kind:mode==='cat'?'cat':'place',playerMode:mode});stay.changed();return true;}
  for(const t of road.targets){t.enabled=()=>!shopSystem.current&&level.phase!=='normal'&&(t.id==='drowned:entry'||['veryLow','extremeLow'].includes(level.phase));inspections.resolver.register(t);}
  const motifEntries=['nine:stone-5','caerith:foundation'].map(id=>{const entry=inspections.resolver.entries.get(id);return{entry,text:entry?.text}});
  const lakeRegion=regions.regions.find(r=>r.id==='lake-lun');lakeRegion.cameraPresets.push({id:'lake-drowned-way',name:'Drowned Way',eye:[-331,26,-14],focus:[-331,5.5,-41],visible:()=>discovered(),enabled:()=>discovered()&&['veryLow','extremeLow'].includes(level.phase),disabledLabel:'Drowned Way（水没）'});

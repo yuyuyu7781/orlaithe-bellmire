@@ -1,0 +1,20 @@
+import assert from 'node:assert/strict';
+import {worldNodes,worldConnections,worldSnapshot,recordTravel} from '../world-graph.js';
+import {defaultStay,validateStay} from '../stay-state.js';
+import {crownEligible,setCrownUnlocked,crownHeight,crownOpen} from '../hollow-crown.js';
+import {setLakeWaterPhase} from '../lake-water-level.js';
+import {lunmereCharacters} from '../lunmere-data.js';
+import {configuredLunmerePortrait,portraitProfile} from '../portrait-profiles.js';
+import {carriedPropVisible,communityAppearance} from '../resident-life-settings.js';
+const d=defaultStay();assert.equal(worldNodes.length,8);for(const e of worldConnections)assert.ok(worldNodes.find(n=>n.id===e.from)&&worldNodes.find(n=>n.id===e.to));
+assert.deepEqual(worldSnapshot(d).nodes.filter(n=>!n.hidden).map(n=>n.id),['bellmire']);
+d.discoveries['drowned:rumor']={day:3};let snap=worldSnapshot(d);assert.ok(snap.nodes.find(n=>n.id==='drowned-way').rumored);assert.ok(!snap.nodes.find(n=>n.id==='drowned-way').nameVisible);
+d.discoveries['ring:visit']={day:7};assert.equal(crownEligible(d),false);d.discoveries['ring:center']={day:7};assert.ok(crownEligible(d));d.discoveries['crown:entrance']={day:7};let c=worldSnapshot(d).nodes.find(n=>n.id==='hollow-crown');assert.ok(!c.hidden&&!c.nameVisible&&!c.visited);
+d.discoveries['crown:visit']={day:7};c=worldSnapshot(d).nodes.find(n=>n.id==='hollow-crown');assert.ok(c.nameVisible);assert.equal(c.availability,'submerged');
+setLakeWaterPhase('extremeLow');setCrownUnlocked(true);assert.ok(crownOpen());assert.ok(crownHeight(-411,-146)>1.5);setLakeWaterPhase('normal');assert.equal(crownHeight(-411,-146),null);setCrownUnlocked(false);
+assert.ok(recordTravel(d,'bellmire'));assert.equal(recordTravel(d,'bellmire'),false);assert.equal(recordTravel(d,'not-a-region'),false);assert.ok(recordTravel(d,'hollow-crown','cat'));
+d.memories.lunBoat={human:{visits:3,firstDay:2,lastDay:7}};d.journal=[{id:'met:lunBoat:human',day:2,text:'テヴと話した。'},{id:'met:lunHost:human',day:2,text:'イーラと、街の暮らしについて少し話した。'},{id:'met:lunWatcher:human',day:2,text:'マレンと、街の暮らしについて少し話した。'}];
+const restored=validateStay(d);assert.equal(restored.memories.lunBoat.human.visits,3);assert.equal(restored.travelHistory.at(-1).region,'hollow-crown');assert.ok(restored.journal[0].text.includes('ローワン'));assert.ok(restored.journal[1].text.startsWith('マレン'));assert.ok(restored.journal[2].text.startsWith('イーラ'));
+assert.deepEqual(lunmereCharacters.map(c=>c.name),['マレン','ローワン','イーラ']);for(const ch of lunmereCharacters){assert.ok(configuredLunmerePortrait(ch.id,'night','default').src.endsWith('-default.png'));assert.equal(portraitProfile(ch).displayName,ch.name);}
+const r={role:{prop:'rope'},diverse:true,currentState:'working',activity:'rope',object:{userData:{community:true,appearanceIndex:1}},prop:{visible:true}};assert.ok(carriedPropVisible(r));r.activity='conversation';assert.equal(carriedPropVisible(r),false);assert.notDeepEqual(communityAppearance(0),communityAppearance(1));
+console.log('PASS eight-node graph, hidden discovery states, conditional routes, descent alternatives, old names/memories, bounded travel history, portraits and action-only props');

@@ -10,7 +10,7 @@ export const walkingProfiles={
 export const humanRouteStandard={minimumWidth:1.2,landingDepth:1.2,maximumRiser:.25};
 
 export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,surfaces,
-  surfaceMaterials,dynamicObjects,ignoredObjects,waterMaterials,trackBounds,spawn,terrainSamplers=[],movementBlockers=[]}){
+  surfaceMaterials,dynamicObjects,ignoredObjects,waterMaterials,trackBounds,spawn,terrainSamplers=[],movementBlockers=[],waterExclusions=[]}){
   const state={active:false,profile:walkingProfiles.human,feet:spawn.clone(),yaw:-Math.PI*.83,pitch:-.05};
   const input={keys:new Set(),touch:new Set(),forward:0,right:0};
   const ground=[],floors=[],obstacles=[],waterZones=[],waterSurfaces=[],catSteps=[];let jumpState=null;
@@ -84,7 +84,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     // Bridge only the tiny seams between existing dock planks, not open water.
     for(const b of floors)if(x>=b.min.x-.025&&x<=b.max.x+.025&&z>=b.min.z-.025&&z<=b.max.z+.025&&b.max.y<=currentY+profile.stepUp+.001)y=Math.max(y,b.max.y);
     if(profile.id==='cat')for(const step of catSteps){if(!visible(step.object))continue;const b=step.bounds;if(contains(b,x,z)&&b.max.y<=currentY+profile.stepUp+.001)y=Math.max(y,b.max.y);}
-    for(const b of waterZones)if(contains(b,x,z)&&b.max.y>=y-.04)return null;
+    if(!waterExclusions.some(exclude=>exclude(x,z,y)))for(const b of waterZones)if(contains(b,x,z)&&b.max.y>=y-.04)return null;
     return y;
   }
   function intersectsBody(bounds,x,z,feetY,isFloor=false,round=null,profile=state.profile){

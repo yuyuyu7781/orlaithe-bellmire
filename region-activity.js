@@ -1,7 +1,8 @@
+import {worldConnections} from './world-graph.js';
 // Geometry/animation can sleep, but global time, events and save state never do.
-const links={bellmire:['nine-stones'],'nine-stones':['lake-lun'],'lake-lun':['lunmere','caerith','the-ring'],lunmere:['caerith','the-ring'],caerith:['the-ring'],'the-ring':[]};
-const neighbors=new Map(Object.keys(links).map(id=>[id,new Set()])),distances=new Map();
-for(const [id,others]of Object.entries(links))for(const other of others){neighbors.get(id).add(other);neighbors.get(other).add(id);}
+const edges=[...worldConnections,{from:'lake-lun',to:'the-ring'},{from:'lunmere',to:'the-ring'},{from:'caerith',to:'the-ring'}];
+const neighbors=new Map(),distances=new Map();
+for(const e of edges){for(const id of[e.from,e.to])if(!neighbors.has(id))neighbors.set(id,new Set());neighbors.get(e.from).add(e.to);neighbors.get(e.to).add(e.from);}
 function distance(from,to){
  const key=from+':'+to;if(distances.has(key))return distances.get(key);
  const seen=new Set([from]),queue=[[from,0]];let result=Infinity;
