@@ -45,7 +45,7 @@ export function buildLunmere({THREE,scene,box,residentScale,lake}){
  localPaths['lun-square']=[center,[-429,6.16,23.5]];localPaths['lun-shore']=[center,[-430,6.16,12],[-432,6.16,12],[-432,6.16,-2]];localPaths['lun-pier']=[center,[-418,6.16,22],[-418,6.16,9],[-418,6.16,-2]];
  for(const s of shops){const p=approaches[s.id];localPaths[s.id]=s.id==='lun-inn'?[center,[-415,6.16,22],[-415,6.16,p[2]],p]:s.id==='lun-store'?[center,[-437,6.16,22],[-437,6.16,p[2]],p]:[center,[p[0],6.16,22],p];}
  const workIds=['lun-inn','lun-boats','lun-store','lun-store','lun-diner','lun-pier'];
- for(let i=0;i<14;i++){const path=localPaths[workIds[i%6]],p=path.at(-1),x=p[0]+(i%6===5?-1.5:1.5),z=p[2]+3+Math.floor(i/6)*1.7;localPaths['lun-home-'+i]=[...path,[x,6.16,z]];}
+ for(let i=0;i<14;i++){const path=localPaths[workIds[i%6]],p=path.at(-1),x=p[0]+([3,5].includes(i%6)?-1.5:1.5),z=p[2]+3+Math.floor(i/6)*1.7;localPaths['lun-home-'+i]=[...path,[x,6.16,z]];}
  for(const path of Object.entries(localPaths).filter(([id])=>['lun-square','lun-shore','lun-pier','lun-inn','lun-diner','lun-boats','lun-store'].includes(id)).map(([,path])=>path))strip(path.map(p=>[p[0],p[1]+.007,p[2]]),1.4,stone);
  const oil=glow.clone();oil.userData.blackoutBackup=true;materials.oil=oil;
  for(const [x,z]of [[-402,19],[-430,20],[-418,8]]){piece(x,6.16,z,.10,1.1,.10,wood,true);const lamp=piece(x,7.26,z,.18,.25,.18,oil,true);lamp.name='湖畔の小さな油灯';}
