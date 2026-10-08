@@ -54,6 +54,7 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
   if(role.prop==='book'||role.prop==='chart'){add('block',prop,[0,0,0],[.29/sx,.055/sy,.22/sz],role.prop==='book'?0x59614e:0xb9ad91);add('block',prop,[0,.033/sy,.01/sz],[.25/sx,.015/sy,.18/sz],0xc9bda3);prop.rotation.x=.20;}
   if(role.prop==='basket'){add('limb',prop,[0,-.10/sy,0],[.36/sx,.22/sy,.30/sz],0x987b54);for(const x of [-.08,.07])add('ball',prop,[x/sx,.015/sy,0],[.09/sx,.06/sy,.075/sz],0xc49a63);}
   if(role.prop==='parcel'){add('block',prop,[0,-.04/sy,0],[.34/sx,.23/sy,.24/sz],0xa09375);add('block',prop,[0,-.04/sy,.126/sz],[.022/sx,.23/sy,.012/sz],0x6e6049);}
+  if(role.prop==='tools'){add('block',prop,[0,-.08/sy,0],[.035/sx,.36/sy,.035/sz],0x746451);add('block',prop,[0,.08/sy,0],[.18/sx,.07/sy,.07/sz],0x626a67);}
   if(role.prop==='rope'){for(let i=0;i<4;i++)add('ball',prop,[(i%2?1:-1)*.075/sx,Math.floor(i/2)*.045/sy,0],[.11/sx,.036/sy,.095/sz],0x978265);}
   if(role.prop==='crate'){add('block',prop,[0,-.02/sy,0],[.40/sx,.28/sy,.29/sz],0x8c7354);for(const x of [-.15,.15])add('block',prop,[x/sx,-.02/sy,.15/sz],[.035/sx,.28/sy,.025/sz],0x5e4c39);}
   if(role.prop==='broom'){prop.position.x=.32/sx;add('limb',prop,[0,-.25/sy,0],[.028/sx,.88/sy,.028/sz],0x877051);add('block',prop,[0,-.72/sy,0],[.23/sx,.10/sy,.08/sz],0xaca07a);}

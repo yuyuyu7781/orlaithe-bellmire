@@ -1,5 +1,5 @@
 import {residentRelations} from './resident-relations.js';
-import {travelItinerary} from './world-graph.js';
+import {travelItinerary,worldConnections,connectionAvailable} from './world-graph.js';
 export const characterGraph={
  ...Object.fromEntries(Object.entries(residentRelations).map(([id,r])=>[id,{...r,homeRegion:'bellmire',visitedRegions:['bellmire'],travelPolicy:'local'}])),
  greenBard:{...residentRelations.greenBard,knows:['baker','bookseller','boatworker','starmaker','lunHost','lunBoat','mireKeeper'],homeRegion:'bellmire',visitedRegions:['bellmire','nine-stones','lake-lun','lunmere','caerith','violet-mire'],travelPolicy:'rare'},
@@ -9,4 +9,4 @@ export const characterGraph={
  mireGatherer:{knows:['mireKeeper','lunWatcher'],worksWith:['mireKeeper','lunWatcher'],homeRegion:'violet-mire',visitedRegions:['violet-mire','hollow-crown','lunmere'],travelPolicy:'occasional'},
  mireKeeper:{knows:['mireGatherer','lunBoat','greenBard'],worksWith:['mireGatherer','lunBoat'],homeRegion:'violet-mire',visitedRegions:['violet-mire','hollow-crown'],travelPolicy:'occasional'}
 };
-export function worldVisitorPlan(plan,data){const target=plan.id==='lake-traveller'&&data.currentDay%9===0&&data.discoveries?.['mire:visit']?'violet-mire':data.currentDay%5===0&&data.discoveries?.['region:lunmere']?'lunmere':'bellmire';const origin=target==='violet-mire'&&data.discoveries?.['region:lunmere']?'lunmere':'bellmire';return{origin,target,itinerary:travelItinerary(origin,target,data),simulation:target==='bellmire'?'local':'schedule-only'};}
+export function worldVisitorPlan(plan,data){let target=plan.id==='lake-traveller'&&data.currentDay%9===0&&data.discoveries?.['mire:visit']?'violet-mire':data.currentDay%5===0&&data.discoveries?.['region:lunmere']?'lunmere':'bellmire';if(target==='violet-mire'&&['mire-cleft','crown-descent','ring-path','drowned-path'].some(id=>!connectionAvailable(worldConnections.find(e=>e.id===id),data)))target='lunmere';const origin=target==='violet-mire'&&data.discoveries?.['region:lunmere']?'lunmere':'bellmire';return{origin,target,itinerary:travelItinerary(origin,target,data),simulation:target==='bellmire'?'local':'schedule-only'};}
