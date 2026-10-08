@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Orlaithe v52.8 — Orlaithe miniature</title>
+<title>Orlaithe v52.9 — Orlaithe miniature</title>
 <link rel="stylesheet" href="./portrait.css">
 <link rel="stylesheet" href="./navigation.css">
 <link rel="stylesheet" href="./stay.css">
-<link rel="stylesheet" href="./world-map.css">
+<link rel="stylesheet" href="./world-map.css?v=52.9">
 <style>
 *{box-sizing:border-box}html,body,#app{margin:0;width:100%;height:100%;overflow:hidden;background:#0b1115;color:#eee;font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif}canvas{display:block}
 .panel{position:fixed;z-index:20;left:14px;top:14px;width:min(650px,calc(100vw - 28px));padding:13px 15px;background:#101923dd;border:1px solid #ffffff20;border-radius:17px;backdrop-filter:blur(14px);box-shadow:0 12px 38px #0007;transition:.25s}.head{display:flex;align-items:center;gap:10px}.title{font:20px Georgia,serif;letter-spacing:.12em}.badge{font:11px Georgia,serif;opacity:.62}.sub{font-size:11px;opacity:.68;margin-top:3px}.rows{overflow:auto;max-height:220px;transition:.25s}.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
@@ -24,11 +24,12 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 
 .boat-controls{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:45;display:flex;gap:7px;align-items:center;background:#283638e8;padding:10px;border-radius:12px;color:#eee;max-width:95vw;flex-wrap:wrap}.boat-controls[hidden]{display:none}.boating .walk-ui,.boating #views,.boating .resident{display:none!important}.boat-controls button{min-height:40px;touch-action:none}
 </style><link rel="stylesheet" href="./capital-research.css?v=52.5">
+<link rel="stylesheet" href="./mobile-interaction.css?v=52.9">
 </head>
 <body>
 <div id="app"></div><div id="loading" class="loading">B E L L M I R E</div>
 <div id="error"><div><h2>Bellmireを読み込めませんでした</h2><p>ページを再読み込みしてください。</p></div></div>
-<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v52.8</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
+<div id="panel" class="panel"><div class="head"><div><div class="title">BELLMIRE <span class="badge">Orlaithe miniature · v52.9</span></div><div class="sub">Bellmire — 路地の暮らしと不揃いな屋根、猫が歩く丘の街</div></div><button id="toggle" class="toggle">街を見る</button></div><div class="rows">
 <div class="row" id="weather"><button data-w="clear">晴れ</button><button data-w="rain">雨</button><button data-w="fog">霧</button><button data-w="blackout">停電</button><button data-w="dawn" class="active">夜明け</button><button data-w="night">夜</button></div>
 <div class="row"><button id="walk">人間で歩く</button><button id="catWalk">猫で歩く</button><button id="follow">住人を追う</button><button id="fullscreen">全画面</button></div>
 <div class="row"><label>時刻 <select id="timePeriod" aria-label="街の時間帯"><option value="morning">朝</option><option value="day" selected>昼</option><option value="evening">夕</option><option value="night">夜</option></select></label><label>品質 <select id="qualitySelect" aria-label="描画品質"><option value="standard">Standard</option><option value="high">High</option><option value="mobile">Mobile</option></select></label></div>
@@ -37,7 +38,7 @@ button,select{border:1px solid #ffffff24;background:#ffffff0d;color:#eee;border-
 <div class="resident">追跡 <select id="residentSel"><option value="0">パン屋</option><option value="1">本屋</option><option value="2">旅人</option><option value="3">吟遊詩人</option></select></div>
 <div class="hint">ドラッグ：回転　ホイール：ズーム　右ドラッグ：移動</div>
 <div class="walk-ui walk-help"><span id="walkHint">WASD / 矢印キーで移動 · 画面をドラッグして見回す</span><button id="walkLook">マウスで見回す</button><button id="walkExit">街を見る</button></div>
-<div class="walk-ui walk-pad" aria-label="歩行操作"><span></span><button data-move="forward" aria-label="前へ">↑</button><span></span><button data-move="left" aria-label="左へ">←</button><button data-move="backward" aria-label="後ろへ">↓</button><button data-move="right" aria-label="右へ">→</button></div>
+
 <script>addEventListener('error',e=>{loading.classList.add('hide');error.classList.add('show');error.querySelector('p').textContent='読み込みエラー: '+(e.message||'不明なエラー')});</script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"}}</script>
 <script type="module">
@@ -47,10 +48,10 @@ import {buildVioletMire,connectVioletMire,mireRegion,mireHeight,mireDryVolume,mi
 import {buildCaerVeyra,connectCapital,capitalRegions,capitalHeight,capitalBlocked,capitalDry,setCapitalState} from './caer-veyra.js?v=52.8';
 import {capitalCharacters,capitalWards} from './caer-veyra-data.js?v=52.6';
 import {createCapitalResearch} from './capital-research.js?v=52.5';
-import {createCapitalCityMap} from './capital-city-map.js';
+import {createCapitalCityMap} from './capital-city-map.js?v=52.9';
 import {mireCharacters,mireIncidents} from './violet-mire-data.js';
 import {buildHollowCrown,connectHollowCrown,crownRegion,crownHeight,crownDryVolume,crownWallBlocked,crownOpen} from './hollow-crown.js';
-import {createWorldMap} from './world-map.js';
+import {createWorldMap} from './world-map.js?v=52.9';
 import {createMinimap} from './minimap.js';
 import {townRoads} from './town-roads.js';
 import {buildNineStones,connectNineStones} from './nine-stones.js';
@@ -60,16 +61,17 @@ import {lakeWaterOffset} from './lake-water-level.js';
 import {buildDrownedWay,connectDrownedWay,roadReading} from './drowned-way.js';
 import {createLakeWaterLevel} from './lake-water-level.js';
 import {buildCaerith,connectCaerith} from './caerith.js';
-import {createBoatTravel} from './boat-travel.js';
+import {createBoatTravel} from './boat-travel.js?v=52.9';
 import {buildLunmere,connectLunmere} from './lunmere.js';
 import {lunmereCharacters,lakeTownEvents} from './lunmere-data.js';
 import {buildLakeLun,connectLakeLun} from './lake-lun.js';
-import {createRegionData,createRegions} from './regions.js';
+import {createRegionData,createRegions} from './regions.js?v=52.9';
 import {buildOutskirts} from './outskirts.js';
 import {createNavigation} from './navigation.js';
 import {createShopSystem} from './shop-system.js?v=52.5';
 import {clearHumanRoutes} from './human-routes.js';
-import {createWalkingSystem} from './walking.js';
+import {createMobileInput} from './mobile-input.js?v=52.9';
+import {createWalkingSystem} from './walking.js?v=52.9';
 import {supportTownHouses,auditTownGround} from './town-ground-audit.js';
 import {createGroundingSystem} from './grounding.js';
 import {createResidentScale} from './resident-scale.js';
@@ -79,7 +81,7 @@ import {addMillLife} from './mill-life.js';
 import {createMillrace,watercourseLayout} from './waterways.js';
 import {addLifeDetails} from './life-details.js';
 import {createInspectionTargets} from './inspection-targets.js';
-import {createInspectionSystem} from './interaction.js';
+import {createInspectionSystem} from './interaction.js?v=52.9';
 import {createDialogueSystem,addBardDetails} from './dialogue.js';
 import {catModelSettings,catViewSettings} from './cat-settings.js';
 import {applyStorybookSurfaces} from './storybook.js';
@@ -93,7 +95,7 @@ import {createStoryThread} from './story-thread.js';
 import {createInteriorLife} from './interior-life.js';
 import {createQuietStay} from './quiet-stay.js';
 import {createTownEvents} from './town-events.js';
-import {addCatExploration} from './cat-exploration.js';
+import {addCatExploration} from './cat-exploration.js?v=52.9';
 import {connectCalendarDialogue} from './calendar-dialogue.js';
 import {createSeasons} from './seasons.js';
 import {createTownDiagnostics} from './town-diagnostics.js';
@@ -1115,7 +1117,7 @@ const clock=new THREE.Clock();let previousFrame=0,farDetailTime=0;function anima
 routes.forEach((r,i)=>{const phase=t*r.s+i,u=(Math.sin(phase)+1)/2,forward=Math.cos(phase)>=0;r.p.position.lerpVectors(r.a,r.b,u);r.p.lookAt(forward?r.b:r.a);const gait=r.p.userData.residentLife;const swing=Math.sin(t*5*(gait?.gaitSpeed??1)+i)*.48*(gait?.gaitAmplitude??1);r.p.userData.legs[0].rotation.x=swing;r.p.userData.legs[1].rotation.x=-swing;r.p.userData.arms[0].rotation.x=-swing*.7;r.p.userData.arms[1].rotation.x=swing*.7;grounding.actor(r.p,r.p.userData.legs)});
 const ru=(Math.sin(t*.11)+1)/2,rForward=Math.cos(t*.11)>=0;residentV8.position.lerpVectors(new THREE.Vector3(-1,3.5,18),new THREE.Vector3(5,3.5,18),ru);residentV8.rotation.y=rForward?Math.PI/2:-Math.PI/2;const rs=Math.sin(t*4.8)*.42;residentLegs[0].rotation.x=rs;residentLegs[1].rotation.x=-rs;residentArms[0].rotation.x=-rs*.65;residentArms[1].rotation.x=rs*.65;grounding.actor(residentV8,residentLegs);
 const raw=(Math.sin(t*.115)+1)/2,cu=raw<.08?0:raw>.92?1:(raw-.08)/.84;walkPath(catPath,cu,_catPos);cat.position.copy(_catPos);cat.rotation.y=Math.cos(t*.115)>=0?0:Math.PI;const cs=Math.sin(t*7.5)*.5;catLegs[0].rotation.z=cs;catLegs[1].rotation.z=-cs;catLegs[2].rotation.z=-cs;catLegs[3].rotation.z=cs;tail.rotation.z=.15+Math.sin(t*2.2)*.18;grounding.actor(cat,catLegs);
-smoke.forEach((q,i)=>{const u=(t*.09+i/smoke.length)%1;const cs=chimneySources[i%chimneySources.length];q.position.set(cs[0]+Math.sin(t*.4+i)*.45,cs[1]+u*12,cs[2]+Math.cos(t*.35+i)*.35);q.scale.setScalar(.5+u*2.3);q.material.opacity=.14*(q.userData.lifeSmokeFactor??1)*(1-u)});}rain.position.set(walking.active&&!shopSystem.current&&walking.state.feet.x<-53?walking.state.feet.x:0,0,walking.active&&!shopSystem.current&&walking.state.feet.x<-53?walking.state.feet.z:0);if(rain.visible){const p=rg.attributes.position.array;for(let i=0;i<N;i++){p[i*3+1]-=.48;if(p[i*3+1]<0)p[i*3+1]=65}rg.attributes.position.needsUpdate=true}townLife.tick(dt,walking.active&&(!walking.state.inputBlocked||boatTravel.active)&&!document.hidden);shopSystem.update(dt);residentDay.update(dt);storyThread.update(dt);nineStay.update(dt);lakeStay.update(dt);if(!boatTravel.active)regionSystem.update(dt);if(!walking.active&&view==='catview'&&!followMode){const cp=cat.position.clone();camera.position.lerp(cp.clone().add(new THREE.Vector3(-4.2,2.5,4.6)),.08);controls.target.lerp(cp.clone().add(new THREE.Vector3(0,catViewSettings.focusHeight,0)),.10);}if(!walking.active&&view==='drone'&&!followMode){camera.position.set(Math.sin(t*.07)*52,29+Math.sin(t*.11)*4,Math.cos(t*.07)*52);camera.lookAt(-8,6,-4)}if(!walking.active&&view==='train'&&!followMode){camera.position.copy(train.position).add(new THREE.Vector3(7.5,5.5,7));controls.target.copy(train.position).add(new THREE.Vector3(0,1.2,0));camera.lookAt(controls.target)}if(followMode){const p=residents[followIdx],d=new THREE.Vector3(),focus=shopSystem.trackingPoint(p);p.getWorldDirection(d);camera.position.lerp(focus.clone().add(new THREE.Vector3(0,2.8,0)).add(d.multiplyScalar(-4.5)),.07);camera.lookAt(focus.clone().add(new THREE.Vector3(0,1.4,0)))}if(walking.active)walking.update(dt);else controls.update();quietStay.update(dt);inspections.update(dt);if(!worldMap.active&&!capitalResearch.active)boatTravel.update(dt);drownedStay.update(dt);ringStay.update(dt);crownStay.update(dt);mireStay.update(dt);capitalLife.update(dt);capitalResearch.update(dt);navigation.update(dt);minimap.update(dt);ambientAudio.update(dt);atmosphere.update(walking.active);quality.update(dt);residentLife.update(t);if(!worldMap.active&&!capitalResearch.active){diagnostics.before();composer.render();diagnostics.update()}}
+smoke.forEach((q,i)=>{const u=(t*.09+i/smoke.length)%1;const cs=chimneySources[i%chimneySources.length];q.position.set(cs[0]+Math.sin(t*.4+i)*.45,cs[1]+u*12,cs[2]+Math.cos(t*.35+i)*.35);q.scale.setScalar(.5+u*2.3);q.material.opacity=.14*(q.userData.lifeSmokeFactor??1)*(1-u)});}rain.position.set(walking.active&&!shopSystem.current&&walking.state.feet.x<-53?walking.state.feet.x:0,0,walking.active&&!shopSystem.current&&walking.state.feet.x<-53?walking.state.feet.z:0);if(rain.visible){const p=rg.attributes.position.array;for(let i=0;i<N;i++){p[i*3+1]-=.48;if(p[i*3+1]<0)p[i*3+1]=65}rg.attributes.position.needsUpdate=true}townLife.tick(dt,walking.active&&(!walking.state.inputBlocked||boatTravel.active)&&!document.hidden);shopSystem.update(dt);residentDay.update(dt);storyThread.update(dt);nineStay.update(dt);lakeStay.update(dt);if(!boatTravel.active)regionSystem.update(dt);if(!walking.active&&view==='catview'&&!followMode){const cp=cat.position.clone();camera.position.lerp(cp.clone().add(new THREE.Vector3(-4.2,2.5,4.6)),.08);controls.target.lerp(cp.clone().add(new THREE.Vector3(0,catViewSettings.focusHeight,0)),.10);}if(!walking.active&&view==='drone'&&!followMode){camera.position.set(Math.sin(t*.07)*52,29+Math.sin(t*.11)*4,Math.cos(t*.07)*52);camera.lookAt(-8,6,-4)}if(!walking.active&&view==='train'&&!followMode){camera.position.copy(train.position).add(new THREE.Vector3(7.5,5.5,7));controls.target.copy(train.position).add(new THREE.Vector3(0,1.2,0));camera.lookAt(controls.target)}if(followMode){const p=residents[followIdx],d=new THREE.Vector3(),focus=shopSystem.trackingPoint(p);p.getWorldDirection(d);camera.position.lerp(focus.clone().add(new THREE.Vector3(0,2.8,0)).add(d.multiplyScalar(-4.5)),.07);camera.lookAt(focus.clone().add(new THREE.Vector3(0,1.4,0)))}if(walking.active)walking.update(dt);else controls.update();quietStay.update(dt);inspections.update(dt);mobileInput.update();if(!worldMap.active&&!capitalResearch.active)boatTravel.update(dt);drownedStay.update(dt);ringStay.update(dt);crownStay.update(dt);mireStay.update(dt);capitalLife.update(dt);capitalResearch.update(dt);navigation.update(dt);minimap.update(dt);ambientAudio.update(dt);atmosphere.update(walking.active);quality.update(dt);residentLife.update(t);if(!worldMap.active&&!capitalResearch.active){diagnostics.before();composer.render();diagnostics.update()}}
 // Add v10.8+ construction above this finalization point. Preserve the legacy
 // checkpoints; retire intentionally replaced meshes explicitly instead of
 // extending geometry filters to newly built waterfront groups.
@@ -1304,5 +1306,6 @@ function enterWalk(profile){
 }
 walk.onclick=()=>enterWalk('human');document.getElementById('catWalk').onclick=()=>enterWalk('cat');
 walkExit.onclick=()=>{walking.leave();setView(view)};
+const mobileInput=createMobileInput({walking,boatTravel,canvas:renderer.domElement});
 setView('overview');setWeather(initialStayWeather);townLife.setPeriod(initialStayPhase);animate();addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);composer.setSize(innerWidth,innerHeight)});loading.classList.add('hide');
 </script></body></html>

@@ -1,0 +1,34 @@
+/* Gesture ownership is local. Reading and scrolling text remain normal. */
+#app canvas,.mobile-joystick,.mobile-joystick *{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.mobile-joystick{display:none;position:fixed;z-index:18;left:calc(16px + env(safe-area-inset-left));bottom:calc(76px + env(safe-area-inset-bottom));width:min(44vw,210px);height:min(34dvh,230px);min-height:112px;touch-action:none;overscroll-behavior:contain}
+.mobile-joystick[hidden],.joystick-base[hidden]{display:none!important}.joystick-base{position:absolute;width:100px;height:100px;transform:translate(-50%,-50%);border:1px solid #e4d8bc88;border-radius:50%;background:#182b2d45;pointer-events:none}.joystick-knob{position:absolute;left:50%;top:50%;width:36px;height:36px;border-radius:50%;border:1px solid #ecdfc699;background:#c9bfa778;transform:translate(-50%,-50%)}
+.mobile-input-debug{position:fixed;z-index:210;bottom:calc(3px + env(safe-area-inset-bottom));left:calc(12px + env(safe-area-inset-left));font:10px monospace;background:#102321dd;color:#eee;pointer-events:none;padding:3px}
+.world-map,.journal-dialog,.capital-research-overlay,.inspection-card{overscroll-behavior:contain;touch-action:pan-y pinch-zoom}
+.inspection-card{max-height:calc(100dvh - 160px - env(safe-area-inset-top) - env(safe-area-inset-bottom));overflow-y:auto;overflow-wrap:anywhere}
+.capital-research-panel,.journal-pages{touch-action:pan-y pinch-zoom;overflow-wrap:anywhere}
+@media(pointer:coarse){
+ .mobile-joystick{display:block}.walk-pad{display:none!important}
+ #app canvas{touch-action:none}
+ .panel{top:calc(8px + env(safe-area-inset-top));left:calc(8px + env(safe-area-inset-left));max-width:calc(100vw - 16px - env(safe-area-inset-left) - env(safe-area-inset-right));box-sizing:border-box}
+ button,select{min-height:44px;touch-action:manipulation}
+ .walk-help{left:calc(8px + env(safe-area-inset-left));bottom:calc(8px + env(safe-area-inset-bottom));max-width:calc(100vw - 16px - env(safe-area-inset-left) - env(safe-area-inset-right));box-sizing:border-box}
+ #catJump{right:calc(16px + env(safe-area-inset-right));bottom:calc(150px + env(safe-area-inset-bottom));min-width:64px;min-height:48px;touch-action:manipulation;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+ .inspect-prompt{right:calc(10px + env(safe-area-inset-right));bottom:calc(80px + env(safe-area-inset-bottom));max-width:min(200px,48vw)}
+ .inspection-card{right:calc(10px + env(safe-area-inset-right));bottom:calc(132px + env(safe-area-inset-bottom));width:calc(100vw - 40px - env(safe-area-inset-left) - env(safe-area-inset-right));max-width:340px;box-sizing:border-box}
+ .boat-controls{bottom:calc(12px + env(safe-area-inset-bottom));max-width:calc(100vw - 28px - env(safe-area-inset-left) - env(safe-area-inset-right));box-sizing:border-box;z-index:23;font-size:11px}.boat-controls [data-boat-direction]{display:none}
+ .boat-controls button{min-width:54px}.boating #catJump{display:none!important}
+ .world-map button,.inspection-card button,.journal-dialog button,.capital-research-overlay button{min-height:44px;min-width:44px}
+ .town-map{max-width:calc(100vw - 24px - env(safe-area-inset-right));box-sizing:border-box;right:calc(10px + env(safe-area-inset-right));top:auto;bottom:calc(235px + env(safe-area-inset-bottom))}
+}
+@media(pointer:coarse) and (max-height:500px){.mobile-joystick{height:130px;bottom:calc(62px + env(safe-area-inset-bottom))}#catJump{bottom:calc(88px + env(safe-area-inset-bottom))}.inspection-card{bottom:calc(64px + env(safe-area-inset-bottom));max-height:calc(100dvh - 90px - env(safe-area-inset-top))}.walk-help{font-size:9px}.world-map{max-height:calc(100dvh - 12px - env(safe-area-inset-top) - env(safe-area-inset-bottom))}}
+
+.game-modal-open #catJump{display:none!important}
+
+.journal-dialog{overflow-y:auto;max-height:calc(100dvh - 32px - env(safe-area-inset-top) - env(safe-area-inset-bottom))}
+.capital-research-overlay{box-sizing:border-box;padding:calc(12px + env(safe-area-inset-top)) calc(12px + env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) calc(12px + env(safe-area-inset-left))}
+@media(pointer:coarse) and (max-height:500px){.town-map{top:calc(72px + env(safe-area-inset-top));bottom:auto}}
+/* Labels on repeated game controls are controls, not selectable prose. */
+.boat-controls button,.walk-help button{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+@media(pointer:coarse){#walkLook{display:none}}
+/* Runtime flex styles must not reveal the city selector outside the city. */
+.region-picker[hidden]{display:none}

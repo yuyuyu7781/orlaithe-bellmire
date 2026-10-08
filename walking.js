@@ -1,3 +1,4 @@
+import {gameModalOpen,resetGamePointers} from './game-input-state.js?v=52.9';
 // Walking is separate from the miniature's view/animation system. Future actors
 // can supply their own dimensions and ground policy without changing input/UI.
 export const walkingProfiles={
@@ -12,7 +13,7 @@ export const humanRouteStandard={minimumWidth:1.2,landingDepth:1.2,maximumRiser:
 export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,surfaces,
   surfaceMaterials,dynamicObjects,ignoredObjects,waterMaterials,trackBounds,spawn,terrainSamplers=[],movementBlockers=[],waterExclusions=[]}){
   const state={active:false,profile:walkingProfiles.human,feet:spawn.clone(),yaw:-Math.PI*.83,pitch:-.05};
-  const input={keys:new Set(),touch:new Set(),forward:0,right:0};
+  const input={keys:new Set(),touch:new Set(),forward:0,right:0,analog:{x:0,y:0}};
   const ground=[],floors=[],obstacles=[],waterZones=[],waterSurfaces=[],catSteps=[];let jumpState=null;
   const upAxis=new THREE.Vector3(0,1,0),direction=new THREE.Vector3(),euler=new THREE.Euler(0,0,0,'YXZ');
   const dynamicBounds=dynamicObjects.map(object=>({object,bounds:new THREE.Box3()}));
@@ -66,7 +67,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   }
   let actorIgnore=null;
   let area=null;const leaveListeners=new Set();
-  function setArea(policy=null){area=policy;state.area=policy?.id??'town';}
+  function setArea(policy=null){area=policy;state.area=policy?.id??'town';clearInput();}
   function relocate(feet,{yaw=state.yaw,pitch=0}={}){const y=canStand(feet.x,feet.z,feet.y);if(y===null)throw Error('Unsafe walking destination');jumpState=null;state.feet.set(feet.x,y,feet.z);state.yaw=yaw;state.pitch=pitch;clearInput();eyeY=y+state.profile.eyeHeight;updateCamera(0);}
   function nearby(x,z,profile=state.profile){
     const found=new Set(),r=profile.radius;
@@ -135,13 +136,17 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     candidates.push({step:null,point:state.feet.clone().addScaledVector(forward,.55)});
     for(const q of candidates){const y=canStand(q.point.x,q.point.z,state.feet.y,p);if(y===null)continue;q.point.y=y;if(Math.abs(y-state.feet.y)>.95)continue;let clear=true;
       for(let i=1;i<=12;i++){const t=i/12,pos=jumpPoint(state.feet,q.point,t);if(groundAt(pos.x,pos.z,state.feet.y,p)===null){clear=false;break;}for(const o of nearby(pos.x,pos.z,p)){let belongs=false;for(let a=o.object;a;a=a.parent)if(a===q.step?.object)belongs=true;if(!belongs&&!o.disabled&&(!o.object||visible(o.object))&&intersectsBody(o.bounds,pos.x,pos.z,pos.y,o.isFloor,o.round,p)){clear=false;break;}}if(!clear)break;}
-      if(clear){jumpState={from:state.feet.clone(),to:q.point.clone(),elapsed:0,duration:.42};clearInput();return true;}
+      if(clear){jumpState={from:state.feet.clone(),to:q.point.clone(),elapsed:0,duration:.42};return true;}
     }return false;
   }
-  function clearInput(){input.keys.clear();input.touch.clear();input.forward=input.right=0;lastPointer=null;document.querySelectorAll('[data-move]').forEach(b=>b.classList.remove('active'))}
+  function releaseCamera(){const pointer=lastPointer;lastPointer=null;if(pointer&&canvas.hasPointerCapture(pointer.id))canvas.releasePointerCapture(pointer.id);}
+  function setAnalog(x=0,y=0){if(!state.active||state.inputBlocked||gameModalOpen())x=y=0;const length=Math.max(1,Math.hypot(x,y));input.analog.x=x/length;input.analog.y=y/length;}
+  function clearInput(){input.keys.clear();input.touch.clear();input.forward=input.right=0;input.analog.x=input.analog.y=0;releaseCamera();resetGamePointers();}
+  document.addEventListener('game-input-reset',()=>{input.analog.x=input.analog.y=0;releaseCamera();});
+
   function updateHint(){hint.dataset.profile=state.profile.id;hint.textContent=(state.profile.id==='cat'?'猫 · ':'人間 · ')+( document.pointerLockElement===canvas?
     'WASD / 矢印キーで移動 · マウスで見回す · Escでマウス解除':
-    matchMedia('(pointer:coarse)').matches?'左下の矢印で移動 · 画面をドラッグして見回す':'WASD / 矢印キーで移動 · 画面をドラッグして見回す')}
+    matchMedia('(pointer:coarse)').matches?'左下で移動 · 右側をドラッグして見回す':'WASD / 矢印キーで移動 · 画面をドラッグして見回す')}
   function look(dx,dy){state.yaw-=dx*.003;state.pitch=THREE.MathUtils.clamp(state.pitch-dy*.003,-1.25,1.25)}
   function updateCamera(dt){
     eyeY=THREE.MathUtils.lerp(eyeY,state.feet.y+state.profile.eyeHeight,1-Math.exp(-18*dt));
@@ -183,24 +188,26 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   function setInputBlocked(reason,blocked){if(blocked)inputBlocks.add(reason);else inputBlocks.delete(reason);state.inputBlocked=inputBlocks.size>0;clearInput();}
   function update(dt){
     if(!state.active)return;
-    if(state.inputBlocked){clearInput();return;}
+    if(state.inputBlocked||gameModalOpen())return;
     refreshDynamic();dt=Math.min(.05,Math.max(0,dt));
     if(jumpState){jumpState.elapsed+=dt;const t=Math.min(1,jumpState.elapsed/jumpState.duration);state.feet.copy(jumpPoint(jumpState.from,jumpState.to,t));updateCamera(dt);if(t===1)jumpState=null;return;}
     const pressed=(...codes)=>codes.some(c=>input.keys.has(c)||input.touch.has(c));
-    input.forward=Number(pressed('KeyW','ArrowUp','forward'))-Number(pressed('KeyS','ArrowDown','backward'));
-    input.right=Number(pressed('KeyD','ArrowRight','right'))-Number(pressed('KeyA','ArrowLeft','left'));
+    input.forward=Number(pressed('KeyW','ArrowUp','forward'))-Number(pressed('KeyS','ArrowDown','backward'))+input.analog.y;
+    input.right=Number(pressed('KeyD','ArrowRight','right'))-Number(pressed('KeyA','ArrowLeft','left'))+input.analog.x;
     direction.set(input.right,0,-input.forward);
-    if(direction.lengthSq()>0){direction.normalize().applyAxisAngle(upAxis,state.yaw).multiplyScalar(state.profile.speed*dt);move(direction.x,direction.z)}
+    if(direction.lengthSq()>0){direction.multiplyScalar(1/Math.max(1,direction.length())).applyAxisAngle(upAxis,state.yaw).multiplyScalar(state.profile.speed*dt);move(direction.x,direction.z)}
     updateCamera(dt);
   }
   const movementKeys=new Set(['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowDown','ArrowLeft','ArrowRight']);
   addEventListener('keydown',e=>{
-    if(!state.active||state.inputBlocked||/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName))return;
+    if(!state.active||state.inputBlocked||gameModalOpen()||/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName))return;
     if(e.code==='Space'&&state.profile.id==='cat'&&!e.repeat){e.preventDefault();jump();}
     if(movementKeys.has(e.code)){e.preventDefault();input.keys.add(e.code)}
   });
   addEventListener('keyup',e=>input.keys.delete(e.code));
   addEventListener('blur',clearInput);
+  addEventListener('resize',clearInput);
+  addEventListener('orientationchange',clearInput);
   document.addEventListener('visibilitychange',()=>{if(document.hidden)clearInput()});
   document.addEventListener('pointerlockchange',()=>{clearInput();updateHint()});
   lookButton.onclick=async()=>{
@@ -208,23 +215,19 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     try{await canvas.requestPointerLock?.()}catch{updateHint()}
   };
   canvas.addEventListener('pointerdown',e=>{
-    if(!state.active||e.button!==0||document.pointerLockElement===canvas)return;
+    if(!state.active||state.inputBlocked||gameModalOpen()||lastPointer||e.button!==0||document.pointerLockElement===canvas||(e.pointerType==='touch'&&e.clientX<innerWidth*.48))return;e.preventDefault();
     lastPointer={id:e.pointerId,x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId);
   });
   canvas.addEventListener('pointermove',e=>{
-    if(!state.active)return;
+    if(!state.active||state.inputBlocked||gameModalOpen())return;
     if(document.pointerLockElement===canvas){look(e.movementX,e.movementY);return}
     if(lastPointer?.id!==e.pointerId)return;
-    look(e.clientX-lastPointer.x,e.clientY-lastPointer.y);lastPointer.x=e.clientX;lastPointer.y=e.clientY;
+    e.preventDefault();look(e.clientX-lastPointer.x,e.clientY-lastPointer.y);lastPointer.x=e.clientX;lastPointer.y=e.clientY;
   });
-  const release=e=>{if(lastPointer?.id===e.pointerId)lastPointer=null};
+  const release=e=>{if(lastPointer?.id===e.pointerId)releaseCamera()};
   canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',release);
   canvas.addEventListener('lostpointercapture',release);
-  for(const button of document.querySelectorAll('[data-move]')){
-    const up=()=>{input.touch.delete(button.dataset.move);button.classList.remove('active')};
-    button.addEventListener('pointerdown',e=>{if(!state.active)return;e.preventDefault();button.setPointerCapture(e.pointerId);input.touch.add(button.dataset.move);button.classList.add('active')});
-    for(const event of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(event,up);
-  }
+  canvas.addEventListener('contextmenu',e=>e.preventDefault());canvas.addEventListener('dragstart',e=>e.preventDefault());
   // Debug/authoring diagnostics use the same feet/body policy as real movement.
   // They never open an invisible corridor or change a collider.
   function inspectClearance(x,z,y,id='human'){
@@ -234,6 +237,6 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     return {walkable:support!==null,floor,blockers:blocked.map(o=>({name:o.object?.name||o.object?.geometry?.type||'track',min:o.bounds.min.toArray(),max:o.bounds.max.toArray()})),profile:id};
   }
   // Read-only world data also supports route validation and future actor policies.
-  return {get active(){return state.active},state,input,setInputBlocked,enter,leave,update,groundAt,canStand,canStandAs,registerObstacle,refreshObstacle,registerCatStep,jump,catSteps,get jumping(){return !!jumpState;},setArea,relocate,onLeave(fn){leaveListeners.add(fn);return()=>leaveListeners.delete(fn);},profiles:walkingProfiles,lastLocations,
+  return {get active(){return state.active},state,input,setAnalog,resetInput:clearInput,setInputBlocked,enter,leave,update,groundAt,canStand,canStandAs,registerObstacle,refreshObstacle,registerCatStep,jump,catSteps,get jumping(){return !!jumpState;},setArea,relocate,onLeave(fn){leaveListeners.add(fn);return()=>leaveListeners.delete(fn);},profiles:walkingProfiles,lastLocations,
     refreshWaterSurfaces(){for(const {object,bounds}of waterSurfaces){object.updateWorldMatrix(true,false);bounds.setFromObject(object,true);}},world:{ground,floors,obstacles,waterZones},refreshDynamic,setDynamicActivity(fn){dynamicActivity=fn;refreshDynamic();},dynamicActivityStats,inspectClearance,canStandTownAs,canStandActor,registerDynamicObject};
 }

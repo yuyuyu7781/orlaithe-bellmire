@@ -34,13 +34,13 @@ export function createInspectionSystem({THREE,scene,camera,walking,targets,ignor
   card.id='inspectionCard';card.className='inspection-card';card.hidden=true;card.setAttribute('role','status');card.setAttribute('aria-live','polite');close.textContent='閉じる';close.setAttribute('aria-label','説明を閉じる');card.append(title,text,close);document.body.append(prompt,card);
   const content=document.createElement('div');card.insertBefore(content,text);
   let selected=null,opened=null,openedProfile=null,elapsed=0,closeTimer=null;
-  function dismiss(){const animate=opened?.kind==='talk'&&!matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function dismiss(){if(opened)walking.setInputBlocked('inspection',false);const animate=opened?.kind==='talk'&&!matchMedia('(prefers-reduced-motion:reduce)').matches;
     opened=null;openedProfile=null;
     if(closeTimer!==null)return;
     const finish=()=>{card.hidden=true;card.classList.remove('conversation-closing');card.inert=false;content.replaceChildren();closeTimer=null;};
     if(animate){card.classList.add('conversation-closing');card.inert=true;closeTimer=setTimeout(finish,110);}else finish();}
   function present(entry,{label=entry.label,text:message=entry.text,kind=entry.kind,extra=null}={}){
-    clearTimeout(closeTimer);closeTimer=null;card.classList.remove('conversation-closing');card.inert=false;card.dataset.period=extra?.dataset.period??'day';card.dataset.conversationMode=extra?.dataset.conversationMode??'';close.setAttribute('aria-label',kind==='talk'?'会話を閉じる':'説明を閉じる');title.textContent=label;text.textContent=message;content.replaceChildren(...(extra?[extra]:[]));card.classList.toggle('dialogue-card',kind==='talk');opened=entry;openedProfile=walking.state.profile.id;card.hidden=false;for(const fn of presentListeners)fn({entry,text:message,kind,profile:openedProfile});
+    clearTimeout(closeTimer);closeTimer=null;card.classList.remove('conversation-closing');card.inert=false;card.dataset.period=extra?.dataset.period??'day';card.dataset.conversationMode=extra?.dataset.conversationMode??'';close.setAttribute('aria-label',kind==='talk'?'会話を閉じる':'説明を閉じる');title.textContent=label;text.textContent=message;content.replaceChildren(...(extra?[extra]:[]));card.classList.toggle('dialogue-card',kind==='talk');walking.setInputBlocked('inspection',true);opened=entry;openedProfile=walking.state.profile.id;card.hidden=false;for(const fn of presentListeners)fn({entry,text:message,kind,profile:openedProfile});
   }
   handlers.set('inspect',entry=>present(entry,{text:entry.textByProfile?.[walking.state.profile.id]??entry.text}));
   function activate(){if(walking.state.inputBlocked)return false;update(.2);if(!selected||!walking.active)return false;const handle=handlers.get(selected.kind);if(!handle)return false;handle(selected);return true;}
