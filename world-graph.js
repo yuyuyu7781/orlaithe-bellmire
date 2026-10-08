@@ -33,7 +33,7 @@ export const worldConnections=[
 worldNodes.find(n=>n.id==='drowned-way').parentRegion='lake-lun';
 // No public names for unbuilt lands. Reserved graph slots can be populated later.
 export const futureWorldSlots=[{id:'unexplored-north',worldPosition:[-750,25,-560],mapPosition:[675,38]}];
-const unlocks={'drowned-way':'low-water','the-ring':'extreme-water','hollow-crown':'descent','violet-mire':'mire-land','caer-veyra':'royal-road',...Object.fromEntries(capitalWards.map(w=>['caer-'+w.id,w.ambient]))};
+const unlocks={'drowned-way':'low-water','the-ring':'extreme-water','hollow-crown':'descent','violet-mire':'mire-land','caer-veyra':'royal-road',...Object.fromEntries(capitalWards.map(w=>['caer-'+w.id,'capital-'+w.id]))};
 const hints={'drowned-way':'drowned:rumor','hollow-crown':'crown:entrance','violet-mire':'mire:exit','caer-veyra':'mire:sign'};
 for(const n of worldNodes){n.rumorFlag=hints[n.id]??null;n.unlockType=unlocks[n.id]?'conditional':'visit';n.unlockConditions=unlocks[n.id]??{};Object.assign(n,conditionSets[unlocks[n.id]]??{});}
 for(const n of worldNodes){n.connections=worldConnections.filter(e=>e.from===n.id||e.to===n.id).map(e=>e.id);n.travelMode=[...new Set(worldConnections.filter(e=>n.connections.includes(e.id)).map(e=>e.type))];}
@@ -42,7 +42,7 @@ export function connectionAvailable(edge,data){return !!edge&&evaluateConditions
 export function worldSnapshot(data,regions=[],current='bellmire'){
  const seen=id=>hasDiscovery(data,id);const nodes=worldNodes.map(n=>{
   const region=regions.find(r=>r.id===n.id)??regions.find(r=>r.id===n.parentRegion),visited=regionVisited(data,n.id)||n.flags.some(seen),hint=n.rumorFlag,discovered=visited||n.id==='drowned-way'&&seen('drowned:entry'),rumored=!discovered&&!!hint&&seen(hint),available=evaluateConditions(n.unlockConditions,data)&&n.type!=='rumor';
-  return {...n,entryPoints:region?[{id:'safe',position:region.entryPoint}]:[],visited,discovered,rumored,current:n.id===current||n.id==='caer-veyra'&&current.startsWith('caer-'),availability:available?'open':n.type==='rumor'?'unbuilt':n.mapParent?'closed':'submerged',revisitable:visited&&available&&!!region,nameVisible:visited||discovered||n.id==='caer-veyra'&&rumored||n.type==='rumor'&&rumored,hidden:!discovered&&!rumored};
+  return {...n,entryPoints:region?[{id:'safe',position:region.entryPoint}]:[],visited,discovered,rumored,current:n.id===current||n.id==='caer-veyra'&&current.startsWith('caer-'),availability:available?'open':n.type==='rumor'?'unbuilt':n.mapParent||n.id==='caer-veyra'?'closed':'submerged',revisitable:visited&&available&&!!region,nameVisible:visited||discovered||n.id==='caer-veyra'&&rumored||n.type==='rumor'&&rumored,hidden:!discovered&&!rumored};
  });
  const byId=new Map(nodes.map(n=>[n.id,n]));return{nodes,connections:worldConnections.filter(e=>!byId.get(e.from).hidden&&!byId.get(e.to).hidden).map(e=>({...e,available:connectionAvailable(e,data)}))};
 }

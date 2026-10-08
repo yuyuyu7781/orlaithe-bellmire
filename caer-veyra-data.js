@@ -9,7 +9,7 @@ export const capitalWards=[
  {id:'oldQuarter',name:'旧区画',english:'Old Quarter',center:[-560,10,-430],size:[70,78],population:6,ambient:'capital-old',connections:['civicWard'],entry:[-588,10,-430]}
 ];
 export const capitalLinks=[
- {from:'lowerWard',to:'canalWard',points:[[-600,8,-320],[-640,8,-320],[-648,8,-320],[-684,8,-320]],gate:[-643,8,-320]},
+ {from:'lowerWard',to:'canalWard',points:[[-600,8,-320],[-640,8,-320],[-648,8,-320],[-648,8,-325.2],[-684,8,-325.2],[-684,8,-320]],gate:[-643,8,-320]},
  {from:'lowerWard',to:'civicWard',points:[[-600,8,-320],[-624,8,-352],[-644,8,-366],[-644,8,-410]],gate:[-644,8,-371]},
  {from:'canalWard',to:'civicWard',points:[[-684,8,-320],[-684,8,-350],[-672,8,-366],[-644,8,-377],[-644,8,-410]],gate:[-672,8,-368]},
  {from:'civicWard',to:'scholarHeights',points:[[-644,8,-410],[-682.9,8,-410],[-691.9,16,-425],[-730,16,-425]],gate:[-687.4,12,-417.5]},
@@ -21,7 +21,7 @@ export const capitalUnlocks={
  canalWard:{requiredDiscoveries:['cv:arrival'],arrivalDays:1,anyDiscoveries:['cv:market','cv:gate','cv:guide']},
  civicWard:{requiredDiscoveries:['cv:arrival'],arrivalDays:2,requiredRegions:['caer-canalWard'],anyDiscoveries:['cv:notice','cv:canal-level','cv:canal-ledger']},
  scholarHeights:{requiredDiscoveries:['cv:arrival'],arrivalDays:3,requiredRegions:['caer-civicWard'],anyDiscoveries:['cv:records-map','cv:archive-catalog','cv:scholar-intro']},
- oldQuarter:{requiredRegions:['caer-scholarHeights'],anyDiscoveries:['cv:old-map','cv:elda-direction','cv:cat-old-entry']}
+ oldQuarter:{requiredDiscoveries:['cv:arrival'],arrivalDays:4,requiredRegions:['caer-scholarHeights'],anyDiscoveries:['cv:old-map','cv:elda-direction','cv:cat-old-entry']}
 };
 const facility=(id,name,ward,type,dx,dz,w,d,actor=null)=>({id:'cv-'+id,name,ward,type,offset:[dx,dz],size:[w,d],characterId:actor,hours:{morning:'open',day:'open',evening:'open',night:['lodging','dining','guard','bell','observatory','residential','repair'].includes(type)?'open':'closed'}});
 export const capitalFacilities=[
@@ -47,13 +47,13 @@ const people=[
  ['cvElda','エルダ','旧区画の住人','oldQuarter','cv-elda',70,1.54,1.01,0xc3c0b2,'小柄な白髪の住人。昔の地名を普通に使う。','鐘のない鐘楼の方だよ。昔はここから水が見えたよ。','昔、ああいう色の外套を着た子がいたねえ。誰の家の子だったか。'],
  ['cvVal','ヴァル','石壁・鐘楼の修繕師','oldQuarter','cv-val',50,1.81,1.22,0x72695a,'骨太な修繕師。手に石粉。','使える石は戻す。合わない石は、横へ置く。','この片は、今の都市図にない場所のものだ。名前は知らん。']
 ];
-export const capitalCharacters=people.map(([id,name,role,ward,mainLocation,age,height,width,hair,intro,a,b])=>({id,name,role,ward,region:'caer-veyra',mainLocation,profile:{age,height,width,hair},visualProfile:{intro,palette:{cloth:ward==='oldQuarter'?'#696c60':'#6a7680',hair:'#'+hair.toString(16).padStart(6,'0'),wash:'#b6b1a0'},framing:{objectPositionX:50,objectPositionY:32,zoom:1,mobile:{objectPositionY:29,zoom:1}}},portrait:{src:null,nightVariant:null,expressionVariant:{}},lines:{human:{default:[a,b]},cat:{default:[id==='cvLeon'?'またいるな。荷車の下で寝るなよ。':'その隙間なら通れるんだね。濡れた石には気をつけて。']}},schedule:{morning:mainLocation,day:'cv-work-'+id,evening:ward==='lowerWard'?'cv-diner':mainLocation,night:['cvLeon','cvOrm','cvSerena','cvVal'].includes(id)?mainLocation:'home'}}));
+export const capitalCharacters=people.map(([id,name,role,ward,mainLocation,age,height,width,hair,intro,a,b])=>({id,name,role,ward,region:'caer-veyra',mainLocation,profile:{age,height,width,hair},visualProfile:{intro,palette:{cloth:ward==='oldQuarter'?'#696c60':'#6a7680',hair:'#'+hair.toString(16).padStart(6,'0'),wash:'#b6b1a0'},framing:{objectPositionX:50,objectPositionY:32,zoom:1,mobile:{objectPositionY:29,zoom:1}}},portrait:null,portraitDefault:null,portraitHappy:null,portraitSerious:null,portraitNight:null,portraits:{periods:{},expressions:{}},lines:{human:{default:[a,b]},cat:{default:[id==='cvLeon'?'またいるな。荷車の下で寝るなよ。':'その隙間なら通れるんだね。濡れた石には気をつけて。']}},schedule:{morning:['cvCedric','cvLeon'].includes(id)?'cv-work-'+id:mainLocation,day:'cv-work-'+id,evening:ward==='lowerWard'?'cv-diner':mainLocation,night:id==='cvLeon'?'cv-work-'+id:['cvOrm','cvSerena','cvVal'].includes(id)?mainLocation:'home'}}));
 export const capitalObservations=[
- ['gate','lowerWard',0,8,'使われ続ける外門','新しい金具の下に、古い門の継ぎ目が残る。通行の声は途切れない。'],['market','lowerWard',-8,3,'市場の朝','布と朝食の匂いが重なる。古い柱に、今日の値札が結ばれている。'],['guide','lowerWard',8,6,'街の案内','水門は西、役所は北。古い呼び名が、余白に小さく残っている。'],['well','lowerWard',7,-8,'共同井戸','桶の縁は何度も直されている。井戸の石だけは、周りの舗装より暗い。'],['notice','lowerWard',-9,-8,'運搬の公告','明日の水門通行と荷の搬入時刻が書かれている。'],
+ ['gate','lowerWard',0,8,'使われ続ける外門','新しい金具の下に、古い門の継ぎ目が残る。通行の声は途切れない。'],['market','lowerWard',-8,3,'市場の朝','布と朝食の匂いが重なる。古い柱に、今日の値札が結ばれている。'],['guide','lowerWard',8,6,'街の案内','水門は西、役所は北。古い呼び名が、余白に小さく残っている。'],['well','lowerWard',-14,5,'共同井戸','桶の縁は何度も直されている。井戸の石だけは、周りの舗装より暗い。'],['stable','lowerWard',-29,4,'門の内側の厩舎','旅人の馬に、今日の草が分けられている。古い門の影で、荷を降ろす。'],['notice','lowerWard',-9,-8,'運搬の公告','明日の水門通行と荷の搬入時刻が書かれている。'],
  ['canal-level','canalWard',12,4,'水位標','数字の下に、別の間隔で刻まれた古い線がある。管理人は今日の高さを記録している。'],['canal-ledger','canalWard',-10,7,'舟の順番','麦、石材、布。水門の帳面には、普通の荷が並ぶ。'],['canal-reflection','canalWard',6,-7,'夕方の運河','塔と橋の影が、水の上で長くほどける。揺れるたび、線の向きが少し変わる。'],['old-water','canalWard',-12,-9,'古い石積み','新しい水門の下に、違う幅の石が続いている。'],
  ['records-map','civicWard',-10,8,'都市図の余白','Bellmireと湖と九石の線はある。大きな円環と空洞の辺りだけ、線が迂回しているようにも見える。'],['archive-catalog','civicWard',10,7,'目録の抜け','目録の番号はある。本文の束はない。隣の資料は、土地の境界と住民の申請だ。'],['scholar-intro','civicWard',8,-8,'測量の紹介札','古い図の向きは、高台の地図庫でも確かめられるらしい。'],['bell-gap','civicWard',-9,-8,'鐘の間隔','整備帳には、回数よりも間隔が細かく書かれている。'],['public-life','civicWard',0,9,'申請を待つ人々','屋根の修理と家族の住所。歴史の資料を扱う窓口にも、今日の暮らしが並ぶ。'],
  ['old-map','scholarHeights',9,7,'現在図にない街路','古い地図の細い線は、鐘のない鐘楼へ曲がる。現在図には、その曲がり角がない。'],['star-directions','scholarHeights',-8,-8,'方向を比べる庭','石と水と空の記録を並べても、同じ形にはならない。空白の向きだけが、少し気にかかる。'],['sundial','scholarHeights',8,-8,'増築の日時計','台座は古く、目盛りは新しい。違う世代の道具が、一緒に使われている。'],
- ['buried-well','oldQuarter',-8,8,'埋めた井戸','今の道の下に、井戸の縁が残っている。水を汲むには、もう低すぎる。'],['sealed-gate','oldQuarter',8,-8,'塞がれた門','門の向こうと手前で、舗装の向きが違う。今の街路には繋がらない。'],['old-number','oldQuarter',8,8,'古い壁番号','番号の間に、後から小さな数字が足されている。現在の資料番号とは合わない。'],['stone-fragment','oldQuarter',-8,-8,'修繕待ちの石片','同じ石材でも、溝の向きは違う。誰かが比べていたのかもしれない。']
+ ['buried-well','oldQuarter',-14,8,'埋めた井戸','今の道の下に、井戸の縁が残っている。水を汲むには、もう低すぎる。'],['sealed-gate','oldQuarter',8,-8,'塞がれた門','門の向こうと手前で、舗装の向きが違う。今の街路には繋がらない。'],['old-number','oldQuarter',8,8,'古い壁番号','番号の間に、後から小さな数字が足されている。現在の資料番号とは合わない。'],['stone-fragment','oldQuarter',-8,-8,'修繕待ちの石片','同じ石材でも、溝の向きは違う。誰かが比べていたのかもしれない。']
 ];
 export const capitalEvents=[
  ['caravan','lowerWard','商隊の荷物','門の脇で荷を数えている。旅人は井戸の前で道を聞く。',['morning','day']],['market-clear','lowerWard','市場の片付け','布を畳む音がする。朝の値札は、箱の中へ戻った。',['evening','night']],['gate-shift','lowerWard','衛兵交代','帳面を渡して、交代の衛兵が門へ向かった。',['morning','evening']],['craft-delivery','lowerWard','工房の搬入','直した車輪を運ぶ人が、古門の柱を避けて曲がる。',['day']],
@@ -65,3 +65,5 @@ export const capitalEvents=[
 export const capitalCatCounts={lowerWard:5,canalWard:5,civicWard:5,scholarHeights:5,oldQuarter:6};
 export const capitalCatTexts={lowerWard:['荷車の下に、乾いた麦粒と古い布がある。','工房の裏で、油と木の削り屑の匂いがする。'],canalWard:['水際の古い石積みは、新しい壁と少し違う。','舟の隙間に、何度も結び直した細い縄がある。'],civicWard:['壁の低い番号は、書架の札と一致しない。','搬入口の下に、古い紙の切れ端が残る。'],scholarHeights:['地図庫の石裏に、消えかけた短い線がある。','観測庭園の隙間から、冷たい風が抜ける。'],oldQuarter:['今の街路と違う向きの、古い通路が壁の中へ続いている。','塞がれた門の裏に、濡れていない古い木片がある。','排水溝の低い傷は、上の壁の番号より古そうだ。']};
 export const capitalRecordStages=['unseen','arrival','ordinary','missing','compared'];
+
+export const capitalCatRouteNames={lowerWard:['宿裏庭','荷車下','市場の低い屋根','工房裏','城壁沿い'],canalWard:['倉庫の低い梁','水門脇','荷揚げ桟橋','舟の隙間','運河壁の低所'],civicWard:['公文書館中庭','鐘楼基部','行政庁裏','古い回廊','資料搬入口'],scholarHeights:['低い屋根の縁','旧観測塔基部','石壁の切れ目','地図庫外廊','観測庭園'],oldQuarter:['壁内の通路跡','半地下の入口','狭い旧アーチ','低い屋根裏','閉じた門の裏','旧排水溝']};
