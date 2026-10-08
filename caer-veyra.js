@@ -19,7 +19,17 @@ export function buildCaerVeyra({THREE,scene,box,residentScale}){
  const proxyMaterial=new THREE.MeshBasicMaterial({visible:false});
  function proxy(x,y,z,w,h,d,name){const o=box(x,y,z,w,h,d,proxyMaterial,root);o.name=name;o.castShadow=o.receiveShadow=false;o.userData.collisionOnly=true;return o;}
  const roofGeo=new THREE.BufferGeometry();roofGeo.setAttribute('position',new THREE.Float32BufferAttribute([-.5,0,-.5,.5,0,-.5,0,1,-.5,-.5,0,.5,.5,0,.5,0,1,.5],3));roofGeo.setIndex([0,2,1,3,4,5,0,3,5,0,5,2,1,2,5,1,5,4,0,1,4,0,4,3]);roofGeo.computeVertexNormals();
- const strip=(path,width,ma,parent=root)=>{const a=[];for(let i=1;i<path.length;i++){const p=path[i-1],q=path[i],dx=q[0]-p[0],dz=q[2]-p[2],l=Math.hypot(dx,dz),nx=-dz/l*width/2,nz=dx/l*width/2;a.push(p[0]+nx,p[1]+.018,p[2]+nz,q[0]+nx,q[1]+.018,q[2]+nz,q[0]-nx,q[1]+.018,q[2]-nz,p[0]+nx,p[1]+.018,p[2]+nz,q[0]-nx,q[1]+.018,q[2]-nz,p[0]-nx,p[1]+.018,p[2]-nz);}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(a,3));g.computeVertexNormals();const o=new THREE.Mesh(g,ma);o.userData.walkSoft=true;parent.add(o);return o;};
+ // Joined ribbon corners avoid overlapping segment faces. Paving sits above
+ // its grass verge; a small depth bias also keeps distant grazing views stable.
+ const pavingMaterial=materials.stone.clone();pavingMaterial.color=materials.stone.color;pavingMaterial.polygonOffset=true;pavingMaterial.polygonOffsetFactor=-1;pavingMaterial.polygonOffsetUnits=-1;
+ const strip=(path,width,ma,parent=root)=>{
+  const edges=path.map((p,i)=>{const before=path[Math.max(0,i-1)],after=path[Math.min(path.length-1,i+1)];
+   const normal=(a,b)=>{const dx=b[0]-a[0],dz=b[2]-a[2],length=Math.hypot(dx,dz)||1;return[-dz/length,dx/length];};
+   const n0=normal(i?before:p,i?p:after),n1=normal(i<path.length-1?p:before,i<path.length-1?after:p),nx=n0[0]+n1[0],nz=n0[1]+n1[1],length=Math.hypot(nx,nz)||1,mx=nx/length,mz=nz/length,scale=width/2/Math.max(.5,mx*n1[0]+mz*n1[1]),y=p[1]+(ma===materials.stone ? .038 : .018);
+   return[[p[0]+mx*scale,y,p[2]+mz*scale],[p[0]-mx*scale,y,p[2]-mz*scale]];});
+  const vertices=[];for(let i=1;i<edges.length;i++){const [left,right]=edges[i-1],[nextLeft,nextRight]=edges[i];vertices.push(...left,...nextLeft,...nextRight,...left,...nextRight,...right);}
+  const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));geometry.computeVertexNormals();const mesh=new THREE.Mesh(geometry,ma===materials.stone?pavingMaterial:ma);mesh.userData.walkSoft=true;mesh.name='Caer Veyra joined road surface';parent.add(mesh);return mesh;
+ };
  strip(capitalRoad,6.6,materials.grass);strip(capitalRoad,4.4,materials.stone);for(const l of links){if(l.to==='canalWard')strip(l.points.slice(0,-1),6.6,materials.stone);else strip(l.points,6.6,materials.stone);}
  const worldBatch=createDetailBatch(THREE,root,'Royal road old walls and banks');for(let i=1;i<capitalRoad.length;i++){const p=capitalRoad[i];for(const sign of [-1,1]){worldBatch.add('block',materials.old,[p[0],p[1]+.4,p[2]+sign*4.3],[3,.8,.5]);worldBatch.add('block',materials.wood,[p[0],p[1]+.035,p[2]+sign*.7],[2,.025,.06]);}}worldBatch.finish();
  const gatePiece=(x,y,z,w,h,d,ma,parent=root)=>{const o=box(x,y,z,w,h,d,ma,parent);o.userData.walkSoft=true;o.castShadow=false;return o;};
