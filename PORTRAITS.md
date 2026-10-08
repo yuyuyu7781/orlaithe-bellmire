@@ -101,3 +101,7 @@ five subjects × two player modes × four viewports (1200×800, 768×1024,
 reduced motion and the bounded/copy-safe log. Mobile checks simulate viewport and
 touch input; real phone performance remains unmeasured. This change adds no 3D
 meshes, lights, image assets, postprocessing or environment configuration.
+
+## Lunmere v35.0
+
+マレン（lunHost）、ローワン（lunBoat）、イーラ（lunWatcher）の完成画像を assets/portraits の maren-default.png / rowan-default.png / eira-default.png に登録。focusX/Y・zoom・mobileFocus・nightVariant・expressionVariantを設定可能。専用差分未設定時は基本画像、画像なし／失敗時は仮カードへ戻る。詳細は [WORLD_EXPANSION.md](WORLD_EXPANSION.md)。
