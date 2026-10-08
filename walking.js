@@ -114,7 +114,8 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     return y;
   }
   function registerDynamicObject(object){if(dynamicBounds.some(e=>e.object===object))return;for(const o of obstacles)for(let p=o.object;p;p=p.parent)if(p===object){o.disabled=true;break;}object.updateWorldMatrix(true,true);const bounds=new THREE.Box3().setFromObject(object,true),position=object.getWorldPosition(new THREE.Vector3());dynamicBounds.push({object,bounds,bodyRadius:.23,footOffset:bounds.min.y-position.y,bodyHeight:1.8});refreshDynamic();}
-  function refreshDynamic(){for(const o of dynamicBounds){if(!visible(o.object)){o.bounds.makeEmpty();continue;}if(o.bodyRadius){const p=o.object.getWorldPosition(new THREE.Vector3()),y=p.y+o.footOffset;o.round={x:p.x,z:p.z,rx:o.bodyRadius,rz:o.bodyRadius};o.bounds.min.set(p.x-o.bodyRadius,y,p.z-o.bodyRadius);o.bounds.max.set(p.x+o.bodyRadius,y+o.bodyHeight,p.z+o.bodyRadius);}else{o.object.updateWorldMatrix(true,true);o.bounds.setFromObject(o.object,true);}}}
+  let dynamicActivity=()=>true;const dynamicActivityStats={active:0,sleeping:0};
+  function refreshDynamic(force=false){dynamicActivityStats.active=dynamicActivityStats.sleeping=0;for(const o of dynamicBounds){if(!visible(o.object)||(!force&&!dynamicActivity(o.object))){dynamicActivityStats.sleeping++;o.bounds.makeEmpty();continue;}dynamicActivityStats.active++;if(o.bodyRadius){const p=o.object.getWorldPosition(new THREE.Vector3()),y=p.y+o.footOffset;o.round={x:p.x,z:p.z,rx:o.bodyRadius,rz:o.bodyRadius};o.bounds.min.set(p.x-o.bodyRadius,y,p.z-o.bodyRadius);o.bounds.max.set(p.x+o.bodyRadius,y+o.bodyHeight,p.z+o.bodyRadius);}else{o.object.updateWorldMatrix(true,true);o.bounds.setFromObject(o.object,true);}}}
   function move(dx,dz){
     // Small substeps prevent wall/water tunnelling, even after a slow frame.
     const count=Math.max(1,Math.ceil(Math.hypot(dx,dz)/.08));dx/=count;dz/=count;
@@ -234,5 +235,5 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   }
   // Read-only world data also supports route validation and future actor policies.
   return {get active(){return state.active},state,input,setInputBlocked,enter,leave,update,groundAt,canStand,canStandAs,registerObstacle,refreshObstacle,registerCatStep,jump,catSteps,get jumping(){return !!jumpState;},setArea,relocate,onLeave(fn){leaveListeners.add(fn);return()=>leaveListeners.delete(fn);},profiles:walkingProfiles,lastLocations,
-    refreshWaterSurfaces(){for(const {object,bounds}of waterSurfaces){object.updateWorldMatrix(true,false);bounds.setFromObject(object,true);}},world:{ground,floors,obstacles,waterZones},refreshDynamic,inspectClearance,canStandTownAs,canStandActor,registerDynamicObject};
+    refreshWaterSurfaces(){for(const {object,bounds}of waterSurfaces){object.updateWorldMatrix(true,false);bounds.setFromObject(object,true);}},world:{ground,floors,obstacles,waterZones},refreshDynamic,setDynamicActivity(fn){dynamicActivity=fn;refreshDynamic();},dynamicActivityStats,inspectClearance,canStandTownAs,canStandActor,registerDynamicObject};
 }

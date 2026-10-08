@@ -1,3 +1,4 @@
+import {characterGraph} from './character-graph.js';
 import {rememberedDialogue,rememberConversation} from './dialogue-memory.js';
 import {createPortraitView} from './portrait-ui.js';
 import {characters,selectDialogueTurn,selectPortrait} from './dialogue-data.js';
@@ -6,7 +7,7 @@ import {characters,selectDialogueTurn,selectPortrait} from './dialogue-data.js';
 export function createDialogueSystem({THREE,inspections,walking,actors,getTime=()=> 'clear',getLocation=()=> 'town',stay=null,additionalCharacters=[]}){
   const characterList=[...characters,...additionalCharacters];
   const turns=new Map(),entries=[],unregister=[],conversationLog=[],listeners=new Set();
-  for(const character of characterList){for(const profile of ['human','cat']){const key=profile==='human'?character.id:character.id+':cat';turns.set(key,stay?.data.memories[character.id]?.[profile]?.visits??0);}
+  for(const character of characterList){character.relationships=characterGraph[character.id]??{knows:[],visitedRegions:[]};for(const profile of ['human','cat']){const key=profile==='human'?character.id:character.id+':cat';turns.set(key,stay?.data.memories[character.id]?.[profile]?.visits??0);}
     const object=actors[character.id];if(!object)throw Error('Missing dialogue actor: '+character.id);
     object.updateWorldMatrix(true,true);
     const b=new THREE.Box3().setFromObject(object,true),point=b.getCenter(new THREE.Vector3());
@@ -21,7 +22,7 @@ export function createDialogueSystem({THREE,inspections,walking,actors,getTime=(
   }
   function speak(entry){
     const character=entry.character,profile=walking.state.profile.id,key=profile==='human'?character.id:character.id+':'+profile,index=turns.get(key)??0;
-    const time=getTime(),location=getLocation(character.id),turn=selectDialogueTurn(character,{profile:walking.state.profile.id,time,index,location});const text=character.eventReply?.({profile,time,index,location})??character.calendarReply?.({profile,time,index,location})??rememberedDialogue(stay,character,{profile,index,time,location})??turn.text;
+    const time=getTime(),location=getLocation(character.id),turn=selectDialogueTurn(character,{profile:walking.state.profile.id,time,index,location});const text=character.eventReply?.({profile,time,index,location,relationships:character.relationships})??character.calendarReply?.({profile,time,index,location})??rememberedDialogue(stay,character,{profile,index,time,location})??turn.text;
     const image=selectPortrait(character,{expression:turn.expression,time});
     const portrait=createPortraitView(character,{image,time,expression:turn.expression});
     portrait.element.dataset.conversationMode=profile;portrait.element.dataset.portraitVariant=turn.expression;portrait.element.dataset.dialogueVariant=profile+':'+location+':'+time;

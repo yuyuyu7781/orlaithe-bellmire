@@ -28,7 +28,7 @@ export function createRegions({THREE,regions,walking,stay,shopSystem,inspections
  function revisit(id){const r=regions.find(r=>r.id===id);if(!r||!visited(r)||(r.enabled&&!r.enabled())){refresh();return false;}api.beforeRevisit?.(id);quietStay.end();inspections.dismiss();if(shopSystem.current)shopSystem.exit();const profile=walking.active?walking.state.profile.id:getWalkingProfile();if(!walking.active)walking.enter(profile);
  // Validate before relocating; neither DOM manipulation nor saved flags can
  // put the player inside a wall or over unsupported water.
- const [x,y,z]=r.entryPoint,ground=walking.canStandTownAs(profile,x,z,y);if(ground===null){refresh();return false;}walking.relocate(new THREE.Vector3(x,ground,z),{yaw:r.id==='bellmire'?Math.PI:Math.PI/2});navigation.choose('');apply(r,'revisit');return true;}
+ walking.refreshDynamic(true);const [x,y,z]=r.entryPoint,ground=walking.canStandTownAs(profile,x,z,y);if(ground===null){refresh();return false;}walking.relocate(new THREE.Vector3(x,ground,z),{yaw:r.id==='bellmire'?Math.PI:Math.PI/2});navigation.choose('');apply(r,'revisit');return true;}
  select.onchange=()=>revisit(select.value);
  function camera(id){const c=regions.flatMap(r=>r.cameraPresets).find(c=>c.id===id);if(!c||(c.enabled&&!c.enabled()))return false;setCamera(c);return true;}
  function update(dt){elapsed+=dt;if(elapsed<.5)return;elapsed=0;if(!walking.active||shopSystem.current)return;const r=classify(walking.state.feet);if(r!==current){mark(r);apply(r);}else if(!visited(r)){mark(r);refresh();}}
