@@ -6,7 +6,7 @@ import {setLakeWaterPhase} from '../lake-water-level.js';
 import {lunmereCharacters} from '../lunmere-data.js';
 import {configuredLunmerePortrait,portraitProfile} from '../portrait-profiles.js';
 import {carriedPropVisible,communityAppearance} from '../resident-life-settings.js';
-const d=defaultStay();assert.equal(worldNodes.length,10);for(const e of worldConnections)assert.ok(worldNodes.find(n=>n.id===e.from)&&worldNodes.find(n=>n.id===e.to));
+const d=defaultStay();assert.equal(worldNodes.length,15);for(const e of worldConnections)assert.ok(worldNodes.find(n=>n.id===e.from)&&worldNodes.find(n=>n.id===e.to));
 assert.deepEqual(worldSnapshot(d).nodes.filter(n=>!n.hidden).map(n=>n.id),['bellmire']);
 d.discoveries['drowned:rumor']={day:3};let snap=worldSnapshot(d);assert.ok(snap.nodes.find(n=>n.id==='drowned-way').rumored);assert.ok(!snap.nodes.find(n=>n.id==='drowned-way').nameVisible);
 d.discoveries['ring:visit']={day:7};assert.equal(crownEligible(d),false);d.discoveries['ring:center']={day:7};assert.ok(crownEligible(d));d.discoveries['crown:entrance']={day:7};let c=worldSnapshot(d).nodes.find(n=>n.id==='hollow-crown');assert.ok(!c.hidden&&!c.nameVisible&&!c.visited);

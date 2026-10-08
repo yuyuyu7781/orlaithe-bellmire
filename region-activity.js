@@ -10,7 +10,7 @@ function distance(from,to){
  distances.set(key,result);return result;
 }
 export function regionActivity(current,target,quality='standard'){
- const hops=distance(current,target),tier=hops===0?'current':hops===1?'adjacent':'remote';
- const activity=hops===0?'active':hops===1?'nearby':hops===2?'background':'dormant';
+ if(current==='caer-veyra')current='caer-lowerWard';if(target==='caer-veyra')target='caer-lowerWard';const hops=distance(current,target),tier=hops===0?'current':hops===1?'adjacent':'remote';
+ const outsideCapital=current.startsWith('caer-')!==target.startsWith('caer-');const activity=outsideCapital?'dormant':hops===0?'active':hops===1?'nearby':hops===2?'background':'dormant';
  return{activity,tier,interval:hops===0?0:hops===1?(quality==='mobile'?.75:.5):(quality==='mobile'?1.5:1),details:hops===0,animate:hops===0};
 }
