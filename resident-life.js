@@ -78,6 +78,7 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
    if(getArea()==='town'&&!r.id&&!r.moving&&!o.userData.dailyLife&&o.parent===r.initialParent){const sheltered=weather==='dawn'&&period==='morning'?r.index%3!==0:weather==='rain'?r.index%3===1:weather==='blackout'?r.index%4!==0:period==='night'?r.index%3!==0:false;o.visible=r.initialVisible&&!sheltered;}
    if(!o.userData.dailyLife&&!r.id){r.activity=period==='morning'?(r.seated?'reading':'sweeping'):period==='day'?role.activity:period==='evening'?'conversation':'resting';}if(!visible(o))continue;
    o.getWorldPosition(sphere.center);sphere.center.y+=.85;const distance=camera?camera.position.distanceTo(sphere.center):0,inView=!camera||frustum.intersectsSphere(sphere),interval=distance<18&&inView?1/residentLifeSettings.idleRate:distance<42&&inView?.25:getQuality()==='mobile'?2:1;
+   if(!force&&distance>85&&getArea()==='town')continue; // Remote schedules advance; distant body/detail animation sleeps.
    const pose=force||(poseTick&&Math.abs(time-(r.lastTime??-Infinity))>=interval);if(pose)r.lastTime=time;
    const sitting=!!r.sitting;
    const seatDrop=sitting?Math.max(0,r.standingBodyY-body.geometry.parameters.height/2-Math.min(...r.footRest.filter((_,i)=>i%3===1))-.44/r.scale.sy):0;body.position.y=r.standingBodyY-seatDrop;head.position.y=r.standingHeadY-seatDrop;if(r.neck)r.neck.position.y=r.standingNeckY-seatDrop;arms.forEach((a,i)=>a.position.y=r.standingArmY[i]-seatDrop);r.prop.position.y=r.standingPropY-seatDrop;

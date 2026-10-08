@@ -10,7 +10,7 @@ export function buildCaerith({THREE,scene,box,lake}){
  for(let j=0;j<rings;j++)for(let i=0;i<segments;i++){const point=(r,k)=>{const a=k/segments*Math.PI*2,x=-367+17*r*coast(a)*Math.cos(a),z=-76+19*r*coast(a)*Math.sin(a);return[x,caerithHeight(x,z)??6.02,z];};const a=point(j/rings,i),b=point((j+1)/rings,i),c=point((j+1)/rings,i+1),d=point(j/rings,i+1);positions.push(...a,...d,...b,...b,...d,...c);}
  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.computeVertexNormals();const land=new THREE.Mesh(g,materials.grass);land.userData.walkSoft=true;root.add(land);floors.push(land);
  // The original lake stays unchanged. One opaque water apron opens its far side.
- const water=piece(-369,5.65,-78,94,.018,65,materials.water,true);water.name='Lake Lun island-side water';
+ const water=piece(-372,5.65,-78,100,.018,65,materials.water,true);water.name='Lake Lun island-side water';
  const skirt=new THREE.Mesh(new THREE.CylinderGeometry(1,1,1,36,1,true),materials.stone);skirt.position.set(-367,4.75,-76);skirt.scale.set(17,2.54,19);const sp=skirt.geometry.attributes.position;for(let i=0;i<sp.count;i++){const a=Math.atan2(sp.getZ(i),sp.getX(i)),c=coast(a);sp.setXYZ(i,sp.getX(i)*c,sp.getY(i),sp.getZ(i)*c);}sp.needsUpdate=true;skirt.geometry.computeVertexNormals();skirt.userData.walkSoft=true;root.add(skirt);
  const landing=piece(-367,5.97,-56.1,2.4,.15,7,materials.wood,true);landing.userData.walkSurface=true;floors.push(landing);
  for(const x of [-367.9,-366.1])for(const z of [-57,-53.3])piece(x,3.9,z,.14,2.15,.14,materials.wood,true);
@@ -29,7 +29,7 @@ export function buildCaerith({THREE,scene,box,lake}){
  for(const [id,x,z,focus,label]of [['lake',-362,-84,[-337,5.7,-24],'湖を眺める'],['lunmere',-373,-84,[-429,7,14],'Lunmere方向を眺める']]){const y=caerithHeight(x,z),o=piece(x,y,z,.45,.03,.5,materials.stone,true);targets.push({id:'caerith:view-'+id,kind:'quiet-view',verb:'眺める',label,text:'湖を隔てると、町の声は届かない。',object:o,localPoint:[0,.1,0],profiles:['human','cat'],range:2.4,viewEye:[x,y+1.5,z],viewFocus:focus});}
  const grass=new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1,0),materials.grass,24),m=new THREE.Matrix4();for(let i=0;i<24;i++){const a=i*2.399,r=9+(i%4),x=-367+r*Math.cos(a),z=-76+r*Math.sin(a);m.compose(new THREE.Vector3(x,caerithHeight(x,z)+.1,z),new THREE.Quaternion(),new THREE.Vector3(.55,.2,.45));grass.setMatrixAt(i,m);}grass.userData.walkSoft=true;root.add(grass);
  const far=new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1,0),materials.grass,6);for(let i=0;i<6;i++){m.compose(new THREE.Vector3(-407+i*15,5.4,-114-2*Math.sin(i)),new THREE.Quaternion(),new THREE.Vector3(11,1.6,5));far.setMatrixAt(i,m);}far.userData.walkSoft=true;root.add(far);
- const submerged=new THREE.Group();root.add(submerged);for(let i=0;i<4;i++)box(-378-i*1.3,5.02,-48+i*.6,1,.68,.55,materials.stone,submerged).userData.walkSoft=true;
+ const submerged=new THREE.Group();root.add(submerged);for(let i=0;i<4;i++)box(-378-i*1.3,3.9,-48+i*.6,1,1.8,.55,materials.stone,submerged).userData.walkSoft=true;
  return{root,floors,targets,catSteps,materials,water,landing,submerged,heightAt:caerithHeight,layout:caerithLayout};
 }
 export function connectCaerith({caerith,walking,inspections,shopSystem,stay,townLife,ambientAudio,dialogue}){
