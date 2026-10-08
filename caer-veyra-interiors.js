@@ -1,5 +1,7 @@
+import {buildDedicatedCapitalInterior,dedicatedRoomIds} from './capital-dedicated-interiors.js';
 // Uses the existing lazy shop/room lifecycle. Only the entered room is rendered.
 export function buildCapitalInterior({THREE,shop}){
+ if(dedicatedRoomIds.includes(shop.id))return buildDedicatedCapitalInterior({THREE,shop});
  const root=new THREE.Group();root.position.set(200,0,0);root.name=shop.name+' 室内';const obstacles=[],inspect=[],beds=[],seats=[],workstations=[],catRoutes=[],materials={};
  const material=(id,color)=>materials[id]=new THREE.MeshStandardMaterial({color,roughness:1});const wall=material('wall',0xc9c5af),wood=material('wood',0x706151),paper=material('paper',0xd9d0b7),stone=material('stone',0x797d75),cloth=material('cloth',0x788685),brass=material('brass',0x928366),glow=material('glow',0xe1ba80);glow.emissive.setHex(0xf8ba73);glow.emissiveIntensity=.25;glow.userData.blackoutBackup=true;
  const archive=['archive','maps'].includes(shop.type),W=archive?18:shop.type==='lodging'?14:10,D=archive?22:shop.type==='lodging'?18:14;

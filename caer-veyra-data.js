@@ -32,6 +32,7 @@ export const capitalFacilities=[
  facility('observatory','天文台','scholarHeights','observatory',-22,-22,12,12,'cvSerena'),facility('maps','地図庫','scholarHeights','maps',23,22,12,12,'cvYulio'),facility('academy','学院','scholarHeights','archive',-22,23,12,12,'cvNoah'),
  facility('val','ヴァル工房','oldQuarter','repair',-20,23,10,10,'cvVal'),facility('elda','エルダの家','oldQuarter','residential',20,22,9,10,'cvElda'),facility('old-bell','鐘のない鐘楼','oldQuarter','bell',20,-23,8,9),facility('cellar','半地下室','oldQuarter','cellar',-20,-23,9,10)
 ];
+capitalFacilities.find(s=>s.id==='cv-val').hours.night='closed';
 const people=[
  ['cvCedric','セドリック','城門の通行役人','lowerWard','cv-passage',42,1.73,.94,0x493e32,'几帳面な通行役人。濃茶の短髪。','Violet Mireから来たのか。今日は泥がひどかっただろ。名前は、この欄へ。','通行の記録には、荷の数まで書く。古い帳面には、頁が抜けたものもある。'],
  ['cvLeon','レオン','衛兵','lowerWard','cv-guard',28,1.84,1.02,0x88704d,'長身で引き締まった衛兵。','門の内側では荷車が曲がる。広場へは、井戸の側を歩いて。','またいるな。荷車の下で寝るなよ。'],
@@ -65,6 +66,6 @@ export const capitalEvents=[
 ].map(([id,ward,label,text,periods])=>({id:'cv:event:'+id,ward,label,text,periods}));
 export const capitalCatCounts={lowerWard:5,canalWard:5,civicWard:5,scholarHeights:5,oldQuarter:6};
 export const capitalCatTexts={lowerWard:['荷車の下に、乾いた麦粒と古い布がある。','工房の裏で、油と木の削り屑の匂いがする。'],canalWard:['水際の古い石積みは、新しい壁と少し違う。','舟の隙間に、何度も結び直した細い縄がある。'],civicWard:['壁の低い番号は、書架の札と一致しない。','搬入口の下に、古い紙の切れ端が残る。'],scholarHeights:['地図庫の石裏に、消えかけた短い線がある。','観測庭園の隙間から、冷たい風が抜ける。'],oldQuarter:['今の街路と違う向きの、古い通路が壁の中へ続いている。','塞がれた門の裏に、濡れていない古い木片がある。','排水溝の低い傷は、上の壁の番号より古そうだ。']};
-export const capitalRecordStages=['unseen','arrival','ordinary','missing','compared'];
+export const capitalRecordStages=['unseen','arrival','ordinary','missing','compared','tracesRemain','conflictingSources','olderLayerSuspected'];
 
 export const capitalCatRouteNames={lowerWard:['宿裏庭','荷車下','市場の低い屋根','工房裏','城壁沿い'],canalWard:['倉庫の低い梁','水門脇','荷揚げ桟橋','舟の隙間','運河壁の低所'],civicWard:['公文書館中庭','鐘楼基部','行政庁裏','古い回廊','資料搬入口'],scholarHeights:['低い屋根の縁','旧観測塔基部','石壁の切れ目','地図庫外廊','観測庭園'],oldQuarter:['壁内の通路跡','半地下の入口','狭い旧アーチ','低い屋根裏','閉じた門の裏','旧排水溝']};

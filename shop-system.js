@@ -72,7 +72,7 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
     const p=anchors.get(place);if(p)setActor(o,p,id==='boatworker'?-.3:Math.PI/3);
    }
   }}
- function updateAppearance(){if(!current)return;scene.background=current.background??=new THREE.Color(current.shop.id==='orrery'?0x484d4c:0x797060);scene.background.set(current.shop.id==='orrery'?0x484d4c:0x797060);scene.fog=current.fog??=new THREE.FogExp2(0x797060,0);scene.fog.density=0;
+ function updateAppearance(){if(!current)return;current.applyTime?.(townLife.state);scene.background=current.background??=new THREE.Color(current.shop.id==='orrery'?0x484d4c:0x797060);scene.background.set(current.shop.id==='orrery'?0x484d4c:0x797060);scene.fog=current.fog??=new THREE.FogExp2(0x797060,0);scene.fog.density=0;
   const night=townLife.state.period==='night',blackout=townLife.state.weather==='blackout';current.ambient.intensity=blackout?.28:night?.85:1.05;
   for(const m of Object.values(current.materials))if(m.emissive?.getHex())m.emissiveIntensity=m.userData.blackoutBackup?(blackout?1.35:night?.55:.30):blackout?.015:night?.70:.45;
   label.textContent=current.shop.name+' · '+shopStatus(current.shop,townLife.state.period);label.hidden=false;
