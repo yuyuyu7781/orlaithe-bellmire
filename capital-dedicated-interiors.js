@@ -8,15 +8,15 @@ export function buildDedicatedCapitalInterior({THREE,shop}){
  const mat=(id,c)=>materials[id]=new THREE.MeshStandardMaterial({color:c,roughness:1});
  const stone=mat('stone',0x777e79),old=mat('old',0x58655f),wall=mat('wall',0xcac5b2),wood=mat('wood',0x74604b),paper=mat('paper',0xddd2b8),cloth=mat('cloth',0x7b8888),brass=mat('brass',0x958365),water=mat('water',0x4e676b),glow=mat('glow',0xe0bd8a);glow.emissive.setHex(0xe3b672);glow.userData.blackoutBackup=true;
  const box=(x,y,z,w,h,d,m=wood,solid=true,floor=false,dynamic=false)=>{const o=new THREE.Mesh(geo,m);o.position.set(x,y+h/2,z);o.scale.set(w,h,d);root.add(o);if(solid)obstacles.push({object:o,bounds:new THREE.Box3(),isFloor:floor});if(!dynamic)pieces.push(o);return o;};
- const note=(id,label,text,o,profiles=['human','cat'],kind='inspect',extra={})=>inspect.push({id:'inside:'+shop.id+':'+id,kind,label,text,object:o,localPoint:[0,.25,0],range:2.8,profiles,enabled:()=>root.visible,...extra});
- const sign=(label,x,z)=>{const canvas=document.createElement('canvas');canvas.width=512;canvas.height=96;const ctx=canvas.getContext('2d');ctx.fillStyle='#d7ceb7';ctx.fillRect(0,0,512,96);ctx.fillStyle='#49483d';ctx.font='32px serif';ctx.textAlign='center';ctx.fillText(label,256,61);const texture=new THREE.CanvasTexture(canvas),m=new THREE.MeshBasicMaterial({map:texture});const o=box(x,1.5,z,2.8,.5,.025,m,false,false,true);zones.push({label,point:[x,0,z]});return o;};
+ const note=(id,label,text,o,profiles=['human','cat'],kind='inspect',extra={})=>inspect.push({id:'inside:'+shop.id+':'+id,kind,label,text,object:o,localPoint:[0,1.5,0],range:2.8,profiles,enabled:()=>root.visible,...extra});
+ const sign=(label,x,z)=>{const canvas=document.createElement('canvas');canvas.width=512;canvas.height=96;const ctx=canvas.getContext('2d');ctx.fillStyle='#d7ceb7';ctx.fillRect(0,0,512,96);ctx.fillStyle='#49483d';ctx.font='32px serif';ctx.textAlign='center';ctx.fillText(label,256,61);const texture=new THREE.CanvasTexture(canvas),m=new THREE.MeshBasicMaterial({map:texture});for(const dx of[-1.2,1.2])box(x+dx,0,z,.045,1.6,.045,wood,false);const o=box(x,1.5,z,2.8,.5,.025,m,false,false,true);zones.push({label,point:[x,0,z]});return o;};
  const table=(x,z,w=2,d=1)=>{for(const a of[-1,1])for(const b of[-1,1])box(x+a*(w/2-.12),0,z+b*(d/2-.12),.12,.8,.12);return box(x,.8,z,w,.12,d);};
  const bundle=(x,z,m=paper)=>box(x,.93,z,.6,.055,.45,m,false);
  const shelf=(x,z,w=2)=>{box(x,0,z,w,2.3,.45);for(let k=0;k<4;k++){box(x,.22+k*.51,z+.28,w,.07,.5,wood,false);for(let j=0;j<4;j++)box(x-w/2+.25+j*w/4,.3+k*.51,z+.3,w/5,.33,.17,(j+k)%3?paper:cloth,false);}};
  const bench=(x,z,w=2)=>{box(x,0,z,w,.42,.45);seats.push({position:[x,0,z],yaw:Math.PI});};
  box(0,-.14,0,W,.14,D,stone,false);box(-W/2,0,0,.18,3.6,D,wall);box(W/2,0,0,.18,3.6,D,wall);box(0,0,-D/2,W,3.6,.18,wall);
- for(const s of[-1,1])box(s*(W/4+.65),0,D/2,W/2-1.3,3.6,.18,wall);box(0,2.5,D/2,2.6,1.1,.18,wall);const door=box(0,0,D/2-.02,1.5,2.4,.06,wood,false,false,true);
- const roofY=shop.id==='cv-bell'?6.4:3.65;box(0,roofY,0,W,.14,D,wood,false);const ambient=new THREE.AmbientLight(0xe4e5df,1);root.add(ambient);
+ for(const s of[-1,1])box(s*(W/4+.65),0,D/2,W/2-1.3,3.6,.18,wall);box(0,2.5,D/2,2.6,1.1,.18,wall);const door=box(0,0,D/2-.02,1.5,2.4,.06,wood,false,false,true);door.geometry=new THREE.BoxGeometry(1.5,2.4,.06);door.scale.set(1,1,1);
+ const roofY=shop.id==='cv-bell'?6.4:3.65;if(shop.id==='cv-inn'){box(0,roofY,3,W,.14,18,wood,false);for(const x of[-5.5,5.5])box(x,roofY,-9,7,.14,6,wood,false);}else box(0,roofY,0,W,.14,D,wood,false);const ambient=new THREE.AmbientLight(0xe4e5df,1);root.add(ambient);
  box(-W/2+.12,1.4,3,.02,1.2,2.8,cloth,false);box(W/2-.25,1.8,3,.12,.25,.12,glow,false);
  if(shop.id==='cv-archive'){
   sign('受付・土地 / 家系 / 商業',0,12);table(-5,10,4,1.2);bundle(-5,10);table(5,10,3);bench(5,11.3,3);
@@ -61,8 +61,9 @@ export function buildDedicatedCapitalInterior({THREE,shop}){
   sign('食堂・朝食と旅人の宿',0,10);for(const x of[-5,5]){table(x,7,3);bench(x,8.3,3);const cup=box(x,.93,7,.18,.2,.18,paper,false,false,true);timeObjects.push({objects:[cup],periods:['morning','evening','night']});}
   box(-6,0,2,4,1,.8);box(-7,0,.5,1.2,1.5,1,stone);sign('厨房',-6,1);table(6,2);bundle(6,2);sign('受付',6,1);
   // Corridor remains two metres wide; rooms open into it.
-  for(const x of[-5,5]){for(const z of[-3,-8]){box(x,0,z-1.7,6,2.3,.12,wall);const bed=box(x,0,z,1.5,.4,2.2);box(x,.4,z,1.45,.14,2.1,cloth,false);beds.push({object:bed,localPoint:[0,.55,0],wake:[200+Math.sign(x)*2.7,0,z],room:'capital-guest-'+x+'-'+z});}}
-  sign('客室・廊下',0,-1.5);sign('裏庭の窓',0,-11.7);box(0,1,-11.8,4,1.5,.035,cloth,false);box(0,0,-10,4,.1,1.2,old,false);note('courtyard','小さな裏庭の窓','洗濯布と草、乾かしている靴。窓の向こうの小さな庭に、旅人の荷が置かれている。',box(0,1.1,-11.7,1,.1,.04,cloth,false));
+  for(const x of[-5,5]){for(const z of[-3,-8]){box(x,0,z-1.7,6,2.3,.12,wall);const bed=box(x,0,z,1.5,.4,2.2);box(x,.4,z,1.45,.14,2.1,cloth,false);beds.push({object:bed,localPoint:[0,1.5,0],wake:[200+Math.sign(x)*2.7,0,z],room:'caer-'+(x<0?'west':'east')+(z===-8?'-rear':'')});}}
+  sign('客室・廊下',0,-1.5);sign('小さな裏庭',0,-11.7);const grass=mat('grass',0x74816a);for(const x of[-1.5,1.5])box(x,.02,-10,.5,.25,.8,grass,false);bench(1.3,-9.5,1);box(0,-.04,-10,4,.04,1.2,old,false);note('courtyard','小さな裏庭','洗濯布と草、乾かしている靴。客室の廊下を抜けた小さな庭に、旅人の荷が置かれている。',box(0,1.1,-11.7,1,.1,.04,cloth,false));
+  for(const x of[-5,5]){const body=box(x,.43,8.3,.42,.62,.35,cloth,false,false,true),head=box(x,1.05,8.3,.27,.28,.27,paper,false,false,true);timeObjects.push({objects:[body,head],periods:x<0?['morning','evening','night']:['evening','night'],guest:true});}
   note('guestbook','宿泊と朝食の帳面','旅人の名前の横に朝食の人数。来る人が変わっても、台所では同じ支度を続ける。',bundle(6,2));workstations.push([0,0,7],[0,0,2]);
  }else if(shop.id==='cv-sluice'){
   sign('水門管理・点検と荷の順番',0,8);table(-4,4,3);table(4,3,3);bundle(-4,4);for(const x of[-5,5])shelf(x,-7);
@@ -70,15 +71,16 @@ export function buildDedicatedCapitalInterior({THREE,shop}){
   sign('旧点検区画 / 水位の写し',0,-9.7);for(const x of[-6,-4])box(x,.1,-2,.15,2.4,.15,brass,false);workstations.push([0,0,5],[0,0,-3]);
  }
  // Actual tabletop objects use scaled local offsets so interaction never points above the ceiling.
- for(const doc of researchDocuments.filter(d=>d.rooms.includes(shop.id))){const[x,y,z]=doc.point;box(x,0,z,.72,y-.04,.56,wood);const o=box(x,y-.04,z,.65,.045,.5,paper,false);note('doc-'+doc.id,doc.title,doc.text,o,['human'],'capital-document',{documentId:doc.id,localPoint:[0,0,0],range:3});}
+ const placements={'cv-archive':{commerce:[-5,1,10],canal:[4,1,5],bell:[4,1,9],family:[-4,1,5],waterMemory:[-5,1,1]},'cv-records':{passage:[-4,1,5],building:[4,1,5],district:[-4,1,0]},'cv-maps':{oldMap:[-4,1,3],district:[4,1,3],palace:[0,1,-6]},'cv-sluice':{canal:[-4,1,4]}};
+ for(const doc of researchDocuments.filter(d=>d.rooms.includes(shop.id))){const[x,y,z]=placements[shop.id]?.[doc.id]??doc.point;box(x,0,z,.72,y-.04,.56,wood);const o=box(x,y-.04,z,.65,.045,.5,paper,false);note('doc-'+doc.id,doc.title,doc.text,o,['human'],'capital-document',{documentId:doc.id,localPoint:[0,1.5,0],range:3,priority:-.2});}
  for(const find of researchCatFinds.filter(f=>f.room===shop.id)){
   const[x,,z]=find.point;box(x-.65,0,z,.18,1,.45,wood);box(x+.65,0,z,.18,1,.45,wood);box(x,.64,z,1.5,.3,.45,wood);
-  const o=box(x,.1,z-1.1,.3,.12,.25,old,false);note('research-cat-'+find.id,find.label,find.text,o,['cat'],'capital-cat-trace',{traceId:find.id,localPoint:[0,.1,0],range:1.6});catRoutes.push({id:find.id,start:[200+x,0,z+1.3],end:[200+x,0,z-1.1],clearance:.64,label:find.label});
+  const o=box(x,.1,z-1.1,.3,.12,.25,old,false);note('research-cat-'+find.id,find.label,find.text,o,['cat'],'capital-cat-trace',{traceId:find.id,localPoint:[0,1.5,0],range:1.6});catRoutes.push({id:find.id,start:[200+x,0,z+1.3],end:[200+x,0,z-1.1],clearance:.64,label:find.label});
  }
  root.updateMatrixWorld(true);for(const o of obstacles)o.bounds.setFromObject(o.object,true);
  // One shared geometry and instanced mesh per material. Interaction/collision proxies stay exact.
  const batches=new Map();for(const o of pieces){let list=batches.get(o.material);if(!list)batches.set(o.material,list=[]);list.push(o);}const proxy=new THREE.MeshBasicMaterial({visible:false});for(const[m,list]of batches){const batch=new THREE.InstancedMesh(geo,m,list.length);batch.name=shop.name+' 静的内装';list.forEach((o,i)=>{o.updateMatrix();batch.setMatrixAt(i,o.matrix);o.material=proxy;});root.add(batch);}
  const policy={id:shop.id,spawn:new THREE.Vector3(200,0,D/2-1.5),obstacles,groundAt(x,z,y=0){const lx=x-200;if(lx<=-W/2+.15||lx>=W/2-.15||z<=-D/2+.15||z>=D/2-.15)return null;if(shop.id==='cv-bell'&&lx>1.6&&lx<3.4&&z<=-1&&z>=-5.92){const i=Math.min(20,Math.floor((-z-1)/.24)),h=i===20?3.76:(i+1)*.18;return h<=y+.39?h:0;}if(shop.id==='cv-bell'&&lx>1.15&&lx<3.85&&z<-5.92&&z>-7)return y>3.2?3.76:0;return 0;}};
  let meshes=0;root.traverse(o=>{if(o.isMesh&&o.material?.visible!==false)meshes++;});
- return{root,policy,door,inspect,beds,seats,catRoutes,workstations,ambient,materials,shop,npcPosition:[0,0,5],exit:[200,0,D/2-1.3],zones,stats:{meshes,obstacles:obstacles.length,dedicated:true,zones:zones.length},applyTime(state){for(const t of timeObjects)for(const o of t.objects)o.visible=t.periods.includes(state.period);const wet=state.weather==='rain';stone.color.setHex(wet?0x606f70:0x777e79);old.color.setHex(wet?0x485d5c:0x58655f);}};
+ return{root,policy,door,inspect,beds,seats,catRoutes,workstations,ambient,materials,shop,npcPosition:[0,0,5],exit:[200,0,D/2-1.3],zones,stats:{meshes,obstacles:obstacles.length,dedicated:true,zones:zones.length},applyTime(state){for(const t of timeObjects)for(const o of t.objects)o.visible=t.periods.includes(state.period)&&(!t.guest||state.dayIndex%3!==1);const wet=state.weather==='rain';stone.color.setHex(wet?0x606f70:0x777e79);old.color.setHex(wet?0x485d5c:0x58655f);}};
 }
