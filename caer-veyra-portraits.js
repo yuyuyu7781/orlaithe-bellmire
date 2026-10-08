@@ -4,7 +4,7 @@ const portrait=(name,role,ward,file,focusX,focusY,zoom,mobileY,intro)=>({name,ro
 export const capitalPortraits={
  cvCedric:portrait('セドリック','外門の記録官','lowerWard','cv-cedric-default.png',50,27,1.02,25,'旅人と荷の通行記録を扱う、外門の記録官。'),
  cvLeon:portrait('レオン','門の警備・治安担当','lowerWard','cv-leon-default.png',49,27,1.02,25,'門の警備と街の日々の巡回を担う。'),
- cvMira:portrait('ミラ','宿・食堂の看板娘','lowerWard','cv-mira-default.png',50,28,1.02,26,'宿と食堂を行き来する、明るい若い看板娘。'),
+ cvMira:portrait('ミラ','宿屋兼食堂の主人','lowerWard','cv-mira-default.png',50,28,1.02,26,'旅人を迎え、宿と食堂を切り盛りする主人。'),
  cvGaren:portrait('ガレン','運河・水門の門番','canalWard','cv-garen-default.png',48,28,1.02,26,'運河と水門の仕事に慣れた、実務的な門番。'),
  cvSophia:portrait('ソフィア','運河港の女商人・帳簿役','canalWard','cv-sophia-default.png',50,27,1.02,25,'荷の順番と帳簿を確かめる、運河港の女商人。'),
  cvEdras:portrait('エドラス','記録院・公文書館の学者','civicWard','cv-edras-default.png',51,30,1.02,28,'記録の有無と、実際にあったことを分けて考える学者。'),

@@ -1,4 +1,4 @@
-import {applyCapitalPortrait} from './caer-veyra-portraits.js';
+import {applyCapitalPortrait} from './caer-veyra-portraits.js?v=52.6';
 // Capital data stays independent of the renderer, clock and save consumers.
 export const capitalId='caer-veyra';
 export const capitalRoad=[[-479,5.3,-248],[-490,5.8,-256],[-508,6.7,-270],[-532,7.4,-289],[-553,8,-309],[-562,8,-320],[-578,8,-320],[-600,8,-320]];

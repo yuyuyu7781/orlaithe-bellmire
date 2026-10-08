@@ -6,7 +6,7 @@
 |---|---|---|---|---|---|---|---|
 | セドリック | `cvCedric` | 外門の記録官 | Lower Ward | セドリック.png | `cv-cedric-default.png` | 50 / 27 / 1.02 | 50 / 25 / 1.01 |
 | レオン | `cvLeon` | 門の警備・治安担当 | Lower Ward | レオン.png | `cv-leon-default.png` | 49 / 27 / 1.02 | 49 / 25 / 1.01 |
-| ミラ | `cvMira` | 宿・食堂の看板娘 | Lower Ward | ミラ.png | `cv-mira-default.png` | 50 / 28 / 1.02 | 50 / 26 / 1.01 |
+| ミラ | `cvMira` | 宿屋兼食堂の主人 | Lower Ward | ミラ.png | `cv-mira-default.png` | 50 / 28 / 1.02 | 50 / 26 / 1.01 |
 | ガレン | `cvGaren` | 運河・水門の門番 | Canal Ward | ガレン.png | `cv-garen-default.png` | 48 / 28 / 1.02 | 48 / 26 / 1.01 |
 | ソフィア | `cvSophia` | 運河港の女商人・帳簿役 | Canal Ward | ソフィア.png | `cv-sophia-default.png` | 50 / 27 / 1.02 | 50 / 25 / 1.01 |
 | エドラス | `cvEdras` | 記録院・公文書館の学者 | Civic Ward | エドラス.png | `cv-edras-default.png` | 51 / 30 / 1.02 | 51 / 28 / 1.01 |
