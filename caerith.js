@@ -10,10 +10,10 @@ export function buildCaerith({THREE,scene,box,lake}){
  for(let j=0;j<rings;j++)for(let i=0;i<segments;i++){const point=(r,k)=>{const a=k/segments*Math.PI*2,x=-367+17*r*coast(a)*Math.cos(a),z=-76+19*r*coast(a)*Math.sin(a);return[x,caerithHeight(x,z)??6.02,z];};const a=point(j/rings,i),b=point((j+1)/rings,i),c=point((j+1)/rings,i+1),d=point(j/rings,i+1);positions.push(...a,...d,...b,...b,...d,...c);}
  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.computeVertexNormals();const land=new THREE.Mesh(g,materials.grass);land.userData.walkSoft=true;root.add(land);floors.push(land);
  // The original lake stays unchanged. One opaque water apron opens its far side.
- const water=piece(-367,5.65,-78,90,.018,65,materials.water,true);water.name='Lake Lun island-side water';
+ const water=piece(-369,5.65,-78,94,.018,65,materials.water,true);water.name='Lake Lun island-side water';
  const skirt=new THREE.Mesh(new THREE.CylinderGeometry(1,1,1,36,1,true),materials.stone);skirt.position.set(-367,4.75,-76);skirt.scale.set(17,2.54,19);const sp=skirt.geometry.attributes.position;for(let i=0;i<sp.count;i++){const a=Math.atan2(sp.getZ(i),sp.getX(i)),c=coast(a);sp.setXYZ(i,sp.getX(i)*c,sp.getY(i),sp.getZ(i)*c);}sp.needsUpdate=true;skirt.geometry.computeVertexNormals();skirt.userData.walkSoft=true;root.add(skirt);
  const landing=piece(-367,5.97,-56.1,2.4,.15,7,materials.wood,true);landing.userData.walkSurface=true;floors.push(landing);
- for(const x of [-367.9,-366.1])for(const z of [-57,-53.3])piece(x,5,z,.14,1.05,.14,materials.wood,true);
+ for(const x of [-367.9,-366.1])for(const z of [-57,-53.3])piece(x,3.9,z,.14,2.15,.14,materials.wood,true);
  const notice=(id,label,text,o,profiles=['human','cat'])=>{targets.push({id,kind:'inspect',label,text,object:o,localPoint:[0,.25,0],profiles,range:2.5});return o;};
  notice('caerith:landing','古い船着場','濡れた縄の跡が、何度も同じ木に重なっている。',landing);
  // Missing sectors make a broken foundation, not a sealed arena.

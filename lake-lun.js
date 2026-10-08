@@ -21,7 +21,7 @@ export function buildLakeLun({THREE,scene,box}){
  if(z<0&&x<-339)continue;const a=[x,5.98,z],b=[nx,5.98,z],c=[nx,6.7+.3*Math.sin(i),outside],d=[x,6.7+.3*Math.sin(i),outside];if(z<0)endBanks.push(...a,...b,...c,...a,...c,...d);else endBanks.push(...a,...c,...b,...a,...d,...c);}}mesh(endBanks,materials.grass,'Lake Lun low enclosing end banks');
  // Lower water reveals the old bank faces; retain the same shoreline and
  // walking heights, supporting its edge below all three water states.
- const coastFaces=[];function bankFace(a,b,reverse=false){const c=[a[0],4.85,a[2]],d=[b[0],4.85,b[2]];if(reverse)coastFaces.push(...a,...b,...c,...b,...d,...c);else coastFaces.push(...a,...c,...b,...b,...c,...d);}
+ const coastFaces=[];function bankFace(a,b,reverse=false){const c=[a[0],3.9,a[2]],d=[b[0],3.9,b[2]];if(reverse)coastFaces.push(...a,...b,...c,...b,...d,...c);else coastFaces.push(...a,...c,...b,...b,...c,...d);}
  for(let j=0;j<26;j++){const z=-48+j*2,n=z+2;bankFace([lakeEdge(z),5.98,z],[lakeEdge(n),5.98,n]);bankFace([-371+4*Math.cos((z+20)*.09),5.98,z],[-371+4*Math.cos((n+20)*.09),5.98,n],true);}
  for(const z of [-48,4]){const west=-371+4*Math.cos((z+20)*.09),east=lakeEdge(z);for(let i=0;i<12;i++){const x=west+(east-west)*i/12,nx=west+(east-west)*(i+1)/12;if(z<0&&x<-339)continue;bankFace([x,5.98,z],[nx,5.98,z],z>0);}}mesh(coastFaces,materials.earth,'Lake Lun supported low-water banks');
  const water=[];for(let j=0;j<26;j++){const z=-48+j*2,r=z+2,a=lakeEdge(z),b=lakeEdge(r),far=-371+4*Math.cos((z+20)*.09),nextFar=-371+4*Math.cos((r+20)*.09);water.push(a,5.65,z,nextFar,5.65,r,b,5.65,r,a,5.65,z,far,5.65,z,nextFar,5.65,r);}const lake=mesh(water,materials.water,'Lake Lun enclosed water');lake.userData.walkSoft=false;
@@ -34,7 +34,7 @@ export function buildLakeLun({THREE,scene,box}){
  const ripple=new THREE.MeshStandardMaterial({color:0x718d90,roughness:.85});for(let i=0;i<7;i++)batch.add('block',ripple,[-323-i*6,5.655,-30+Math.sin(i)*7],[2.2,.006,.05]);
  for(let i=0;i<12;i++){const z=-45+i*4,x=lakeEdge(z)+.4;for(let j=0;j<3;j++)batch.add('block',materials.reeds,[x+j*.09,bankY(x,z)+.2,z+j*.12],[.035,.4+j*.06,.04]);}
  for(const [x,y,z]of [[-240,8.1,-22],[-273,6.4,-40],[-297,6,-42],[-298,6,-13]]){batch.add('block',materials.wood,[x,y+.8,z],[.16,1.6,.16]);batch.add('leaf',materials.reeds,[x,y+2,z],[1.8,2.2,1.6]);}
- for(let i=0;i<6;i++){batch.add('block',materials.wood,[-316.5-i*1.5,6.155,-24],[.09,.018,2.4]);for(const z of [-25,-23])batch.add('block',materials.wood,[-316.5-i*1.5,5.65,z],[.13,1.0,.13]);}
+ for(let i=0;i<6;i++){batch.add('block',materials.wood,[-316.5-i*1.5,6.155,-24],[.09,.018,2.4]);for(const z of [-25,-23])batch.add('block',materials.wood,[-316.5-i*1.5,5.0,z],[.13,2.3,.13]);}
  for(let i=0;i<7;i++)batch.add('block',materials.stone,[-307-i*5,6.06,-39],[.6,.22,.7]);
  const crawlGround=bankY(-311,-39);const driftwood=slab(-311,crawlGround+.81,-39,2.2,.16,.5,materials.wood);driftwood.name='Lake Lun dry driftwood cat passage';for(const x of [-312,-310])batch.add('block',materials.stone,[x,bankY(x,-39)+.32,-39],[.22,.64,.6]);
  const rock=slab(-312,bankY(-312,-32)+.34,-32,1.5,.34,.9,materials.stone);catSteps.push(rock);

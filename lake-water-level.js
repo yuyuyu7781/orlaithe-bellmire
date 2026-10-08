@@ -1,17 +1,25 @@
 // Day-scoped water, shared by the road, water surfaces and the boat controller.
 // Weather changes within the same day never flood a walking player immediately.
-export const waterOffsets={normal:0,low:-.12,veryLow:-.5};
+export const waterOffsets={normal:0,low:-.12,veryLow:-.5,extremeLow:-1.25};
+export const waterSeasonProfiles={spring:{ringInterval:10,ringDuration:2},summer:{ringInterval:10,ringDuration:2},autumn:{ringInterval:10,ringDuration:2},winter:{ringInterval:10,ringDuration:2}};
 let current='normal';
 export const lakeWaterOffset=()=>waterOffsets[current];
 export const lakeWaterPhase=()=>current;
 export function selectLakeWater(data){
  const old=data.waterLevelState??{},day=data.currentDay,rumor=data.discoveries['drowned:rumor']??data.discoveries['drowned:entry'];
  if(old.day===day&&Object.hasOwn(waterOffsets,old.phase))return {...old};
+ let firstRingDay=old.firstRingDay??null;
+ const has=id=>!!data.discoveries[id];
+ const ready=day>=7&&has('drowned:walk')&&has('drowned:rumor')&&has('caerith:foundation')&&['nine:stone-3','nine:stone-5','nine:stone-9'].some(has);
+ if(!firstRingDay&&ready&&data.weather!=='rain')firstRingDay=day;
+ // Two quiet days, then eight days underwater. Seasonal profiles can override the interval later.
+ const profile=waterSeasonProfiles[data.season]??waterSeasonProfiles.spring;
+ const ringCycle=firstRingDay?(day-firstRingDay)%profile.ringInterval:-1;
  let firstLowDay=old.firstLowDay??null;
  if(!firstLowDay&&day>=4&&rumor&&rumor.day<day&&data.weather!=='rain')firstLowDay=day;
  const cycle=firstLowDay?(day-firstLowDay)%7:-1;
  const phase=cycle===0||cycle===1?'veryLow':cycle===2||(!firstLowDay&&day%7===3)?'low':'normal';
- return{day,phase,firstLowDay};
+ return{day,phase:ringCycle>=0&&ringCycle<profile.ringDuration?'extremeLow':phase,firstLowDay,firstRingDay};
 }
 export function setLakeWaterPhase(phase){current=Object.hasOwn(waterOffsets,phase)?phase:'normal';}
 export function createLakeWaterLevel({stay,townLife,walking,surfaces,beforeChange=()=>{}}){

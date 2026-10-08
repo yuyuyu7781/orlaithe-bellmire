@@ -10,7 +10,7 @@ export const walkingProfiles={
 export const humanRouteStandard={minimumWidth:1.2,landingDepth:1.2,maximumRiser:.25};
 
 export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,surfaces,
-  surfaceMaterials,dynamicObjects,ignoredObjects,waterMaterials,trackBounds,spawn,terrainSamplers=[]}){
+  surfaceMaterials,dynamicObjects,ignoredObjects,waterMaterials,trackBounds,spawn,terrainSamplers=[],movementBlockers=[]}){
   const state={active:false,profile:walkingProfiles.human,feet:spawn.clone(),yaw:-Math.PI*.83,pitch:-.05};
   const input={keys:new Set(),touch:new Set(),forward:0,right:0};
   const ground=[],floors=[],obstacles=[],waterZones=[],waterSurfaces=[],catSteps=[];let jumpState=null;
@@ -107,6 +107,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
       const edge=groundAt(x+dx,z+dz,y,p);
       if(edge===null||Math.abs(edge-y)>Math.max(p.stepUp,p.stepDown)+.001)return null;
     }
+    if(!area&&movementBlockers.some(block=>block(x,z,y,p)))return null;
     if(area){for(const o of area.obstacles)if(intersectsBody(o.bounds,x,z,y,o.isFloor,o.round,p))return null;}
     else for(const o of nearby(x,z,p))if(!o.disabled&&(!o.object||visible(o.object))&&intersectsBody(o.bounds,x,z,y,o.isFloor,o.round,p))return null;
     for(const o of dynamicBounds)if(o.object!==actorIgnore&&visible(o.object)&&intersectsBody(o.bounds,x,z,y,false,o.round??null,p))return null;

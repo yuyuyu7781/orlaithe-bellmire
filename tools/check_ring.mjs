@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {defaultStay,validateStay} from '../stay-state.js';
+import {selectLakeWater,setLakeWaterPhase,lakeWaterOffset} from '../lake-water-level.js';
+import {ringLayout,ringHeight,ringBoatBlocked,ringWallBlocked} from '../the-ring.js';
+import {threadSnapshot} from '../story-thread-data.js';
+import {regionActivity} from '../region-activity.js';
+const d=defaultStay();for(const id of ['drowned:walk','drowned:rumor','caerith:foundation','nine:stone-5'])d.discoveries[id]={day:6};
+d.currentDay=6;assert.notEqual(selectLakeWater(d).phase,'extremeLow');d.currentDay=7;d.weather='rain';assert.notEqual(selectLakeWater(d).phase,'extremeLow');d.weather='clear';d.waterLevelState=selectLakeWater(d);assert.equal(d.waterLevelState.phase,'extremeLow');d.weather='rain';assert.equal(selectLakeWater(d).phase,'extremeLow');
+const days=[];for(let i=7;i<=20;i++){d.currentDay=i;d.waterLevelState=selectLakeWater(d);days.push(d.waterLevelState.phase);}assert.equal(days[0],'extremeLow');assert.equal(days[1],'extremeLow');assert.notEqual(days[2],'extremeLow');assert.equal(days[10],'extremeLow');
+setLakeWaterPhase('extremeLow');assert.equal(lakeWaterOffset(),-1.25);for(const [x,y,z]of ringLayout.route)assert.ok(Math.abs(ringHeight(x,z)-y)<.001);assert.equal(ringHeight(-401,-105),null);assert.ok(ringBoatBlocked(-399,-80));assert.ok(ringWallBlocked(-385,-80,4.8,{radius:.24}));assert.ok(!ringWallBlocked(-399,-66,4.8,{radius:.24}));
+const old=validateStay(defaultStay());assert.equal(old.waterLevelState.phase,'normal');const restored=validateStay({...d,threads:{ring:{stage:'compared'}}});assert.equal(restored.waterLevelState.firstRingDay,7);assert.equal(restored.threads.ring.stage,'compared');assert.equal(threadSnapshot(restored).length,3);assert.equal(regionActivity('the-ring','bellmire').activity,'dormant');setLakeWaterPhase('normal');assert.equal(ringHeight(-399,-80),null);
+console.log('PASS rare water eligibility / 14-day recurrence / stable same-day rain / supported extension / ring wall openings / submerged future / boat exclusion / old saves / thread metadata / dormant budget');
