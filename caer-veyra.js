@@ -1,5 +1,5 @@
 import {createDetailBatch} from './miniature.js';
-import {capitalWards as W,capitalLinks as links,capitalRoad,capitalFacilities,capitalCharacters,capitalObservations,capitalEvents,capitalCatCounts,capitalCatTexts,capitalCatRouteNames} from './caer-veyra-data.js?v=46.6';
+import {capitalWards as W,capitalLinks as links,capitalRoad,capitalFacilities,capitalCharacters,capitalObservations,capitalEvents,capitalCatCounts,capitalCatTexts,capitalCatRouteNames} from './caer-veyra-data.js?v=46.7';
 import {buildCapitalInterior} from './caer-veyra-interiors.js';
 import {evaluateConditions} from './progression-data.js';
 import {extendRoyalRoad} from './violet-mire.js';
