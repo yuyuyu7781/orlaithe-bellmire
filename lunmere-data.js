@@ -4,13 +4,13 @@ const hours={morning:'open',day:'open',evening:'open',night:'open'};
 export const lunmereShops=[
  {id:'lun-inn',name:'柳の宿',center:[-422,34],size:[8,7],characterId:'lunHost',restable:true,type:'lodging'},
  {id:'lun-diner',name:'湖窓の食堂',center:[-438,5],size:[8,7],type:'dining'},
- {id:'lun-boats',name:'テヴの舟小屋',center:[-413,4],size:[7,6],characterId:'lunBoat',type:'workshop'},
- {id:'lun-store',name:'岸辺の小商店',center:[-443,32],size:[7,6],type:'supplies'}
+ {id:'lun-boats',name:'ローワンの舟小屋',center:[-413,4],size:[7,6],characterId:'lunBoat',type:'workshop'},
+ {id:'lun-store',name:'岸辺の小商店',characterId:'lunWatcher',center:[-443,32],size:[7,6],type:'supplies'}
 ].map(s=>({...s,hours:{...hours,...(['workshop','supplies'].includes(s.type)?{night:'closed'}:{})},palette:{wall:0xd2d5c7,wood:0x716553,accent:0x82938b},description:s.name+' — 湖と暮らす小さな場所'}));
 export const lunmereCharacters=[
- {id:'lunHost',name:'イーラ',role:'柳の宿の主人',lines:{human:{default:['靴は入口で乾かしておいで。湖から来る道は、晴れていても湿っているから。','今朝の客は、霧が薄くなるまで食卓にいたよ。急がなくてもいい。']},cat:{default:['窓の下なら暖かいよ。干してある布には乗らないでね。']}}},
- {id:'lunBoat',name:'テヴ',role:'舟小屋の人',lines:{human:{default:['舟底の継ぎ目を直している。今日は漕ぐより、乾かす日だな。','Lake Lunの桟橋まで、縄を届けてくる。帰りには水位を見ておこう。']},cat:{default:['魚の籠は奥だよ。縄を爪でほどかないでおくれ。']}}},
- {id:'lunWatcher',name:'マレン',role:'湖岸の住民',lines:{human:{default:['岸の石が出ているね。毎年こういう日がある。昨日と同じ岸でも、少し違って見えるよ。','霧は珍しくないよ。対岸を見ようとするより、近い杭を見た方が道が分かる。']},cat:{default:['草の下を歩くんだね。露がついたら、石の上で乾かしておいで。']}}}
+ {id:'lunHost',name:'マレン',role:'柳の宿の女将',lines:{human:{default:['靴は入口で乾かしておいで。湖から来る道は、晴れていても湿っているから。','今朝の客は、霧が薄くなるまで食卓にいたよ。急がなくてもいい。']},cat:{default:['窓の下なら暖かいよ。干してある布には乗らないでね。']}}},
+ {id:'lunBoat',name:'ローワン',role:'渡し守・舟小屋の人',lines:{human:{default:['舟底の継ぎ目を直している。今日は漕ぐより、乾かす日だな。','Lake Lunの桟橋まで、縄を届けてくる。帰りには水位を見ておこう。']},cat:{default:['魚の籠は奥だよ。縄を爪でほどかないでおくれ。']}}},
+ {id:'lunWatcher',name:'イーラ',role:'岸辺の小商店の店主',lines:{human:{default:['乾いた布と旅の食べ物なら、奥の棚にあるよ。湖の道は、思ったより冷えるから。','霧は珍しくないよ。対岸を見ようとするより、近い杭を見た方が道が分かる。']},cat:{default:['草の下を歩くんだね。露がついたら、石の上で乾かしておいで。']}}}
 ];
 export const lakeTownEvents=[
  ['lake-parcel','湖畔の小包','湖畔の石に、小包がひとつ。紐には宿の布と似た色が混じっている。','次の朝、小包はなくなっていた。石の上には乾いた跡が残る。','lake:parcel','lunHost',1],

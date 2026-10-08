@@ -15,3 +15,14 @@ export function everydayResidentRole(entry,index,place,accent){
  const prop=activity==='sweeping'?'broom':activity==='carrying'?'crate':activity==='rope'?'rope':entry.seated?'book':null;
  return {activity,posture:entry.seated?'seated':activity==='sweeping'?'working':activity==='resting'?'relaxed':prop?'carrying':'listening',prop,hair:[0x51483b,0x6a5140,0x746c59][index%3],accent};
 }
+
+// Stable visual traits shared by communities; no random regeneration on reload.
+export function communityAppearance(index){return {height:[.94,1.07,.99,1.03,.96,1.05][index%6],shoulders:[1.10,1.06,.93,.98,1.03,.95][index%6],coatLength:[1.12,.93,1.04,.98][index%4],hairVolume:[.96,.91,1.1,1.02][index%4],hat:index%7===4,stance:['behind','working','folded','relaxed','listening','leaning'][index%6],gait:.88+(index%5)*.06};}
+export function carriedPropVisible(record){
+ if(!record.role.prop)return false;
+ if(!record.diverse)return record.prop.visible;
+ const state=record.currentState,activity=record.activity??record.role.activity;
+ if(record.sitting||state==='talking'||activity==='conversation'||activity==='resting'||activity==='browsing'||activity==='listening')return false;
+ if(state==='walking'||state==='goingHome')return record.object.userData.community&&[1,3,9].includes(record.object.userData.appearanceIndex)&&record.destination!=='home';
+ return state==='working'&&['rope','carrying','bread','sweeping','reading','measuring'].includes(activity);
+}

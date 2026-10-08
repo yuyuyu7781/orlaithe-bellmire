@@ -1,4 +1,4 @@
-import {residentLifeSettings,residentRoles,residentVariation,everydayResidentRole} from './resident-life-settings.js';
+import {residentLifeSettings,residentRoles,residentVariation,everydayResidentRole,communityAppearance,carriedPropVisible} from './resident-life-settings.js';
 
 // The existing roots, routes, ground anchors and dialogue identities remain the
 // source of truth. Only bodies and joint-local poses change. Small accessories
@@ -21,11 +21,11 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
  residentScale.residents.forEach((entry,index)=>{
   const o=entry.object,head=entry.head,body=o.children.find(c=>c.geometry?.type==='CylinderGeometry');if(!head||!body)return;
   o.updateWorldMatrix(true,true);const b=new THREE.Box3().setFromObject(o,true),base=o.worldToLocal(new THREE.Vector3(o.getWorldPosition(world).x,b.min.y,o.getWorldPosition(world).z)).y;
-  const variation=residentVariation(index),id=identity.get(o),motion=movingMap.get(o),place=o.getWorldPosition(new THREE.Vector3()),role=residentRoles[id]??o.userData.visitorRole??everydayResidentRole(entry,index,place,body.material.color.getHex());
+  const appearance=o.userData.community?communityAppearance(o.userData.appearanceIndex):(!identity.has(o)&&index%5<2?communityAppearance(index):null);const variation={...residentVariation(index),...(appearance?{height:appearance.height,shoulders:appearance.shoulders}: {})},id=identity.get(o),motion=movingMap.get(o),place=o.getWorldPosition(new THREE.Vector3()),role=residentRoles[id]??o.userData.visitorRole??everydayResidentRole(entry,index,place,body.material.color.getHex());
   // Feet remain at the same contact point; variation is only +/- 2.2 percent.
   if(!entry.seated)o.scale.y*=variation.height;
   const scale=o.getWorldScale(new THREE.Vector3()),sx=scale.x,sy=scale.y,sz=scale.z;
-  body.scale.x*=variation.shoulders;head.scale.multiplyScalar(residentLifeSettings.headScale);
+  body.scale.x*=variation.shoulders;if(appearance)body.scale.y*=appearance.coatLength;if(appearance)body.scale.z*=1+(appearance.shoulders-1)*.6;head.scale.multiplyScalar(residentLifeSettings.headScale);
   let feet=motion?.feet??[];
   if(!entry.seated&&!motion){const p=body.geometry.parameters,cut=Math.min(p.height*.48,.52/sy),previous=body.geometry;body.geometry=new THREE.CylinderGeometry(p.radiusTop,p.radiusBottom*.94,p.height-cut,p.radialSegments??8);body.position.y+=cut/2;
    // Geometry was per-person at construction; it has no other owner.
@@ -37,7 +37,8 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
   const radius=head.geometry.parameters.radius;
   const top=body.position.y+body.geometry.parameters.height*.5,chin=head.position.y-radius*head.scale.y;
   const neck=chin>top-.02/sy?add('limb',o,[0,(top+chin)/2,0],[.13/sx,(chin-top+.065/sy),.13/sz],head.material.color.getHex()):null;
-  add('hair',head,[0,radius*.15,0],[radius*1.01,radius*1.035,radius*1.01],role.hair);
+  add('hair',head,[0,radius*.15,0],[radius*(appearance?.hairVolume??1.01),radius*(appearance?.hairVolume??1.035),radius*1.01],role.hair);
+  if(appearance?.hat)add('block',head,[0,radius*.85,0],[radius*2.2,radius*.25,radius*2.1],role.accent);if(appearance&&index%3===1)add('ball',head,[0,0,-radius*.55],[radius*.75,radius*.65,radius*.45],role.hair);
   if(id==='greenBard'||id==='starmaker')add('ball',head,[0,-radius*.25,-radius*.55],[radius*.80,radius*.91,radius*.40],role.hair);
   if(id==='baker')add('ball',head,[0,radius*.35,-radius*.78],[radius*.44,radius*.43,radius*.42],role.hair);
   if(id==='bookseller')for(const sign of [-1,1])add('block',head,[sign*radius*.36,radius*.10,radius*.98],[radius*.43,radius*.20,radius*.065],0x696453);
@@ -57,7 +58,7 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
   if(role.prop==='crate'){add('block',prop,[0,-.02/sy,0],[.40/sx,.28/sy,.29/sz],0x8c7354);for(const x of [-.15,.15])add('block',prop,[x/sx,-.02/sy,.15/sz],[.035/sx,.28/sy,.025/sz],0x5e4c39);}
   if(role.prop==='broom'){prop.position.x=.32/sx;add('limb',prop,[0,-.25/sy,0],[.028/sx,.88/sy,.028/sz],0x877051);add('block',prop,[0,-.72/sy,0],[.23/sx,.10/sy,.08/sz],0xaca07a);}
   const footRest=feet[0]?.name==='Resident grounded boots and trousers'?feet[0].geometry.attributes.position.array.slice():null;
-  const record={initialVisible:o.visible,initialParent:o.parent,index,footRest,object:o,head,body,neck,standingNeckY:neck?.position.y,standingBodyY:body.position.y,standingHeadY:head.position.y,standingArmY:arms.map(a=>a.position.y),standingPropY:prop.position.y,baseBody:body.rotation.clone(),baseHead:head.rotation.clone(),arms,feet,variation,role,id,moving:!!motion,seated:entry.seated,prop,scale:{sx,sy,sz},lastTime:null};records.push(record);o.userData.residentLife={role:id??role.activity,posture:role.posture,heightFactor:variation.height,shoulderFactor:variation.shoulders,gaitSpeed:.92+variation.seed*.16,gaitAmplitude:.94+variation.seed*.12};
+  const record={diverse:!!appearance,appearance,initialVisible:o.visible,initialParent:o.parent,index,footRest,object:o,head,body,neck,standingNeckY:neck?.position.y,standingBodyY:body.position.y,standingHeadY:head.position.y,standingArmY:arms.map(a=>a.position.y),standingPropY:prop.position.y,baseBody:body.rotation.clone(),baseHead:head.rotation.clone(),arms,feet,variation,role,id,moving:!!motion,seated:entry.seated,prop,scale:{sx,sy,sz},lastTime:null};records.push(record);o.userData.residentLife={role:id??role.activity,posture:role.posture,heightFactor:variation.height,shoulderFactor:variation.shoulders,gaitSpeed:appearance?.gait??(.92+variation.seed*.16),gaitAmplitude:.94+variation.seed*.12};
   o.updateWorldMatrix(true,true);
   // No terrain re-placement: maintain each original foot/seat world height.
   if(!entry.seated){const contact=new THREE.Box3().setFromObject(feet[0]??o,true).min.y;o.position.y+=(b.min.y-contact)/(o.parent?.getWorldScale(new THREE.Vector3()).y??1);}
@@ -76,11 +77,11 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
    // A few background neighbours stay indoors in bad weather; room actors
    // remain exclusively controlled by the shop system.
    if(getArea()==='town'&&!r.id&&!r.moving&&!o.userData.dailyLife&&o.parent===r.initialParent){const sheltered=weather==='dawn'&&period==='morning'?r.index%3!==0:weather==='rain'?r.index%3===1:weather==='blackout'?r.index%4!==0:period==='night'?r.index%3!==0:false;o.visible=r.initialVisible&&!sheltered;}
-   if(!o.userData.dailyLife&&!r.id){r.activity=period==='morning'?(r.seated?'reading':'sweeping'):period==='day'?role.activity:period==='evening'?'conversation':'resting';}if(!visible(o))continue;
+   if(!o.userData.dailyLife&&!r.id){r.activity=period==='morning'?(r.seated?'reading':'sweeping'):period==='day'?role.activity:period==='evening'?'conversation':'resting';}if(r.diverse)r.prop.visible=carriedPropVisible(r);if(!visible(o))continue;
    o.getWorldPosition(sphere.center);sphere.center.y+=.85;const distance=camera?camera.position.distanceTo(sphere.center):0,inView=!camera||frustum.intersectsSphere(sphere),interval=distance<18&&inView?1/residentLifeSettings.idleRate:distance<42&&inView?.25:getQuality()==='mobile'?2:1;
    if(!force&&distance>85&&getArea()==='town')continue; // Remote schedules advance; distant body/detail animation sleeps.
    const pose=force||(poseTick&&Math.abs(time-(r.lastTime??-Infinity))>=interval);if(pose)r.lastTime=time;
-   const sitting=!!r.sitting;
+   if(r.diverse)r.prop.visible=carriedPropVisible(r);const sitting=!!r.sitting;
    const seatDrop=sitting?Math.max(0,r.standingBodyY-body.geometry.parameters.height/2-Math.min(...r.footRest.filter((_,i)=>i%3===1))-.44/r.scale.sy):0;body.position.y=r.standingBodyY-seatDrop;head.position.y=r.standingHeadY-seatDrop;if(r.neck)r.neck.position.y=r.standingNeckY-seatDrop;arms.forEach((a,i)=>a.position.y=r.standingArmY[i]-seatDrop);r.prop.position.y=r.standingPropY-seatDrop;
    if(r.footRest){const foot=r.feet[0];r.standingGeometry??=foot.geometry;if(sitting&&!r.seatGeometry){const pieces=[];for(const sign of [-1,1])for(const [y,z,h,d]of [[.44,.15,.12,.36],[.24,.33,.38,.11],[.055,.38,.11,.23]]){const g=new THREE.BoxGeometry(.12/r.scale.sx,h/r.scale.sy,d/r.scale.sz).toNonIndexed();g.translate(sign*.115/r.scale.sx,(y/r.scale.sy)+(r.baseFeetY??(r.baseFeetY=Math.min(...r.footRest.filter((_,i)=>i%3===1)))),z/r.scale.sz);pieces.push(g);}
     const positions=[],normals=[],colors=[];for(const g of pieces){positions.push(...g.attributes.position.array);normals.push(...g.attributes.normal.array);const tint=new THREE.Color(r.role.accent);for(let i=0;i<g.attributes.position.count;i++)colors.push(tint.r,tint.g,tint.b);g.dispose();}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(normals,3));g.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));g.computeBoundingBox();g.computeBoundingSphere();r.seatGeometry=g;}
@@ -92,6 +93,7 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
     head.rotation.y=r.baseHead.y+look*.16*quiet;head.rotation.x=r.baseHead.x+(role.activity==='reading'||role.activity==='measuring'?.055:0)+breath*.025*quiet;
    }
    if(pose){arms.forEach((arm,i)=>{const sign=i?1:-1;arm.rotation.z=(role.prop&&r.prop.visible?-sign*.21:sign*.10)+Math.sin(time*.7+v.phase+i)*.012*quiet;if(role.prop&&r.prop.visible)arm.rotation.x=-1.04+Math.sin(time*.57+v.phase)*.035*quiet;else if(!r.moving)arm.rotation.x=Math.sin(time*.61+v.phase+i)*.04*quiet;});
+   if(r.diverse&&!r.prop.visible&&!['walking','goingHome'].includes(r.currentState)){if(r.appearance.stance==='behind')arms.forEach(a=>a.rotation.x=.3);if(r.appearance.stance==='folded')arms.forEach((a,i)=>{a.rotation.x=-.7;a.rotation.z=i?.4:-.4;});if(r.appearance.stance==='leaning')body.rotation.z+=.035;}
    const action=o.userData.shopWork?.currentState==='walking'?'walking':r.activity??role.activity,swing=Math.sin(time*1.2+v.phase)*quiet;
    if(sitting){arms.forEach(a=>a.rotation.x=-.40);head.rotation.x=r.baseHead.x+.055;}
    else if(action==='reading'||action==='measuring'){head.rotation.x=r.baseHead.x+.16;arms.forEach((a,i)=>a.rotation.x=-.98+Math.sin(time*.6+v.phase+i)*.045);r.prop.rotation.x=.20+swing*.025;}

@@ -1,3 +1,4 @@
+import {worldNodes} from './world-graph.js';
 import {lunmereCharacters,lakeTownEvents} from './lunmere-data.js';
 import {seasonProfiles} from './town-calendar.js';
 import {townEventDefinitions} from './shop-data.js';
@@ -9,12 +10,14 @@ const people=['baker','bookseller','boatworker','starmaker','greenBard',...lunme
 const eventIds=[...townEventDefinitions,...lakeTownEvents].map(e=>e.id),eventStages=['unseen','heard','noticed','resolved'];
 const object=v=>v&&typeof v==='object'&&!Array.isArray(v),integer=(n,fallback=1)=>Number.isSafeInteger(n)&&n>=1?Math.min(n,9999):fallback;
 const short=(s,max=500)=>typeof s==='string'?s.slice(0,max):'';
-export function defaultStay(){return {version:SAVE_VERSION,currentDay:1,dayPhase:'day',dayStart:1,weather:'clear',season:'spring',events:{},discoveries:{},memories:{},flags:{},journal:[],threads:{},weatherHistory:[],boatDock:'lunmere',waterLevelState:{day:0,phase:'normal',firstLowDay:null}};}
+export function defaultStay(){return {version:SAVE_VERSION,currentDay:1,dayPhase:'day',dayStart:1,weather:'clear',season:'spring',events:{},discoveries:{},memories:{},flags:{},journal:[],threads:{},weatherHistory:[],travelHistory:[],boatDock:'lunmere',waterLevelState:{day:0,phase:'normal',firstLowDay:null}};}
 // Whitelist and bounds protect every consumer; storage never supplies DOM/paths.
 export function validateStay(raw){
  const d=defaultStay();if(!object(raw)||raw.version!==SAVE_VERSION)return d;
+ for(const e of Array.isArray(raw.travelHistory)?raw.travelHistory.slice(-120):[])if(object(e)&&worldNodes.some(n=>n.id===e.region))d.travelHistory.push({day:integer(e.day),region:e.region,mode:e.mode==='cat'?'cat':'human',travelMode:['road','boat','revisit'].includes(e.travelMode)?e.travelMode:'road'});
  d.boatDock=['lunmere','lake','caerith'].includes(raw.boatDock)?raw.boatDock:'lunmere';
  const level=raw.waterLevelState;if(object(level)){d.waterLevelState={day:Number.isSafeInteger(level.day)&&level.day>=1?integer(level.day):0,phase:['normal','low','veryLow','extremeLow'].includes(level.phase)?level.phase:'normal',firstRingDay:Number.isSafeInteger(level.firstRingDay)&&level.firstRingDay>=7?integer(level.firstRingDay):null,firstLowDay:Number.isSafeInteger(level.firstLowDay)&&level.firstLowDay>=4?integer(level.firstLowDay):null};}
+ const crown=raw.threads?.hollowCrown;if(object(crown))d.threads.hollowCrown={stage:['unseen','entrance','visited','observed'].includes(crown.stage)?crown.stage:'unseen'};
  const ring=raw.threads?.ring;if(object(ring))d.threads.ring={stage:['unseen','exposed','discovered','observed','compared'].includes(ring.stage)?ring.stage:'unseen'};
  const drowned=raw.threads?.drowned;if(object(drowned))d.threads.drowned={stage:['unseen','heard','discovered','explored','marked','linked'].includes(drowned.stage)?drowned.stage:'unseen'};
  d.season=Object.hasOwn(seasonProfiles,raw.season)?raw.season:'spring';d.currentDay=integer(raw.currentDay);d.dayStart=integer(raw.dayStart);d.dayPhase=phases.includes(raw.dayPhase)?raw.dayPhase:'day';d.weather=weather.includes(raw.weather)?raw.weather:'clear';
@@ -24,7 +27,7 @@ export function validateStay(raw){
  if(d.boatDock==='caerith'&&!d.discoveries['region:caerith'])d.boatDock='lunmere';
  for(const id of people){const m=raw.memories?.[id];if(!object(m))continue;d.memories[id]={};for(const mode of ['human','cat'])if(object(m[mode]))d.memories[id][mode]={visits:Math.min(9999,Math.max(0,Number.isSafeInteger(m[mode].visits)?m[mode].visits:0)),firstDay:integer(m[mode].firstDay),lastDay:integer(m[mode].lastDay)};}
  if(Number.isSafeInteger(raw.flags?.finnLowViewDay))d.flags.finnLowViewDay=integer(raw.flags.finnLowViewDay);
- for(const e of Array.isArray(raw.journal)?raw.journal.slice(-200):[])if(object(e)&&short(e.id,100)&&short(e.text))d.journal.push({id:short(e.id,100),day:integer(e.day),text:short(e.text),kind:short(e.kind,30),playerMode:e.playerMode==='cat'?'cat':'human'});
+ for(const e of Array.isArray(raw.journal)?raw.journal.slice(-200):[])if(object(e)&&short(e.id,100)&&short(e.text))d.journal.push({id:short(e.id,100),day:integer(e.day),text:short(e.text).replaceAll('テヴ','ローワン').replace(/^(イーラ)(のそばへ|と、街の暮らし)/,e.id.startsWith('met:lunHost:')?'マレン$2':'$1$2').replace(/^(マレン)(のそばへ|と、街の暮らし)/,e.id.startsWith('met:lunWatcher:')?'イーラ$2':'$1$2'),kind:short(e.kind,30),playerMode:e.playerMode==='cat'?'cat':'human'});
  for(const e of Array.isArray(raw.weatherHistory)?raw.weatherHistory.slice(-30):[])if(object(e)&&weather.includes(e.weather))d.weatherHistory.push({day:integer(e.day),weather:e.weather});return d;
 }
 export function createStayState({storage=null}={}){
