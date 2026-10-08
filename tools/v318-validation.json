@@ -1,0 +1,3449 @@
+{
+  "sourceCommit": "05c1a83",
+  "baselineCommit": "05634fc",
+  "environment": "Chromium software WebGL; 960x640; mobile viewport 390x844; no physical handset",
+  "results": {
+    "extra": {
+      "hidden": true,
+      "loop": [
+        {
+          "samples": 59,
+          "maxEyeDelta": 0.0005443705518839437,
+          "feet": [
+            -403,
+            4.8,
+            -64.9
+          ]
+        },
+        {
+          "samples": 124,
+          "maxEyeDelta": 0.0005981904480636402,
+          "feet": [
+            -398.3338433849383,
+            4.8,
+            -65.63904660394319
+          ]
+        },
+        {
+          "samples": 124,
+          "maxEyeDelta": 0.005145820705477533,
+          "feet": [
+            -394.12444269038366,
+            4.837335309563796,
+            -67.7838433849383
+          ]
+        },
+        {
+          "samples": 113,
+          "maxEyeDelta": 0.0003626137314096667,
+          "feet": [
+            -390.7838433849383,
+            4.823962009309659,
+            -71.12444269038366
+          ]
+        },
+        {
+          "samples": 124,
+          "maxEyeDelta": 0.00042247018814123294,
+          "feet": [
+            -388.6390466039432,
+            4.799240676577249,
+            -75.33384338493829
+          ]
+        },
+        {
+          "samples": 124,
+          "maxEyeDelta": 0.00012934747151227555,
+          "feet": [
+            -387.9,
+            4.8,
+            -80
+          ]
+        },
+        {
+          "samples": 124,
+          "maxEyeDelta": 0.00020371598559254522,
+          "feet": [
+            -388.6390466039432,
+            4.800759323422751,
+            -84.66615661506171
+          ]
+        },
+        {
+          "samples": 124,
+          "maxEyeDelta": 0.0003896254498352292,
+          "feet": [
+            -390.7838433849383,
+            4.776037990690341,
+            -88.87555730961634
+          ]
+        },
+        {
+          "samples": 113,
+          "maxEyeDelta": 0.0003401874862190013,
+          "feet": [
+            -394.12444269038366,
+            4.762664690436203,
+            -92.2161566150617
+          ]
+        },
+        {
+          "samples": 124,
+          "maxEyeDelta": 0.00031394226231906686,
+          "feet": [
+            -398.3338433849383,
+            4.781114121632657,
+            -94.36095339605681
+          ]
+        },
+        {
+          "samples": 124,
+          "maxEyeDelta": 0.0002635652194786786,
+          "feet": [
+            -403,
+            4.8,
+            -95.1
+          ]
+        },
+        {
+          "samples": 124,
+          "maxEyeDelta": 0.00031180354658744136,
+          "feet": [
+            -407.6661566150617,
+            4.818885878367342,
+            -94.36095339605681
+          ]
+        },
+        {
+          "samples": 124,
+          "maxEyeDelta": 0.00039294885034824034,
+          "feet": [
+            -411.87555730961634,
+            4.837335309563796,
+            -92.2161566150617
+          ]
+        },
+        {
+          "samples": 113,
+          "maxEyeDelta": 0.0003626137314096667,
+          "feet": [
+            -415.2161566150617,
+            4.823962009309659,
+            -88.87555730961634
+          ]
+        },
+        {
+          "samples": 124,
+          "maxEyeDelta": 0.00042247018814123294,
+          "feet": [
+            -417.3609533960568,
+            4.799240676577249,
+            -84.66615661506171
+          ]
+        },
+        {
+          "samples": 124,
+          "maxEyeDelta": 0.00012934747151227555,
+          "feet": [
+            -418.1,
+            4.8,
+            -80
+          ]
+        },
+        {
+          "samples": 124,
+          "maxEyeDelta": 0.00020371598559254522,
+          "feet": [
+            -417.3609533960568,
+            4.800759323422751,
+            -75.33384338493829
+          ]
+        },
+        {
+          "samples": 124,
+          "maxEyeDelta": 0.0003896254498352292,
+          "feet": [
+            -415.2161566150617,
+            4.776037990690341,
+            -71.12444269038366
+          ]
+        },
+        {
+          "samples": 113,
+          "maxEyeDelta": 0.0003401874862190013,
+          "feet": [
+            -411.87555730961634,
+            4.762664690436203,
+            -67.7838433849383
+          ]
+        },
+        {
+          "samples": 124,
+          "maxEyeDelta": 0.00031394226231906686,
+          "feet": [
+            -407.6661566150617,
+            4.781114121632657,
+            -65.63904660394319
+          ]
+        },
+        {
+          "samples": 124,
+          "maxEyeDelta": 0.00028202826704148976,
+          "feet": [
+            -403,
+            4.8,
+            -64.9
+          ]
+        }
+      ],
+      "revisit": {
+        "region": "the-ring",
+        "feet": [
+          -401,
+          4.8,
+          -66
+        ],
+        "safe": true
+      },
+      "muted": true,
+      "audio": {
+        "heard": true,
+        "entries": 1,
+        "contexts": 1
+      },
+      "locked": true,
+      "emergence": {
+        "phase": "extremeLow",
+        "active": false,
+        "feet": [
+          -418,
+          6.159999998211861,
+          -4.5
+        ],
+        "dock": "lunmere"
+      }
+    },
+    "explore": {
+      "phase": {
+        "day": 7,
+        "phase": "extremeLow",
+        "firstLowDay": 7,
+        "firstRingDay": 7
+      },
+      "extension": [
+        {
+          "samples": 150,
+          "maxEyeDelta": 0.0027567827989738447,
+          "feet": [
+            -353,
+            5.12,
+            -42
+          ]
+        },
+        {
+          "samples": 134,
+          "maxEyeDelta": 0.0024018135772765348,
+          "feet": [
+            -357,
+            4.92,
+            -46
+          ]
+        },
+        {
+          "samples": 217,
+          "maxEyeDelta": 0.005073281336606783,
+          "feet": [
+            -365,
+            5.75,
+            -48
+          ]
+        },
+        {
+          "samples": 343,
+          "maxEyeDelta": 0.0032846611914116863,
+          "feet": [
+            -377,
+            5.75,
+            -53
+          ]
+        },
+        {
+          "samples": 425,
+          "maxEyeDelta": 0.0028257575435368665,
+          "feet": [
+            -392.00000000000057,
+            4.8,
+            -58.99999999999987
+          ]
+        },
+        {
+          "samples": 284,
+          "maxEyeDelta": 0.0021253051281542312,
+          "feet": [
+            -401,
+            4.8,
+            -66
+          ]
+        }
+      ],
+      "human": [
+        {
+          "id": "ring:outer",
+          "feet": [
+            -395.3599999999998,
+            4.8545970499234015,
+            -72.00000000000023
+          ]
+        },
+        {
+          "id": "ring:pillar",
+          "feet": [
+            -399.67999999999995,
+            4.834632584711029,
+            -69.96000000000015
+          ]
+        },
+        {
+          "id": "ring:groove",
+          "feet": [
+            -406.6400000000002,
+            4.773235934406621,
+            -76.08000000000038
+          ]
+        },
+        {
+          "id": "ring:center",
+          "feet": [
+            -404.60000000000014,
+            4.7933696570567506,
+            -78.12000000000046
+          ]
+        },
+        {
+          "id": "ring:watermark",
+          "feet": [
+            -411.6800000000004,
+            4.819970889219464,
+            -82.08000000000061
+          ]
+        },
+        {
+          "id": "ring:direction",
+          "feet": [
+            -405.08000000000015,
+            4.824224150991745,
+            -88.68000000000086
+          ]
+        },
+        {
+          "id": "ring:beyond",
+          "feet": [
+            -405.08000000000015,
+            4.820016116814986,
+            -91.44000000000096
+          ]
+        }
+      ],
+      "views": [
+        true,
+        true
+      ],
+      "cat": [
+        "ring:cat-0",
+        "ring:cat-1",
+        "ring:cat-2"
+      ],
+      "gaps": [
+        {
+          "samples": 33,
+          "maxEyeDelta": 0.0003361914678112754,
+          "feet": [
+            -394,
+            4.83476234750736,
+            -76
+          ]
+        },
+        {
+          "samples": 33,
+          "maxEyeDelta": 0.0003944969505429441,
+          "feet": [
+            -399,
+            4.761482446083048,
+            -86
+          ]
+        },
+        {
+          "samples": 33,
+          "maxEyeDelta": 0.0004482284029920791,
+          "feet": [
+            -405,
+            4.8145768605234345,
+            -93
+          ]
+        },
+        {
+          "samples": 33,
+          "maxEyeDelta": 0.00035605401518701285,
+          "feet": [
+            -409,
+            4.848411384348839,
+            -86
+          ]
+        }
+      ],
+      "weather": [
+        {
+          "w": "clear",
+          "phase": "extremeLow",
+          "lost": false
+        },
+        {
+          "w": "dawn",
+          "phase": "extremeLow",
+          "lost": false
+        },
+        {
+          "w": "rain",
+          "phase": "extremeLow",
+          "lost": false
+        },
+        {
+          "w": "fog",
+          "phase": "extremeLow",
+          "lost": false
+        },
+        {
+          "w": "night",
+          "phase": "extremeLow",
+          "lost": false
+        },
+        {
+          "w": "blackout",
+          "phase": "extremeLow",
+          "lost": false
+        }
+      ],
+      "ui": {
+        "regions": [
+          {
+            "id": "bellmire",
+            "disabled": false
+          },
+          {
+            "id": "nine-stones",
+            "disabled": true
+          },
+          {
+            "id": "lake-lun",
+            "disabled": false
+          },
+          {
+            "id": "lunmere",
+            "disabled": true
+          },
+          {
+            "id": "caerith",
+            "disabled": true
+          },
+          {
+            "id": "the-ring",
+            "disabled": false
+          }
+        ],
+        "nav": [
+          "ring-entry",
+          "ring-outer",
+          "ring-center",
+          "ring-end"
+        ],
+        "progress": [
+          {
+            "id": "bell",
+            "dependencies": [],
+            "flags": {
+              "belfry-mark": false,
+              "star-chart": false
+            },
+            "journalEntries": [
+              "bell-thread-heard",
+              "bell-thread-night"
+            ],
+            "stage": "unseen",
+            "discovered": false
+          },
+          {
+            "id": "drowned",
+            "dependencies": [
+              "bell"
+            ],
+            "flags": {
+              "drowned:entry": false,
+              "drowned:mark": false
+            },
+            "journalEntries": [
+              "drowned:entry",
+              "drowned:nine-link"
+            ],
+            "stage": "explored",
+            "discovered": false
+          },
+          {
+            "id": "ring",
+            "dependencies": [
+              "drowned",
+              "nine",
+              "caerith",
+              "bell"
+            ],
+            "flags": {
+              "ring:visit": true,
+              "ring:groove": true,
+              "ring:direction": true
+            },
+            "journalEntries": [
+              "ring:visit",
+              "ring:comparison",
+              "ring:returning-water"
+            ],
+            "stage": "compared",
+            "discovered": true
+          }
+        ]
+      },
+      "reload": {
+        "water": {
+          "day": 7,
+          "phase": "extremeLow",
+          "firstRingDay": 7,
+          "firstLowDay": 7
+        },
+        "thread": {
+          "stage": "compared"
+        },
+        "visited": true,
+        "cats": [
+          true,
+          true,
+          true
+        ],
+        "revisit": true
+      }
+    },
+    "days": {
+      "days": [
+        {
+          "day": 1,
+          "water": {
+            "day": 1,
+            "phase": "normal",
+            "firstLowDay": null,
+            "firstRingDay": null
+          },
+          "feet": [
+            0,
+            1.3799999976158142,
+            32
+          ],
+          "jumping": false,
+          "ringVisible": false,
+          "options": [
+            {
+              "id": "bellmire",
+              "disabled": false
+            },
+            {
+              "id": "nine-stones",
+              "disabled": true
+            },
+            {
+              "id": "lake-lun",
+              "disabled": true
+            },
+            {
+              "id": "lunmere",
+              "disabled": true
+            },
+            {
+              "id": "caerith",
+              "disabled": true
+            }
+          ],
+          "lost": false,
+          "region": "bellmire"
+        },
+        {
+          "day": 2,
+          "water": {
+            "day": 2,
+            "phase": "normal",
+            "firstLowDay": null,
+            "firstRingDay": null
+          },
+          "feet": [
+            0,
+            1.3799999976158142,
+            32
+          ],
+          "jumping": false,
+          "ringVisible": false,
+          "options": [
+            {
+              "id": "bellmire",
+              "disabled": false
+            },
+            {
+              "id": "nine-stones",
+              "disabled": true
+            },
+            {
+              "id": "lake-lun",
+              "disabled": true
+            },
+            {
+              "id": "lunmere",
+              "disabled": true
+            },
+            {
+              "id": "caerith",
+              "disabled": true
+            }
+          ],
+          "lost": false,
+          "region": "bellmire"
+        },
+        {
+          "day": 3,
+          "water": {
+            "day": 3,
+            "phase": "low",
+            "firstLowDay": null,
+            "firstRingDay": null
+          },
+          "feet": [
+            0,
+            1.3799999976158142,
+            32
+          ],
+          "jumping": false,
+          "ringVisible": false,
+          "options": [
+            {
+              "id": "bellmire",
+              "disabled": false
+            },
+            {
+              "id": "nine-stones",
+              "disabled": true
+            },
+            {
+              "id": "lake-lun",
+              "disabled": true
+            },
+            {
+              "id": "lunmere",
+              "disabled": true
+            },
+            {
+              "id": "caerith",
+              "disabled": true
+            }
+          ],
+          "lost": false,
+          "region": "bellmire"
+        },
+        {
+          "day": 4,
+          "water": {
+            "day": 4,
+            "phase": "veryLow",
+            "firstLowDay": 4,
+            "firstRingDay": null
+          },
+          "feet": [
+            0,
+            1.3799999976158142,
+            32
+          ],
+          "jumping": false,
+          "ringVisible": false,
+          "options": [
+            {
+              "id": "bellmire",
+              "disabled": false
+            },
+            {
+              "id": "nine-stones",
+              "disabled": true
+            },
+            {
+              "id": "lake-lun",
+              "disabled": true
+            },
+            {
+              "id": "lunmere",
+              "disabled": true
+            },
+            {
+              "id": "caerith",
+              "disabled": true
+            }
+          ],
+          "lost": false,
+          "region": "bellmire"
+        },
+        {
+          "day": 5,
+          "water": {
+            "day": 5,
+            "phase": "veryLow",
+            "firstLowDay": 4,
+            "firstRingDay": null
+          },
+          "feet": [
+            0,
+            1.3799999976158142,
+            32
+          ],
+          "jumping": false,
+          "ringVisible": false,
+          "options": [
+            {
+              "id": "bellmire",
+              "disabled": false
+            },
+            {
+              "id": "nine-stones",
+              "disabled": true
+            },
+            {
+              "id": "lake-lun",
+              "disabled": true
+            },
+            {
+              "id": "lunmere",
+              "disabled": true
+            },
+            {
+              "id": "caerith",
+              "disabled": true
+            }
+          ],
+          "lost": false,
+          "region": "bellmire"
+        },
+        {
+          "day": 6,
+          "water": {
+            "day": 6,
+            "phase": "low",
+            "firstLowDay": 4,
+            "firstRingDay": null
+          },
+          "feet": [
+            0,
+            1.3799999976158142,
+            32
+          ],
+          "jumping": false,
+          "ringVisible": false,
+          "options": [
+            {
+              "id": "bellmire",
+              "disabled": false
+            },
+            {
+              "id": "nine-stones",
+              "disabled": true
+            },
+            {
+              "id": "lake-lun",
+              "disabled": true
+            },
+            {
+              "id": "lunmere",
+              "disabled": true
+            },
+            {
+              "id": "caerith",
+              "disabled": true
+            }
+          ],
+          "lost": false,
+          "region": "bellmire"
+        },
+        {
+          "day": 7,
+          "water": {
+            "day": 7,
+            "phase": "normal",
+            "firstLowDay": 4,
+            "firstRingDay": null
+          },
+          "feet": [
+            0,
+            1.3799999976158142,
+            32
+          ],
+          "jumping": false,
+          "ringVisible": false,
+          "options": [
+            {
+              "id": "bellmire",
+              "disabled": false
+            },
+            {
+              "id": "nine-stones",
+              "disabled": true
+            },
+            {
+              "id": "lake-lun",
+              "disabled": true
+            },
+            {
+              "id": "lunmere",
+              "disabled": true
+            },
+            {
+              "id": "caerith",
+              "disabled": true
+            }
+          ],
+          "lost": false,
+          "region": "bellmire"
+        },
+        {
+          "day": 8,
+          "water": {
+            "day": 8,
+            "phase": "normal",
+            "firstLowDay": 4,
+            "firstRingDay": null
+          },
+          "feet": [
+            0,
+            1.3799999976158142,
+            32
+          ],
+          "jumping": false,
+          "ringVisible": false,
+          "options": [
+            {
+              "id": "bellmire",
+              "disabled": false
+            },
+            {
+              "id": "nine-stones",
+              "disabled": true
+            },
+            {
+              "id": "lake-lun",
+              "disabled": true
+            },
+            {
+              "id": "lunmere",
+              "disabled": true
+            },
+            {
+              "id": "caerith",
+              "disabled": true
+            }
+          ],
+          "lost": false,
+          "region": "bellmire"
+        },
+        {
+          "day": 9,
+          "water": {
+            "day": 9,
+            "phase": "extremeLow",
+            "firstLowDay": 4,
+            "firstRingDay": 9
+          },
+          "feet": [
+            -399,
+            4.8,
+            -80
+          ],
+          "jumping": false,
+          "ringVisible": true,
+          "options": [
+            {
+              "id": "bellmire",
+              "disabled": false
+            },
+            {
+              "id": "nine-stones",
+              "disabled": true
+            },
+            {
+              "id": "lake-lun",
+              "disabled": true
+            },
+            {
+              "id": "lunmere",
+              "disabled": true
+            },
+            {
+              "id": "caerith",
+              "disabled": true
+            },
+            {
+              "id": "the-ring",
+              "disabled": false
+            }
+          ],
+          "lost": false,
+          "region": "the-ring"
+        },
+        {
+          "day": 10,
+          "water": {
+            "day": 10,
+            "phase": "extremeLow",
+            "firstLowDay": 4,
+            "firstRingDay": 9
+          },
+          "feet": [
+            -393,
+            4.844409945792432,
+            -72
+          ],
+          "jumping": true,
+          "ringVisible": true,
+          "options": [
+            {
+              "id": "bellmire",
+              "disabled": false
+            },
+            {
+              "id": "nine-stones",
+              "disabled": true
+            },
+            {
+              "id": "lake-lun",
+              "disabled": true
+            },
+            {
+              "id": "lunmere",
+              "disabled": true
+            },
+            {
+              "id": "caerith",
+              "disabled": true
+            },
+            {
+              "id": "the-ring",
+              "disabled": false
+            }
+          ],
+          "lost": false,
+          "region": "the-ring"
+        },
+        {
+          "day": 11,
+          "water": {
+            "day": 11,
+            "phase": "veryLow",
+            "firstLowDay": 4,
+            "firstRingDay": 9
+          },
+          "feet": [
+            -312,
+            6.04,
+            -43
+          ],
+          "jumping": false,
+          "ringVisible": false,
+          "options": [
+            {
+              "id": "bellmire",
+              "disabled": false
+            },
+            {
+              "id": "nine-stones",
+              "disabled": true
+            },
+            {
+              "id": "lake-lun",
+              "disabled": false
+            },
+            {
+              "id": "lunmere",
+              "disabled": true
+            },
+            {
+              "id": "caerith",
+              "disabled": true
+            },
+            {
+              "id": "the-ring",
+              "disabled": true
+            }
+          ],
+          "lost": false,
+          "region": "lake-lun"
+        },
+        {
+          "day": 12,
+          "water": {
+            "day": 12,
+            "phase": "veryLow",
+            "firstLowDay": 4,
+            "firstRingDay": 9
+          },
+          "feet": [
+            -312,
+            6.04,
+            -43
+          ],
+          "jumping": false,
+          "ringVisible": false,
+          "options": [
+            {
+              "id": "bellmire",
+              "disabled": false
+            },
+            {
+              "id": "nine-stones",
+              "disabled": true
+            },
+            {
+              "id": "lake-lun",
+              "disabled": false
+            },
+            {
+              "id": "lunmere",
+              "disabled": true
+            },
+            {
+              "id": "caerith",
+              "disabled": true
+            },
+            {
+              "id": "the-ring",
+              "disabled": true
+            }
+          ],
+          "lost": false,
+          "region": "lake-lun"
+        },
+        {
+          "day": 13,
+          "water": {
+            "day": 13,
+            "phase": "low",
+            "firstLowDay": 4,
+            "firstRingDay": 9
+          },
+          "feet": [
+            -312,
+            6.04,
+            -43
+          ],
+          "jumping": false,
+          "ringVisible": false,
+          "options": [
+            {
+              "id": "bellmire",
+              "disabled": false
+            },
+            {
+              "id": "nine-stones",
+              "disabled": true
+            },
+            {
+              "id": "lake-lun",
+              "disabled": false
+            },
+            {
+              "id": "lunmere",
+              "disabled": true
+            },
+            {
+              "id": "caerith",
+              "disabled": true
+            },
+            {
+              "id": "the-ring",
+              "disabled": true
+            }
+          ],
+          "lost": false,
+          "region": "lake-lun"
+        },
+        {
+          "day": 14,
+          "water": {
+            "day": 14,
+            "phase": "normal",
+            "firstLowDay": 4,
+            "firstRingDay": 9
+          },
+          "feet": [
+            -312,
+            6.04,
+            -43
+          ],
+          "jumping": false,
+          "ringVisible": false,
+          "options": [
+            {
+              "id": "bellmire",
+              "disabled": false
+            },
+            {
+              "id": "nine-stones",
+              "disabled": true
+            },
+            {
+              "id": "lake-lun",
+              "disabled": false
+            },
+            {
+              "id": "lunmere",
+              "disabled": true
+            },
+            {
+              "id": "caerith",
+              "disabled": true
+            },
+            {
+              "id": "the-ring",
+              "disabled": true
+            }
+          ],
+          "lost": false,
+          "region": "lake-lun"
+        }
+      ],
+      "mobile": {
+        "overflow": false,
+        "ringOption": true,
+        "nav": [
+          "lake-entry",
+          "lake-pier",
+          "lake-path",
+          "nine-stones",
+          "lunmere"
+        ]
+      },
+      "reload": {
+        "day": 14,
+        "water": {
+          "day": 14,
+          "phase": "normal",
+          "firstRingDay": 9,
+          "firstLowDay": 4
+        },
+        "ring": {
+          "day": 9,
+          "playerMode": "human",
+          "period": "morning",
+          "label": "ring:visit"
+        },
+        "thread": {
+          "stage": "discovered"
+        }
+      }
+    },
+    "audit": {
+      "samples": 300,
+      "ringSamples": 240,
+      "issues": [],
+      "future": null,
+      "wall": null,
+      "lights": 0
+    },
+    "boat": {
+      "boarding": [
+        {
+          "id": "lunmere",
+          "mode": "human"
+        },
+        {
+          "id": "lake",
+          "mode": "human"
+        },
+        {
+          "id": "caerith",
+          "mode": "human"
+        },
+        {
+          "id": "lunmere",
+          "mode": "cat"
+        },
+        {
+          "id": "lake",
+          "mode": "cat"
+        },
+        {
+          "id": "caerith",
+          "mode": "cat"
+        }
+      ],
+      "touch": {
+        "delta": 0.6940636858548643,
+        "pressed": true
+      },
+      "sail": [
+        {
+          "goal": [
+            -421,
+            -12
+          ],
+          "steps": 72,
+          "feet": [
+            -420.95085825653643,
+            4.612503411097345,
+            -11.710395835260192
+          ],
+          "dock": null,
+          "profile": "cat",
+          "collisions": 0
+        },
+        {
+          "goal": [
+            -403,
+            -30
+          ],
+          "steps": 305,
+          "feet": [
+            -403.1446015281283,
+            4.482474167384578,
+            -29.833181026057794
+          ],
+          "dock": null,
+          "profile": "cat",
+          "collisions": 0
+        },
+        {
+          "goal": [
+            -385,
+            -49
+          ],
+          "steps": 282,
+          "feet": [
+            -385.0999069657277,
+            4.482307775562076,
+            -48.89421517041941
+          ],
+          "dock": null,
+          "profile": "cat",
+          "collisions": 0
+        },
+        {
+          "goal": [
+            -367,
+            -51.5
+          ],
+          "steps": 225,
+          "feet": [
+            -367.12014088376293,
+            4.482264983193413,
+            -51.45901085170461
+          ],
+          "dock": "caerith",
+          "profile": "cat",
+          "collisions": 0
+        },
+        {
+          "goal": [
+            -385,
+            -49
+          ],
+          "steps": 252,
+          "feet": [
+            -384.82015319026567,
+            4.482146932348219,
+            -49.023685004634935
+          ],
+          "dock": null,
+          "profile": "cat",
+          "collisions": 0
+        },
+        {
+          "goal": [
+            -403,
+            -30
+          ],
+          "steps": 302,
+          "feet": [
+            -402.8675021846408,
+            4.482129573002294,
+            -30.115845232842897
+          ],
+          "dock": null,
+          "profile": "cat",
+          "collisions": 0
+        },
+        {
+          "goal": [
+            -421,
+            -12
+          ],
+          "steps": 274,
+          "feet": [
+            -420.842139678351,
+            4.612121572331368,
+            -12.158627971684579
+          ],
+          "dock": null,
+          "profile": "cat",
+          "collisions": 0
+        },
+        {
+          "goal": [
+            -420,
+            -6
+          ],
+          "steps": 117,
+          "feet": [
+            -420.05717374192477,
+            4.612115937361741,
+            -6.293717946459109
+          ],
+          "dock": "lunmere",
+          "profile": "cat",
+          "collisions": 0
+        }
+      ],
+      "safety": {
+        "blocked": true,
+        "roadBlocked": true,
+        "lastDock": "lunmere",
+        "profile": "cat",
+        "overflow": false,
+        "lost": false
+      }
+    },
+    "reactions": {
+      "finn": [
+        {
+          "day": 7,
+          "speaker": "フィン",
+          "speakerId": "greenBard",
+          "text": "まだ残っていたんだ。水の底は、忘れるのが上手いからね。",
+          "time": "day",
+          "timestamp": "2026-10-08T01:28:04.537Z",
+          "playerMode": "human",
+          "location": "town",
+          "portraitVariant": "default",
+          "dialogueVariant": "human:town:day"
+        }
+      ],
+      "starmaker": [
+        {
+          "day": 7,
+          "speaker": "ネリッサ",
+          "speakerId": "starmaker",
+          "text": "点の間隔は違う。でも円と線の向きは、星図と比べられそうです。",
+          "time": "day",
+          "timestamp": "2026-10-08T01:28:09.288Z",
+          "playerMode": "human",
+          "location": "orrery",
+          "portraitVariant": "default",
+          "dialogueVariant": "human:orrery:day"
+        }
+      ],
+      "bookseller": [
+        {
+          "day": 7,
+          "speaker": "エヴァン",
+          "speakerId": "bookseller",
+          "text": "似た円形図はある。でも、注釈だけが抜け落ちているんだ。",
+          "time": "day",
+          "timestamp": "2026-10-08T01:28:14.897Z",
+          "playerMode": "human",
+          "location": "bookshop",
+          "portraitVariant": "default",
+          "dialogueVariant": "human:bookshop:day"
+        }
+      ],
+      "lunBoat": [
+        {
+          "day": 7,
+          "speaker": "テヴ",
+          "speakerId": "lunBoat",
+          "text": "今日はずいぶん引いている。あの浅い石のところへは、舟を入れないで。",
+          "time": "day",
+          "timestamp": "2026-10-08T01:28:17.920Z",
+          "playerMode": "human",
+          "location": "town",
+          "portraitVariant": "default",
+          "dialogueVariant": "human:town:day"
+        }
+      ],
+      "lunWatcher": [
+        {
+          "day": 7,
+          "speaker": "マレン",
+          "speakerId": "lunWatcher",
+          "text": "昔、年寄りが話していたよ。水が低い年には、輪のような石が見えたって。",
+          "time": "day",
+          "timestamp": "2026-10-08T01:28:18.627Z",
+          "playerMode": "human",
+          "location": "town",
+          "portraitVariant": "default",
+          "dialogueVariant": "human:town:day"
+        }
+      ],
+      "lunHost": [
+        {
+          "day": 7,
+          "speaker": "イーラ",
+          "speakerId": "lunHost",
+          "text": "旅人が、大きな円の話をしていたことがあるよ。岸が広い朝だったね。",
+          "time": "day",
+          "timestamp": "2026-10-08T01:28:21.884Z",
+          "playerMode": "human",
+          "location": "lun-inn",
+          "portraitVariant": "default",
+          "dialogueVariant": "human:lun-inn:day"
+        }
+      ],
+      "jumps": [
+        {
+          "jumped": true,
+          "feet": [
+            -393.55,
+            4.847987124950045,
+            -72
+          ],
+          "top": 5.030394001986402
+        },
+        {
+          "jumped": true,
+          "feet": [
+            -396.55,
+            4.74570256895195,
+            -88
+          ],
+          "top": 5.006789398119391
+        },
+        {
+          "jumped": true,
+          "feet": [
+            -399.55,
+            4.8378019724864005,
+            -72
+          ],
+          "top": 5.0136779304769075
+        },
+        {
+          "jumped": true,
+          "feet": [
+            -402.55,
+            4.7945709018489815,
+            -88
+          ],
+          "top": 5.060000005960465
+        },
+        {
+          "jumped": true,
+          "feet": [
+            -405.55,
+            4.770775918240282,
+            -72
+          ],
+          "top": 4.946322068331
+        },
+        {
+          "jumped": true,
+          "feet": [
+            -408.55,
+            4.851602693276661,
+            -88
+          ],
+          "top": 5.113210613801538
+        }
+      ]
+    },
+    "views": [
+      {
+        "weather": "clear",
+        "phase": "extremeLow",
+        "camera": [
+          -381,
+          28.000000000000004,
+          -56
+        ],
+        "lost": false
+      },
+      {
+        "weather": "dawn",
+        "phase": "extremeLow",
+        "camera": [
+          -381,
+          28.000000000000004,
+          -56
+        ],
+        "lost": false
+      },
+      {
+        "weather": "rain",
+        "phase": "extremeLow",
+        "camera": [
+          -381,
+          28.000000000000004,
+          -56
+        ],
+        "lost": false
+      },
+      {
+        "weather": "fog",
+        "phase": "extremeLow",
+        "camera": [
+          -381,
+          28.000000000000004,
+          -56
+        ],
+        "lost": false
+      },
+      {
+        "weather": "night",
+        "phase": "extremeLow",
+        "camera": [
+          -381,
+          28.000000000000004,
+          -56
+        ],
+        "lost": false
+      },
+      {
+        "weather": "blackout",
+        "phase": "extremeLow",
+        "camera": [
+          -381,
+          28.000000000000004,
+          -56
+        ],
+        "lost": false
+      }
+    ],
+    "legacy": {
+      "cameras": [
+        {
+          "id": "overview",
+          "finite": true
+        },
+        {
+          "id": "alley",
+          "finite": true
+        },
+        {
+          "id": "streetwalk",
+          "finite": true
+        },
+        {
+          "id": "resident",
+          "finite": true
+        },
+        {
+          "id": "catview",
+          "finite": true
+        },
+        {
+          "id": "bakery",
+          "finite": true
+        },
+        {
+          "id": "bookshop",
+          "finite": true
+        },
+        {
+          "id": "inn",
+          "finite": true
+        },
+        {
+          "id": "tavern",
+          "finite": true
+        },
+        {
+          "id": "orrery",
+          "finite": true
+        },
+        {
+          "id": "square",
+          "finite": true
+        },
+        {
+          "id": "roofgarden",
+          "finite": true
+        },
+        {
+          "id": "mill",
+          "finite": true
+        },
+        {
+          "id": "archway",
+          "finite": true
+        },
+        {
+          "id": "canal",
+          "finite": true
+        },
+        {
+          "id": "rooftop",
+          "finite": true
+        },
+        {
+          "id": "belfry",
+          "finite": true
+        },
+        {
+          "id": "drone",
+          "finite": true
+        },
+        {
+          "id": "train",
+          "finite": true
+        }
+      ],
+      "weather": [
+        {
+          "w": "clear",
+          "rain": false,
+          "finite": true
+        },
+        {
+          "w": "rain",
+          "rain": true,
+          "finite": true
+        },
+        {
+          "w": "fog",
+          "rain": false,
+          "finite": true
+        },
+        {
+          "w": "dawn",
+          "rain": false,
+          "finite": true
+        },
+        {
+          "w": "night",
+          "rain": false,
+          "finite": true
+        },
+        {
+          "w": "blackout",
+          "rain": false,
+          "finite": true
+        }
+      ],
+      "walk": [
+        {
+          "profile": "human",
+          "moved": 0.5257459389380846,
+          "safe": true
+        },
+        {
+          "profile": "cat",
+          "moved": 0.320041744822905,
+          "safe": true
+        }
+      ],
+      "quality": [
+        {
+          "q": "high",
+          "lost": false,
+          "calls": 142
+        },
+        {
+          "q": "standard",
+          "lost": false,
+          "calls": 142
+        },
+        {
+          "q": "mobile",
+          "lost": false,
+          "calls": 318
+        }
+      ],
+      "follow": true,
+      "features": {
+        "shops": [
+          "bakery",
+          "bookshop",
+          "inn",
+          "tavern",
+          "orrery",
+          "lun-inn",
+          "lun-diner",
+          "lun-boats",
+          "lun-store",
+          "lun-house-0",
+          "lun-house-1"
+        ],
+        "portraits": [
+          "baker",
+          "bookseller",
+          "boatworker",
+          "starmaker",
+          "greenBard",
+          "lunHost",
+          "lunBoat",
+          "lunWatcher"
+        ],
+        "nav": 20,
+        "diagnostics": true
+      }
+    },
+    "perf": [
+      {
+        "baseline": true,
+        "rows": [
+          {
+            "name": "Bellmire",
+            "quality": "high",
+            "frame": 255,
+            "calls": 2603,
+            "triangles": 105341,
+            "points": 0,
+            "lines": 216,
+            "meshes": 3458,
+            "visibleMeshes": 3327,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.800000011920929,
+            "updateP95": 4.799999952316284,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 31,
+              "walking": 15,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 0,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Bellmire",
+            "quality": "standard",
+            "frame": 345,
+            "calls": 2603,
+            "triangles": 105341,
+            "points": 0,
+            "lines": 216,
+            "meshes": 3458,
+            "visibleMeshes": 3327,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.7000000476837158,
+            "updateP95": 6.699999988079071,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 31,
+              "walking": 15,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 0,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Bellmire",
+            "quality": "mobile",
+            "frame": 351,
+            "calls": 2589,
+            "triangles": 105327,
+            "points": 0,
+            "lines": 216,
+            "meshes": 3458,
+            "visibleMeshes": 3327,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.3999999761581421,
+            "updateP95": 2.300000011920929,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 30,
+              "walking": 14,
+              "inside": 1,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 0,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Nine Stones",
+            "quality": "high",
+            "frame": 441,
+            "calls": 61,
+            "triangles": 10812,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3458,
+            "visibleMeshes": 3324,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.40000003576278687,
+            "updateP95": 2.399999976158142,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 29,
+              "walking": 13,
+              "inside": 2,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 1,
+              "mid": 0,
+              "far": 33
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Nine Stones",
+            "quality": "standard",
+            "frame": 531,
+            "calls": 57,
+            "triangles": 2396,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3458,
+            "visibleMeshes": 3317,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.6000000238418579,
+            "updateP95": 4.800000011920929,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 28,
+              "walking": 12,
+              "inside": 3,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 1,
+              "mid": 0,
+              "far": 33
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Nine Stones",
+            "quality": "mobile",
+            "frame": 537,
+            "calls": 43,
+            "triangles": 2382,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3458,
+            "visibleMeshes": 3314,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.5,
+            "updateP95": 5.100000023841858,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 11,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 1,
+              "mid": 0,
+              "far": 33
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Lake Lun normal",
+            "quality": "high",
+            "frame": 627,
+            "calls": 122,
+            "triangles": 5498,
+            "points": 0,
+            "lines": 2,
+            "meshes": 3458,
+            "visibleMeshes": 3311,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.5999999642372131,
+            "updateP95": 1.699999988079071,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 11,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Lake Lun normal",
+            "quality": "standard",
+            "frame": 717,
+            "calls": 126,
+            "triangles": 6934,
+            "points": 0,
+            "lines": 2,
+            "meshes": 3458,
+            "visibleMeshes": 3315,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.6000000238418579,
+            "updateP95": 1.300000011920929,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 11,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Lake Lun normal",
+            "quality": "mobile",
+            "frame": 723,
+            "calls": 109,
+            "triangles": 6760,
+            "points": 0,
+            "lines": 2,
+            "meshes": 3458,
+            "visibleMeshes": 3315,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.5999999642372131,
+            "updateP95": 2.100000023841858,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 11,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Lunmere",
+            "quality": "high",
+            "frame": 813,
+            "calls": 215,
+            "triangles": 6170,
+            "points": 0,
+            "lines": 1,
+            "meshes": 3458,
+            "visibleMeshes": 3315,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.5999999642372131,
+            "updateP95": 5.300000011920929,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 11,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Lunmere",
+            "quality": "standard",
+            "frame": 903,
+            "calls": 215,
+            "triangles": 8722,
+            "points": 0,
+            "lines": 1,
+            "meshes": 3458,
+            "visibleMeshes": 3315,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.3999999761581421,
+            "updateP95": 1.399999976158142,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 11,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Lunmere",
+            "quality": "mobile",
+            "frame": 909,
+            "calls": 201,
+            "triangles": 8708,
+            "points": 0,
+            "lines": 1,
+            "meshes": 3458,
+            "visibleMeshes": 3315,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.6000000238418579,
+            "updateP95": 2.599999964237213,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 10,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Caerith",
+            "quality": "high",
+            "frame": 999,
+            "calls": 64,
+            "triangles": 6202,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3458,
+            "visibleMeshes": 3315,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.30000001192092896,
+            "updateP95": 0.7000000476837158,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 10,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Caerith",
+            "quality": "standard",
+            "frame": 1089,
+            "calls": 60,
+            "triangles": 2570,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3458,
+            "visibleMeshes": 3311,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.30000001192092896,
+            "updateP95": 0.5,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 10,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Caerith",
+            "quality": "mobile",
+            "frame": 1095,
+            "calls": 46,
+            "triangles": 2556,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3458,
+            "visibleMeshes": 3311,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.30000001192092896,
+            "updateP95": 3,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 9,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Drowned Way",
+            "quality": "high",
+            "frame": 1185,
+            "calls": 83,
+            "triangles": 5578,
+            "points": 0,
+            "lines": 1,
+            "meshes": 3458,
+            "visibleMeshes": 3355,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.3999999761581421,
+            "updateP95": 2,
+            "npc": {
+              "scheduled": 34,
+              "period": "morning",
+              "outsideVisible": 30,
+              "walking": 27,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 118,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "veryLow"
+          },
+          {
+            "name": "Drowned Way",
+            "quality": "standard",
+            "frame": 1275,
+            "calls": 83,
+            "triangles": 5578,
+            "points": 0,
+            "lines": 1,
+            "meshes": 3458,
+            "visibleMeshes": 3364,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.30000001192092896,
+            "updateP95": 0.699999988079071,
+            "npc": {
+              "scheduled": 34,
+              "period": "morning",
+              "outsideVisible": 30,
+              "walking": 26,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 118,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "veryLow"
+          },
+          {
+            "name": "Drowned Way",
+            "quality": "mobile",
+            "frame": 1281,
+            "calls": 69,
+            "triangles": 5564,
+            "points": 0,
+            "lines": 1,
+            "meshes": 3458,
+            "visibleMeshes": 3364,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.30000001192092896,
+            "updateP95": 0.6000000238418579,
+            "npc": {
+              "scheduled": 34,
+              "period": "morning",
+              "outsideVisible": 30,
+              "walking": 24,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 118,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "veryLow"
+          }
+        ]
+      },
+      {
+        "baseline": false,
+        "rows": [
+          {
+            "name": "Bellmire",
+            "quality": "high",
+            "frame": 255,
+            "calls": 2603,
+            "triangles": 98433,
+            "points": 0,
+            "lines": 216,
+            "meshes": 3490,
+            "visibleMeshes": 3327,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.6000000238418579,
+            "updateP95": 12.899999976158142,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 31,
+              "walking": 15,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 0,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Bellmire",
+            "quality": "standard",
+            "frame": 345,
+            "calls": 2603,
+            "triangles": 98433,
+            "points": 0,
+            "lines": 216,
+            "meshes": 3490,
+            "visibleMeshes": 3327,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.2999999523162842,
+            "updateP95": 5.800000011920929,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 31,
+              "walking": 15,
+              "inside": 0,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 0,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Bellmire",
+            "quality": "mobile",
+            "frame": 351,
+            "calls": 2589,
+            "triangles": 98419,
+            "points": 0,
+            "lines": 216,
+            "meshes": 3490,
+            "visibleMeshes": 3327,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.20000004768371582,
+            "updateP95": 2.399999976158142,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 30,
+              "walking": 14,
+              "inside": 1,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 0,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Nine Stones",
+            "quality": "high",
+            "frame": 441,
+            "calls": 61,
+            "triangles": 3904,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3490,
+            "visibleMeshes": 3324,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.2999999523162842,
+            "updateP95": 1.699999988079071,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 29,
+              "walking": 13,
+              "inside": 2,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 1,
+              "mid": 0,
+              "far": 33
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Nine Stones",
+            "quality": "standard",
+            "frame": 531,
+            "calls": 57,
+            "triangles": 2396,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3490,
+            "visibleMeshes": 3317,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.20000004768371582,
+            "updateP95": 2.899999976158142,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 28,
+              "walking": 12,
+              "inside": 3,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 1,
+              "mid": 0,
+              "far": 33
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Nine Stones",
+            "quality": "mobile",
+            "frame": 537,
+            "calls": 43,
+            "triangles": 2382,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3490,
+            "visibleMeshes": 3314,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.30000001192092896,
+            "updateP95": 2.300000011920929,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 11,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 1,
+              "mid": 0,
+              "far": 33
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Lake Lun normal",
+            "quality": "high",
+            "frame": 627,
+            "calls": 122,
+            "triangles": 5498,
+            "points": 0,
+            "lines": 2,
+            "meshes": 3490,
+            "visibleMeshes": 3311,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.2999999523162842,
+            "updateP95": 2.199999988079071,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 11,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Lake Lun normal",
+            "quality": "standard",
+            "frame": 717,
+            "calls": 122,
+            "triangles": 5498,
+            "points": 0,
+            "lines": 2,
+            "meshes": 3490,
+            "visibleMeshes": 3311,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.3999999761581421,
+            "updateP95": 1.9000000357627869,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 11,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Lake Lun normal",
+            "quality": "mobile",
+            "frame": 723,
+            "calls": 105,
+            "triangles": 5324,
+            "points": 0,
+            "lines": 2,
+            "meshes": 3490,
+            "visibleMeshes": 3311,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.3999999761581421,
+            "updateP95": 1,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 11,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Lunmere",
+            "quality": "high",
+            "frame": 813,
+            "calls": 211,
+            "triangles": 5090,
+            "points": 0,
+            "lines": 1,
+            "meshes": 3490,
+            "visibleMeshes": 3311,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.3999999761581421,
+            "updateP95": 4.600000023841858,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 11,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Lunmere",
+            "quality": "standard",
+            "frame": 903,
+            "calls": 215,
+            "triangles": 7642,
+            "points": 0,
+            "lines": 1,
+            "meshes": 3490,
+            "visibleMeshes": 3315,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.5999999642372131,
+            "updateP95": 1.399999976158142,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 11,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Lunmere",
+            "quality": "mobile",
+            "frame": 909,
+            "calls": 201,
+            "triangles": 7628,
+            "points": 0,
+            "lines": 1,
+            "meshes": 3490,
+            "visibleMeshes": 3315,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.3999999761581421,
+            "updateP95": 1.2000000476837158,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 10,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Caerith",
+            "quality": "high",
+            "frame": 999,
+            "calls": 64,
+            "triangles": 5122,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3490,
+            "visibleMeshes": 3315,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.30000001192092896,
+            "updateP95": 4.399999976158142,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 10,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Caerith",
+            "quality": "standard",
+            "frame": 1089,
+            "calls": 60,
+            "triangles": 2570,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3490,
+            "visibleMeshes": 3311,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.19999998807907104,
+            "updateP95": 0.5,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 10,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Caerith",
+            "quality": "mobile",
+            "frame": 1095,
+            "calls": 46,
+            "triangles": 2556,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3490,
+            "visibleMeshes": 3311,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.19999998807907104,
+            "updateP95": 0.800000011920929,
+            "npc": {
+              "scheduled": 34,
+              "period": "day",
+              "outsideVisible": 27,
+              "walking": 9,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 31,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "normal"
+          },
+          {
+            "name": "Drowned Way",
+            "quality": "high",
+            "frame": 1185,
+            "calls": 83,
+            "triangles": 5578,
+            "points": 0,
+            "lines": 1,
+            "meshes": 3490,
+            "visibleMeshes": 3355,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.20000004768371582,
+            "updateP95": 0.8999999761581421,
+            "npc": {
+              "scheduled": 34,
+              "period": "morning",
+              "outsideVisible": 30,
+              "walking": 27,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 118,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "veryLow"
+          },
+          {
+            "name": "Drowned Way",
+            "quality": "standard",
+            "frame": 1275,
+            "calls": 83,
+            "triangles": 5578,
+            "points": 0,
+            "lines": 1,
+            "meshes": 3490,
+            "visibleMeshes": 3364,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.30000001192092896,
+            "updateP95": 1,
+            "npc": {
+              "scheduled": 34,
+              "period": "morning",
+              "outsideVisible": 30,
+              "walking": 26,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 118,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "veryLow"
+          },
+          {
+            "name": "Drowned Way",
+            "quality": "mobile",
+            "frame": 1281,
+            "calls": 69,
+            "triangles": 5564,
+            "points": 0,
+            "lines": 1,
+            "meshes": 3490,
+            "visibleMeshes": 3364,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.19999998807907104,
+            "updateP95": 0.40000003576278687,
+            "npc": {
+              "scheduled": 34,
+              "period": "morning",
+              "outsideVisible": 30,
+              "walking": 24,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 118,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "veryLow"
+          },
+          {
+            "name": "Lake Lun extremeLow",
+            "quality": "high",
+            "frame": 1371,
+            "calls": 145,
+            "triangles": 10868,
+            "points": 0,
+            "lines": 2,
+            "meshes": 3490,
+            "visibleMeshes": 3369,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.20000004768371582,
+            "updateP95": 1.0999999642372131,
+            "npc": {
+              "scheduled": 34,
+              "period": "morning",
+              "outsideVisible": 30,
+              "walking": 24,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 208,
+              "detourRequests": 0,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "extremeLow"
+          },
+          {
+            "name": "Lake Lun extremeLow",
+            "quality": "standard",
+            "frame": 1461,
+            "calls": 145,
+            "triangles": 10868,
+            "points": 0,
+            "lines": 2,
+            "meshes": 3490,
+            "visibleMeshes": 3369,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.2999999523162842,
+            "updateP95": 7.400000035762787,
+            "npc": {
+              "scheduled": 34,
+              "period": "morning",
+              "outsideVisible": 30,
+              "walking": 24,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 208,
+              "detourRequests": 1,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "extremeLow"
+          },
+          {
+            "name": "Lake Lun extremeLow",
+            "quality": "mobile",
+            "frame": 1467,
+            "calls": 131,
+            "triangles": 10854,
+            "points": 0,
+            "lines": 2,
+            "meshes": 3490,
+            "visibleMeshes": 3369,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.19999998807907104,
+            "updateP95": 0.3999999761581421,
+            "npc": {
+              "scheduled": 34,
+              "period": "morning",
+              "outsideVisible": 30,
+              "walking": 24,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 208,
+              "detourRequests": 1,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "extremeLow"
+          },
+          {
+            "name": "The Ring",
+            "quality": "high",
+            "frame": 1557,
+            "calls": 55,
+            "triangles": 5802,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3490,
+            "visibleMeshes": 3396,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.20000004768371582,
+            "updateP95": 0.5,
+            "npc": {
+              "scheduled": 34,
+              "period": "morning",
+              "outsideVisible": 30,
+              "walking": 23,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 208,
+              "detourRequests": 1,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "extremeLow"
+          },
+          {
+            "name": "The Ring",
+            "quality": "standard",
+            "frame": 1647,
+            "calls": 55,
+            "triangles": 5802,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3490,
+            "visibleMeshes": 3396,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.19999998807907104,
+            "updateP95": 4.199999988079071,
+            "npc": {
+              "scheduled": 34,
+              "period": "morning",
+              "outsideVisible": 29,
+              "walking": 21,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 208,
+              "detourRequests": 1,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "extremeLow"
+          },
+          {
+            "name": "The Ring",
+            "quality": "mobile",
+            "frame": 1653,
+            "calls": 41,
+            "triangles": 5788,
+            "points": 0,
+            "lines": 0,
+            "meshes": 3490,
+            "visibleMeshes": 3393,
+            "lights": 14,
+            "casters": 207,
+            "transparent": 34,
+            "updateMedian": 0.3999999761581421,
+            "updateP95": 1.100000023841858,
+            "npc": {
+              "scheduled": 34,
+              "period": "morning",
+              "outsideVisible": 27,
+              "walking": 18,
+              "inside": 4,
+              "addedResidents": 3,
+              "pathRequests": 208,
+              "detourRequests": 1,
+              "updated": 1,
+              "near": 0,
+              "mid": 0,
+              "far": 34
+            },
+            "water": "extremeLow"
+          }
+        ]
+      }
+    ],
+    "journey": {
+      "rumor": {
+        "heard": {
+          "day": 3,
+          "period": "day",
+          "playerMode": "human",
+          "label": "drowned:rumor"
+        },
+        "log": {
+          "day": 3,
+          "speaker": "イーラ",
+          "speakerId": "lunHost",
+          "text": "今年はよく引くね。朝、岸の石が長く見えていたよ。",
+          "time": "day",
+          "timestamp": "2026-10-08T01:30:04.861Z",
+          "playerMode": "human",
+          "location": "lun-inn",
+          "portraitVariant": "default",
+          "dialogueVariant": "human:lun-inn:day"
+        }
+      },
+      "morning": {
+        "day": 4,
+        "phase": "veryLow",
+        "room": "lun-inn"
+      },
+      "lakeApproach": {
+        "samples": 2042,
+        "maxEyeDelta": 0.0020723174688210833,
+        "feet": [
+          -309,
+          6.0404114621822895,
+          3.469446951953614e-18
+        ]
+      },
+      "sailing": [
+        {
+          "goal": [
+            -421,
+            -12
+          ],
+          "steps": 92,
+          "feet": [
+            -420.96103028362137,
+            5.389772829927138,
+            -11.778361425844336
+          ],
+          "dock": null,
+          "profile": "cat",
+          "collisions": 0
+        },
+        {
+          "goal": [
+            -403,
+            -30
+          ],
+          "steps": 304,
+          "feet": [
+            -403.1470755434074,
+            5.260019107018605,
+            -29.82615125625245
+          ],
+          "dock": null,
+          "profile": "cat",
+          "collisions": 0
+        },
+        {
+          "goal": [
+            -385,
+            -49
+          ],
+          "steps": 282,
+          "feet": [
+            -385.1044740133932,
+            5.260350942621522,
+            -48.88915964121747
+          ],
+          "dock": null,
+          "profile": "cat",
+          "collisions": 0
+        },
+        {
+          "goal": [
+            -350,
+            -49
+          ],
+          "steps": 390,
+          "feet": [
+            -350.1460588466499,
+            5.2605035315146615,
+            -49.00206683286504
+          ],
+          "dock": null,
+          "profile": "cat",
+          "collisions": 0
+        },
+        {
+          "goal": [
+            -342,
+            -45
+          ],
+          "steps": 128,
+          "feet": [
+            -342.2254278615025,
+            5.2605661444068526,
+            -45.09265692506064
+          ],
+          "dock": null,
+          "profile": "cat",
+          "collisions": 0
+        },
+        {
+          "goal": [
+            -350,
+            -49
+          ],
+          "steps": 224,
+          "feet": [
+            -349.8385849671411,
+            5.2607584406683054,
+            -48.918278149954176
+          ],
+          "dock": null,
+          "profile": "cat",
+          "collisions": 0
+        },
+        {
+          "goal": [
+            -367,
+            -51.5
+          ],
+          "steps": 203,
+          "feet": [
+            -366.8501215917091,
+            5.260920964576416,
+            -51.477393979443285
+          ],
+          "dock": "caerith",
+          "profile": "cat",
+          "collisions": 0
+        }
+      ],
+      "boatClue": {
+        "flag": {
+          "day": 4,
+          "period": "morning",
+          "playerMode": "cat",
+          "label": "drowned:from-boat"
+        },
+        "height": 5.2605661444068526,
+        "phase": "veryLow"
+      },
+      "lunPeople": [
+        {
+          "day": 4,
+          "speaker": "テヴ",
+          "speakerId": "lunBoat",
+          "text": "舟底をこすらないようにしないとな。石の列のそばは、少し回って。",
+          "time": "morning",
+          "timestamp": "2026-10-08T01:30:18.598Z",
+          "playerMode": "human",
+          "location": "lun-boats",
+          "portraitVariant": "default",
+          "dialogueVariant": "human:lun-boats:morning"
+        },
+        {
+          "day": 4,
+          "speaker": "マレン",
+          "speakerId": "lunWatcher",
+          "text": "あの石は、昔から時々見えるよ。水が戻ると、また見えなくなる。",
+          "time": "morning",
+          "timestamp": "2026-10-08T01:30:19.828Z",
+          "playerMode": "human",
+          "location": "town",
+          "portraitVariant": "default",
+          "dialogueVariant": "human:town:morning"
+        },
+        {
+          "day": 4,
+          "speaker": "イーラ",
+          "speakerId": "lunHost",
+          "text": "また湖の道を歩いてきたんだね。今朝は岸の石がひとつ多く見えたよ。",
+          "time": "morning",
+          "timestamp": "2026-10-08T01:30:30.086Z",
+          "playerMode": "human",
+          "location": "lun-inn",
+          "portraitVariant": "default",
+          "dialogueVariant": "human:lun-inn:morning"
+        }
+      ],
+      "finn": {
+        "day": 4,
+        "speaker": "フィン",
+        "speakerId": "greenBard",
+        "text": "道は、沈んでも道のままなんだね。",
+        "time": "day",
+        "timestamp": "2026-10-08T01:30:39.067Z",
+        "playerMode": "human",
+        "location": "town",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:town:day"
+      },
+      "nerissa": {
+        "day": 4,
+        "speaker": "ネリッサ",
+        "speakerId": "starmaker",
+        "text": "線の向きが違う。でも、配置は古い星図に少し似ている。",
+        "time": "day",
+        "timestamp": "2026-10-08T01:30:44.068Z",
+        "playerMode": "human",
+        "location": "orrery",
+        "portraitVariant": "default",
+        "dialogueVariant": "human:orrery:day"
+      },
+      "ringApproach": [
+        {
+          "samples": 125,
+          "maxEyeDelta": 0.019349468590279528,
+          "feet": [
+            -317,
+            5.95,
+            -43
+          ]
+        },
+        {
+          "samples": 100,
+          "maxEyeDelta": 0.009994873784272329,
+          "feet": [
+            -321,
+            5.54,
+            -43
+          ]
+        },
+        {
+          "samples": 268,
+          "maxEyeDelta": 0.004073782350339172,
+          "feet": [
+            -331,
+            5.5,
+            -42
+          ]
+        },
+        {
+          "samples": 243,
+          "maxEyeDelta": 0.00022004601764447074,
+          "feet": [
+            -340,
+            5.46,
+            -40
+          ]
+        },
+        {
+          "samples": 275,
+          "maxEyeDelta": 0.00014003420639419062,
+          "feet": [
+            -350,
+            5.44,
+            -37
+          ]
+        },
+        {
+          "samples": 150,
+          "maxEyeDelta": 0.002756782906779165,
+          "feet": [
+            -353,
+            5.12,
+            -42
+          ]
+        },
+        {
+          "samples": 134,
+          "maxEyeDelta": 0.0024018135772765348,
+          "feet": [
+            -357,
+            4.92,
+            -46
+          ]
+        },
+        {
+          "samples": 217,
+          "maxEyeDelta": 0.005073281336606783,
+          "feet": [
+            -365,
+            5.75,
+            -48
+          ]
+        },
+        {
+          "samples": 343,
+          "maxEyeDelta": 0.0032846611914116863,
+          "feet": [
+            -377,
+            5.75,
+            -53
+          ]
+        },
+        {
+          "samples": 425,
+          "maxEyeDelta": 0.0028257575435368665,
+          "feet": [
+            -392.00000000000057,
+            4.8,
+            -58.99999999999987
+          ]
+        },
+        {
+          "samples": 284,
+          "maxEyeDelta": 0.0021253051281542312,
+          "feet": [
+            -401,
+            4.8,
+            -66
+          ]
+        }
+      ],
+      "returned": {
+        "feet": [
+          -312,
+          6.04,
+          -43
+        ],
+        "thread": {
+          "stage": "compared"
+        },
+        "water": "extremeLow"
+      },
+      "final": {
+        "thread": {
+          "stage": "linked",
+          "water": "extremeLow"
+        },
+        "ring": {
+          "stage": "compared"
+        },
+        "journal": [
+          {
+            "id": "ring:visit",
+            "day": 7,
+            "text": "沈んだ道の先に、大きな円が残っていた。",
+            "kind": "place",
+            "playerMode": "human"
+          },
+          {
+            "id": "ring:outer",
+            "day": 7,
+            "text": "円は完全ではない。崩れたのか、最初からそうだったのかは分からない。",
+            "kind": "place",
+            "playerMode": "human"
+          },
+          {
+            "id": "ring:caerith",
+            "day": 7,
+            "text": "Caerithの基礎より大きい。でも、石の継ぎ方は少し似ていた。",
+            "kind": "place",
+            "playerMode": "human"
+          },
+          {
+            "id": "ring:groove",
+            "day": 7,
+            "text": "溝は途中でずれている。Nine Stonesの並びと、同じ円には見えない。",
+            "kind": "place",
+            "playerMode": "human"
+          },
+          {
+            "id": "ring:comparison",
+            "day": 7,
+            "text": "Nine Stonesと同じ形ではない。それでも、間隔には似たところがある。",
+            "kind": "place",
+            "playerMode": "human"
+          },
+          {
+            "id": "ring:direction",
+            "day": 7,
+            "text": "短い線は中央ではなく、湖の向こうを向いているようにも見える。",
+            "kind": "place",
+            "playerMode": "human"
+          },
+          {
+            "id": "ring:beyond",
+            "day": 7,
+            "text": "石段は泥と水へ沈んでいる。向こうにも段があるようだが、足を置ける場所はない。",
+            "kind": "place",
+            "playerMode": "human"
+          },
+          {
+            "id": "ring:cat-2",
+            "day": 7,
+            "text": "暗い隙間の向こうに、もう一段。冷たい風だけが抜けてくる。",
+            "kind": "cat-discovery",
+            "playerMode": "cat"
+          }
+        ],
+        "boat": "lake"
+      },
+      "reload": {
+        "thread": {
+          "stage": "linked",
+          "water": "extremeLow"
+        },
+        "water": {
+          "day": 7,
+          "phase": "extremeLow",
+          "firstRingDay": 7,
+          "firstLowDay": 4
+        },
+        "visited": [
+          [
+            "bellmire",
+            true
+          ],
+          [
+            "nine-stones",
+            true
+          ],
+          [
+            "lake-lun",
+            true
+          ],
+          [
+            "lunmere",
+            true
+          ],
+          [
+            "caerith",
+            true
+          ],
+          [
+            "the-ring",
+            true
+          ]
+        ],
+        "flags": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    }
+  }
+}
