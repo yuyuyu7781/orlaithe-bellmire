@@ -1,0 +1,1547 @@
+{
+  "time": [
+    {
+      "id": "cv-archive",
+      "weather": "clear",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "clear",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "clear",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "clear",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "rain",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "rain",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "rain",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "rain",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "fog",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "fog",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "fog",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "fog",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "blackout",
+      "phase": "morning",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "blackout",
+      "phase": "day",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "blackout",
+      "phase": "evening",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "blackout",
+      "phase": "night",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "dawn",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "dawn",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "dawn",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "dawn",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "night",
+      "phase": "morning",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "night",
+      "phase": "day",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "night",
+      "phase": "evening",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-archive",
+      "weather": "night",
+      "phase": "night",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "clear",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "clear",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "clear",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "clear",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "rain",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "rain",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "rain",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "rain",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "fog",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "fog",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "fog",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "fog",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "blackout",
+      "phase": "morning",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "blackout",
+      "phase": "day",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "blackout",
+      "phase": "evening",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "blackout",
+      "phase": "night",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "dawn",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "dawn",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "dawn",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "dawn",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "night",
+      "phase": "morning",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "night",
+      "phase": "day",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "night",
+      "phase": "evening",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-records",
+      "weather": "night",
+      "phase": "night",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "clear",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "clear",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "clear",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "clear",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "rain",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "rain",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "rain",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "rain",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "fog",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "fog",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "fog",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "fog",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "blackout",
+      "phase": "morning",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "blackout",
+      "phase": "day",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "blackout",
+      "phase": "evening",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "blackout",
+      "phase": "night",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "dawn",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "dawn",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "dawn",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "dawn",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "night",
+      "phase": "morning",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "night",
+      "phase": "day",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "night",
+      "phase": "evening",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-bell",
+      "weather": "night",
+      "phase": "night",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "clear",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "clear",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "clear",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "clear",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "rain",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "rain",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "rain",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "rain",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "fog",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "fog",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "fog",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "fog",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "blackout",
+      "phase": "morning",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "blackout",
+      "phase": "day",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "blackout",
+      "phase": "evening",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "blackout",
+      "phase": "night",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "dawn",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "dawn",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "dawn",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "dawn",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "night",
+      "phase": "morning",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "night",
+      "phase": "day",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "night",
+      "phase": "evening",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-observatory",
+      "weather": "night",
+      "phase": "night",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "clear",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "clear",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "clear",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "clear",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "rain",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "rain",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "rain",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "rain",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "fog",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "fog",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "fog",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "fog",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "blackout",
+      "phase": "morning",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "blackout",
+      "phase": "day",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "blackout",
+      "phase": "evening",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "blackout",
+      "phase": "night",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "dawn",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "dawn",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "dawn",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "dawn",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "night",
+      "phase": "morning",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "night",
+      "phase": "day",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "night",
+      "phase": "evening",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-maps",
+      "weather": "night",
+      "phase": "night",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "clear",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "clear",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "clear",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "clear",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "rain",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "rain",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "rain",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "rain",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "fog",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "fog",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "fog",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "fog",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "blackout",
+      "phase": "morning",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "blackout",
+      "phase": "day",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "blackout",
+      "phase": "evening",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "blackout",
+      "phase": "night",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "dawn",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "dawn",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "dawn",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "dawn",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "night",
+      "phase": "morning",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "night",
+      "phase": "day",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "night",
+      "phase": "evening",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-val",
+      "weather": "night",
+      "phase": "night",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "clear",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "clear",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "clear",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "clear",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "rain",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "rain",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "rain",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "rain",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "fog",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "fog",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "fog",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "fog",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "blackout",
+      "phase": "morning",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "blackout",
+      "phase": "day",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "blackout",
+      "phase": "evening",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "blackout",
+      "phase": "night",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "dawn",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "dawn",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "dawn",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "dawn",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "night",
+      "phase": "morning",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "night",
+      "phase": "day",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "night",
+      "phase": "evening",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-inn",
+      "weather": "night",
+      "phase": "night",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "clear",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "clear",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "clear",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "clear",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "rain",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "rain",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "rain",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "rain",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "fog",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "fog",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "fog",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "fog",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "blackout",
+      "phase": "morning",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "blackout",
+      "phase": "day",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "blackout",
+      "phase": "evening",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "blackout",
+      "phase": "night",
+      "ambient": 0.28,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "dawn",
+      "phase": "morning",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "dawn",
+      "phase": "day",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "dawn",
+      "phase": "evening",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "dawn",
+      "phase": "night",
+      "ambient": 1.05,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "night",
+      "phase": "morning",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "night",
+      "phase": "day",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "night",
+      "phase": "evening",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    },
+    {
+      "id": "cv-sluice",
+      "weather": "night",
+      "phase": "night",
+      "ambient": 0.85,
+      "safe": true,
+      "rooms": 1
+    }
+  ],
+  "garden": true,
+  "mobile": {
+    "overflow": false,
+    "closeVisible": true,
+    "columns": 3,
+    "blocked": true
+  }
+}

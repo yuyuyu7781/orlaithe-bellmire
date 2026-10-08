@@ -1,0 +1,519 @@
+{
+  "documents": [
+    {
+      "id": "inside:cv-archive:doc-commerce",
+      "blocked": true,
+      "read": 1
+    },
+    {
+      "id": "inside:cv-archive:doc-canal",
+      "blocked": true,
+      "read": 2
+    },
+    {
+      "id": "inside:cv-archive:doc-bell",
+      "blocked": true,
+      "read": 3
+    },
+    {
+      "id": "inside:cv-archive:doc-family",
+      "blocked": true,
+      "read": 4
+    },
+    {
+      "id": "inside:cv-archive:doc-waterMemory",
+      "blocked": true,
+      "read": 5
+    },
+    {
+      "id": "inside:cv-records:doc-passage",
+      "blocked": true,
+      "read": 6
+    },
+    {
+      "id": "inside:cv-records:doc-building",
+      "blocked": true,
+      "read": 7
+    },
+    {
+      "id": "inside:cv-records:doc-district",
+      "blocked": true,
+      "read": 8
+    },
+    {
+      "id": "inside:cv-bell:doc-bell",
+      "blocked": true,
+      "read": 8
+    },
+    {
+      "id": "inside:cv-observatory:doc-palace",
+      "blocked": true,
+      "read": 9
+    },
+    {
+      "id": "inside:cv-maps:doc-oldMap",
+      "blocked": true,
+      "read": 10
+    },
+    {
+      "id": "inside:cv-maps:doc-district",
+      "blocked": true,
+      "read": 10
+    },
+    {
+      "id": "inside:cv-maps:doc-palace",
+      "blocked": true,
+      "read": 10
+    },
+    {
+      "id": "inside:cv-val:doc-repair",
+      "blocked": true,
+      "read": 11
+    },
+    {
+      "id": "inside:cv-sluice:doc-canal",
+      "blocked": true,
+      "read": 11
+    }
+  ],
+  "cats": [
+    {
+      "id": "inside:cv-archive:research-cat-shelf-number",
+      "found": true,
+      "feet": [
+        190,
+        0,
+        -6.1
+      ],
+      "human": null,
+      "cat": 0
+    },
+    {
+      "id": "inside:cv-archive:research-cat-archive-wood",
+      "found": true,
+      "feet": [
+        210,
+        0,
+        -4.1
+      ],
+      "human": null,
+      "cat": 0
+    },
+    {
+      "id": "inside:cv-records:research-cat-records-floor",
+      "found": true,
+      "feet": [
+        192.4,
+        0,
+        -4.1
+      ],
+      "human": null,
+      "cat": 0
+    },
+    {
+      "id": "inside:cv-bell:research-cat-bell-cavity",
+      "found": true,
+      "feet": [
+        197,
+        0,
+        -2.1
+      ],
+      "human": null,
+      "cat": 0
+    },
+    {
+      "id": "inside:cv-val:research-cat-val-arch",
+      "found": true,
+      "feet": [
+        193.2,
+        0,
+        -3.1
+      ],
+      "human": null,
+      "cat": 0
+    }
+  ],
+  "traces": [
+    {
+      "id": "cv:trace:wall-stairs",
+      "found": true
+    },
+    {
+      "id": "cv:trace:old-paving",
+      "found": true
+    },
+    {
+      "id": "cv:trace:arch-layer",
+      "found": true
+    },
+    {
+      "id": "cv:trace:foundation-turn",
+      "found": true
+    },
+    {
+      "id": "cv:trace:sealed-door",
+      "found": true
+    },
+    {
+      "id": "cv:trace:district14",
+      "found": true
+    },
+    {
+      "id": "cv:trace:bell-seam",
+      "found": true
+    },
+    {
+      "id": "cv:trace:map-height",
+      "found": true
+    },
+    {
+      "id": "cv:trace:palace-layer",
+      "found": true
+    },
+    {
+      "id": "cv:trace:bread-arch",
+      "found": true
+    },
+    {
+      "id": "cv:trace:wall-thickness",
+      "found": true
+    },
+    {
+      "id": "cv:trace:old-height",
+      "found": true
+    },
+    {
+      "id": "cv:research-cat:canal-number",
+      "found": true
+    },
+    {
+      "id": "cv:research-cat:civic-drain",
+      "found": true
+    },
+    {
+      "id": "cv:research-cat:old-cavity",
+      "found": true
+    },
+    {
+      "id": "cv:research-cat:old-floor",
+      "found": true
+    },
+    {
+      "id": "cv:research-cat:canal-wood",
+      "found": true
+    }
+  ],
+  "days": [
+    {
+      "day": 31,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 32,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 33,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 34,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 35,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 36,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 37,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 38,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 39,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 40,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 41,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 42,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 43,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 44,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 45,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 46,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 47,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 48,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 49,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 50,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 51,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 52,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 53,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 54,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 55,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 56,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 57,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 58,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 59,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 60,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 61,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 62,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 63,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 64,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 65,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 66,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 67,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 68,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 69,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 70,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 71,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 72,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 73,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 74,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 75,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 76,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 77,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 78,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 79,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    },
+    {
+      "day": 80,
+      "stage": "olderLayerSuspected",
+      "npc": 115,
+      "finite": true
+    }
+  ],
+  "ui1280": {
+    "overflow": false,
+    "columns": 3,
+    "blocked": true
+  },
+  "ui390": {
+    "overflow": false,
+    "columns": 3,
+    "blocked": true
+  },
+  "reload": true
+}

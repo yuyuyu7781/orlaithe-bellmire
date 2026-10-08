@@ -1,0 +1,340 @@
+[
+  {
+    "era": "before-capital",
+    "day": 30,
+    "bell": "afterglow",
+    "memory": {
+      "lunBoat": {
+        "human": {
+          "visits": 5,
+          "firstDay": 4,
+          "lastDay": 20
+        }
+      }
+    },
+    "capital": "unseen",
+    "research": {
+      "read": 0,
+      "comparisons": 0,
+      "stage": null,
+      "cat": 0
+    },
+    "portraits": [
+      {
+        "id": "cvCedric",
+        "path": "./assets/portraits/cv-cedric-default.png"
+      },
+      {
+        "id": "cvLeon",
+        "path": "./assets/portraits/cv-leon-default.png"
+      },
+      {
+        "id": "cvMira",
+        "path": "./assets/portraits/cv-mira-default.png"
+      },
+      {
+        "id": "cvGaren",
+        "path": "./assets/portraits/cv-garen-default.png"
+      },
+      {
+        "id": "cvSophia",
+        "path": "./assets/portraits/cv-sophia-default.png"
+      },
+      {
+        "id": "cvEdras",
+        "path": "./assets/portraits/cv-edras-default.png"
+      },
+      {
+        "id": "cvLyune",
+        "path": "./assets/portraits/cv-lyune-default.png"
+      },
+      {
+        "id": "cvCassian",
+        "path": "./assets/portraits/cv-cassian-default.png"
+      },
+      {
+        "id": "cvOrm",
+        "path": "./assets/portraits/cv-orm-default.png"
+      },
+      {
+        "id": "cvSerena",
+        "path": "./assets/portraits/cv-serena-default.png"
+      },
+      {
+        "id": "cvYulio",
+        "path": "./assets/portraits/cv-yulio-default.png"
+      },
+      {
+        "id": "cvNoah",
+        "path": "./assets/portraits/cv-noah-default.png"
+      },
+      {
+        "id": "cvElda",
+        "path": "./assets/portraits/cv-elda-default.png"
+      },
+      {
+        "id": "cvVal",
+        "path": "./assets/portraits/cv-val-default.png"
+      }
+    ],
+    "journal": [
+      {
+        "id": "met:lunBoat:human",
+        "day": 4,
+        "text": "ローワンと話した。",
+        "kind": "person",
+        "playerMode": "human"
+      },
+      {
+        "id": "season:autumn",
+        "day": 30,
+        "text": "市場の布と乾いた葉に、季節の違いが見える。",
+        "kind": "place",
+        "playerMode": "human"
+      },
+      {
+        "id": "lunmere-arrival",
+        "day": 30,
+        "text": "湖の道の先に、Lunmereの小さな屋根が並んでいた。",
+        "kind": "place",
+        "playerMode": "human"
+      }
+    ],
+    "chapter": {
+      "bellmire": "present",
+      "lake-lands": "unseen",
+      "beyond-the-ring": "unseen",
+      "capital": "unseen"
+    }
+  },
+  {
+    "era": "capital-before-portrait",
+    "day": 30,
+    "bell": "afterglow",
+    "memory": {
+      "lunBoat": {
+        "human": {
+          "visits": 5,
+          "firstDay": 4,
+          "lastDay": 20
+        }
+      },
+      "cvMira": {
+        "human": {
+          "visits": 3,
+          "firstDay": 25,
+          "lastDay": 29
+        }
+      }
+    },
+    "capital": "compared",
+    "research": {
+      "read": 0,
+      "comparisons": 0,
+      "stage": null,
+      "cat": 0
+    },
+    "portraits": [
+      {
+        "id": "cvCedric",
+        "path": "./assets/portraits/cv-cedric-default.png"
+      },
+      {
+        "id": "cvLeon",
+        "path": "./assets/portraits/cv-leon-default.png"
+      },
+      {
+        "id": "cvMira",
+        "path": "./assets/portraits/cv-mira-default.png"
+      },
+      {
+        "id": "cvGaren",
+        "path": "./assets/portraits/cv-garen-default.png"
+      },
+      {
+        "id": "cvSophia",
+        "path": "./assets/portraits/cv-sophia-default.png"
+      },
+      {
+        "id": "cvEdras",
+        "path": "./assets/portraits/cv-edras-default.png"
+      },
+      {
+        "id": "cvLyune",
+        "path": "./assets/portraits/cv-lyune-default.png"
+      },
+      {
+        "id": "cvCassian",
+        "path": "./assets/portraits/cv-cassian-default.png"
+      },
+      {
+        "id": "cvOrm",
+        "path": "./assets/portraits/cv-orm-default.png"
+      },
+      {
+        "id": "cvSerena",
+        "path": "./assets/portraits/cv-serena-default.png"
+      },
+      {
+        "id": "cvYulio",
+        "path": "./assets/portraits/cv-yulio-default.png"
+      },
+      {
+        "id": "cvNoah",
+        "path": "./assets/portraits/cv-noah-default.png"
+      },
+      {
+        "id": "cvElda",
+        "path": "./assets/portraits/cv-elda-default.png"
+      },
+      {
+        "id": "cvVal",
+        "path": "./assets/portraits/cv-val-default.png"
+      }
+    ],
+    "journal": [
+      {
+        "id": "met:lunBoat:human",
+        "day": 4,
+        "text": "ローワンと話した。",
+        "kind": "person",
+        "playerMode": "human"
+      },
+      {
+        "id": "season:autumn",
+        "day": 30,
+        "text": "市場の布と乾いた葉に、季節の違いが見える。",
+        "kind": "place",
+        "playerMode": "human"
+      },
+      {
+        "id": "lunmere-arrival",
+        "day": 30,
+        "text": "湖の道の先に、Lunmereの小さな屋根が並んでいた。",
+        "kind": "place",
+        "playerMode": "human"
+      }
+    ],
+    "chapter": {
+      "bellmire": "present",
+      "lake-lands": "unseen",
+      "beyond-the-ring": "unseen",
+      "capital": "present"
+    }
+  },
+  {
+    "era": "capital-with-portrait",
+    "day": 30,
+    "bell": "afterglow",
+    "memory": {
+      "lunBoat": {
+        "human": {
+          "visits": 5,
+          "firstDay": 4,
+          "lastDay": 20
+        }
+      },
+      "cvMira": {
+        "human": {
+          "visits": 3,
+          "firstDay": 25,
+          "lastDay": 29
+        }
+      }
+    },
+    "capital": "compared",
+    "research": {
+      "read": 0,
+      "comparisons": 0,
+      "stage": null,
+      "cat": 0
+    },
+    "portraits": [
+      {
+        "id": "cvCedric",
+        "path": "./assets/portraits/cv-cedric-default.png"
+      },
+      {
+        "id": "cvLeon",
+        "path": "./assets/portraits/cv-leon-default.png"
+      },
+      {
+        "id": "cvMira",
+        "path": "./assets/portraits/cv-mira-default.png"
+      },
+      {
+        "id": "cvGaren",
+        "path": "./assets/portraits/cv-garen-default.png"
+      },
+      {
+        "id": "cvSophia",
+        "path": "./assets/portraits/cv-sophia-default.png"
+      },
+      {
+        "id": "cvEdras",
+        "path": "./assets/portraits/cv-edras-default.png"
+      },
+      {
+        "id": "cvLyune",
+        "path": "./assets/portraits/cv-lyune-default.png"
+      },
+      {
+        "id": "cvCassian",
+        "path": "./assets/portraits/cv-cassian-default.png"
+      },
+      {
+        "id": "cvOrm",
+        "path": "./assets/portraits/cv-orm-default.png"
+      },
+      {
+        "id": "cvSerena",
+        "path": "./assets/portraits/cv-serena-default.png"
+      },
+      {
+        "id": "cvYulio",
+        "path": "./assets/portraits/cv-yulio-default.png"
+      },
+      {
+        "id": "cvNoah",
+        "path": "./assets/portraits/cv-noah-default.png"
+      },
+      {
+        "id": "cvElda",
+        "path": "./assets/portraits/cv-elda-default.png"
+      },
+      {
+        "id": "cvVal",
+        "path": "./assets/portraits/cv-val-default.png"
+      }
+    ],
+    "journal": [
+      {
+        "id": "met:lunBoat:human",
+        "day": 4,
+        "text": "ローワンと話した。",
+        "kind": "person",
+        "playerMode": "human"
+      },
+      {
+        "id": "season:autumn",
+        "day": 30,
+        "text": "市場の布と乾いた葉に、季節の違いが見える。",
+        "kind": "place",
+        "playerMode": "human"
+      },
+      {
+        "id": "lunmere-arrival",
+        "day": 30,
+        "text": "湖の道の先に、Lunmereの小さな屋根が並んでいた。",
+        "kind": "place",
+        "playerMode": "human"
+      }
+    ],
+    "chapter": {
+      "bellmire": "present",
+      "lake-lands": "unseen",
+      "beyond-the-ring": "unseen",
+      "capital": "present"
+    }
+  }
+]
