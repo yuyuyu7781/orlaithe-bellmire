@@ -1,0 +1,4 @@
+import assert from 'node:assert/strict';
+import {communityPlaces} from '../resident-layout.js';
+import {capitalWards} from '../caer-veyra-data.js';
+for(const w of capitalWards)for(const kind of ['home','work']){const args={seed:w.id+'-'+kind,count:w.population,accept:kind==='home'?p=>p.z<16&&!(p.x>5.4&&p.x<8.6&&p.z>9.8):()=>true};const points=communityPlaces(args);assert.deepEqual(points,communityPlaces(args));assert.equal(new Set(points.map(p=>p.yaw)).size,points.length);for(let i=0;i<points.length;i++)for(let j=i+1;j<points.length;j++)assert.ok(Math.hypot(points[i].x-points[j].x,points[i].z-points[j].z)>=1.65);let maxLine=0;for(const a of points)for(const b of points)if(a!==b){const dx=b.x-a.x,dz=b.z-a.z,len=Math.hypot(dx,dz);maxLine=Math.max(maxLine,points.filter(p=>Math.abs((p.x-a.x)*dz-(p.z-a.z)*dx)/len<.08).length);}assert.ok(maxLine<=5,w.id+' '+kind+' forms a row of '+maxLine);console.log(w.id,kind,points.length,'max aligned',maxLine);}
