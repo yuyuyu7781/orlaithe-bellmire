@@ -3,7 +3,7 @@ export const bellMarks=['outskirts-stone','moorings','event:upstream-stone','bel
 export function bellProgress(data,period){const t=data.threads?.bell??{stage:'unseen',anomalyDay:null,catFound:false};const seen=bellMarks.filter(id=>data.discoveries[id]);return {seen,eligible:data.currentDay>=3&&seen.length>=2&&period==='night'&&!t.anomalyDay,afterglow:!!t.anomalyDay&&data.currentDay>t.anomalyDay};}
 export function createStoryThread({THREE,stay,townLife,inspections,dialogue,ambientAudio,residentLife,walking,shopSystem,catPassages}){
  stay.data.threads??={};stay.data.threads.bell??={stage:'unseen',anomalyDay:null,catFound:false};let busy=false,nightDelay=0,pending=false,reactUntil=0,elapsed=0;
- const t=()=>stay.data.threads.bell;
+ const t=()=>stay.data.threads.bell??={stage:'unseen',anomalyDay:null,catFound:false};
  function sync(){if(busy)return;busy=true;try{const d=stay.data,p=bellProgress(d,townLife.state.period);if(p.afterglow&&t().stage!=='afterglow'){t().stage='afterglow';stay.changed();}if(d.currentDay>=3&&p.seen.length>=2){stay.note('bell-thread-linked','同じものではない。でも、どこか似ている。',{kind:'place'});if(!t().anomalyDay&&t().stage!=='linked'){t().stage='linked';stay.changed();}}if(p.eligible&&!pending){pending=true;nightDelay=10;}}finally{busy=false;}}
  stay.onChange(sync);townLife.onChange(()=>{if(townLife.state.period!=='night'){pending=false;reactUntil=0;for(const r of reactions)r.bellPause=0;}sync();});
  const reactions=residentLife.records.filter(r=>!r.id&&!r.seated).slice(0,3);
