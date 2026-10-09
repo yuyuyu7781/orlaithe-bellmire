@@ -1,4 +1,4 @@
-import {capitalWardOpen} from './caer-veyra.js?v=53.3';
+import {capitalWardOpen} from './caer-veyra.js?v=53.4';
 import {researchDocuments,researchTraces,researchCatFinds,researchReplies,researchStage} from './capital-research-data.js';
 export function createCapitalResearch({THREE,capital,capitalLife,stay,townLife,walking,shopSystem,inspections,dialogue,namedTravel}){
  const seen=id=>!!stay.data.discoveries[id],remember=(id,text,kind='sign')=>capitalLife.remember(id,text,kind);
