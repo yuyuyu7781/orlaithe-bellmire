@@ -1,3 +1,4 @@
+import {streetFrontage,frontageFrame} from './town-frontage.js';
 import {lunmereLayout as layout,lunmereShops,lunmereCharacters,lakeTownEvents} from './lunmere-data.js';
 import {buildLunmereInterior} from './lunmere-interiors.js';
 export function lunmereHeight(x,z){
@@ -16,11 +17,20 @@ export function buildLunmere({THREE,scene,box,residentScale,lake}){
  // A short supported bridge crosses a damp hollow, retaining the same route elevation.
  const bridge=piece(-360,5.97,14,5.5,.16,2.7,wood);bridge.userData.walkFloor=true;bridge.userData.walkSoft=true;floors.push(bridge);for(const x of [-362,-358])for(const z of [12.8,15.2])piece(x,3.9,z,.16,2.23,.16,wood,true);
  const shops=lunmereShops.map(s=>({...s,craftTemplate:s.type==='workshop'?lake.boat:null,buildInterior:buildLunmereInterior}));
- function building(x,z,w,d,h,index){const shell=piece(x,6.16,z,w,h,d,wall);shell.name=index<4?shops[index].name:'湖畔の住宅 '+(index-3);shells.push({object:shell,b:new THREE.Box3().setFromObject(shell,true)});const cap=new THREE.Mesh(roofGeo,roof);cap.position.set(x,6.16+h,z);cap.scale.set(w+.55,.95,d+.55);cap.userData.walkSoft=true;root.add(cap);for(const dx of [-w*.25,w*.25]){const win=piece(x+dx,7.5,z+d/2+.03,.54,.64,.04,glow,true);windows.push(win);}piece(x,6.16,z+d/2+.025,.85,1.9,.06,wood,true);piece(x,8.18,z+d/2+.3,1.25,.09,.65,wood,true);return shell;}
- for(let i=0;i<shops.length;i++){const s=shops[i],[x,z]=s.center,[w,d]=s.size;building(x,z,w,d,3.4,i);s.exterior={at:[x,6.16,z+d/2+.05],approach:[x,6.16,z+d/2+1.4],angle:0,normal:[0,0,1]};}
- for(const s of shops.filter(s=>['dining','supplies'].includes(s.type))){const [x,z]=s.center;piece(x,8.45,z+s.size[1]/2+.35,2.3,.07,.8,cloth,true);}
+ const townStreets=[[[-465,6.16,22],[-397,6.16,22]],[[-415,6.16,4],[-415,6.16,42]],[[-437,6.16,5],[-437,6.16,45]]];
+ const facades=[];
+ function building(x,z,w,d,h,index){const angle=streetFrontage(x,z,index===2?[[[-465,6.16,-2],[-397,6.16,-2]]]:townStreets,w,d),f=frontageFrame(x,6.16,z,w,d,angle);facades[index]=f;
+  const shell=piece(x,6.16,z,w,h,d,wall);shell.userData.frontage={angle,normal:f.n};shell.name=index<4?shops[index].name:'湖畔の住宅 '+(index-3);shells.push({object:shell,b:new THREE.Box3().setFromObject(shell,true),frontage:f});
+  const cap=new THREE.Mesh(roofGeo,roof);cap.position.set(x,6.16+h,z);cap.scale.set(f.w+.55,.95,f.d+.55);cap.rotation.y=angle;cap.userData.walkSoft=true;root.add(cap);
+  const detail=(lx,ly,lz,w,h,d,m)=>{const p=f.point(lx,ly,lz),o=piece(p[0],p[1],p[2],w,h,d,m,true);o.rotation.y=angle;return o;};
+  for(const dx of [-f.w*.25,f.w*.25])windows.push(detail(dx,1.34,f.d/2+.03,index<4?.7:.5,index<4?.75:.6,.04,glow));
+  if(index%3===1){const p=f.point(f.w/2+.03,1.5,-f.d*.2),win=piece(...p,.48,.6,.04,glow,true);win.rotation.y=angle+Math.PI/2;windows.push(win);}
+  detail(0,0,f.d/2+.025,.85,1.9,.06,wood);detail(0,2.02,f.d/2+.3,1.25,.09,.65,wood);return shell;
+ }
+ for(let i=0;i<shops.length;i++){const s=shops[i],[x,z]=s.center,[w,d]=s.size;building(x,z,w,d,3.4,i);s.exterior=facades[i].exterior;}
+ for(const s of shops.filter(s=>['dining','supplies'].includes(s.type))){const [x,z]=s.center;const f=facades[shops.indexOf(s)],p=f.point(0,2.29,f.d/2+.35),awning=piece(...p,2.3,.07,.8,cloth,true);awning.rotation.y=f.angle;}
  layout.houses.forEach(([x,z],i)=>building(x,z,4.4+(i%2)*.5,4.3,2.8+(i%3)*.2,i+4));
- for(const [i,name]of [[0,'岸辺の住まい'],[1,'木窓の住まい']]){const [x,z]=layout.houses[i];shops.push({id:'lun-house-'+i,name,center:[x,z],size:[4.4,4.3],type:'residential',hours:{morning:'open',day:'open',evening:'open',night:'closed'},buildInterior:buildLunmereInterior,exterior:{at:[x,6.16,z+2.2],approach:[x,6.16,z+3.55],angle:0,normal:[0,0,1]}});}
+ for(const [i,name]of [[0,'岸辺の住まい'],[1,'木窓の住まい']]){const [x,z]=layout.houses[i];shops.push({id:'lun-house-'+i,name,center:[x,z],size:[4.4,4.3],type:'residential',hours:{morning:'open',day:'open',evening:'open',night:'closed'},buildInterior:buildLunmereInterior,exterior:facades[i+4].exterior});}
  const pier=piece(-418,6,-4.4,2.4,.16,5.2,wood);pier.userData.walkFloor=true;floors.push(pier);for(const x of [-419,-417])for(const z of [-2.5,-6.5])piece(x,3.9,z,.16,2.1,.16,wet,true);
  const skiff=lake.boat.clone();skiff.name='Lunmereの係留舟';skiff.position.set(-420,5.88,-6);skiff.scale.setScalar(.8);skiff.traverse(o=>o.userData.walkSoft=true);root.add(skiff);const mooring=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-419,6.16,-5),new THREE.Vector3(-419.7,5.99,-5.8)]),new THREE.LineBasicMaterial({color:0x827969}));root.add(mooring);
  const bench=piece(-435,6.16,18,1.9,.43,.38,wood);catSteps.push(bench);
@@ -45,7 +55,7 @@ export function buildLunmere({THREE,scene,box,residentScale,lake}){
  localPaths['lun-square']=[center,[-429,6.16,23.5]];localPaths['lun-shore']=[center,[-430,6.16,12],[-432,6.16,12],[-432,6.16,-2]];localPaths['lun-pier']=[center,[-418,6.16,22],[-418,6.16,9],[-418,6.16,-2]];
  for(const s of shops){const p=approaches[s.id];localPaths[s.id]=s.id==='lun-inn'?[center,[-415,6.16,22],[-415,6.16,p[2]],p]:s.id==='lun-store'?[center,[-437,6.16,22],[-437,6.16,p[2]],p]:[center,[p[0],6.16,22],p];}
  const workIds=['lun-inn','lun-boats','lun-store','lun-store','lun-diner','lun-pier'];
- for(let i=0;i<14;i++){const path=localPaths[workIds[i%6]],p=path.at(-1),x=p[0]+([3,5].includes(i%6)?-1.5:1.5),z=p[2]+3+Math.floor(i/6)*1.7;localPaths['lun-home-'+i]=[...path,[x,6.16,z]];}
+ for(let i=0;i<14;i++){const id=workIds[i%6],path=localPaths[id],p=path.at(-1),shop=shops.find(s=>s.id===id),n=shop?.exterior.normal??[0,0,1],side=[3,5].includes(i%6)?-1.5:1.5,out=3+Math.floor(i/6)*1.7;let home=[p[0]+n[0]*out+n[2]*side,6.16,p[2]+n[2]*out-n[0]*side];if(id==='lun-boats'){home=[shop.center[0]+shop.size[0]/2+2+Math.floor(i/6)*1.7,6.16,shop.center[1]+1.5];localPaths['lun-home-'+i]=[...path,[home[0],6.16,p[2]],home];}else localPaths['lun-home-'+i]=[...path,home];}
  for(const path of Object.entries(localPaths).filter(([id])=>['lun-square','lun-shore','lun-pier','lun-inn','lun-diner','lun-boats','lun-store'].includes(id)).map(([,path])=>path))strip(path.map(p=>[p[0],p[1]+.007,p[2]]),1.4,stone);
  const oil=glow.clone();oil.userData.blackoutBackup=true;materials.oil=oil;
  for(const [x,z]of [[-402,19],[-430,20],[-418,8]]){piece(x,6.16,z,.10,1.1,.10,wood,true);const lamp=piece(x,7.26,z,.18,.25,.18,oil,true);lamp.name='湖畔の小さな油灯';}

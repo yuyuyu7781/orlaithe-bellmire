@@ -1,3 +1,4 @@
+import {streetFrontage,frontageFrame} from './town-frontage.js';
 import {communityPlaces} from './resident-layout.js?v=52.8';
 import {buildClosure,closureBlocks} from './capital-closures.js?v=52.7';
 import {researchStage} from './capital-research-data.js';
@@ -50,10 +51,18 @@ export function buildCaerVeyra({THREE,scene,box,residentScale}){
   // Perimeter remnants keep unsupported spaces legible, with road-sized openings.
   for(let i=0;i<20;i++){const x=cx-w.size[0]/2+i*w.size[0]/19;if(Math.abs(x-cx)<5)continue;for(const sign of [-1,1])batch.add('block',materials.old,[x,y+.48,cz+sign*w.size[1]/2],[w.size[0]/19,.96,.55]);}
   const list=capitalFacilities.filter(s=>s.ward===w.id).map(s=>({...s,center:[cx+s.offset[0],cz+s.offset[1]],buildInterior:buildCapitalInterior,restable:s.type==='lodging'}));shops.push(...list);
-  function building(x,z,bw,bd,bh,index,facility=null){const material=w.id==='oldQuarter'?materials.old:index%3?materials.stone:materials.honey,baseY=facility?.type==='cellar'?y-.75:y;batch.add('block',material,[x,baseY+bh/2,z],[bw,bh,bd]);const collision=proxy(x,baseY,z,bw,bh,bd,facility?.name??w.name+'の住居 '+index);wards[w.id].proxies.push(collision);const shell={object:collision,b:new THREE.Box3().setFromObject(collision,true)};shells.push(shell);wards[w.id].buildings.push(shell);
-   wards[w.id].roofItems.push({material:index%4===0?materials.copper:materials.roof,position:[x,baseY+bh,z],scale:[bw+.3,index%3===0?1.15:.8,bd+.3]});
-   for(const sign of [-1,1]){deco.add('block',materials.wood,[x+sign*bw*.28,y+1.3,z+bd/2+.025],[.55,.8,.04]);deco.add('block',light,[x+sign*bw*.28,y+1.3,z+bd/2+.055],[.42,.6,.025]);}deco.add('block',materials.wood,[x,y+1,z+bd/2+.03],[1,2,.04]);
-   if(facility){if(['lodging','dining','waterworks','observatory','repair'].includes(facility.type))deco.add('block',oil,[x+.9,y+1.7,z+bd/2+.14],[.15,.23,.16]);facility.exterior={at:[x,y,z+bd/2+.05],approach:[x,y,z+bd/2+1.4],normal:[0,0,1],angle:0};facility.inside='普通の仕事と、長く使われた石が同じ部屋にある。';facility.catInside='木と紙と、何度も戻ってきた人の匂いがある。';}
+  function building(x,z,bw,bd,bh,index,facility=null){
+   const roads=[[[cx-w.size[0]/2,y,cz],[cx+w.size[0]/2,y,cz]],[[cx,y,cz-w.size[1]/2],[cx,y,cz+w.size[1]/2]]];
+   // Water-facing operations use the canal bank; other fronts use the street cross.
+   const routes=w.id==='canalWard'&&['warehouse','waterworks'].includes(facility?.type)?[roads[0]]:roads;
+   const angle=streetFrontage(x,z,routes),f=frontageFrame(x,y,z,bw,bd,angle),material=w.id==='oldQuarter'?materials.old:index%3?materials.stone:materials.honey,baseY=facility?.type==='cellar'?y-.75:y;
+   batch.add('block',material,[x,baseY+bh/2,z],[f.w,bh,f.d],angle);const collision=proxy(x,baseY,z,bw,bh,bd,facility?.name??w.name+'の住居 '+index);collision.userData.frontage={angle,normal:f.n};wards[w.id].proxies.push(collision);const shell={object:collision,b:new THREE.Box3().setFromObject(collision,true),frontage:f};shells.push(shell);wards[w.id].buildings.push(shell);
+   wards[w.id].roofItems.push({material:index%4===0?materials.copper:materials.roof,position:[x,baseY+bh,z],scale:[f.w+.3,index%3===0?1.15:.8,f.d+.3],angle});
+   const window=(lx,lz,turn=angle)=>{const type=facility?.type,ww=['archive','records','maps','observatory'].includes(type)?.5:type==='lodging'||type==='dining'?.85:.55,hh=['archive','records','maps','observatory'].includes(type)?1.2:.8;deco.add('block',materials.wood,f.point(lx,1.3,lz),[ww,hh,.04],turn);deco.add('block',light,f.point(lx,1.3,lz+.025),[ww*.77,hh*.75,.025],turn);};
+   for(const sign of [-1,1])if(facility?.type!=='warehouse'||sign===-1)window(sign*f.w*.28,f.d/2+.025);
+   if(index%3===1)deco.add('block',light,f.point(f.w/2+.025,1.5,-f.d*.2),[.45,.6,.03],angle+Math.PI/2);
+   deco.add('block',materials.wood,f.point(0,1,f.d/2+.03),[1,2,.04],angle);
+   if(facility){if(['lodging','dining','waterworks','observatory','repair'].includes(facility.type))deco.add('block',oil,f.point(.9,1.7,f.d/2+.14),[.15,.23,.16],angle);facility.exterior=f.exterior;facility.inside='普通の仕事と、長く使われた石が同じ部屋にある。';facility.catInside='木と紙と、何度も戻ってきた人の匂いがある。';}
   }
   list.forEach((s,i)=>building(...s.center,...s.size,s.type==='bell'?11:s.type==='archive'?6:s.type==='cellar'?3:4.5,i,s));
   let n=0;for(const dx of [-29,-16,16,29])for(const dz of [-29,-15,15,29,-7.5,7.5]){if(w.id==='canalWard'&&dz===-7.5&&dx>0)continue;const x=cx+dx,z=cz+dz;if(list.some(s=>Math.abs(x-s.center[0])<s.size[0]/2+5&&Math.abs(z-s.center[1])<s.size[1]/2+5))continue;building(x,z,6+(n%2),5.6,3.2+(n%3)*.65,8+n++);}
@@ -82,7 +91,7 @@ export function buildCaerVeyra({THREE,scene,box,residentScale}){
    deco.add('block',materials.old,[cx-14,y+.6,cz+8],[2,1.2,2]);deco.add('block',materials.wood,[cx-14,y+1.22,cz+8],[2,.12,2]);
    for(const dx of [-4,4])deco.add('block',materials.old,[cx+dx,y+1.4,cz-11],[1,2.8,1]);deco.add('block',materials.old,[cx,y+2.9,cz-11],[9,.6,1]);
   }
-  for(const material of [materials.roof,materials.copper]){const items=wards[w.id].roofItems.filter(r=>r.material===material),mesh=new THREE.InstancedMesh(roofGeo,material,items.length),dummy=new THREE.Object3D();items.forEach((r,i)=>{dummy.position.fromArray(r.position);dummy.scale.fromArray(r.scale);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.userData.walkSoft=true;g.add(mesh);}batch.finish();deco.finish();
+  for(const material of [materials.roof,materials.copper]){const items=wards[w.id].roofItems.filter(r=>r.material===material),mesh=new THREE.InstancedMesh(roofGeo,material,items.length),dummy=new THREE.Object3D();items.forEach((r,i)=>{dummy.position.fromArray(r.position);dummy.scale.fromArray(r.scale);dummy.rotation.y=r.angle??0;dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});mesh.userData.walkSoft=true;g.add(mesh);}batch.finish();deco.finish();
  }
  // Canal crossing uses real supported strips; its banks remain dry and accessible.
  const canal=wards.canalWard,cy=8;gatePiece(-684,7.82,-320,64,.025,7.6,materials.water,canal.root);for(const z of [-324.2,-315.8])gatePiece(-684,7.4,z,66,.6,.65,materials.old,canal.root);strip([[-684,8,-332],[-684,8,-308]],5,materials.stone,canal.root);gatePiece(-659,8,-320,1.2,2.8,7.8,materials.old,canal.root);const sluice=gatePiece(-660,7.9,-320,.2,1.8,6.8,materials.wood,canal.root);canal.sluice=sluice;const reflection=gatePiece(-691,7.85,-320,1.3,.012,6.4,materials.old,canal.root);canal.reflection=reflection;
