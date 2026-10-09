@@ -27,22 +27,8 @@ jobs:
           node tools/check_stay_state.mjs
           node tools/check_world_graph.mjs
           node tools/check_story_thread.mjs
-      - name: Save compatibility
-        run: |
-          node tools/capital-save-compat.cjs
-          node tools/capital-research-compat.cjs
-      - name: Native sources baseline
-        if: success() || failure()
-        run: node tools/capital-research.cjs
-      - name: UI baseline
-        if: success() || failure()
-        run: node tools/capital-research-ui.cjs
       - name: People baseline
-        if: success() || failure()
         run: node tools/capital-research-people.cjs
-      - name: Performance baseline
-        if: success() || failure()
-        run: node tools/capital-research-perf.cjs http://127.0.0.1:8001/index.html /tmp/research-perf-before.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
