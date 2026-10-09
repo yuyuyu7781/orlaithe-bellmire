@@ -1,4 +1,4 @@
-import {buildDedicatedCapitalInterior,dedicatedRoomIds} from './capital-dedicated-interiors.js';
+import {buildDedicatedCapitalInterior,dedicatedRoomIds} from './capital-dedicated-interiors.js?v=53.2';
 // Uses the existing lazy shop/room lifecycle. Only the entered room is rendered.
 export function buildCapitalInterior({THREE,shop}){
  if(dedicatedRoomIds.includes(shop.id))return buildDedicatedCapitalInterior({THREE,shop});
