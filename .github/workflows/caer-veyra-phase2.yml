@@ -1,7 +1,7 @@
 name: Caer Veyra Phase 2 verification
 on:
   push:
-    branches: [phase2-plan-a]
+    branches: [phase2-plan-a, main]
 permissions:
   contents: read
 jobs:
@@ -20,15 +20,60 @@ jobs:
           sudo ln -sf "$(node -e "process.stdout.write(require('playwright').chromium.executablePath())")" /usr/bin/chromium
       - name: Serve isolated test origin
         run: python3 -m http.server 8001 --bind 127.0.0.1 > /tmp/phase2-server.log 2>&1 &
-      - name: Node checks
+      - name: Node regression 22
         run: |
-          node tools/check_capital_research.mjs
-          node tools/check_capital.mjs
+          node tools/check_stay_weather.mjs
           node tools/check_stay_state.mjs
+          node tools/check_progression_mire.mjs
+          node tools/check_drowned_way.mjs
+          node tools/check_navigation_data.mjs
+          node tools/check_nine_terrain.mjs
+          node tools/check_lunmere.mjs
+          node tools/check_boat_caerith.mjs
+          node tools/check_watercourse.mjs
+          node tools/check_capital_research.mjs
           node tools/check_world_graph.mjs
+          node tools/check_lake_regions.mjs
+          node tools/check_resident_layout.mjs
+          node tools/check_ring.mjs
+          node tools/check_portrait_framing.mjs
+          node tools/check_capital.mjs
+          node tools/check_resident_life.mjs
+          node tools/check_town_calendar.mjs
+          node tools/check_docking.mjs
           node tools/check_story_thread.mjs
-      - name: Six evidence acceptance
+          node tools/check_scene_data.mjs
+          node tools/check_shop_data.mjs
+      - name: Save compatibility
+        run: |
+          node tools/capital-save-compat.cjs
+          node tools/capital-research-compat.cjs
+      - name: Existing evidence sources
+        if: success() || failure()
+        run: node tools/capital-research.cjs
+      - name: UI regression
+        if: success() || failure()
+        run: node tools/capital-research-ui.cjs
+      - name: People regression
+        if: success() || failure()
+        run: node tools/capital-research-people.cjs
+      - name: Six evidence and boundary regression
+        if: success() || failure()
         run: node tools/capital-phase2-acceptance.cjs
+      - name: Existing physical closures
+        if: success() || failure()
+        run: node tools/capital-closures.cjs
+      - name: Same runner performance comparison
+        if: success() || failure()
+        run: |
+          cp capital-research.js /tmp/phase2-verified-research.js
+          trap 'cp /tmp/phase2-verified-research.js capital-research.js' EXIT
+          git show 22ab0b88729379e068e6ee12067b6a20fd5d59f0:capital-research.js > capital-research.js
+          node tools/capital-research-perf.cjs http://127.0.0.1:8001/index.html /tmp/research-perf-before-same-runner.json
+          cp /tmp/phase2-verified-research.js capital-research.js
+          node tools/capital-research-perf.cjs http://127.0.0.1:8001/index.html /tmp/research-perf-after-same-runner.json
+          node tools/capital-phase2-perf-compare.cjs /tmp/research-perf-before-same-runner.json /tmp/research-perf-after-same-runner.json /tmp/research-performance-same-runner.csv
+          git diff --exit-code -- capital-research.js
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -36,5 +81,6 @@ jobs:
           path: |
             /tmp/*research*.json
             /tmp/*research*.png
+            /tmp/research-performance-same-runner.csv
             /tmp/capital-*.json
             /tmp/world-compat.json
