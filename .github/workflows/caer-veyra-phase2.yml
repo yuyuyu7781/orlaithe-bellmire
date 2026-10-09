@@ -27,8 +27,8 @@ jobs:
           node tools/check_stay_state.mjs
           node tools/check_world_graph.mjs
           node tools/check_story_thread.mjs
-      - name: Six evidence acceptance
-        run: node tools/capital-phase2-acceptance.cjs
+      - name: People baseline
+        run: node tools/capital-research-people.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
