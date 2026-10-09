@@ -36,9 +36,9 @@ const fs=require('node:fs');
   await act('talk:cvElda');assert.equal(await p.evaluate(()=>app.dialogue.conversationLog.at(-1).speakerId),'cvElda');assert.ok(await found('cv:elda-memory'));out.acquired.push({key:'cv:elda-memory',via:'natural schedule, outdoor starting fixture, W and E',elder});await dismiss();
   const titles=await p.evaluate(()=>Object.fromEntries(app.capitalResearch.list().map(i=>[i.key,i.title])));
   assert.equal(titles['doc:palace'],undefined);assert.equal(titles['doc:passage'],undefined);
-  await p.locator('#capital-research-button').click();
+  if(!await p.locator('#capital-research-button').isVisible())await p.locator('#toggle').click();await p.locator('#capital-research-button').click();
   const compare=p.getByRole('button',{name:'並べて記録する',exact:true});
-  async function clear(){for(const b of await p.locator('.research-choices button[aria-pressed="true"]').all())await b.click();}
+  async function clear(){while(await p.locator('.research-choices button[aria-pressed="true"]').count())await p.locator('.research-choices button[aria-pressed="true"]').first().click();}
   await p.getByRole('button',{name:titles['doc:building'],exact:true}).click();assert.ok(await compare.isDisabled());
   for(const key of ['doc:commerce','doc:oldMap','trace:wall-stairs'])await p.getByRole('button',{name:titles[key],exact:true}).click();assert.equal(await p.locator('.research-comparison article').count(),3);await clear();
   const pairs=[['doc:building','trace:wall-stairs'],['doc:commerce','memory:elda'],['doc:oldMap','trace:wall-stairs'],['doc:building','cat:records-floor']],covered=new Set();
