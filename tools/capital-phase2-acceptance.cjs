@@ -1,3 +1,4 @@
+// Synthetic scenario: acquired evidence uses player inputs; setup never seeds target evidence.
 const {boot}=require('./capital-browser.cjs');
 const {plan,move}=require('./native-navigation.cjs');
 const talk=require('./native-talk.cjs');
