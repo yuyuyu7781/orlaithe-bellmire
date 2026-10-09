@@ -16,7 +16,7 @@ for(const spec of [
  const d=app.stayState.data;d.discoveries={};d.journal=[];d.memories={lunBoat:{human:{visits:5,firstDay:4,lastDay:20}}};d.currentDay=30;
  d.boatDock='caerith';d.waterLevelState={day:30,phase:'veryLow',firstLowDay:4,firstRingDay:7};d.travelHistory=[{day:20,region:'lunmere',mode:'human',travelMode:'road'}];
  d.threads.bell={stage:'afterglow',anomalyDay:6,catFound:true};d.threads.ring={stage:'compared'};d.threads.caerVeyraRecords={stage:spec.stage??'unseen'};
- let keys=['region:lunmere','region:caerith'];if(spec.name!=='S0')keys.push('region:violet-mire','cv:arrival');
+ let keys=['region:lunmere','region:caerith','ring:visit','ring:direction','ring:groove'];if(spec.name!=='S0')keys.push('region:violet-mire','cv:arrival');
  if(spec.stage==='ordinary')keys.push('region:caer-canalWard');
  if(spec.stage==='missing')keys.push('cv:records-map','cv:archive-catalog');
  keys.push(...['commerce','building','canal','oldMap'].slice(0,spec.docs).map(id=>'cv:doc:'+id));
