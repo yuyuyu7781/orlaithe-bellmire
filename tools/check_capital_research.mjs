@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {defaultStay,validateStay} from '../stay-state.js';
+import {defaultStay,validateStay,createStayState,SAVE_KEY,SAVE_VERSION} from '../stay-state.js';
 import {researchDocuments,researchTraces,researchCatFinds,researchStage} from '../capital-research-data.js';
 import {lodgingCharacters} from '../lodging-data.js';
 import {capitalCharacters} from '../caer-veyra-data.js';
@@ -31,3 +31,13 @@ const injected=defaultStay();for(const id of ['commerce','building','canal','old
 for(const id of ['cv:compare:unknown','cv:compare:doc-unread','cv:trace:wall-stairs'])injected.discoveries[id]={day:30};
 assert.equal(researchStage(injected),'olderLayerSuspected','legacy comparison prefix counting remains unchanged');
 console.log('PASS independent stage boundaries, non-trace evidence, legacy unknown comparisons and storage bounds');
+
+assert.equal(SAVE_KEY,'bellmire.stay.v1');assert.equal(SAVE_VERSION,1);
+for(const failure of ['invalid','future','denied']){
+ const raw=failure==='invalid'?'{broken':JSON.stringify({version:999,currentDay:8});
+ let writes=0;const storage={getItem(){if(failure==='denied')throw Error('blocked');return raw;},setItem(){writes++;if(failure==='denied')throw Error('quota');}};
+ const state=createStayState({storage});assert.equal(state.data.currentDay,1);state.note('test','合成データ');const flushed=state.flush();
+ assert.equal(flushed,failure==='invalid');assert.equal(state.status.error,failure==='future'?'newer-save':failure==='denied'?'storage-unavailable':'invalid-or-unavailable-save');
+ assert.equal(writes,failure==='future'?0:1);
+}
+console.log('PASS fixed v1 key/version, malformed/newer/denied storage fallback without real saves');

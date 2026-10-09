@@ -17,6 +17,8 @@ for(const spec of [
  d.boatDock='caerith';d.waterLevelState={day:30,phase:'veryLow',firstLowDay:4,firstRingDay:7};d.travelHistory=[{day:20,region:'lunmere',mode:'human',travelMode:'road'}];
  d.threads.bell={stage:'afterglow',anomalyDay:6,catFound:true};d.threads.ring={stage:'compared'};d.threads.caerVeyraRecords={stage:spec.stage??'unseen'};
  let keys=['region:lunmere','region:caerith'];if(spec.name!=='S0')keys.push('region:violet-mire','cv:arrival');
+ if(spec.stage==='ordinary')keys.push('region:caer-canalWard');
+ if(spec.stage==='missing')keys.push('cv:records-map','cv:archive-catalog');
  keys.push(...['commerce','building','canal','oldMap'].slice(0,spec.docs).map(id=>'cv:doc:'+id));
  keys.push(...['cv:compare:doc-building_doc-commerce','cv:compare:doc-canal_doc-oldMap'].slice(0,spec.pairs));
  if(spec.physical)keys.push(spec.physical);if(spec.reverse)keys.reverse();
@@ -28,7 +30,7 @@ for(const spec of [
  const restored=await p.evaluate(()=>{app.capitalLife.sync();app.stayState.changed();app.stayState.flush();return JSON.parse(localStorage.getItem('bellmire.stay.v1'));});
  for(const key of result.keys)assert.ok(restored.discoveries[key],spec.name+' '+key);
  assert.equal(restored.threads.caerVeyraRecords.stage,result.stage,spec.name);
- if(spec.docs)assert.equal(restored.threads.caerVeyraRecords.stage,spec.stage,spec.name);
+ if(spec.stage)assert.equal(restored.threads.caerVeyraRecords.stage,spec.stage,spec.name);
  assert.equal(restored.currentDay,30);assert.equal(restored.boatDock,'caerith');assert.equal(restored.memories.lunBoat.human.visits,5);
  assert.equal(restored.threads.bell.stage,'afterglow');assert.equal(restored.threads.ring.stage,'compared');
  assert.deepEqual(restored.waterLevelState,result.water);assert.deepEqual(restored.travelHistory,result.history);

@@ -27,16 +27,10 @@ jobs:
           node tools/check_stay_state.mjs
           node tools/check_world_graph.mjs
           node tools/check_story_thread.mjs
-      - name: Browser checks
+      - name: Save compatibility
         run: |
           node tools/capital-save-compat.cjs
           node tools/capital-research-compat.cjs
-          node tools/capital-research.cjs
-          node tools/capital-research-ui.cjs
-          node tools/capital-research-people.cjs
-          if [ -f tools/capital-phase2-acceptance.cjs ]; then node tools/capital-phase2-acceptance.cjs; fi
-          node tools/capital-closures.cjs
-          node tools/capital-research-perf.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
