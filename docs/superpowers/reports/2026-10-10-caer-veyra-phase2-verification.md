@@ -114,3 +114,15 @@ Task 4 最終一括結果： [run37964647847](https://github.com/yuyuyu7781/orla
 - Task 4: Ruling: checkout is shallow, fetch exact baseline commit before A/B source substitution and restore with trap plus git diff assertion; no tracked production fixture copy. Cost if wrong: A/B could compare wrong code, guarded by exact git show and restoration.
 - Task 4: Ruling: legacy bellmire-v101.yml is already invalid YAML (unindented JS in run block), generates zero-job failures on every push. Leave unrelated legacy workflow untouched under minimal-scope instruction; report separately from Phase2 PASS. Cost if wrong: repository all-workflow badge remains red despite target suite being green.
 - Task 4: Ruling: distinguish configured17 slots/9 facilities from actual15 dedicated-room document placements/7 document facilities. Generic passage/guild factory has no research-document generation; mark those2 as baseline configuration gap, not verified physical routes. Six representatives all passed; add no content under A. Cost if wrong: readers may overestimate placement coverage.
+
+## 最終確認・Task4再開
+
+Task1〜3の実装・修正を重複せず、Task4完了記録と現在のHEADを照合した。現在のb392efa38f7933055ab88a78a1512b2bff7f569cでは [run37967127714](https://github.com/yuyuyu7781/orlaithe-bellmire/actions/runs/37967127714)、job113944155846の全stepがPASS。22 Node、save、sources、UI、people、六種類・非解放・宿泊・舟、既存閉鎖、同一runner性能比較を含む。39条件の描画数とNPC118が完全一致、このrunのCPU中央値は0.4→0.4ms。先のrun37964647847の0.4→0.5msとは別測定として残す。実機FPSの保証にはしない。
+
+新しいコンテキストのgpt-6-astraによるブランチ全体の単一最終レビュー：Critical0／Important0／Minor1。追加本体修正なし。Minorは承認済み設計ファイル290行のEOF空行のみで保留（git diff --checkの整形警告、本体影響なし）。
+
+レビューで判断保留となった実機touch/GPUと自然Day1通しプレイは未検証のまま。Task5／AC12／最終受け入れはPENDING。状態は「自動検証済み／実機確認待ち」。
+
+追加判断（順序を保持）：
+- Final: Ruling: resume from recorded Task4 completion and exact-HEAD automatic evidence; do not reimplement/reexecute Tasks1–3 — latest user instruction and durable ledger agree — cost if wrong: a stale record could miss a regression; exact b392 full CI independently confirmed.
+- Final: Ruling: reviewer declined real-phone touch/GPU and complete natural Day1 playthrough; keep Task5/AC12 and overall acceptance pending, state bounded automated route coverage — user owns phone testing, hosted fixtures cannot prove device behavior — cost if wrong: device or natural progression defects remain undiscovered until manual confirmation.
