@@ -68,6 +68,7 @@ jobs:
         run: |
           cp capital-research.js /tmp/phase2-verified-research.js
           trap 'cp /tmp/phase2-verified-research.js capital-research.js' EXIT
+          git fetch --depth=1 origin 22ab0b88729379e068e6ee12067b6a20fd5d59f0
           git show 22ab0b88729379e068e6ee12067b6a20fd5d59f0:capital-research.js > capital-research.js
           node tools/capital-research-perf.cjs http://127.0.0.1:8001/index.html /tmp/research-perf-before-same-runner.json
           cp /tmp/phase2-verified-research.js capital-research.js
