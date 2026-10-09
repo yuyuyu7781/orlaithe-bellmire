@@ -1,0 +1,14 @@
+export const lodgingFacilities=[
+ {id:'cv-civic-inn',name:'朝鐘の宿',ward:'civicWard',type:'lodging',offset:[-7.5,-29],size:[8,9],characterId:'cvTessa',restType:'inn'},
+ {id:'cv-scholar-house',name:'高台の共同下宿',ward:'scholarHeights',type:'lodging',offset:[22,-22],size:[10,10],characterId:'cvAven',restType:'residency'}
+].map(s=>({...s,restable:true,lodging:true,hours:{morning:'open',day:'open',evening:'open',night:'open'}}));
+const person=(id,name,role,ward,mainLocation,age,height,width,hair,lines)=>({id,name,role,ward,mainLocation,lodging:true,region:'caer-veyra',profile:{age,height,width,hair},visualProfile:{intro:role,palette:{cloth:'#778077',hair:'#'+hair.toString(16),wash:'#c1b89d'}},portrait:null,portraits:{periods:{},expressions:{}},lines:{human:{default:lines},cat:{default:['椅子の下は空いているよ。寝床は人が使うから、窓辺で休んでおいで。']}},schedule:Object.fromEntries(['morning','day','evening','night'].map(p=>[p,mainLocation]))});
+export const lodgingCharacters=[
+ person('cvTessa','テッサ','中央区の宿主','civicWard','cv-civic-inn',46,1.65,1.08,0x645a50,['朝一番なら記録院はまだ空いてるよ。荷物は受付の横へ。','許可証待ちの客が今週は多いね。朝食は早く用意するから。','明日の書類は共同机で揃えておくといい。夜は静かにね。']),
+ person('cvAven','アヴェン','共同下宿の主人','scholarHeights','cv-scholar-house',53,1.74,1.04,0x969180,['共同机の紙は、持ち主が戻るまでそのままにしておいて。','帰りが遅くても、湯と夜食は残してあるよ。','長い滞在の部屋と、今夜だけの部屋がある。外套は入口の横で乾かせる。']),
+ person('cvIsel','イセル','旅の学者','scholarHeights','cv-scholar-house',39,1.78,.94,0x554f46,['今日は北側の道を見てきた。数週間のつもりが、まだここにいる。','古い地図は、描いた人の癖まで見ないとね。歩いて比べると、合わない線も見えてくる。','道と方位を集めている。でも、似ているというだけでは何も決められない。'])
+];
+export function iselPresent({period,weather,dayIndex}){return period==='night'?(weather==='rain'||weather==='blackout'||dayIndex%7!==0):period==='evening'&&['rain','blackout'].includes(weather);}
+export function iselReply(data,index){const d=data.discoveries??{};if((d['crown:visit']||d['region:hollow-crown'])&&index%3===2)return '空白？ 地図では、空白は何もない場所とは限らない。現地で何が見えたのか、聞かせて。';if((d['ring:visit']||d['region:the-ring'])&&index%3===1)return '輪の形は、用途より先に残ることがある。何のためだったかは、形だけからは分からない。';if(d['region:nine-stones']||d['nine:visit'])return index%2?'配置まで似ているなら、少し話は変わるけど。向きと間隔も残しておきたい。':'石の並び？ 円形そのものは珍しくないよ。まずは、違うところも比べたい。';return null;}
+const civicRoles=['地方の役人','商人','建築申請の職人','家系記録を調べる市民','書記志望の旅人'],scholarRoles=['学生','測量師','地方の教師','観測者','地図写し','旅の記録者'];
+export function lodgingGuests(id,state){const academic=id==='cv-scholar-house',roles=academic?scholarRoles:civicRoles,night=['evening','night'].includes(state.period),count=academic?(night?2+state.dayIndex%3:state.period==='morning'?2:1):(state.period==='night'?2:state.period==='day'?2+state.dayIndex%3:2);return Array.from({length:count},(_,i)=>({key:(state.dayIndex*3+i)%roles.length,role:roles[(state.dayIndex*3+i)%roles.length],text:(academic?['高台の風は夜の方が冷たい。夜食があると助かるよ。','この机、昨日は測量の人が使っていた。今日は地図を写すだけ。','観測の帰りなんだ。雨の日は、紙を乾かす方が先になる。']:['記録院は午後から混むと聞いた。明日は早く出るつもり。','昨日は水路区で荷が足止めされた。ここで一晩待つよ。','申請の写しを揃えている。机を少し借りてもいいかな。'])[(state.dayIndex+i)%3]}));}

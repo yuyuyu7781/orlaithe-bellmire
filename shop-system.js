@@ -60,8 +60,8 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
  inspections.onPresent(({entry,kind})=>{if(kind==='talk'&&current&&entry.object.parent===current.root){conversation={object:entry.object,position:entry.object.getWorldPosition(new THREE.Vector3()),rotation:entry.object.rotation.clone()};}});
  function updateActors(){for(const [id,o]of actors){const place=community?.location(id)??travel?.location(id)??locationFor(id);if(current){const here=place===current.shop.id;o.visible=here;if(!here)continue;
     if(o.parent!==current.root)current.root.attach(o);
-    let p=current.npcPosition;if(id==='greenBard')p=[-2.5,0,2.7];else if(id==='boatworker')p=[1.1,0,-1.6];
-    const stations=current.workstations??[],key=current.shop.id+':'+id;let worker=workerStates.get(key);
+    let p=current.npcPositions?.[id]??current.npcPosition;if(id==='greenBard')p=[-2.5,0,2.7];else if(id==='boatworker')p=[1.1,0,-1.6];
+    const stations=current.npcWorkstations?.[id]??current.workstations??[],key=current.shop.id+':'+id;let worker=workerStates.get(key);
     if(!worker){worker={feet:new THREE.Vector3(...p).add(current.root.position),station:0,wait:id==='baker'&&townLife.state.period==='morning'?2:4,currentState:'working'};workerStates.set(key,worker);}
     if(conversation?.object===o){if(inspections.opened?.kind==='talk'&&inspections.opened.object===o){o.position.copy(o.parent.worldToLocal(conversation.position.clone()));o.rotation.copy(conversation.rotation);o.updateWorldMatrix(true,true);continue;}worker.wait=Math.max(worker.wait,.6);worker.currentState='working';conversation=null;}
     const dt=workTime;worker.wait-=dt;if(stations.length&&worker.wait<=0){const target=new THREE.Vector3(...stations[worker.station%stations.length]).add(current.root.position),delta=target.clone().sub(worker.feet),d=Math.hypot(delta.x,delta.z);
@@ -74,7 +74,7 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
     const p=anchors.get(place);if(p)setActor(o,p,id==='boatworker'?-.3:Math.PI/3);
    }
   }}
- function updateAppearance(){if(!current)return;current.applyTime?.(townLife.state);scene.background=current.background??=new THREE.Color(current.shop.id==='orrery'?0x484d4c:0x797060);scene.background.set(current.shop.id==='orrery'?0x484d4c:0x797060);scene.fog=current.fog??=new THREE.FogExp2(0x797060,0);scene.fog.density=0;
+ function updateAppearance(){if(!current)return;current.applyTime?.(townLife.state);scene.background=current.background??=new THREE.Color(current.shop.id==='orrery'?0x484d4c:0x797060);scene.background.set(current.backgroundColor??(current.shop.id==='orrery'?0x484d4c:0x797060));scene.fog=current.fog??=new THREE.FogExp2(0x797060,0);scene.fog.density=0;
   const night=townLife.state.period==='night',blackout=townLife.state.weather==='blackout';current.ambient.intensity=blackout?.28:night?.85:1.05;
   for(const m of Object.values(current.materials))if(m.emissive?.getHex())m.emissiveIntensity=m.userData.blackoutBackup?(blackout?1.35:night?.55:.30):blackout?.015:night?.70:.45;
   label.textContent=current.shop.name+' · '+shopStatus(current.shop,townLife.state.period);label.hidden=false;

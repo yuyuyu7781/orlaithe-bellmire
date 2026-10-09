@@ -1,3 +1,4 @@
+import {lodgingFacilities,lodgingCharacters} from './lodging-data.js';
 import {applyCapitalPortrait} from './caer-veyra-portraits.js?v=52.6';
 // Capital data stays independent of the renderer, clock and save consumers.
 export const capitalId='caer-veyra';
@@ -32,6 +33,7 @@ export const capitalFacilities=[
  facility('observatory','天文台','scholarHeights','observatory',-22,-22,12,12,'cvSerena'),facility('maps','地図庫','scholarHeights','maps',23,22,12,12,'cvYulio'),facility('academy','学院','scholarHeights','archive',-22,23,12,12,'cvNoah'),
  facility('val','ヴァル工房','oldQuarter','repair',-20,23,10,10,'cvVal'),facility('elda','エルダの家','oldQuarter','residential',20,22,9,10,'cvElda'),facility('old-bell','鐘のない鐘楼','oldQuarter','bell',20,-23,8,9),facility('cellar','半地下室','oldQuarter','cellar',-20,-23,9,10)
 ];
+capitalFacilities.push(...lodgingFacilities);
 capitalFacilities.find(s=>s.id==='cv-val').hours.night='closed';
 const people=[
  ['cvCedric','セドリック','城門の通行役人','lowerWard','cv-passage',42,1.73,.94,0x493e32,'几帳面な通行役人。濃茶の短髪。','Violet Mireから来たのか。今日は泥がひどかっただろ。名前は、この欄へ。','通行の記録には、荷の数まで書く。古い帳面には、頁が抜けたものもある。'],
@@ -49,7 +51,7 @@ const people=[
  ['cvElda','エルダ','旧区画の住人','oldQuarter','cv-elda',70,1.54,1.01,0xc3c0b2,'小柄な白髪の住人。昔の地名を普通に使う。','鐘のない鐘楼の方だよ。昔はここから水が見えたよ。','昔、ああいう色の外套を着た子がいたねえ。誰の家の子だったか。'],
  ['cvVal','ヴァル','石壁・鐘楼の修繕師','oldQuarter','cv-val',50,1.81,1.22,0x72695a,'骨太な修繕師。手に石粉。','使える石は戻す。合わない石は、横へ置く。','この片は、今の都市図にない場所のものだ。名前は知らん。']
 ];
-export const capitalCharacters=people.map(([id,name,role,ward,mainLocation,age,height,width,hair,intro,a,b])=>({id,name,role,ward,region:'caer-veyra',mainLocation,profile:{age,height,width,hair},visualProfile:{intro,palette:{cloth:ward==='oldQuarter'?'#696c60':'#6a7680',hair:'#'+hair.toString(16).padStart(6,'0'),wash:'#b6b1a0'},framing:{objectPositionX:50,objectPositionY:32,zoom:1,mobile:{objectPositionY:29,zoom:1}}},portrait:null,portraitDefault:null,portraitHappy:null,portraitSerious:null,portraitNight:null,portraits:{periods:{},expressions:{}},lines:{human:{default:[a,b]},cat:{default:[id==='cvLeon'?'またいるな。荷車の下で寝るなよ。':'その隙間なら通れるんだね。濡れた石には気をつけて。']}},schedule:{morning:['cvCedric','cvLeon'].includes(id)?'cv-work-'+id:mainLocation,day:id==='cvMira'?mainLocation:'cv-work-'+id,evening:ward==='lowerWard'?'cv-diner':mainLocation,night:id==='cvMira'?mainLocation:id==='cvLeon'?'cv-work-'+id:['cvOrm','cvSerena','cvVal'].includes(id)?mainLocation:'home'}})).map(applyCapitalPortrait);
+export const capitalCharacters=people.map(([id,name,role,ward,mainLocation,age,height,width,hair,intro,a,b])=>({id,name,role,ward,region:'caer-veyra',mainLocation,profile:{age,height,width,hair},visualProfile:{intro,palette:{cloth:ward==='oldQuarter'?'#696c60':'#6a7680',hair:'#'+hair.toString(16).padStart(6,'0'),wash:'#b6b1a0'},framing:{objectPositionX:50,objectPositionY:32,zoom:1,mobile:{objectPositionY:29,zoom:1}}},portrait:null,portraitDefault:null,portraitHappy:null,portraitSerious:null,portraitNight:null,portraits:{periods:{},expressions:{}},lines:{human:{default:[a,b]},cat:{default:[id==='cvLeon'?'またいるな。荷車の下で寝るなよ。':'その隙間なら通れるんだね。濡れた石には気をつけて。']}},schedule:{morning:['cvCedric','cvLeon'].includes(id)?'cv-work-'+id:mainLocation,day:id==='cvMira'?mainLocation:'cv-work-'+id,evening:ward==='lowerWard'?'cv-diner':mainLocation,night:id==='cvMira'?mainLocation:id==='cvLeon'?'cv-work-'+id:['cvOrm','cvSerena','cvVal'].includes(id)?mainLocation:'home'}})).map(applyCapitalPortrait).concat(lodgingCharacters);
 export const capitalObservations=[
  ['gate','lowerWard',0,8,'使われ続ける外門','新しい金具の下に、古い門の継ぎ目が残る。通行の声は途切れない。'],['market','lowerWard',-8,3,'市場の朝','布と朝食の匂いが重なる。古い柱に、今日の値札が結ばれている。'],['guide','lowerWard',8,6,'街の案内','水門は西、役所は北。古い呼び名が、余白に小さく残っている。'],['well','lowerWard',-14,5,'共同井戸','桶の縁は何度も直されている。井戸の石だけは、周りの舗装より暗い。'],['stable','lowerWard',-29,4,'門の内側の厩舎','旅人の馬に、今日の草が分けられている。古い門の影で、荷を降ろす。'],['notice','lowerWard',-9,-8,'運搬の公告','明日の水門通行と荷の搬入時刻が書かれている。'],
  ['canal-level','canalWard',12,4,'水位標','数字の下に、別の間隔で刻まれた古い線がある。管理人は今日の高さを記録している。'],['canal-ledger','canalWard',-10,7,'舟の順番','麦、石材、布。水門の帳面には、普通の荷が並ぶ。'],['canal-reflection','canalWard',6,-7,'夕方の運河','塔と橋の影が、水の上で長くほどける。揺れるたび、線の向きが少し変わる。'],['old-water','canalWard',-12,-9,'古い石積み','新しい水門の下に、違う幅の石が続いている。'],
