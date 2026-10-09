@@ -1,0 +1,48 @@
+name: Caer Veyra Phase 2 verification
+on:
+  push:
+    branches: [phase2-plan-a]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Browser dependencies
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+          sudo ln -sf "$(node -e "process.stdout.write(require('playwright').chromium.executablePath())")" /usr/bin/chromium
+      - name: Serve isolated test origin
+        run: python3 -m http.server 8001 --bind 127.0.0.1 > /tmp/phase2-server.log 2>&1 &
+      - name: Node checks
+        run: |
+          node tools/check_capital_research.mjs
+          node tools/check_capital.mjs
+          node tools/check_stay_state.mjs
+          node tools/check_world_graph.mjs
+          node tools/check_story_thread.mjs
+      - name: Browser checks
+        run: |
+          node tools/capital-save-compat.cjs
+          node tools/capital-research-compat.cjs
+          node tools/capital-research.cjs
+          node tools/capital-research-ui.cjs
+          node tools/capital-research-people.cjs
+          if [ -f tools/capital-phase2-acceptance.cjs ]; then node tools/capital-phase2-acceptance.cjs; fi
+          node tools/capital-closures.cjs
+          node tools/capital-research-perf.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: phase2-verification
+          path: |
+            /tmp/*research*.json
+            /tmp/*research*.png
+            /tmp/capital-*.json
+            /tmp/world-compat.json
