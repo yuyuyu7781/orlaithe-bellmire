@@ -33,8 +33,8 @@ for(const spec of [
  if(spec.stage)assert.equal(restored.threads.caerVeyraRecords.stage,spec.stage,spec.name);
  assert.equal(restored.currentDay,30);assert.equal(restored.boatDock,'caerith');assert.equal(restored.memories.lunBoat.human.visits,5);
  assert.equal(restored.threads.bell.stage,'afterglow');assert.equal(restored.threads.ring.stage,'compared');
- assert.deepEqual(restored.waterLevelState,result.water);assert.deepEqual(restored.travelHistory,result.history);
+ assert.deepEqual(restored.waterLevelState,result.water);assert.deepEqual(restored.travelHistory,[...result.history,{day:30,region:'bellmire',mode:'human',travelMode:'road'}]);
  assert.ok(!restored.discoveries['cv:elda-memory']);if(spec.physical!=='cv:research-cat:records-floor')assert.ok(!restored.discoveries['cv:research-cat:records-floor']);
  out.push({era:spec.name,stage:restored.threads.caerVeyraRecords.stage,roundTrip:true});
 }
-if(b.errors.length)throw Error(b.errors);fs.writeFileSync('/tmp/research-compat.json',JSON.stringify(out,null,2));console.log('PASS three legacy save eras, fourteen official profiles, old threads, conversations and name migration');}finally{await b.browser.close();}})().catch(e=>{console.error(e);process.exit(1)});
+if(b.errors.length)throw Error(b.errors);fs.writeFileSync('/tmp/research-compat.json',JSON.stringify(out,null,2));console.log('PASS three legacy eras + nine round trips, optional Elda/cat, original fourteen portraits and startup travel append');}finally{await b.browser.close();}})().catch(e=>{console.error(e);process.exit(1)});
