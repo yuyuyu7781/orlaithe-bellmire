@@ -5,7 +5,7 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
  const allShops=[...shops,...extraShops];
  const roomListeners=new Set(),rooms=new Map(),entrances=[],actors=new Map(dialogue.entries.map(e=>[e.character.id,e.object]));
  const originals=new Map([...actors].map(([id,o])=>[id,{parent:o.parent,position:o.position.clone(),rotation:o.rotation.clone(),visible:o.visible}]));
- const townRoots=[...scene.children],savedVisibility=new Map(),outdoorPoints=[];scene.traverse(o=>{if(o.isPointLight)outdoorPoints.push(o);});let workTime=0;const porchStates=new Map();const workerStates=new Map();let travel=null,community=null;let current=null,returnPoint=null,returnYaw=0,savedBackground=null,savedFog=null;
+ const townRoots=[...scene.children],savedVisibility=new Map(),outdoorPoints=[];scene.traverse(o=>{if(o.isPointLight)outdoorPoints.push(o);});let conversation=null;let workTime=0;const porchStates=new Map();const workerStates=new Map();let travel=null,community=null;let current=null,returnPoint=null,returnYaw=0,savedBackground=null,savedFog=null;
  const label=document.createElement('div');label.className='room-label';label.hidden=true;document.body.append(label);
  const wood=new THREE.MeshStandardMaterial({color:0x775b42,roughness:1}),iron=new THREE.MeshStandardMaterial({color:0x42463d,roughness:1});
  const distance=(a,b)=>Math.hypot(a.x-b.x,a.z-b.z);
@@ -50,18 +50,20 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
   for(const p of outdoorPoints){p.userData.inactiveArea=true;p.visible=false;}
   current=room;scene.add(room.root);room.root.visible=true;walking.setArea(room.policy);walking.relocate(room.policy.spawn,{yaw:0});inspections.dismiss();updateActors();updateAppearance();inspections.resolver.refreshOccluders();inspections.update(.2);return true;}
  function restoreActors(){for(const [id,o] of actors){const initial=originals.get(id);if(o.parent!==initial.parent)initial.parent.attach(o);o.position.copy(initial.position);o.rotation.copy(initial.rotation);o.visible=initial.visible;}}
- function exit(){if(!current)return false;inspections.dismiss();current.root.visible=false;restoreActors();scene.remove(current.root);for(const [o,v]of savedVisibility){o.visible=v;if(o.isPointLight)o.userData.inactiveArea=false;}savedVisibility.clear();for(const p of outdoorPoints)p.userData.inactiveArea=false;scene.background=savedBackground;scene.fog=savedFog;
+ function exit(){if(!current)return false;conversation=null;inspections.dismiss();current.root.visible=false;restoreActors();scene.remove(current.root);for(const [o,v]of savedVisibility){o.visible=v;if(o.isPointLight)o.userData.inactiveArea=false;}savedVisibility.clear();for(const p of outdoorPoints)p.userData.inactiveArea=false;scene.background=savedBackground;scene.fog=savedFog;
   current=null;walking.setArea(null);const safe=safeNear(returnPoint,walking.state.profile.id)??new THREE.Vector3(0,1.38,32);walking.relocate(safe,{yaw:returnYaw+Math.PI});label.hidden=true;updateActors();onExit();inspections.update(.2);return true;}
  walking.onLeave(exit);
  inspections.handlers.set('enter',e=>enter(e.shop));inspections.handlers.set('exit',exit);
  const outdoorPositions={harbor:new THREE.Vector3(-19,1.38,37.32),waterfront:new THREE.Vector3(10,1.38,32),square:new THREE.Vector3(10,3.5,20)};
  const anchors=new Map();for(const [key,p]of Object.entries(outdoorPositions)){const safe=safeNear(p);if(!safe)throw Error('No safe daily location '+key);anchors.set(key,safe);}
  function setActor(o,p,rotation=0){o.updateWorldMatrix(true,true);const local=o.parent.worldToLocal(p.clone());o.position.copy(local);o.rotation.set(0,rotation,0);o.updateWorldMatrix(true,true);const bottom=new THREE.Box3().setFromObject(o,true).min.y;o.position.y+=p.y-bottom;}
+ inspections.onPresent(({entry,kind})=>{if(kind==='talk'&&current&&entry.object.parent===current.root){conversation={object:entry.object,position:entry.object.getWorldPosition(new THREE.Vector3()),rotation:entry.object.rotation.clone()};}});
  function updateActors(){for(const [id,o]of actors){const place=community?.location(id)??travel?.location(id)??locationFor(id);if(current){const here=place===current.shop.id;o.visible=here;if(!here)continue;
     if(o.parent!==current.root)current.root.attach(o);
     let p=current.npcPosition;if(id==='greenBard')p=[-2.5,0,2.7];else if(id==='boatworker')p=[1.1,0,-1.6];
     const stations=current.workstations??[],key=current.shop.id+':'+id;let worker=workerStates.get(key);
     if(!worker){worker={feet:new THREE.Vector3(...p).add(current.root.position),station:0,wait:id==='baker'&&townLife.state.period==='morning'?2:4,currentState:'working'};workerStates.set(key,worker);}
+    if(conversation?.object===o){if(inspections.opened?.kind==='talk'&&inspections.opened.object===o){o.position.copy(o.parent.worldToLocal(conversation.position.clone()));o.rotation.copy(conversation.rotation);o.updateWorldMatrix(true,true);continue;}worker.wait=Math.max(worker.wait,.6);worker.currentState='working';conversation=null;}
     const dt=workTime;worker.wait-=dt;if(stations.length&&worker.wait<=0){const target=new THREE.Vector3(...stations[worker.station%stations.length]).add(current.root.position),delta=target.clone().sub(worker.feet),d=Math.hypot(delta.x,delta.z);
      if(d<.05){worker.station++;worker.wait=(id==='starmaker'&&townLife.state.period==='night'?10:5)+worker.station%3;worker.currentState='working';}else{const blockedByPlayer=walking.active&&walking.state.feet.distanceTo(worker.feet)<.65;const step=Math.min(blockedByPlayer?0:(id==='starmaker'?.34:id==='bookseller'?.42:.50)*dt,d),x=worker.feet.x+delta.x/d*step,z=worker.feet.z+delta.z/d*step,y=walking.canStandActor('human',x,z,worker.feet.y,o);if(y!==null){worker.feet.set(x,y,z);worker.currentState='walking';}else{worker.wait=2;worker.station++;worker.currentState='working';}}}
     const feet=worker.feet;setActor(o,feet,stations.length?({bakery:1.6,bookshop:Math.PI,orrery:1.8,tavern:0}[current.shop.id]??0):0);o.userData.shopWork={currentState:worker.currentState,station:worker.station};o.visible=true;
