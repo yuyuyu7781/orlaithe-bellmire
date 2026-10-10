@@ -1,3 +1,4 @@
+import {installCameraInputDebug} from './camera-input-debug.js?v=1';
 import {gameModalOpen,resetGamePointers} from './game-input-state.js?v=52.9';
 // Walking is separate from the miniature's view/animation system. Future actors
 // can supply their own dimensions and ground policy without changing input/UI.
@@ -228,6 +229,7 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
   canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',release);
   canvas.addEventListener('lostpointercapture',release);
   canvas.addEventListener('contextmenu',e=>e.preventDefault());canvas.addEventListener('dragstart',e=>e.preventDefault());
+  installCameraInputDebug({canvas,getCamera:()=>({active:state.active,blocked:!!state.inputBlocked,modal:gameModalOpen(),yaw:state.yaw,pitch:state.pitch,pointer:lastPointer?{...lastPointer,captured:canvas.hasPointerCapture(lastPointer.id)}:null})});
   // Debug/authoring diagnostics use the same feet/body policy as real movement.
   // They never open an invisible corridor or change a collider.
   function inspectClearance(x,z,y,id='human'){
