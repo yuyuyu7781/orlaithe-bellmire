@@ -36,11 +36,12 @@ const {boot}=require('./capital-browser.cjs'),assert=require('assert');
   let r=await p.evaluate(()=>cameraInputDebug.snapshot());assert(r.counts.touchstart>0&&r.counts.touchend>0);assert.equal(r.current.camera.pointer,null);
   if(engine==='chromium'){
    const c=await p.context().newCDPSession(p);
+   const touch=async event=>{await c.send('Input.dispatchTouchEvent',event);await p.waitForTimeout(40);};
    for(const [start,end] of [[173.667,385.667],[301.667,35],[301.667,89.667]]){
     const q={id:8,x:start,y:380,radiusX:3,radiusY:3,force:1},yaw=await p.evaluate(()=>app.walking.state.yaw);
-    await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[q]});
-    for(let i=1;i<=8;i++)await c.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{...q,x:start+(end-start)*i/8}]});
-    await c.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+    await touch({type:'touchStart',touchPoints:[q]});
+    for(let i=1;i<=8;i++)await touch({type:'touchMove',touchPoints:[{...q,x:start+(end-start)*i/8}]});
+    await touch({type:'touchEnd',touchPoints:[]});
     assert(Math.abs(await p.evaluate(()=>app.walking.state.yaw)-yaw+(end-start)*.003)<.002,JSON.stringify({start,end,yaw}));
     assert.equal(await p.evaluate(()=>app.mobileInput.state.pointer),null);
    }
@@ -48,21 +49,21 @@ const {boot}=require('./capital-browser.cjs'),assert=require('assert');
    const box=await p.locator('#mobileJoystick').boundingBox();assert(box);
    const stick={id:10,x:box.x+box.width/2,y:box.y+box.height/2,radiusX:3,radiusY:3,force:1};
    const yaw=await p.evaluate(()=>app.walking.state.yaw);
-   await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[stick]});
+   await touch({type:'touchStart',touchPoints:[stick]});
    const held={...stick,y:stick.y-30};
-   await c.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[held]});
+   await touch({type:'touchMove',touchPoints:[held]});
    assert.equal(await p.evaluate(()=>app.walking.state.yaw),yaw,'joystick must not rotate camera');
    assert(await p.evaluate(()=>app.walking.input.analog.y>.5));
    const cam={id:11,x:173.667,y:380,radiusX:3,radiusY:3,force:1};
-   await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[held,cam]});
-   await c.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[held,{...cam,x:385.667}]});
+   await touch({type:'touchStart',touchPoints:[held,cam]});
+   await touch({type:'touchMove',touchPoints:[held,{...cam,x:385.667}]});
    // Live moves can be delivered on the next browser frame while fingers remain held.
    await p.waitForFunction(()=>cameraInputDebug.snapshot().current.camera.pointer?.x>385.6,null,{timeout:3000}).catch(async e=>{throw Error(e.message+'\n'+await p.evaluate(()=>cameraInputDebug.exportText()));});
    assert(Math.abs(await p.evaluate(()=>app.walking.state.yaw)-yaw+212*.003)<.002);
    assert(await p.evaluate(()=>app.mobileInput.state.pointer!==null&&app.walking.input.analog.y>.5));
-   await c.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[{...cam,x:385.667}]});
+   await touch({type:'touchEnd',touchPoints:[{...cam,x:385.667}]});
    assert(await p.evaluate(()=>app.mobileInput.state.pointer!==null));
-   await c.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+   await touch({type:'touchEnd',touchPoints:[]});
    assert.equal(await p.evaluate(()=>app.walking.input.analog.y),0);
    // DOM controls retain their own gestures; modal canvas starts stay blocked.
    const uiYaw=await p.evaluate(()=>app.walking.state.yaw);
@@ -72,23 +73,26 @@ const {boot}=require('./capital-browser.cjs'),assert=require('assert');
     await p.evaluate(m=>{if(m==='world')app.worldMap.openRegion();if(m==='city'){const d=app.stayState.data.discoveries,old=d['cv:arrival'];d['cv:arrival']={day:1};app.cityMap.open();if(old===undefined)delete d['cv:arrival'];else d['cv:arrival']=old;}if(m==='conversation')app.inspections.present(app.dialogue.entries[0],{text:'カメラ入力停止の確認。',kind:'talk'});app.mobileInput.update();},modal);
     assert(await p.evaluate(()=>cameraInputDebug.snapshot().current.camera.modal),'fixture must actually open '+modal);
     const beforeYaw=await p.evaluate(()=>app.walking.state.yaw);
-    await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[cam]});
-    await c.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{...cam,x:385.667}]});
-    await c.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+    await touch({type:'touchStart',touchPoints:[cam]});
+    await touch({type:'touchMove',touchPoints:[{...cam,x:385.667}]});
+    await touch({type:'touchEnd',touchPoints:[]});
     assert.equal(await p.evaluate(()=>app.walking.state.yaw),beforeYaw,modal+' must block camera');
     assert.equal(await p.evaluate(()=>cameraInputDebug.snapshot().current.camera.pointer),null);
     await p.evaluate(m=>{if(m==='world')app.worldMap.dialog.close();if(m==='city')app.cityMap.dialog.close();if(m==='conversation')app.inspections.dismiss();app.mobileInput.update();},modal);
+    await p.waitForFunction(()=>{const c=cameraInputDebug.snapshot().current.camera;return !c.blocked&&!c.modal;});
    }
    console.log('PASS actual joystick ownership, simultaneous central camera, UI target and modal camera exclusion');
    for(const dx of [-45,45]){
     const q={id:9,x:273,y:380,radiusX:3,radiusY:3,force:1},yaw=await p.evaluate(()=>app.walking.state.yaw);
-    await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[q]});
-    await c.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{...q,x:q.x+dx}]});
-    await c.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await p.waitForFunction(()=>cameraInputDebug.snapshot().events.some(e=>e.type==='touchmove'));
+    assert.equal(await p.evaluate(q=>document.elementFromPoint(q.x,q.y)===document.querySelector('#app canvas'),q),true,'post-modal drag must start on free canvas');
+    await touch({type:'touchStart',touchPoints:[q]});
+    assert.equal(await p.evaluate(()=>cameraInputDebug.snapshot().events.findLast(e=>e.type==='pointerdown').cameraResult),'accepted');
+    await touch({type:'touchMove',touchPoints:[{...q,x:q.x+dx}]});
+    await touch({type:'touchEnd',touchPoints:[]});await p.waitForFunction(()=>cameraInputDebug.snapshot().events.some(e=>e.type==='touchmove'));
     r=await p.evaluate(()=>cameraInputDebug.snapshot());assert(r.events.some(e=>e.type==='touchmove'&&Math.sign(e.deltaX)===Math.sign(dx)));
     assert(Math.abs(await p.evaluate(()=>app.walking.state.yaw)-yaw+dx*.003)<.002);
    }
-   await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{id:9,x:273,y:380}]});await c.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});await p.waitForFunction(()=>cameraInputDebug.snapshot().counts.pointercancel>0&&cameraInputDebug.snapshot().counts.touchcancel>0);
+   await touch({type:'touchStart',touchPoints:[{id:9,x:273,y:380}]});await touch({type:'touchCancel',touchPoints:[]});await p.waitForFunction(()=>cameraInputDebug.snapshot().counts.pointercancel>0&&cameraInputDebug.snapshot().counts.touchcancel>0);
    r=await p.evaluate(()=>cameraInputDebug.snapshot());assert(r.counts.pointercancel>0&&r.counts.touchcancel>0);assert.equal(r.current.camera.pointer,null);
   }
   assert.equal(await p.evaluate(()=>localStorage.getItem('bellmire.stay.v1')),before,'diagnostic writes save');
