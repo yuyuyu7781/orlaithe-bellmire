@@ -16,7 +16,7 @@ const {boot}=require('./capital-browser.cjs'),assert=require('assert');
   assert.equal(reportedStart.cameraResult,'accepted','iPhone central free-canvas start must accept camera input');
   for(const viewport of [{width:390,height:844},{width:844,height:390}]){
    await p.setViewportSize(viewport);await p.waitForFunction(()=>Math.abs(document.querySelector('#app canvas').getBoundingClientRect().width-innerWidth)<1);
-   for(const start of [.64,.84])for(const dx of [-35,35]){
+   for(const start of [.30,.44,.64,.84])for(const dx of [-35,35]){
     const q={x:viewport.width*start,y:viewport.height*.45};
     assert.equal(await p.evaluate(q=>document.elementFromPoint(q.x,q.y).tagName,q),'CANVAS');
     const since=await p.evaluate(()=>performance.now());const up=await p.evaluate(()=>cameraInputDebug.snapshot().counts.pointerup??0);const yaw=await p.evaluate(()=>app.walking.state.yaw);
@@ -42,6 +42,38 @@ const {boot}=require('./capital-browser.cjs'),assert=require('assert');
     assert.equal(await p.evaluate(()=>app.mobileInput.state.pointer),null);
    }
    console.log('PASS iPhone reported touch starts 173.667 / 301.667 and equal 212px drags in both directions');
+   const box=await p.locator('#mobileJoystick').boundingBox();assert(box);
+   const stick={id:10,x:box.x+box.width/2,y:box.y+box.height/2,radiusX:3,radiusY:3,force:1};
+   const yaw=await p.evaluate(()=>app.walking.state.yaw);
+   await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[stick]});
+   const held={...stick,y:stick.y-30};
+   await c.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[held]});
+   assert.equal(await p.evaluate(()=>app.walking.state.yaw),yaw,'joystick must not rotate camera');
+   assert(await p.evaluate(()=>app.walking.input.analog.y>.5));
+   const cam={id:11,x:173.667,y:380,radiusX:3,radiusY:3,force:1};
+   await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[held,cam]});
+   await c.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[held,{...cam,x:385.667}]});
+   assert(Math.abs(await p.evaluate(()=>app.walking.state.yaw)-yaw+212*.003)<.002);
+   assert(await p.evaluate(()=>app.mobileInput.state.pointer!==null&&app.walking.input.analog.y>.5));
+   await c.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[held]});
+   assert(await p.evaluate(()=>app.mobileInput.state.pointer!==null));
+   await c.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+   assert.equal(await p.evaluate(()=>app.walking.input.analog.y),0);
+   // DOM controls retain their own gestures; modal canvas starts stay blocked.
+   const uiYaw=await p.evaluate(()=>app.walking.state.yaw);
+   await p.locator('#toggle').tap();assert.equal(await p.evaluate(()=>app.walking.state.yaw),uiYaw);
+   await p.locator('#toggle').tap();
+   for(const modal of ['world','city','conversation']){
+    await p.evaluate(m=>{if(m==='world')app.worldMap.openRegion();if(m==='city')app.cityMap.open();if(m==='conversation')app.inspections.present(app.dialogue.entries[0],{text:'カメラ入力停止の確認。',kind:'talk'});app.mobileInput.update();},modal);
+    const beforeYaw=await p.evaluate(()=>app.walking.state.yaw);
+    await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[cam]});
+    await c.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{...cam,x:385.667}]});
+    await c.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+    assert.equal(await p.evaluate(()=>app.walking.state.yaw),beforeYaw);
+    assert.equal(await p.evaluate(()=>cameraInputDebug.snapshot().current.camera.pointer),null);
+    await p.evaluate(m=>{if(m==='world')app.worldMap.dialog.close();if(m==='city')app.cityMap.dialog.close();if(m==='conversation')app.inspections.dismiss();app.mobileInput.update();},modal);
+   }
+   console.log('PASS actual joystick ownership, simultaneous central camera, UI target and modal camera exclusion');
    for(const dx of [-45,45]){
     const q={id:9,x:273,y:380,radiusX:3,radiusY:3,force:1},yaw=await p.evaluate(()=>app.walking.state.yaw);
     await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[q]});

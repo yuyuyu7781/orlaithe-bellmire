@@ -216,7 +216,8 @@ export function createWalkingSystem({THREE,scene,camera,controls,canvas,terrain,
     try{await canvas.requestPointerLock?.()}catch{updateHint()}
   };
   canvas.addEventListener('pointerdown',e=>{
-    if(!state.active||state.inputBlocked||gameModalOpen()||lastPointer||e.button!==0||document.pointerLockElement===canvas||(e.pointerType==='touch'&&e.clientX<innerWidth*.48))return;e.preventDefault();
+    // Joystick/UI own their DOM targets; free canvas can start a drag on either side.
+    if(!state.active||state.inputBlocked||gameModalOpen()||lastPointer||e.button!==0||document.pointerLockElement===canvas)return;e.preventDefault();
     lastPointer={id:e.pointerId,x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId);
   });
   canvas.addEventListener('pointermove',e=>{

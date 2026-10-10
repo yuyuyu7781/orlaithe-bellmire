@@ -14,7 +14,7 @@ export function installCameraInputDebug({canvas,getCamera}){
  function hit(x,y){if(!Number.isFinite(x)||!Number.isFinite(y))return[];return document.elementsFromPoint(x,y).slice(0,5).map(o=>{const s=getComputedStyle(o),r=o.getBoundingClientRect();return{element:label(o),pointerEvents:s.pointerEvents,touchAction:s.touchAction,zIndex:s.zIndex,rect:[r.left,r.top,r.width,r.height]};});}
  function render(){renderTimer=null;const c=current(),v=c.viewport,p=c.camera.pointer,m=latestMoves.pointer??latestMoves.touch??latestStart;
   text.textContent=[
-   'CAMERA DIAG 1 · 未解決／実機調査中',
+   'CAMERA DIAG 2 · 開始領域修正／実機確認待ち',
    '開始 '+(m?m.start.map(rounded).join(','):'—')+' → 現在 '+(m?[m.clientX,m.clientY].map(rounded).join(','):'—'),
    'deltaX '+(m?rounded(m.deltaX):'—')+' deltaY '+(m?rounded(m.deltaY):'—')+' totalX '+(m?rounded(m.totalX):'—'),
    'yaw '+rounded(c.camera.yaw)+' Δyaw '+(m?rounded(m.yawAfter-m.yawBefore):'—'),
@@ -34,7 +34,7 @@ export function installCameraInputDebug({canvas,getCamera}){
   const row={type:e.type,time:performance.now(),trusted:e.isTrusted,target:label(e.target),canvasTarget:e.composedPath().includes(canvas),pointerId:e.pointerId,pointerType:e.pointerType,touchId:q.identifier,...point(q),start:[start.x,start.y],deltaX:old?q.clientX-old.x:0,deltaY:old?q.clientY-old.y:0,totalX:q.clientX-start.x,totalY:q.clientY-start.y,touches:e.touches?[...e.touches].map(t=>({identifier:t.identifier,...point(t)})):[],hit:hit(q.clientX,q.clientY),yawBefore:before.yaw,cameraBefore:before,cancelable:e.cancelable,error:e.message};
   if(isStart||/^(pointermove|touchmove)$/.test(e.type))starts.set(key,{start,x:q.clientX,y:q.clientY});
   const finish=phase=>{if(!pending.has(e))return;pending.delete(e);row.afterPhase=phase;const after=getCamera();row.yawAfter=after.yaw;row.cameraAfter=after;row.defaultPrevented=e.defaultPrevented;
-   if(e.type==='pointerdown')row.cameraResult=after.pointer?.id===e.pointerId?'accepted':!before.active?'inactive':before.blocked||before.modal?'blocked/modal':before.pointer?'already active pointer':!row.canvasTarget?'UI target':e.pointerType==='touch'&&e.clientX<innerWidth*.48?'left movement region':'button/lock/capture';
+   if(e.type==='pointerdown')row.cameraResult=after.pointer?.id===e.pointerId?'accepted':!before.active?'inactive':before.blocked||before.modal?'blocked/modal':before.pointer?'already active pointer':!row.canvasTarget?'UI target':'button/lock/capture';
    if(isStart){delete latestMoves.pointer;delete latestMoves.touch;latestStart=row;}
    counts[e.type]=(counts[e.type]??0)+1;events.push(row);if(events.length>256)events.shift();latest=row;
    if(/^(pointermove|touchmove)$/.test(e.type))latestMoves[kind]=row;
