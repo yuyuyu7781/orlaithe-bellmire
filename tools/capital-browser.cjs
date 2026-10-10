@@ -1,6 +1,6 @@
-const {chromium}=require('playwright'),fs=require('fs'),{execFileSync}=require('child_process');
+const {chromium,webkit}=require('playwright'),fs=require('fs'),{execFileSync}=require('child_process');
 const root=require('path').resolve(__dirname,'..');const cache=new Map();
-exports.boot=async(opts={})=>{const browser=await chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--enable-unsafe-swiftshader']});const page=await browser.newPage({viewport:opts.viewport??{width:960,height:640},isMobile:!!opts.touch,hasTouch:!!opts.touch}),errors=[];
+exports.boot=async(opts={})=>{const browser=await (opts.engine==='webkit'?webkit.launch({env:{...process.env,LIBGL_ALWAYS_SOFTWARE:'1'}}):chromium.launch({executablePath:'/usr/bin/chromium',args:['--no-sandbox','--enable-unsafe-swiftshader']}));const page=await browser.newPage({viewport:opts.viewport??{width:960,height:640},isMobile:!!opts.touch,hasTouch:!!opts.touch}),errors=[];
 page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
 await page.route('https://cdn.jsdelivr.net/**',async r=>{let body=cache.get(r.request().url());if(!body){body=execFileSync('curl',['-fsS','--max-time','30',r.request().url()],{maxBuffer:8e6});cache.set(r.request().url(),body)}await r.fulfill({contentType:'application/javascript',body});});
 if(opts.baselineDir)for(const name of fs.readdirSync(opts.baselineDir).filter(n=>n.endsWith('.js')))await page.route('**/'+name,r=>r.fulfill({contentType:'application/javascript',body:fs.readFileSync(opts.baselineDir+'/'+name,'utf8')}));

@@ -1,0 +1,36 @@
+name: Safari camera investigation
+on:
+  push:
+    branches: [iphone-camera-safari, main]
+permissions:
+  contents: read
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        engine: [chromium, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Browser dependencies
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps ${{ matrix.engine }}
+          if [ '${{ matrix.engine }}' = chromium ]; then sudo ln -sf "$(node -e "process.stdout.write(require('playwright').chromium.executablePath())")" /usr/bin/chromium; fi
+      - name: Serve test origin
+        run: python3 -m http.server 8001 --bind 127.0.0.1 > /tmp/camera-server.log 2>&1 &
+      - name: Camera diagnostic and directional regression
+        env:
+          CAMERA_ENGINE: ${{ matrix.engine }}
+        run: node tools/camera-safari-browser.cjs
+      - name: Existing touch and PC regression
+        if: matrix.engine == 'chromium' && (success() || failure())
+        run: |
+          node tools/mobile-interaction.cjs
+          node tools/mobile-pc-regression.cjs
+          node tools/mobile-scroll-recovery.cjs
