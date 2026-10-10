@@ -31,17 +31,17 @@ export function installCameraInputDebug({canvas,getCamera}){
  }
  function capture(e){const before=getCamera(),changed=e.changedTouches?[...e.changedTouches]:[],q=changed[0]??e,key=changed.length?'touch:'+q.identifier:'pointer:'+e.pointerId,kind=changed.length?'touch':'pointer',isStart=e.type==='pointerdown'||e.type==='touchstart';
   const old=starts.get(key),start=isStart?{x:q.clientX,y:q.clientY}:old?.start??{x:q.clientX,y:q.clientY};
-  const row={type:e.type,time:performance.now(),trusted:e.isTrusted,target:label(e.target),pointerId:e.pointerId,pointerType:e.pointerType,touchId:q.identifier,...point(q),start:[start.x,start.y],deltaX:old?q.clientX-old.x:0,deltaY:old?q.clientY-old.y:0,totalX:q.clientX-start.x,totalY:q.clientY-start.y,touches:e.touches?[...e.touches].map(t=>({identifier:t.identifier,...point(t)})):[],hit:hit(q.clientX,q.clientY),yawBefore:before.yaw,cameraBefore:before,cancelable:e.cancelable,error:e.message};
+  const row={type:e.type,time:performance.now(),trusted:e.isTrusted,target:label(e.target),canvasTarget:e.composedPath().includes(canvas),pointerId:e.pointerId,pointerType:e.pointerType,touchId:q.identifier,...point(q),start:[start.x,start.y],deltaX:old?q.clientX-old.x:0,deltaY:old?q.clientY-old.y:0,totalX:q.clientX-start.x,totalY:q.clientY-start.y,touches:e.touches?[...e.touches].map(t=>({identifier:t.identifier,...point(t)})):[],hit:hit(q.clientX,q.clientY),yawBefore:before.yaw,cameraBefore:before,cancelable:e.cancelable,error:e.message};
   if(isStart||/^(pointermove|touchmove)$/.test(e.type))starts.set(key,{start,x:q.clientX,y:q.clientY});
   queueMicrotask(()=>{const after=getCamera();row.yawAfter=after.yaw;row.cameraAfter=after;row.defaultPrevented=e.defaultPrevented;
-   if(e.type==='pointerdown')row.cameraResult=after.pointer?.id===e.pointerId?'accepted':!before.active?'inactive':before.blocked||before.modal?'blocked/modal':before.pointer?'already active pointer':!e.composedPath().includes(canvas)?'UI target':e.pointerType==='touch'&&e.clientX<innerWidth*.48?'left movement region':'button/lock/capture';
+   if(e.type==='pointerdown')row.cameraResult=after.pointer?.id===e.pointerId?'accepted':!before.active?'inactive':before.blocked||before.modal?'blocked/modal':before.pointer?'already active pointer':!row.canvasTarget?'UI target':e.pointerType==='touch'&&e.clientX<innerWidth*.48?'left movement region':'button/lock/capture';
    counts[e.type]=(counts[e.type]??0)+1;events.push(row);if(events.length>256)events.shift();latest=row;
    if(/^(pointermove|touchmove)$/.test(e.type))latestMoves[kind]=row;
    if(/^(pointerup|pointercancel|touchend|touchcancel|lostpointercapture)$/.test(e.type))starts.delete(key);
    if(renderTimer===null)renderTimer=setTimeout(render,40);
   });
  }
- for(const type of ['pointerdown','pointermove','pointerup','pointercancel','gotpointercapture','lostpointercapture','touchstart','touchmove','touchend','touchcancel','blur','resize','orientationchange','error'])window.addEventListener(type,capture,{capture:true,passive:true});
+ for(const type of ['pointerdown','pointermove','pointerup','pointercancel','gotpointercapture','lostpointercapture','touchstart','touchmove','touchend','touchcancel','blur','resize','orientationchange','pageshow','pagehide','gesturestart','gesturechange','gestureend','error'])window.addEventListener(type,capture,{capture:true,passive:true});
  document.addEventListener('visibilitychange',capture,{capture:true,passive:true});
  visualViewport?.addEventListener('resize',capture,{passive:true});visualViewport?.addEventListener('scroll',capture,{passive:true});
  const snapshot=()=>({version:1,userAgent:navigator.userAgent,current:current(),counts:{...counts},events:[...events]});
