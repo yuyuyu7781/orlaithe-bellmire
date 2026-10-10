@@ -1,9 +1,9 @@
 // Own only the map surface's gestures; page zoom/scroll elsewhere remain available.
-export function attachMapGestures({frame,svg,fit,dialog}){
- const base=svg.getAttribute('viewBox').split(/\s+/).map(Number),[,,width,height]=base,pointers=new Map();
+export function attachMapGestures({frame,svg,fit,dialog,viewBox,onChange=()=>{}}){
+ const base=viewBox??svg.getAttribute('viewBox').split(/\s+/).map(Number),[,,width,height]=base,pointers=new Map();
  const state={zoom:1,x:0,y:0};let gesture=null,moved=false,tapTarget=null,suppressUntil=0;
  const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
- function apply(){state.zoom=clamp(state.zoom,1,3);state.x=clamp(state.x,0,width-width/state.zoom);state.y=clamp(state.y,0,height-height/state.zoom);svg.setAttribute('viewBox',`${state.x} ${state.y} ${width/state.zoom} ${height/state.zoom}`);frame.dataset.zoom=state.zoom.toFixed(2);}
+ function apply(){state.zoom=clamp(state.zoom,1,3);state.x=clamp(state.x,0,width-width/state.zoom);state.y=clamp(state.y,0,height-height/state.zoom);svg.setAttribute('viewBox',`${state.x} ${state.y} ${width/state.zoom} ${height/state.zoom}`);frame.dataset.zoom=state.zoom.toFixed(2);onChange(state);}
  function local(p){const r=svg.getBoundingClientRect();return{x:(p.x-r.left)/r.width,y:(p.y-r.top)/r.height};}
  function rebase(){const ps=[...pointers.values()];if(!ps.length){gesture=null;return;}const center=ps.length>1?{x:(ps[0].x+ps[1].x)/2,y:(ps[0].y+ps[1].y)/2}:ps[0],q=local(center);gesture={zoom:state.zoom,x:state.x,y:state.y,center,distance:ps.length>1?Math.max(1,Math.hypot(ps[0].x-ps[1].x,ps[0].y-ps[1].y)):0,anchor:{x:state.x+q.x*width/state.zoom,y:state.y+q.y*height/state.zoom}};}
  function cancel(){const ids=[...pointers.keys()];pointers.clear();gesture=null;tapTarget=null;moved=false;for(const id of ids)if(frame.hasPointerCapture(id))frame.releasePointerCapture(id);}

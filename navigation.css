@@ -8,7 +8,7 @@
 .destination-arrow{display:inline-block;font:23px Georgia,serif;line-height:26px;width:26px;text-align:center;color:#c8ad7a}
 .travel-notice{font-size:12px;line-height:1.7;color:#eddfc6;margin-top:5px}
 @media(max-width:600px){.travel-tools button,.travel-tools select{min-height:44px}.travel-tools select{max-width:200px}.walking .panel.collapsed .head{gap:6px}.destination-guide{max-width:285px;font-size:10px}}
-.town-map{position:fixed;z-index:19;right:14px;top:70px;padding:10px;background:#e3dac2ee;border:1px solid #83765877;border-radius:9px;box-shadow:0 5px 18px #111a182d;color:#453f31}
+.town-map{position:fixed;z-index:26;right:14px;top:70px;padding:10px;background:#e3dac2ee;border:1px solid #83765877;border-radius:9px;box-shadow:0 5px 18px #111a182d;color:#453f31}
 .town-map[hidden]{display:none}
 .town-map-heading{font:12px Georgia,serif;letter-spacing:.07em;margin-bottom:5px}
 .town-map canvas{display:block;border-radius:4px;max-width:100%}

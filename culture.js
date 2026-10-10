@@ -68,7 +68,7 @@ export function addTownCulture({THREE,scene,grounding,groundedObjects,lit,well,w
     if(!placed){root.remove(g);console.warn('No clear cultural detail site:',name);return null;}
     groundedObjects.push({object:g});goods.push(g);return g;
   }
-  for(const q of [['Bakery flour and wool',-35.4,28.0,'flour'],['Inn candles',-44.3,3.0,'candles'],['Tavern cooperage',-14.8,12.7,'barrel'],['Market dyed cloth',24.0,8.1,'dye'],['Market herb basket',19.4,14.9,'herbs'],['Square wool',13.4,21.4,'wool'],['Workshop tools',14.9,-8.7,'tools'],['Harbor herbs',-24.4,34.8,'herbs'],['Harbor sailcloth',24.7,34.7,'dye'],['Cableway parcels',46.3,12.7,'wool'],['Alley candles',-40.4,19.1,'candles']])parcel(...q);
+  for(const q of [['Bakery flour and wool',-35.4,28.0,'flour'],['Inn candles',-44.3,3.0,'candles'],['Tavern cooperage',-14.8,11.55,'barrel'],['Market dyed cloth',24.0,8.1,'dye'],['Market herb basket',19.4,14.9,'herbs'],['Square wool',13.4,21.4,'wool'],['Workshop tools',14.9,-8.7,'tools'],['Harbor herbs',-24.4,34.8,'herbs'],['Harbor sailcloth',24.7,34.7,'dye'],['Cableway parcels',46.3,12.7,'wool'],['Alley candles',-40.4,19.1,'candles']])parcel(...q);
   // Small stock on the existing book display, not another crate in a full lane.
   const bindery=new THREE.Group();bindery.name='Bookbinder leather and awl';bookTable.add(bindery);
   const td=bookTable.geometry.parameters;bindery.position.set(td.width/2-.23,td.height/2+.005,td.depth/2-.10);

@@ -1,7 +1,7 @@
 name: Caer Veyra Phase 2 verification
 on:
   push:
-    branches: [phase2-plan-a, main]
+    branches: [phase2-plan-a, iphone-followup, main]
 permissions:
   contents: read
 jobs:

@@ -38,7 +38,7 @@ export function buildLakeLun({THREE,scene,box}){
  for(let i=0;i<7;i++)batch.add('block',materials.stone,[-307-i*5,6.06,-39],[.6,.22,.7]);
  const crawlGround=bankY(-311,-39);const driftwood=slab(-311,crawlGround+.81,-39,2.2,.16,.5,materials.wood);driftwood.name='Lake Lun dry driftwood cat passage';for(const x of [-312,-310])batch.add('block',materials.stone,[x,bankY(x,-39)+.32,-39],[.22,.64,.6]);
  const rock=slab(-312,bankY(-312,-32)+.34,-32,1.5,.34,.9,materials.stone);catSteps.push(rock);
- const log=slab(-308,bankY(-308,-17)+.28,-17,2.3,.28,.6,materials.wood);catSteps.push(log);
+ const log=slab(-305.6,bankY(-305.6,-17)+.28,-17,2.3,.28,.6,materials.wood);catSteps.push(log);
  // The small craft is moored, without a boat controller, lights or transparency.
  const boat=new THREE.Group();boat.name='Lake Lun moored skiff';boat.position.set(-321,5.78,-27);root.add(boat);
  const hullPoints=[],rim=[[-1.2,.1,0],[-.65,.1,-.4],[.8,.1,-.32],[1.1,.1,0],[.8,.1,.32],[-.65,.1,.4]];for(let i=0;i<rim.length;i++){const a=rim[i],b=rim[(i+1)%rim.length];hullPoints.push(...a,...b,0,-.15,0);}const hullGeometry=new THREE.BufferGeometry();hullGeometry.setAttribute('position',new THREE.Float32BufferAttribute(hullPoints,3));hullGeometry.computeVertexNormals();const hullMaterial=materials.wood.clone();hullMaterial.side=THREE.DoubleSide;const hull=new THREE.Mesh(hullGeometry,hullMaterial);hull.userData.walkSoft=true;boat.add(hull);
@@ -56,7 +56,7 @@ export function buildLakeLun({THREE,scene,box}){
  {id:'lake:cat-rope',object:under,label:'桟橋脇の古い紐',text:'木の下に、水と古い紐の匂い。結び目の内側だけ、まだ乾いていた。',profiles:['cat'],range:1.5},
  {id:'lake:cat-reeds',object:reedMark,label:'葦の間の丸い欠片',text:'葦を抜けると、小さな丸い欠片。水の匂いの奥に、冷たい石が残る。',profiles:['cat'],range:1.5},
  {id:'lake:pier-view',object:pier,label:'桟橋から湖を眺める',kind:'quiet-view',verb:'眺める',viewEye:[-322,7.5,-24],viewFocus:[-350,5.8,-24],text:'桟橋で立ち止まると、岸の水音だけが近くなった。'},
- {id:'lake:shore-view',object:log,label:'湖畔で休む',kind:'quiet-view',verb:'座る',viewEye:[-308,7,-17],viewFocus:[-349,6,-22],text:'湖の向こうにも、低い岸が続いていた。'});
+ {id:'lake:shore-view',object:log,label:'湖畔で休む',kind:'quiet-view',verb:'座る',viewEye:[-305.6,7,-17],viewFocus:[-349,6,-22],text:'湖の向こうにも、低い岸が続いていた。'});
  batch.finish();return{waterTraces:batch.root.children.filter(o=>o.material===ripple),root,materials,floors,roadPoints,catSteps,targets:targets.map(t=>({kind:'inspect',profiles:['human','cat'],range:3,localPoint:[0,0,0],...t})),heightAt:lakeHeight,lake,pier,boat,rope,rock,log,peg,driftwood,addedLights:0};
 }
 export function connectLakeLun({lake,walking,inspections,stay,townLife,dialogue,ambientAudio,shopSystem}){

@@ -17,8 +17,9 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
   const shell=[...miniature.shells].sort((a,b)=>distance(a.b.getCenter(new THREE.Vector3()),new THREE.Vector3(shop.center[0],0,shop.center[1]))-distance(b.b.getCenter(new THREE.Vector3()),new THREE.Vector3(shop.center[0],0,shop.center[1])))[0];
   const b=shell.b,c=b.getCenter(new THREE.Vector3());let chosen=shop.exterior?{at:new THREE.Vector3(...shop.exterior.at),approach:new THREE.Vector3(...shop.exterior.approach),angle:shop.exterior.angle,n:new THREE.Vector3(...shop.exterior.normal)}:null;
   const blockers=[];scene.traverse(o=>{if(!o.isMesh||o.userData.walkSoft||o.material.transparent)return;for(let p=o;p;p=p.parent)if(!p.visible||[...actors.values()].includes(p))return;blockers.push(o);});
-  for(const angle of (chosen?[]:[0,Math.PI/2,-Math.PI/2,Math.PI])){const n=new THREE.Vector3(Math.sin(angle),0,Math.cos(angle)),tangent=new THREE.Vector3(n.z,0,-n.x),p=new THREE.Vector3(n.x>0?b.max.x:n.x<0?b.min.x:c.x,0,n.z>0?b.max.z:n.z<0?b.min.z:c.z);
+  for(const centered of [false,true]){if(chosen)break;for(const angle of (chosen?[]:[0,Math.PI/2,-Math.PI/2,Math.PI])){const n=new THREE.Vector3(centered?Math.round(Math.sin(angle)):Math.sin(angle),0,centered?Math.round(Math.cos(angle)):Math.cos(angle)),tangent=new THREE.Vector3(n.z,0,-n.x),p=new THREE.Vector3(n.x>0?b.max.x:n.x<0?b.min.x:c.x,0,n.z>0?b.max.z:n.z<0?b.min.z:c.z);
    for(const offset of [0,-.8,.8,-1.4,1.4]){const at=p.clone().addScaledVector(tangent,offset).addScaledVector(n,.035),approach=at.clone().addScaledVector(n,1),y=grounding.heightAt(approach.x,approach.z);
+    if(at.x<b.min.x-.04||at.x>b.max.x+.04||at.z<b.min.z-.04||at.z>b.max.z+.04)continue;
     if(y===null||y<b.min.y-.1||y+2>b.max.y||walking.canStandAs('human',approach.x,approach.z,y)===null)continue;
     at.y=approach.y=y;
     // A clear-looking pocket behind a raised porch is not a usable doorway.
@@ -29,7 +30,7 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
     const ray=new THREE.Raycaster(eye,target.clone().sub(eye).normalize(),0,eye.distanceTo(target)-.06);if(ray.intersectObjects(blockers,false).length)continue;
     chosen={at,approach,angle,n};break;
    }if(chosen)break;
-  }if(!chosen)throw Error('No reachable shop entrance: '+shop.id);
+  }}if(!chosen)throw Error('No reachable shop entrance: '+shop.id);
   const g=new THREE.Group();g.name=shop.name+' 入口';g.position.copy(chosen.at);g.rotation.y=chosen.angle;scene.add(g);townRoots.push(g);
   const piece=(x,y,z,w,h,d,material)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);m.position.set(x,y+h/2,z);g.add(m);m.userData.walkSoft=true;return m;};
   const leaf=piece(0,0,0,.88,1.95,.075,wood);for(const x of [-.49,.49])piece(x,0,.02,.08,2.05,.10,wood);piece(0,1.96,.02,1.06,.10,.14,wood);piece(.30,.93,.07,.07,.06,.04,iron);
