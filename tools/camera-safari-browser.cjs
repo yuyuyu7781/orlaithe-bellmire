@@ -6,18 +6,18 @@ const {boot}=require('./capital-browser.cjs'),assert=require('assert');
   assert.equal(b.errors.length,0,b.errors.join('\n'));
   assert.equal(await p.locator('[data-camera-debug]').count(),1,'opt-in camera event display missing');
   await p.evaluate(()=>{requestAnimationFrame=()=>0;app.walking.enter('human');app.mobileInput.update();});
-  const before=await p.evaluate(()=>localStorage.getItem('bellmire.stay.v1'));
+  const before=await p.evaluate(()=>localStorage.getItem('bellmire.stay.v1'));assert.notEqual(before,null,'save fixture absent');
   for(const viewport of [{width:390,height:844},{width:844,height:390}]){
    await p.setViewportSize(viewport);await p.waitForFunction(()=>Math.abs(document.querySelector('#app canvas').getBoundingClientRect().width-innerWidth)<1);
    for(const start of [.64,.84])for(const dx of [-35,35]){
     const q={x:viewport.width*start,y:viewport.height*.45};
     assert.equal(await p.evaluate(q=>document.elementFromPoint(q.x,q.y).tagName,q),'CANVAS');
-    const up=await p.evaluate(()=>cameraInputDebug.snapshot().counts.pointerup??0);const yaw=await p.evaluate(()=>app.walking.state.yaw);
+    const since=await p.evaluate(()=>performance.now());const up=await p.evaluate(()=>cameraInputDebug.snapshot().counts.pointerup??0);const yaw=await p.evaluate(()=>app.walking.state.yaw);
     await p.mouse.move(q.x,q.y);await p.mouse.down();await p.mouse.move(q.x+dx,q.y,{steps:4});await p.mouse.up();await p.waitForFunction(up=>(cameraInputDebug.snapshot().counts.pointerup??0)>up,up);
     const r=await p.evaluate(()=>cameraInputDebug.snapshot());
-    assert(r.events.some(e=>e.type==='pointermove'&&Math.sign(e.deltaX)===Math.sign(dx)&&Math.abs(e.yawAfter-e.yawBefore)>0),JSON.stringify({dx,yaw,events:r.events.slice(-18)}));
+    assert(r.events.some(e=>e.time>=since&&e.type==='pointermove'&&Math.sign(e.deltaX)===Math.sign(dx)&&Math.abs(e.yawAfter-e.yawBefore)>0),JSON.stringify({dx,yaw,events:r.events.slice(-18)}));
     assert(Math.abs(await p.evaluate(()=>app.walking.state.yaw)-yaw+dx*.003)<.002);
-    assert.equal(r.current.camera.pointer,null);assert.equal(r.current.touchAction,'none');
+    const down=r.events.findLast(e=>e.time>=since&&e.type==='pointerdown');assert.equal(down.cameraResult,'accepted');assert.equal(down.afterPhase,'window bubble');assert.equal(r.current.camera.pointer,null);assert.equal(r.current.touchAction,'none');
     assert(r.current.viewport.visual&&r.current.viewport.canvas.width===viewport.width);
    }
   }
