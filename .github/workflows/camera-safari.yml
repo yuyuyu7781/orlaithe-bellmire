@@ -1,7 +1,7 @@
 name: Safari camera investigation
 on:
   push:
-    branches: [iphone-camera-safari, main]
+    branches: [iphone-camera-safari, iphone-camera-region, main]
 permissions:
   contents: read
 jobs:
