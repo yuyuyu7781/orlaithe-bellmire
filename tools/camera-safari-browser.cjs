@@ -12,17 +12,17 @@ const {boot}=require('./capital-browser.cjs'),assert=require('assert');
    for(const start of [.64,.84])for(const dx of [-35,35]){
     const q={x:viewport.width*start,y:viewport.height*.45};
     assert.equal(await p.evaluate(q=>document.elementFromPoint(q.x,q.y).tagName,q),'CANVAS');
-    const yaw=await p.evaluate(()=>app.walking.state.yaw);
-    await p.mouse.move(q.x,q.y);await p.mouse.down();await p.mouse.move(q.x+dx,q.y,{steps:4});await p.mouse.up();
+    const up=await p.evaluate(()=>cameraInputDebug.snapshot().counts.pointerup??0);const yaw=await p.evaluate(()=>app.walking.state.yaw);
+    await p.mouse.move(q.x,q.y);await p.mouse.down();await p.mouse.move(q.x+dx,q.y,{steps:4});await p.mouse.up();await p.waitForFunction(up=>(cameraInputDebug.snapshot().counts.pointerup??0)>up,up);
     const r=await p.evaluate(()=>cameraInputDebug.snapshot());
-    assert(r.events.some(e=>e.type==='pointermove'&&Math.sign(e.deltaX)===Math.sign(dx)&&Math.abs(e.yawAfter-e.yawBefore)>0));
+    assert(r.events.some(e=>e.type==='pointermove'&&Math.sign(e.deltaX)===Math.sign(dx)&&Math.abs(e.yawAfter-e.yawBefore)>0),JSON.stringify({dx,yaw,events:r.events.slice(-18)}));
     assert(Math.abs(await p.evaluate(()=>app.walking.state.yaw)-yaw+dx*.003)<.002);
     assert.equal(r.current.camera.pointer,null);assert.equal(r.current.touchAction,'none');
     assert(r.current.viewport.visual&&r.current.viewport.canvas.width===viewport.width);
    }
   }
   await p.setViewportSize({width:390,height:844});await p.waitForFunction(()=>document.querySelector('#app canvas').getBoundingClientRect().width<400);
-  await p.touchscreen.tap(273,380);
+  await p.touchscreen.tap(273,380);await p.waitForFunction(()=>cameraInputDebug.snapshot().counts.touchend>0);
   let r=await p.evaluate(()=>cameraInputDebug.snapshot());assert(r.counts.touchstart>0&&r.counts.touchend>0);assert.equal(r.current.camera.pointer,null);
   if(engine==='chromium'){
    const c=await p.context().newCDPSession(p);
@@ -30,11 +30,11 @@ const {boot}=require('./capital-browser.cjs'),assert=require('assert');
     const q={id:9,x:273,y:380,radiusX:3,radiusY:3,force:1},yaw=await p.evaluate(()=>app.walking.state.yaw);
     await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[q]});
     await c.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{...q,x:q.x+dx}]});
-    await c.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+    await c.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await p.waitForFunction(()=>cameraInputDebug.snapshot().events.some(e=>e.type==='touchmove'));
     r=await p.evaluate(()=>cameraInputDebug.snapshot());assert(r.events.some(e=>e.type==='touchmove'&&Math.sign(e.deltaX)===Math.sign(dx)));
     assert(Math.abs(await p.evaluate(()=>app.walking.state.yaw)-yaw+dx*.003)<.002);
    }
-   await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{id:9,x:273,y:380}]});await c.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});
+   await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{id:9,x:273,y:380}]});await c.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});await p.waitForFunction(()=>cameraInputDebug.snapshot().counts.pointercancel>0&&cameraInputDebug.snapshot().counts.touchcancel>0);
    r=await p.evaluate(()=>cameraInputDebug.snapshot());assert(r.counts.pointercancel>0&&r.counts.touchcancel>0);assert.equal(r.current.camera.pointer,null);
   }
   assert.equal(await p.evaluate(()=>localStorage.getItem('bellmire.stay.v1')),before,'diagnostic writes save');
