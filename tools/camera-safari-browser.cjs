@@ -6,7 +6,7 @@ const {boot}=require('./capital-browser.cjs'),assert=require('assert');
   assert.equal(b.errors.length,0,b.errors.join('\n'));
   assert.equal(await p.locator('[data-camera-debug]').count(),1,'opt-in camera event display missing');
   await p.evaluate(()=>{requestAnimationFrame=()=>0;app.walking.enter('human');app.mobileInput.update();});
-  const before=await p.evaluate(()=>localStorage.getItem('orlaithe-stay-v1'));
+  const before=await p.evaluate(()=>localStorage.getItem('bellmire.stay.v1'));
   for(const viewport of [{width:390,height:844},{width:844,height:390}]){
    await p.setViewportSize(viewport);await p.waitForFunction(()=>Math.abs(document.querySelector('#app canvas').getBoundingClientRect().width-innerWidth)<1);
    for(const start of [.64,.84])for(const dx of [-35,35]){
@@ -37,7 +37,7 @@ const {boot}=require('./capital-browser.cjs'),assert=require('assert');
    await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{id:9,x:273,y:380}]});await c.send('Input.dispatchTouchEvent',{type:'touchCancel',touchPoints:[]});
    r=await p.evaluate(()=>cameraInputDebug.snapshot());assert(r.counts.pointercancel>0&&r.counts.touchcancel>0);assert.equal(r.current.camera.pointer,null);
   }
-  assert.equal(await p.evaluate(()=>localStorage.getItem('orlaithe-stay-v1')),before,'diagnostic writes save');
+  assert.equal(await p.evaluate(()=>localStorage.getItem('bellmire.stay.v1')),before,'diagnostic writes save');
   assert.equal(await p.evaluate(()=>getComputedStyle(document.querySelector('[data-camera-debug]')).pointerEvents),'none');
   const text=await p.evaluate(()=>cameraInputDebug.exportText());assert(text.includes('yawAfter')&&text.includes('clientX'));
   await p.goto('http://127.0.0.1:8001/index.html');await p.waitForSelector('#loading.hide',{state:'attached'});
