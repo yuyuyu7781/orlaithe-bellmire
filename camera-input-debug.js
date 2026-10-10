@@ -5,14 +5,14 @@ export function installCameraInputDebug({canvas,getCamera}){
  Object.assign(root.style,{position:'fixed',zIndex:'250',left:'8px',right:'8px',bottom:'calc(4px + env(safe-area-inset-bottom))',pointerEvents:'none',background:'#071820ed',color:'#e8f7f1',padding:'7px',font:'11px/1.35 monospace',whiteSpace:'pre-wrap',overflowWrap:'anywhere',maxHeight:'46dvh',overflow:'hidden'});
  const text=document.createElement('span'),probe=document.createElement('span');
  Object.assign(probe.style,{position:'absolute',visibility:'hidden',padding:'env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)'});root.append(text,probe);document.body.append(root);
- const events=[],counts={},starts=new Map(),latestMoves={};let latest=null,renderTimer=null;
+ const events=[],counts={},starts=new Map(),latestMoves={};let latestStart=null,latest=null,renderTimer=null;
  const point=p=>({clientX:p.clientX,clientY:p.clientY,screenX:p.screenX,screenY:p.screenY});
  const label=o=>o?.tagName?.toLowerCase()+(o?.id?'#'+o.id:'');
  const rounded=n=>Number.isFinite(n)?Number(n.toFixed(3)):n;
  function viewport(){const v=visualViewport,r=canvas.getBoundingClientRect(),s=getComputedStyle(probe);return{inner:[innerWidth,innerHeight],visual:v?{width:v.width,height:v.height,offsetLeft:v.offsetLeft,offsetTop:v.offsetTop,scale:v.scale}:null,canvas:{left:r.left,top:r.top,width:r.width,height:r.height},safeArea:[s.paddingTop,s.paddingRight,s.paddingBottom,s.paddingLeft]};}
  function current(){const camera=getCamera();return{camera,touchAction:getComputedStyle(canvas).touchAction,viewport:viewport()};}
  function hit(x,y){if(!Number.isFinite(x)||!Number.isFinite(y))return[];return document.elementsFromPoint(x,y).slice(0,5).map(o=>{const s=getComputedStyle(o),r=o.getBoundingClientRect();return{element:label(o),pointerEvents:s.pointerEvents,touchAction:s.touchAction,zIndex:s.zIndex,rect:[r.left,r.top,r.width,r.height]};});}
- function render(){renderTimer=null;const c=current(),v=c.viewport,p=c.camera.pointer,m=latestMoves.pointer??latestMoves.touch;
+ function render(){renderTimer=null;const c=current(),v=c.viewport,p=c.camera.pointer,m=latestMoves.pointer??latestMoves.touch??latestStart;
   text.textContent=[
    'CAMERA DIAG 1 · 未解決／実機調査中',
    '開始 '+(m?m.start.map(rounded).join(','):'—')+' → 現在 '+(m?[m.clientX,m.clientY].map(rounded).join(','):'—'),
@@ -35,6 +35,7 @@ export function installCameraInputDebug({canvas,getCamera}){
   if(isStart||/^(pointermove|touchmove)$/.test(e.type))starts.set(key,{start,x:q.clientX,y:q.clientY});
   queueMicrotask(()=>{const after=getCamera();row.yawAfter=after.yaw;row.cameraAfter=after;row.defaultPrevented=e.defaultPrevented;
    if(e.type==='pointerdown')row.cameraResult=after.pointer?.id===e.pointerId?'accepted':!before.active?'inactive':before.blocked||before.modal?'blocked/modal':before.pointer?'already active pointer':!row.canvasTarget?'UI target':e.pointerType==='touch'&&e.clientX<innerWidth*.48?'left movement region':'button/lock/capture';
+   if(isStart){delete latestMoves.pointer;delete latestMoves.touch;latestStart=row;}
    counts[e.type]=(counts[e.type]??0)+1;events.push(row);if(events.length>256)events.shift();latest=row;
    if(/^(pointermove|touchmove)$/.test(e.type))latestMoves[kind]=row;
    if(/^(pointerup|pointercancel|touchend|touchcancel|lostpointercapture)$/.test(e.type))starts.delete(key);
