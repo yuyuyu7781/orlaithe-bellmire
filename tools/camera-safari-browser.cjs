@@ -7,6 +7,13 @@ const {boot}=require('./capital-browser.cjs'),assert=require('assert');
   assert.equal(await p.locator('[data-camera-debug]').count(),1,'opt-in camera event display missing');
   await p.evaluate(()=>{requestAnimationFrame=()=>0;app.walking.enter('human');app.mobileInput.update();});
   const before=await p.evaluate(()=>localStorage.getItem('bellmire.stay.v1'));assert.notEqual(before,null,'save fixture absent');
+  // Actual iPhone report: free canvas start x=173.667 was rejected by the 48% gate.
+  assert.equal(await p.evaluate(()=>document.elementFromPoint(173.667,380).tagName),'CANVAS');
+  const reportSince=await p.evaluate(()=>performance.now());
+  await p.touchscreen.tap(173.667,380);
+  await p.waitForFunction(since=>cameraInputDebug.snapshot().events.some(e=>e.time>=since&&e.type==='pointerup'),reportSince);
+  const reportedStart=await p.evaluate(since=>cameraInputDebug.snapshot().events.findLast(e=>e.time>=since&&e.type==='pointerdown'),reportSince);
+  assert.equal(reportedStart.cameraResult,'accepted','iPhone central free-canvas start must accept camera input');
   for(const viewport of [{width:390,height:844},{width:844,height:390}]){
    await p.setViewportSize(viewport);await p.waitForFunction(()=>Math.abs(document.querySelector('#app canvas').getBoundingClientRect().width-innerWidth)<1);
    for(const start of [.64,.84])for(const dx of [-35,35]){
@@ -26,6 +33,15 @@ const {boot}=require('./capital-browser.cjs'),assert=require('assert');
   let r=await p.evaluate(()=>cameraInputDebug.snapshot());assert(r.counts.touchstart>0&&r.counts.touchend>0);assert.equal(r.current.camera.pointer,null);
   if(engine==='chromium'){
    const c=await p.context().newCDPSession(p);
+   for(const [start,end] of [[173.667,385.667],[301.667,35],[301.667,89.667]]){
+    const q={id:8,x:start,y:380,radiusX:3,radiusY:3,force:1},yaw=await p.evaluate(()=>app.walking.state.yaw);
+    await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[q]});
+    for(let i=1;i<=8;i++)await c.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{...q,x:start+(end-start)*i/8}]});
+    await c.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+    assert(Math.abs(await p.evaluate(()=>app.walking.state.yaw)-yaw+(end-start)*.003)<.002,JSON.stringify({start,end,yaw}));
+    assert.equal(await p.evaluate(()=>app.mobileInput.state.pointer),null);
+   }
+   console.log('PASS iPhone reported touch starts 173.667 / 301.667 and equal 212px drags in both directions');
    for(const dx of [-45,45]){
     const q={id:9,x:273,y:380,radiusX:3,radiusY:3,force:1},yaw=await p.evaluate(()=>app.walking.state.yaw);
     await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[q]});
