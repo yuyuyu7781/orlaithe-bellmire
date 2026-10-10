@@ -1,20 +1,23 @@
+import {attachMapGestures} from './map-gestures.js';
 import {watercourseLayout} from './waterways.js';
 // One small 2D canvas; no second camera, WebGL pass, texture or light.
 export function createMinimap({walking,shopSystem,inspections,navigation,buildings,roads=[],regionBuildings={}}){
  const root=document.createElement('section');root.className='town-map';root.hidden=true;root.setAttribute('aria-label','BellmireとNine Stonesの簡易街路図');
  const heading=document.createElement('div');heading.className='town-map-heading';heading.textContent='Bellmire · Nine Stones';
  const canvas=document.createElement('canvas');canvas.setAttribute('role','img');canvas.setAttribute('aria-label','現在地、向き、主要な行先とおおまかな街路');
+ const frame=document.createElement('div');frame.className='map-frame';frame.append(canvas);
+ const fit=document.createElement('button');fit.textContent='全体表示';fit.setAttribute('aria-label','地図を全体表示');
  const caption=document.createElement('div');caption.className='town-map-caption';caption.textContent='上が北 · 淡い線は主な街路';
  const expand=document.createElement('button');expand.textContent='拡大';expand.setAttribute('aria-label','地図を拡大');
  const close=document.createElement('button');close.textContent='閉じる';close.setAttribute('aria-label','地図を閉じる');
- const buttons=document.createElement('div');buttons.className='town-map-buttons';buttons.append(expand,close);const chain=document.createElement('div');chain.className='town-map-caption';chain.textContent='Bellmire → Nine Stones → Lake Lun / Lunmere → Caerith / 沈んだ道 → The Ring → Hollow Crown → Violet Mire';root.append(heading,chain,canvas,caption,buttons);document.body.append(root);
+ const buttons=document.createElement('div');buttons.className='town-map-buttons';buttons.append(expand,fit,close);const chain=document.createElement('div');chain.className='town-map-caption';chain.textContent='Bellmire → Nine Stones → Lake Lun / Lunmere → Caerith / 沈んだ道 → The Ring → Hollow Crown → Violet Mire';root.append(heading,chain,frame,caption,buttons);document.body.append(root);
  const toggle=document.createElement('button');toggle.id='mapToggle';toggle.textContent='地図';toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-controls','townMap');root.id='townMap';navigation.tools.append(toggle);
- let expanded=false,elapsed=0,width=180,height=150;const context=canvas.getContext('2d');
+ let gestures=null;let expanded=false,elapsed=0,width=180,height=150;const context=canvas.getContext('2d');
  let regionId="bellmire";const bounds={minX:-215,maxX:48,minZ:-48,maxZ:45};
- const project=(x,z)=>[12+(x-bounds.minX)/(bounds.maxX-bounds.minX)*(width-24),10+(z-bounds.minZ)/(bounds.maxZ-bounds.minZ)*(height-20)];
+ const project=(x,z)=>{const q=[12+(x-bounds.minX)/(bounds.maxX-bounds.minX)*(width-24),10+(z-bounds.minZ)/(bounds.maxZ-bounds.minZ)*(height-20)],s=gestures?.state??{x:0,y:0,zoom:1};return[(q[0]-s.x*width)*s.zoom,(q[1]-s.y*height)*s.zoom];};
  function resize(){width=expanded?270:180;height=expanded&&innerHeight>500?220:150;const dpr=Math.min(devicePixelRatio||1,2);canvas.width=width*dpr;canvas.height=height*dpr;canvas.style.width=width+'px';canvas.style.height=height+'px';context.setTransform(dpr,0,0,dpr,0,0);}
- function setOpen(open){navigation.state.mapOpen=!!open;toggle.setAttribute('aria-expanded',String(!!open));update(1);}
- toggle.onclick=()=>setOpen(!navigation.state.mapOpen);close.onclick=()=>setOpen(false);expand.onclick=()=>{expanded=!expanded;expand.textContent=expanded?'縮小':'拡大';expand.setAttribute('aria-label','地図を'+expand.textContent);resize();draw();};
+ function setOpen(open){if(!open)gestures?.cancel();navigation.state.mapOpen=!!open;toggle.setAttribute('aria-expanded',String(!!open));update(1);}
+ toggle.onclick=()=>setOpen(!navigation.state.mapOpen);close.onclick=()=>setOpen(false);expand.onclick=()=>{expanded=!expanded;expand.textContent=expanded?'縮小':'拡大';expand.setAttribute('aria-label','地図を'+expand.textContent);resize();gestures?.reset();draw();};
  let specialMarkers=[];
  function draw(){
   context.clearRect(0,0,width,height);context.fillStyle='#ddd4bb';context.fillRect(0,0,width,height);
@@ -34,6 +37,6 @@ export function createMinimap({walking,shopSystem,inspections,navigation,buildin
  }
  function update(dt){const hidden=!walking.active||!navigation.state.mapOpen||!!shopSystem.current||!!inspections.opened;if(root.hidden!==hidden)root.hidden=hidden;if(hidden){elapsed=0;return;}elapsed+=dt;if(elapsed<.25)return;elapsed=0;draw();}
  const onResize=()=>{resize();if(!root.hidden)draw();};addEventListener('resize',onResize);
- function setRegion(r){regionId=r.id;Object.assign(bounds,r.mapBounds);roads=r.roads??roads;heading.textContent=r.name;heading.title='Bellmire → Nine Stones → Lake Lun / Lunmere → Caerith / 沈んだ道 → The Ring → Hollow Crown → Violet Mire';root.setAttribute("aria-label",r.name+"の簡易地図");draw();}
- resize();return {setSpecialMarkers(list){specialMarkers=list;},setRegion,root,setOpen,update,project,draw,destroy(){removeEventListener('resize',onResize);root.remove();toggle.remove();}};
+ function setRegion(r){gestures?.reset();regionId=r.id;Object.assign(bounds,r.mapBounds);roads=r.roads??roads;heading.textContent=r.name;heading.title='Bellmire → Nine Stones → Lake Lun / Lunmere → Caerith / 沈んだ道 → The Ring → Hollow Crown → Violet Mire';root.setAttribute("aria-label",r.name+"の簡易地図");draw();}
+ resize();gestures=attachMapGestures({frame,svg:canvas,fit,dialog:root,viewBox:[0,0,1,1],onChange:draw});return {gestures,setSpecialMarkers(list){specialMarkers=list;},setRegion,root,setOpen,update,project,draw,destroy(){removeEventListener('resize',onResize);root.remove();toggle.remove();}};
 }
