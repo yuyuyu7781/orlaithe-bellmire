@@ -69,12 +69,13 @@ const {boot}=require('./capital-browser.cjs'),assert=require('assert');
    await p.locator('#toggle').tap();assert.equal(await p.evaluate(()=>app.walking.state.yaw),uiYaw);
    await p.locator('#toggle').tap();
    for(const modal of ['world','city','conversation']){
-    await p.evaluate(m=>{if(m==='world')app.worldMap.openRegion();if(m==='city')app.cityMap.open();if(m==='conversation')app.inspections.present(app.dialogue.entries[0],{text:'カメラ入力停止の確認。',kind:'talk'});app.mobileInput.update();},modal);
+    await p.evaluate(m=>{if(m==='world')app.worldMap.openRegion();if(m==='city'){const d=app.stayState.data.discoveries,old=d['cv:arrival'];d['cv:arrival']={day:1};app.cityMap.open();if(old===undefined)delete d['cv:arrival'];else d['cv:arrival']=old;}if(m==='conversation')app.inspections.present(app.dialogue.entries[0],{text:'カメラ入力停止の確認。',kind:'talk'});app.mobileInput.update();},modal);
+    assert(await p.evaluate(()=>cameraInputDebug.snapshot().current.camera.modal),'fixture must actually open '+modal);
     const beforeYaw=await p.evaluate(()=>app.walking.state.yaw);
     await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[cam]});
     await c.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{...cam,x:385.667}]});
     await c.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
-    assert.equal(await p.evaluate(()=>app.walking.state.yaw),beforeYaw);
+    assert.equal(await p.evaluate(()=>app.walking.state.yaw),beforeYaw,modal+' must block camera');
     assert.equal(await p.evaluate(()=>cameraInputDebug.snapshot().current.camera.pointer),null);
     await p.evaluate(m=>{if(m==='world')app.worldMap.dialog.close();if(m==='city')app.cityMap.dialog.close();if(m==='conversation')app.inspections.dismiss();app.mobileInput.update();},modal);
    }
