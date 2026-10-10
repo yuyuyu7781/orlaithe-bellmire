@@ -56,6 +56,8 @@ const {boot}=require('./capital-browser.cjs'),assert=require('assert');
    const cam={id:11,x:173.667,y:380,radiusX:3,radiusY:3,force:1};
    await c.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[held,cam]});
    await c.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[held,{...cam,x:385.667}]});
+   // Live moves can be delivered on the next browser frame while fingers remain held.
+   await p.waitForFunction(()=>cameraInputDebug.snapshot().current.camera.pointer?.x>385.6,null,{timeout:3000}).catch(async e=>{throw Error(e.message+'\n'+await p.evaluate(()=>cameraInputDebug.exportText()));});
    assert(Math.abs(await p.evaluate(()=>app.walking.state.yaw)-yaw+212*.003)<.002);
    assert(await p.evaluate(()=>app.mobileInput.state.pointer!==null&&app.walking.input.analog.y>.5));
    await c.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[held]});
