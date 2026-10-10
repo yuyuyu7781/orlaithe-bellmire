@@ -3,6 +3,7 @@ const {boot}=require('./capital-browser.cjs'),assert=require('assert'),fs=requir
 async function check(name,fn){try{out.checks.push({name,pass:true,result:await fn()});console.log('PASS',name);}catch(e){out.checks.push({name,pass:false,error:String(e)});console.log('FAIL',name,String(e));}}
 const touch=(type,pts=[])=>c.send('Input.dispatchTouchEvent',{type,touchPoints:pts.map(q=>({id:q.id,x:q.x,y:q.y,radiusX:4,radiusY:4,force:1}))});
 try{
+console.log('BOOT errors',JSON.stringify(b.errors));assert.equal(b.errors.length,0,b.errors.join('\n'));
 await p.evaluate(()=>{requestAnimationFrame=()=>0;app.walking.enter('human');app.mobileInput.update();});
 await check('camera native touch left right up down symmetric',async()=>{
  const rows=[];for(const viewport of [{width:375,height:812},{width:390,height:844},{width:430,height:932},{width:844,height:390}]){await p.setViewportSize(viewport);await p.waitForFunction(()=>{const c=document.querySelector('#app canvas');return c&&Math.abs(c.getBoundingClientRect().width-innerWidth)<1;});await p.evaluate(()=>{app.minimap.setOpen(false);app.walking.enter('human');app.mobileInput.update();});
