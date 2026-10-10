@@ -17,10 +17,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Browser dependencies
+      - name: Install test package
+        timeout-minutes: 2
+        run: npm install --no-save --no-package-lock playwright
+      - name: Browser system dependencies
+        timeout-minutes: 4
+        run: npx playwright install-deps ${{ matrix.engine }}
+      - name: Browser download
+        timeout-minutes: 3
         run: |
-          npm install --no-save --no-package-lock playwright
-          npx playwright install --with-deps ${{ matrix.engine }}
+          npx playwright install ${{ matrix.engine }}
           if [ '${{ matrix.engine }}' = chromium ]; then sudo ln -sf "$(node -e "process.stdout.write(require('playwright').chromium.executablePath())")" /usr/bin/chromium; fi
       - name: Serve test origin
         run: python3 -m http.server 8001 --bind 127.0.0.1 > /tmp/camera-server.log 2>&1 &
