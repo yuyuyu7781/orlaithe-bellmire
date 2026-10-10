@@ -60,7 +60,7 @@ const {boot}=require('./capital-browser.cjs'),assert=require('assert');
    await p.waitForFunction(()=>cameraInputDebug.snapshot().current.camera.pointer?.x>385.6,null,{timeout:3000}).catch(async e=>{throw Error(e.message+'\n'+await p.evaluate(()=>cameraInputDebug.exportText()));});
    assert(Math.abs(await p.evaluate(()=>app.walking.state.yaw)-yaw+212*.003)<.002);
    assert(await p.evaluate(()=>app.mobileInput.state.pointer!==null&&app.walking.input.analog.y>.5));
-   await c.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[held]});
+   await c.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[{...cam,x:385.667}]});
    assert(await p.evaluate(()=>app.mobileInput.state.pointer!==null));
    await c.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
    assert.equal(await p.evaluate(()=>app.walking.input.analog.y),0);
