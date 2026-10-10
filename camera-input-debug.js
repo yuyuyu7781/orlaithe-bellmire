@@ -5,7 +5,7 @@ export function installCameraInputDebug({canvas,getCamera}){
  Object.assign(root.style,{position:'fixed',zIndex:'250',left:'8px',right:'8px',bottom:'calc(4px + env(safe-area-inset-bottom))',pointerEvents:'none',background:'#071820ed',color:'#e8f7f1',padding:'7px',font:'11px/1.35 monospace',whiteSpace:'pre-wrap',overflowWrap:'anywhere',maxHeight:'46dvh',overflow:'hidden'});
  const text=document.createElement('span'),probe=document.createElement('span');
  Object.assign(probe.style,{position:'absolute',visibility:'hidden',padding:'env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)'});root.append(text,probe);document.body.append(root);
- const events=[],counts={},starts=new Map(),latestMoves={};let latestStart=null,latest=null,renderTimer=null;
+ const events=[],counts={},starts=new Map(),pending=new WeakMap(),latestMoves={};let latestStart=null,latest=null,renderTimer=null;
  const point=p=>({clientX:p.clientX,clientY:p.clientY,screenX:p.screenX,screenY:p.screenY});
  const label=o=>o?.tagName?.toLowerCase()+(o?.id?'#'+o.id:'');
  const rounded=n=>Number.isFinite(n)?Number(n.toFixed(3)):n;
@@ -33,16 +33,17 @@ export function installCameraInputDebug({canvas,getCamera}){
   const old=starts.get(key),start=isStart?{x:q.clientX,y:q.clientY}:old?.start??{x:q.clientX,y:q.clientY};
   const row={type:e.type,time:performance.now(),trusted:e.isTrusted,target:label(e.target),canvasTarget:e.composedPath().includes(canvas),pointerId:e.pointerId,pointerType:e.pointerType,touchId:q.identifier,...point(q),start:[start.x,start.y],deltaX:old?q.clientX-old.x:0,deltaY:old?q.clientY-old.y:0,totalX:q.clientX-start.x,totalY:q.clientY-start.y,touches:e.touches?[...e.touches].map(t=>({identifier:t.identifier,...point(t)})):[],hit:hit(q.clientX,q.clientY),yawBefore:before.yaw,cameraBefore:before,cancelable:e.cancelable,error:e.message};
   if(isStart||/^(pointermove|touchmove)$/.test(e.type))starts.set(key,{start,x:q.clientX,y:q.clientY});
-  setTimeout(()=>{const after=getCamera();row.yawAfter=after.yaw;row.cameraAfter=after;row.defaultPrevented=e.defaultPrevented;
+  const finish=phase=>{if(!pending.has(e))return;pending.delete(e);row.afterPhase=phase;const after=getCamera();row.yawAfter=after.yaw;row.cameraAfter=after;row.defaultPrevented=e.defaultPrevented;
    if(e.type==='pointerdown')row.cameraResult=after.pointer?.id===e.pointerId?'accepted':!before.active?'inactive':before.blocked||before.modal?'blocked/modal':before.pointer?'already active pointer':!row.canvasTarget?'UI target':e.pointerType==='touch'&&e.clientX<innerWidth*.48?'left movement region':'button/lock/capture';
    if(isStart){delete latestMoves.pointer;delete latestMoves.touch;latestStart=row;}
    counts[e.type]=(counts[e.type]??0)+1;events.push(row);if(events.length>256)events.shift();latest=row;
    if(/^(pointermove|touchmove)$/.test(e.type))latestMoves[kind]=row;
    if(/^(pointerup|pointercancel|touchend|touchcancel|lostpointercapture)$/.test(e.type))starts.delete(key);
    if(renderTimer===null)renderTimer=setTimeout(render,40);
-  },0);
+  };pending.set(e,finish);setTimeout(()=>finish('after-dispatch task'),0);
  }
- for(const type of ['pointerdown','pointermove','pointerup','pointercancel','gotpointercapture','lostpointercapture','touchstart','touchmove','touchend','touchcancel','blur','resize','orientationchange','pageshow','pagehide','gesturestart','gesturechange','gestureend','error'])window.addEventListener(type,capture,{capture:true,passive:true});
+ const after=e=>pending.get(e)?.('window bubble');
+ for(const type of ['pointerdown','pointermove','pointerup','pointercancel','gotpointercapture','lostpointercapture','touchstart','touchmove','touchend','touchcancel','blur','resize','orientationchange','pageshow','pagehide','gesturestart','gesturechange','gestureend','error']){window.addEventListener(type,capture,{capture:true,passive:true});window.addEventListener(type,after,{passive:true});}
  document.addEventListener('visibilitychange',capture,{capture:true,passive:true});
  visualViewport?.addEventListener('resize',capture,{passive:true});visualViewport?.addEventListener('scroll',capture,{passive:true});
  const snapshot=()=>({version:1,userAgent:navigator.userAgent,current:current(),counts:{...counts},events:[...events]});
