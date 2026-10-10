@@ -17,8 +17,11 @@ const {boot}=require('./capital-browser.cjs'),assert=require('assert');
   for(const viewport of [{width:390,height:844},{width:844,height:390}]){
    await p.setViewportSize(viewport);await p.waitForFunction(()=>Math.abs(document.querySelector('#app canvas').getBoundingClientRect().width-innerWidth)<1);
    for(const start of [.30,.44,.64,.84])for(const dx of [-35,35]){
-    const q={x:viewport.width*start,y:viewport.height*.45};
-    assert.equal(await p.evaluate(q=>document.elementFromPoint(q.x,q.y).tagName,q),'CANVAS');
+    // Pick free canvas, not a real UI overlapped at this orientation/position.
+    const q=await p.evaluate(({x,dx})=>{const canvas=document.querySelector('#app canvas');for(const ratio of [.45,.35,.50,.60,.70]){const y=innerHeight*ratio;if(document.elementFromPoint(x,y)===canvas&&document.elementFromPoint(x+dx,y)===canvas)return{x,y};}return null;},{x:viewport.width*start,dx});
+    assert(q,JSON.stringify({viewport,start,dx}));
+    await p.touchscreen.tap(q.x,q.y);
+    assert.equal(await p.evaluate(()=>cameraInputDebug.snapshot().events.findLast(e=>e.type==='pointerdown').cameraResult),'accepted');
     const since=await p.evaluate(()=>performance.now());const up=await p.evaluate(()=>cameraInputDebug.snapshot().counts.pointerup??0);const yaw=await p.evaluate(()=>app.walking.state.yaw);
     await p.mouse.move(q.x,q.y);await p.mouse.down();await p.mouse.move(q.x+dx,q.y,{steps:4});await p.mouse.up();await p.waitForFunction(up=>(cameraInputDebug.snapshot().counts.pointerup??0)>up,up);
     const r=await p.evaluate(()=>cameraInputDebug.snapshot());

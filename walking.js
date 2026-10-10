@@ -1,4 +1,4 @@
-import {installCameraInputDebug} from './camera-input-debug.js?v=1';
+import {installCameraInputDebug} from './camera-input-debug.js?v=2';
 import {gameModalOpen,resetGamePointers} from './game-input-state.js?v=52.9';
 // Walking is separate from the miniature's view/animation system. Future actors
 // can supply their own dimensions and ground policy without changing input/UI.
