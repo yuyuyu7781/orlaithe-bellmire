@@ -14,9 +14,9 @@ await p.setViewportSize({width:390,height:844});
 await check('Bellmire map expansion foreground and shared pinch',async()=>{
  await p.evaluate(()=>{app.walking.enter('human');app.minimap.setOpen(true);app.minimap.update(1);document.getElementById('panel').classList.remove('collapsed');});
  await p.locator('.town-map button[aria-label="地図を拡大"]').tap({timeout:3000});
- const hits=await p.evaluate(()=>{const m=app.minimap.root,r=m.getBoundingClientRect(),panel=document.getElementById('panel').getBoundingClientRect(),x=Math.max(r.left,panel.left)+8,y=Math.max(r.top,panel.top)+8;return{overlap:x<Math.min(r.right,panel.right)&&y<Math.min(r.bottom,panel.bottom),foreground:m.contains(document.elementFromPoint(x,y)),bounds:{left:r.left,right:r.right,top:r.top,bottom:r.bottom}};});assert(!hits.overlap||hits.foreground,JSON.stringify(hits));
+ const hits=await p.evaluate(()=>{const m=app.minimap.root,r=m.getBoundingClientRect(),panel=document.getElementById('panel').getBoundingClientRect(),x=Math.max(r.left,panel.left)+8,y=Math.max(r.top,panel.top)+8;return{overlap:x<Math.min(r.right,panel.right)&&y<Math.min(r.bottom,panel.bottom),foreground:m.contains(document.elementFromPoint(x,y)),bounds:{left:r.left,right:r.right,top:r.top,bottom:r.bottom}};});
  const box=await p.locator('.town-map canvas').boundingBox(),cx=box.x+box.width*.55,cy=box.y+box.height*.6,pts=d=>[{id:4,x:cx-d,y:cy},{id:5,x:cx+d,y:cy}];await touch('touchStart',pts(15));await touch('touchMove',pts(35));await touch('touchEnd');
- const zoom=await p.evaluate(()=>app.minimap.gestures?.state.zoom??1);assert(zoom>1.8,'minimap pinch did not zoom: '+zoom);await touch('touchStart',pts(35));await touch('touchMove',pts(15));await touch('touchEnd');assert((await p.evaluate(()=>app.minimap.gestures.state.zoom))<1.2);return hits;
+ const zoom=await p.evaluate(()=>app.minimap.gestures?.state.zoom??1);assert(zoom>1.8,'minimap pinch did not zoom: '+zoom);await touch('touchStart',pts(35));await touch('touchMove',pts(15));await touch('touchEnd');assert((await p.evaluate(()=>app.minimap.gestures.state.zoom))<1.2);assert(!hits.overlap||hits.foreground,JSON.stringify(hits));return hits;
 });
 await p.evaluate(()=>{app.minimap.setOpen(false);document.getElementById('panel').classList.add('collapsed');});
 out.audit=await p.evaluate(()=>{
