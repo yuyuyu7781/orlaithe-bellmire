@@ -88,6 +88,8 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
     const positions=[],normals=[],colors=[];for(const g of pieces){positions.push(...g.attributes.position.array);normals.push(...g.attributes.normal.array);const tint=new THREE.Color(r.role.accent);for(let i=0;i<g.attributes.position.count;i++)colors.push(tint.r,tint.g,tint.b);g.dispose();}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));g.setAttribute('normal',new THREE.Float32BufferAttribute(normals,3));g.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));g.computeBoundingBox();g.computeBoundingSphere();r.seatGeometry=g;}
     foot.geometry=sitting?r.seatGeometry:r.standingGeometry;
    }
+   // Named travel owns the actual distance phase; retain existing joint meshes.
+   if(pose&&r.moving&&o.userData.namedTravel){const swing=r.currentState==='walking'?Math.sin(r.walkPhase??0)*.48*o.userData.residentLife.gaitAmplitude:0;r.feet.forEach((foot,i)=>foot.rotation.x=i?-swing:swing);}
    if(pose&&r.footRest&&!sitting){const p=r.feet[0].geometry.attributes.position,walking=['walking','goingHome'].includes(r.currentState);for(let i=0;i<p.count;i++){const k=i*3,sign=r.footRest[k]<0?-1:1,swing=walking?Math.sin((r.walkPhase??time*4)+sign*Math.PI/2):0;p.array[k]=r.footRest[k];p.array[k+1]=r.footRest[k+1]+Math.max(0,swing)*.045;p.array[k+2]=r.footRest[k+2]+swing*.10;}p.needsUpdate=true;}
    if(pose){const breath=Math.sin(time*.85+v.phase),look=Math.sin(time*.31+v.phase),weight=(v.seed-.5)*.045;
     body.rotation.z=r.baseBody.z+weight+breath*.008*quiet;body.rotation.x=r.baseBody.x+(role.posture==='working'?.035:role.posture==='thoughtful'?.015:-.009)+Math.sin(time*.63+v.phase)*.006*quiet;
