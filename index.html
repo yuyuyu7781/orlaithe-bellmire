@@ -1262,6 +1262,7 @@ const journal=createJournal({stay:stayState,walking,inspections,dialogue,navigat
 connectCalendarDialogue({dialogue,townLife,stay:stayState});
 const residentRelations=connectResidentRelations({THREE,residentLife,residentDay,inspections,shopSystem,stay:stayState});
 const storyThread=createStoryThread({THREE,stay:stayState,townLife,inspections,dialogue,ambientAudio,residentLife,walking,shopSystem,catPassages});
+residentLife.setContext({inspections,shopSystem,walking});
 const interiorLife=createInteriorLife({THREE,shopSystem,townLife});
 const nineStay=connectNineStones({region:nineStones,walking,inspections,stay:stayState,townLife,dialogue,ambientAudio});
 const lakeStay=connectLakeLun({lake:lakeLun,walking,inspections,stay:stayState,townLife,dialogue,ambientAudio,shopSystem});

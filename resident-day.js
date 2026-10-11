@@ -84,7 +84,7 @@ export function createResidentDay({THREE,walking,grounding,residentLife,townLife
    const segment=e.route[e.cursor],target=e.cursor>=e.route.length?e.marginPoint:typeof segment==='number'?nodes[segment].point:segment,delta=target.clone().sub(e.feet),distance2=Math.hypot(delta.x,delta.z),move=Math.min(distance2,e.speed*stepTime);
    if(!shopSystem.current&&walking.active&&walking.state.feet.distanceTo(e.feet)<.72&&Math.abs(walking.state.feet.y-e.feet.y)<.5){e.pause+=stepTime;e.record.activity='listening';place(e);continue;}
    const neighbor=nearbyActors(e).find(other=>other!==e&&other.visible&&!other.inside&&other.feet.distanceTo(e.feet)<.52&&other.cursor<other.route.length&&other.index<e.index);
-   if(neighbor){if(e.route.length&&e.feet.distanceTo(typeof e.route.at(-1)==='number'?nodes[e.route.at(-1)].point:e.route.at(-1))<1.15){e.cursor=e.route.length;arrive(e);if(!e.inside){e.currentState=neighbor.currentState='talking';e.record.activity=neighbor.record.activity='conversation';}}else e.wait=.25;place(e);continue;}
+   if(neighbor){if(e.route.length&&e.feet.distanceTo(typeof e.route.at(-1)==='number'?nodes[e.route.at(-1)].point:e.route.at(-1))<1.15){e.cursor=e.route.length;arrive(e);}else e.wait=.25;place(e);continue;}
    if(distance2<.006&&e.cursor>=e.route.length){arrive(e);place(e);continue;}
    if(distance2<.006){const floor=walking.canStandTownAs('human',target.x,target.z,e.feet.y,e.record.object);if(floor===null){e.wait=.4;if(e.cursor+1<e.route.length){const n=e.route[e.cursor+1],p=typeof n==='number'?nodes[n].point:n;if(p.distanceTo(e.feet)<.3&&walking.canStandTownAs('human',p.x,p.z,e.feet.y,e.record.object)!==null)e.cursor++;}place(e);continue;}e.feet.set(target.x,floor,target.z);if(typeof segment==='number')e.node=segment;e.cursor++;if(e.idleTrip&&e.cursor===1)e.wait=rhythm.dwell;if(e.cursor>=e.route.length){if(e.idleTrip){arrive(e);place(e);continue;}e.marginPoint=null;e.parkingElapsed=0;}if(e.cursor%70===0)e.wait=.5+e.index*.11;place(e);continue;}
    const offRoute=e.cursor>=e.route.length;if(offRoute)remember(e);
@@ -96,8 +96,7 @@ export function createResidentDay({THREE,walking,grounding,residentLife,townLife
    if(advanced){e.record.object.rotation.y=Math.atan2(delta.x,delta.z);e.record.walkPhase=(e.record.walkPhase??0)+move*6;e.record.activity='walking';e.currentState=e.destination==='home'&&period==='night'?'goingHome':'walking';}
    place(e);
   }
-  // A small exchange at shared destinations; no dialogue UI or extra people.
-  for(const a of entries)for(const b of nearbyActors(a)){if(b.index<=a.index)continue;if(a.currentState!=='waitingRoute'&&b.currentState!=='waitingRoute'&&!a.record.object.userData.conversationPaused&&!b.record.object.userData.conversationPaused&&a.visible&&b.visible&&!a.inside&&!b.inside&&a.cursor>=a.route.length&&b.cursor>=b.route.length&&a.feet.distanceTo(b.feet)<1.8){a.currentState=b.currentState='talking';a.record.activity=b.record.activity='conversation';a.record.object.rotation.y=Math.atan2(b.feet.x-a.feet.x,b.feet.z-a.feet.z);b.record.object.rotation.y=a.record.object.rotation.y+Math.PI;}}
+  // Shared-place glances are timed by resident-life; route state stays intact.
   if(roomDirty){roomDirty=false;if(shopSystem.current)refreshRoom();}
   changes.splice(0,changes.length,...entries.map(e=>({index:e.index,currentState:e.currentState,activity:e.record.activity,visible:e.record.object.visible,position:e.feet.toArray()})));
  }

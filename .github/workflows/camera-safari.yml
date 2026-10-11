@@ -1,7 +1,7 @@
 name: Safari camera investigation
 on:
   push:
-    branches: [iphone-camera-safari, iphone-camera-region, main]
+    branches: [iphone-camera-safari, iphone-camera-region, feat/npc-social-work, main]
 permissions:
   contents: read
 jobs:
@@ -63,3 +63,5 @@ jobs:
           node tools/npc-life-acceptance.cjs
           node tools/npc-route-recovery.cjs
           node tools/npc-life-lifecycle.cjs
+          node tools/npc-social-priority.cjs
+          node tools/npc-social-acceptance.cjs

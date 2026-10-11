@@ -1,3 +1,4 @@
+import {lifeRhythmFor,residentActionFor,updateResidentGlances} from './resident-routines.js';
 import {residentLifeSettings,residentRoles,residentVariation,everydayResidentRole,communityAppearance,carriedPropVisible} from './resident-life-settings.js';
 
 // The existing roots, routes, ground anchors and dialogue identities remain the
@@ -64,6 +65,8 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
   // No terrain re-placement: maintain each original foot/seat world height.
   if(!entry.seated){const contact=new THREE.Box3().setFromObject(feet[0]??o,true).min.y;o.position.y+=(b.min.y-contact)/(o.parent?.getWorldScale(new THREE.Vector3()).y??1);}
  });
+ let presentationContext=null,lastSocialScan=-Infinity;
+ const presentationRecords=records.filter(r=>lifeRhythmFor(r.id));
  const owners=new Set(records.map(r=>r.object));for(const list of parts.values())for(const p of list){for(let o=p.node;o;o=o.parent)if(owners.has(o)){p.owner=o;break;}}
  const batches=[];for(const [kind,list]of parts){if(!list.length)continue;const mesh=new THREE.InstancedMesh(geometries[kind],material,list.length);mesh.name='Resident '+kind+' details';mesh.userData.walkSoft=true;mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);mesh.frustumCulled=false;list.forEach((p,i)=>mesh.setColorAt(i,p.color));mesh.instanceColor.setUsage(THREE.DynamicDrawUsage);root.add(mesh);batches.push({mesh,list});}
  function breathValue(t,phase){return Math.sin(t*.7+phase)*.025;}
@@ -73,6 +76,14 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
   const quiet=period==='night'?.55:1;
   if(camera){camera.updateMatrixWorld();frustum.setFromProjectionMatrix(projection.multiplyMatrices(camera.projectionMatrix,camera.matrixWorldInverse));}
   const active=new Set();
+  const blocked=!!presentationContext?.inspections?.opened&&presentationContext.inspections.opened.kind!=='talk'||!!presentationContext?.walking?.state.inputBlocked&&!presentationContext?.inspections?.opened;
+  const candidates=presentationRecords.map(r=>{const o=r.object,room=presentationContext?.shopSystem?.current,location=room&&o.parent===room.root?room.shop.id:r.destination??o.userData.namedTravel?.place,held=presentationContext?.inspections?.opened?.object===o||o.userData.conversationPaused;
+   r.presentationAction=residentActionFor(r,time,{location,period,blocked:blocked||held});
+   const feet=o.getWorldPosition(new THREE.Vector3()),available=visible(o)&&!o.userData.regionDormant&&(!camera||camera.position.distanceTo(feet)<42)&&!held&&!blocked&&!(r.bellPause>0);
+   return {record:r,feet,visible:visible(o),inside:false,space:location,region:o.userData.activityRegion??'bellmire',parent:o.parent,available:available&&!!r.presentationAction,action:r.presentationAction};
+  });
+  const scan=time-lastSocialScan>=3||time<lastSocialScan;if(scan)lastSocialScan=time;
+  updateResidentGlances(candidates,time,{scan});
   for(const r of records){const {object:o,head,body,arms,variation:v,role}=r;
    // Existing scheduled/walking people keep their own physical route state.
    // A few background neighbours stay indoors in bad weather; room actors
@@ -91,11 +102,12 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
    // Named travel owns the actual distance phase; retain existing joint meshes.
    if(pose&&r.moving&&o.userData.namedTravel){const swing=r.currentState==='walking'?Math.sin(r.walkPhase??0)*.48*o.userData.residentLife.gaitAmplitude:0;r.feet.forEach((foot,i)=>foot.rotation.x=i?-swing:swing);}
    if(pose&&r.footRest&&!sitting){const p=r.feet[0].geometry.attributes.position,walking=['walking','goingHome'].includes(r.currentState);for(let i=0;i<p.count;i++){const k=i*3,sign=r.footRest[k]<0?-1:1,swing=walking?Math.sin((r.walkPhase??time*4)+sign*Math.PI/2):0;p.array[k]=r.footRest[k];p.array[k+1]=r.footRest[k+1]+Math.max(0,swing)*.045;p.array[k+2]=r.footRest[k+2]+swing*.10;}p.needsUpdate=true;}
-   if(pose){const breath=Math.sin(time*.85+v.phase),look=Math.sin(time*.31+v.phase),weight=(v.seed-.5)*.045;
+   const held=presentationContext?.inspections?.opened?.object===o||o.userData.conversationPaused||r.bellPause>0;
+   if(pose&&!held&&!blocked){const breath=Math.sin(time*.85+v.phase),look=Math.sin(time*.31+v.phase),weight=(v.seed-.5)*.045;
     body.rotation.z=r.baseBody.z+weight+breath*.008*quiet;body.rotation.x=r.baseBody.x+(role.posture==='working'?.035:role.posture==='thoughtful'?.015:-.009)+Math.sin(time*.63+v.phase)*.006*quiet;
     head.rotation.y=r.baseHead.y+look*.16*quiet;head.rotation.x=r.baseHead.x+(role.activity==='reading'||role.activity==='measuring'?.055:0)+breath*.025*quiet;
    }
-   if(pose){arms.forEach((arm,i)=>{const sign=i?1:-1;arm.rotation.z=(role.prop&&r.prop.visible?-sign*.21:sign*.10)+Math.sin(time*.7+v.phase+i)*.012*quiet;if(role.prop&&r.prop.visible)arm.rotation.x=-1.04+Math.sin(time*.57+v.phase)*.035*quiet;else if(!r.moving)arm.rotation.x=Math.sin(time*.61+v.phase+i)*.04*quiet;});
+   if(pose&&!held&&!blocked){arms.forEach((arm,i)=>{const sign=i?1:-1;arm.rotation.z=(role.prop&&r.prop.visible?-sign*.21:sign*.10)+Math.sin(time*.7+v.phase+i)*.012*quiet;if(role.prop&&r.prop.visible)arm.rotation.x=-1.04+Math.sin(time*.57+v.phase)*.035*quiet;else if(!r.moving)arm.rotation.x=Math.sin(time*.61+v.phase+i)*.04*quiet;});
    if(r.diverse&&!r.prop.visible&&!['walking','goingHome'].includes(r.currentState)){if(r.appearance.stance==='behind')arms.forEach(a=>a.rotation.x=.3);if(r.appearance.stance==='folded')arms.forEach((a,i)=>{a.rotation.x=-.7;a.rotation.z=i?.4:-.4;});if(r.appearance.stance==='leaning')body.rotation.z+=.035;}
    const action=o.userData.shopWork?.currentState==='walking'?'walking':r.activity??role.activity,swing=Math.sin(time*1.2+v.phase)*quiet;
    if(sitting){arms.forEach(a=>a.rotation.x=-.40);head.rotation.x=r.baseHead.x+.055;}
@@ -106,7 +118,10 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
    else if(action==='rope'){arms.forEach((a,i)=>a.rotation.x=-.92+Math.sin(time*.8+v.phase+i)*.13*quiet);}
    else if(action==='conversation'&&!r.moving){arms[0].rotation.x=-.25+Math.max(0,swing)*.18;head.rotation.y=r.baseHead.y+.25+Math.sin(time*.4+v.phase)*.08;}
    else if(action==='browsing'||action==='well'){head.rotation.x=r.baseHead.x+.10+breathValue(time,v.phase)*quiet;}
-   r.prop.rotation.z=Math.sin(time*.57+v.phase)*.025*quiet;}
+   r.prop.rotation.z=Math.sin(time*.57+v.phase)*.025*quiet;
+   if(r.presentationAction&&!sitting){const a=r.presentationAction;head.rotation.x=r.baseHead.x+a.headPitch;head.rotation.y=r.baseHead.y+a.headYaw;body.rotation.x=r.baseBody.x+a.lean;arms.forEach((arm,i)=>arm.rotation.x=a.arm[i]);}
+   if(r.glance){const target=r.glance.partner.object.getWorldPosition(new THREE.Vector3()),local=o.worldToLocal(target);head.rotation.y=r.baseHead.y+Math.max(-.65,Math.min(.65,Math.atan2(local.x,local.z)));head.rotation.x=r.baseHead.x+.015;}
+   }
    o.updateWorldMatrix(true,true);
    o.getWorldPosition(sphere.center);sphere.center.y+=.85;if(!camera||frustum.intersectsSphere(sphere))active.add(o);
   }
@@ -116,5 +131,5 @@ export function createResidentLife({THREE,scene,camera=null,getQuality=()=> 'sta
   root.visible=true;for(const {mesh,list}of batches){let count=0;for(const p of list)if(active.has(p.owner)&&visible(p.node)){mesh.setMatrixAt(count,p.node.matrixWorld);mesh.setColorAt(count,p.color);count++;}mesh.count=count;mesh.visible=count>0;mesh.instanceMatrix.needsUpdate=true;mesh.instanceColor.needsUpdate=true;}
  }
  update(0,{force:true});
- return {root,records,update,setPeriod(value){period=value;},setEnvironment(value,area=getArea){weather=value;getArea=area;},stats:{residents:records.length,standing:records.filter(r=>!r.seated).length,seated:records.filter(r=>r.seated).length,heldProps:records.filter(r=>r.role.prop).length,detailInstances:[...parts.values()].reduce((n,p)=>n+p.length,0),detailBatches:batches.length,contactMeshes:records.filter(r=>!r.seated&&!r.moving).length,addedLights:0,activities:[...new Set(records.map(r=>r.role.activity))]}};
+ return {root,records,update,setContext(value){presentationContext=value;},setPeriod(value){period=value;},setEnvironment(value,area=getArea){weather=value;getArea=area;},stats:{residents:records.length,standing:records.filter(r=>!r.seated).length,seated:records.filter(r=>r.seated).length,heldProps:records.filter(r=>r.role.prop).length,detailInstances:[...parts.values()].reduce((n,p)=>n+p.length,0),detailBatches:batches.length,contactMeshes:records.filter(r=>!r.seated&&!r.moving).length,addedLights:0,activities:[...new Set(records.map(r=>r.role.activity))]}};
 }
