@@ -25,11 +25,11 @@ for(const id of ids){
  const before=c.feet.toArray(),route=(named?c.path:c.route).map(v=>typeof v==='number'?v:v.toArray()),cursor=c.cursor;
  for(let i=0;i<40;i++){if(named)a.namedTravel.update(.05);else a.residentDay.update(.05);}
  const during=c.feet.toArray(),sameRoute=JSON.stringify(route)===JSON.stringify((named?c.path:c.route).map(v=>typeof v==='number'?v:v.toArray())),sameCursor=cursor===c.cursor;
- a.inspections.dismiss();for(let i=0;i<20;i++){if(named)a.namedTravel.update(.05);else a.residentDay.update(.05);}
- return{before,during,after:c.feet.toArray(),sameRoute,sameCursor};
+ a.inspections.dismiss();if(named)a.namedTravel.update(.05);else a.residentDay.update(.05);const r=a.residentLife.records.find(r=>r.object===actor);const motion={state:r.currentState,activity:r.activity,phase:r.walkPhase??0,paused:actor.userData.conversationPaused};for(let i=0;i<19;i++){if(named)a.namedTravel.update(.05);else a.residentDay.update(.05);}
+ return{before,during,after:c.feet.toArray(),sameRoute,sameCursor,motion};
  },id);
  assert.deepEqual(result.during,result.before,id+' must stop during actual dialogue');assert.ok(result.sameRoute&&result.sameCursor,id+' must retain exact route and cursor');assert.notDeepEqual(result.after,result.before,id+' must resume after dismissal');
- console.log('PASS conversation freeze/resume',id);
+ if(process.env.NPC_CHECK_ANIMATION&&['boatworker','greenBard'].includes(id)){assert.equal(result.motion.state,'walking',id+' real movement must drive shared foot animation');assert.equal(result.motion.activity,'walking');assert.ok(result.motion.phase>0);assert.equal(result.motion.paused,false);}console.log('PASS conversation freeze/resume',id);
 }
 assert.deepEqual(b.errors,[]);console.log('PASS eight real route executors freeze only dialogue target and resume');
 }finally{await b.browser.close();}})().catch(e=>{console.error(e);process.exit(1)});

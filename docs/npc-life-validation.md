@@ -18,3 +18,5 @@ Task 1: 基準mainで会話中のboatworkerが0.7m進む失敗を確認。inspec
 代表8人の実executorで会話停止/同一経路復帰PASS。Node回帰30/30 PASS。
 Ruling: 共有停止処理は8人だけに限定せず、同じexecutorを使うNPCに適用 — opened.objectの一致だけを判定し別NPCを止めないため — リスクは別handlerの人物固定、visitor/guest回帰で検証する。
 Ruling: sibling worktreeを使用 — main保全と既存gitignore無変更 — ローカルの作業用ディレクトリだけ増える。
+
+Task 2: boatworkerの実移動時にrecord.currentStateがundefinedになるREDを確認。実距離から共通のcurrentState/activity/walkPhaseを更新。待機中は足を止め、実際の進行方向を向く。8人会話復帰＋named animation acceptance PASS。

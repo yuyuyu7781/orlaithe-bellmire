@@ -1247,7 +1247,7 @@ residentLife.setEnvironment(townLife.state.weather,()=>shopSystem.current?.shop.
 townLife.onChange(state=>residentLife.setEnvironment(state.weather));
 const residentDay=createResidentDay({getRegion:()=>boatTravel.active?'lake-lun':regionSystem.current.id,extraPaths:{...lunmere.localPaths,...violetMire.localPaths,...capital.localPaths},inspections,THREE,walking,grounding,residentLife,townLife,shopSystem,camera,getQuality:()=>quality.current});
 const visitorSystem=connectVisitors({THREE,people:visitorPeople.people,residentLife,residentDay,inspections,walking,shopSystem,townLife,stay:stayState});
-const namedTravel=createNamedTravel({THREE,walking,shopSystem,residentDay,dialogue,inspections,townLife,camera,getQuality:()=>quality.current});
+const namedTravel=createNamedTravel({THREE,walking,shopSystem,residentDay,residentLife,dialogue,inspections,townLife,camera,getQuality:()=>quality.current});
 const townEvents=createTownEvents({extraEvents:lakeTownEvents,THREE,scene,culture,inspectTargets:[...inspectTargets,...lunmere.sources],inspections,walking,townLife,shopSystem,dialogue,stay:stayState});
 const catExploration=addCatExploration({THREE,walking,grounding,inspections,shopSystem,extraSteps:[...outskirts.catSteps,...nineStones.catSteps,...lakeLun.catSteps,...lunmere.catSteps,...caerith.catSteps,...drownedWay.catSteps,...theRing.catSteps,...hollowCrown.catSteps,...violetMire.catSteps,...capital.catSteps]});
 const ambientAudio=createAmbientAudio({camera,walking,shopSystem,townLife,getQuality:()=>quality.current,getRegion:()=>regionSystem.current.id});
