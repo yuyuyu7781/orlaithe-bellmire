@@ -1,3 +1,5 @@
+import {selectPortrait} from './dialogue-data.js';
+import {createPortraitView} from './portrait-ui.js';
 // Resolution is independent of inspection text/UI. Future dialogue can register
 // a separate kind and handler without adding residents to the inspect registry.
 export function createInteractionResolver({THREE,camera,scene,targets=[],ignored=[]}){
@@ -27,7 +29,7 @@ export function createInteractionResolver({THREE,camera,scene,targets=[],ignored
   return {entries,register,position,resolve,refreshOccluders,isVisible:visible};
 }
 
-export function createInspectionSystem({THREE,scene,camera,walking,targets,ignored=[]}){
+export function createInspectionSystem({THREE,scene,camera,walking,targets,ignored=[],getTime=()=> 'day'}){
   const resolver=createInteractionResolver({THREE,scene,camera,targets,ignored}),handlers=new Map(),presentListeners=new Set();
   const prompt=document.createElement('button'),card=document.createElement('aside'),title=document.createElement('strong'),text=document.createElement('p'),close=document.createElement('button');
   prompt.id='inspectPrompt';prompt.className='inspect-prompt';prompt.hidden=true;prompt.setAttribute('aria-keyshortcuts','E');prompt.setAttribute('aria-controls','inspectionCard');
@@ -40,7 +42,8 @@ export function createInspectionSystem({THREE,scene,camera,walking,targets,ignor
     const finish=()=>{card.hidden=true;card.classList.remove('conversation-closing');card.inert=false;content.replaceChildren();closeTimer=null;};
     if(animate){card.classList.add('conversation-closing');card.inert=true;closeTimer=setTimeout(finish,110);}else finish();}
   function present(entry,{label=entry.label,text:message=entry.text,kind=entry.kind,extra=null}={}){
-    clearTimeout(closeTimer);closeTimer=null;card.classList.remove('conversation-closing');card.inert=false;card.dataset.period=extra?.dataset.period??'day';card.dataset.conversationMode=extra?.dataset.conversationMode??'';close.setAttribute('aria-label',kind==='talk'?'会話を閉じる':'説明を閉じる');title.textContent=label;text.textContent=message;content.replaceChildren(...(extra?[extra]:[]));card.classList.toggle('dialogue-card',kind==='talk');walking.setInputBlocked('inspection',true);opened=entry;openedProfile=walking.state.profile.id;card.hidden=false;for(const fn of presentListeners)fn({entry,text:message,kind,profile:openedProfile});
+    if(!extra&&entry.portraitCharacter){const time=getTime(),portrait=createPortraitView(entry.portraitCharacter,{image:selectPortrait(entry.portraitCharacter,{time}),time});extra=portrait.element;extra.dataset.conversationMode=walking.state.profile.id;}
+    clearTimeout(closeTimer);closeTimer=null;card.classList.remove('conversation-closing');card.inert=false;card.dataset.period=extra?.dataset.period??'day';card.dataset.conversationMode=extra?.dataset.conversationMode??'';close.setAttribute('aria-label',kind==='talk'?'会話を閉じる':'説明を閉じる');title.textContent=label;text.textContent=message;content.replaceChildren(...(extra?[extra]:[]));card.classList.toggle('dialogue-card',kind==='talk'||!!extra);walking.setInputBlocked('inspection',true);opened=entry;openedProfile=walking.state.profile.id;card.hidden=false;for(const fn of presentListeners)fn({entry,text:message,kind,profile:openedProfile});
   }
   handlers.set('inspect',entry=>present(entry,{text:entry.textByProfile?.[walking.state.profile.id]??entry.text}));
   function activate(){if(walking.state.inputBlocked)return false;update(.2);if(!selected||!walking.active)return false;const handle=handlers.get(selected.kind);if(!handle)return false;handle(selected);return true;}

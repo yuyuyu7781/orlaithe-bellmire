@@ -1205,7 +1205,7 @@ const inspectTargets=createInspectionTargets({culture,well:squareWell,
   moorings:inspectionMooring,
   wheel,millrace,landings:culture.landingBells[0],details:lifeDetails});
 inspectTargets.push(...outskirts.targets,...nineStones.targets,...lakeLun.targets);
-const inspections=createInspectionSystem({THREE,scene,camera,walking,targets:inspectTargets,
+const inspections=createInspectionSystem({THREE,scene,camera,walking,getTime:()=>townLife.state.period,targets:inspectTargets,
   ignored:[...residents,residentV8,cat,...smoke,train,axle]});
 let stayStorage=null;try{stayStorage=localStorage;}catch{}
 const stayState=createStayState({storage:stayStorage});setCapitalState(stayState.data);
