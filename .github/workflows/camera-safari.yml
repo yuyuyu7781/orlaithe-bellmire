@@ -55,3 +55,11 @@ jobs:
           node tools/portrait-guests-native.cjs
           node tools/water-advice-browser.cjs
           node tools/capital-portraits.cjs
+      - name: NPC life movement acceptance
+        timeout-minutes: 5
+        env:
+          ORLAITHE_BROWSER_ENGINE: ${{ matrix.engine }}
+        run: |
+          node tools/npc-life-acceptance.cjs
+          node tools/npc-route-recovery.cjs
+          node tools/npc-life-lifecycle.cjs
