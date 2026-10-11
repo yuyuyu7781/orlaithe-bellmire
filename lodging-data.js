@@ -19,5 +19,5 @@ export function lodgingGuests(id,state){
  const academic=id==='cv-scholar-house',roles=academic?scholarRoles:civicRoles,p=state.period;
  const count=academic?(p==='night'?3+state.dayIndex%2:p==='evening'?(['rain','blackout'].includes(state.weather)?3:2):p==='morning'?2:1):(p==='night'?1+state.dayIndex%2:p==='day'?2+state.dayIndex%3:p==='morning'?3:2);
  const ordinary=academic?['明日は測量に出る。靴を乾かしておこう。','この紙、乾かないな。机を少し借りてもいい？','観測は雲が切れてからだって。','夕飯、残ってる？ 今日はずいぶん歩いた。','地図の写しは明日にするよ。今夜は遅いから。','高台の風は冷たい。湯があると助かる。']:['記録院は午後から混むと聞いた。明日は早く出るつもり。','昨日は水路区で荷が足止めされた。ここで一晩待つよ。','申請の写しを揃えている。机を少し借りてもいいかな。','朝食が早いから助かる。荷物もまとめておこう。'];
- return Array.from({length:count},(_,i)=>{const key=(state.dayIndex+i)%roles.length;return {key,role:roles[key],text:ordinary[(state.dayIndex+i)%ordinary.length]};});
+ return Array.from({length:count},(_,i)=>{const key=(state.dayIndex+i)%roles.length;return {key,role:roles[key],text:ordinary[(state.dayIndex+i)%ordinary.length],portraitDefault:{src:`assets/portraits/guest-${academic?'scholar':'civic'}-${key}-default.png`,alt:roles[key],crop:{x:50,y:28,zoom:1,mobileY:26}}};});
 }
