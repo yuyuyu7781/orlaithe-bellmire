@@ -40,3 +40,18 @@ jobs:
           node tools/mobile-interaction.cjs
           node tools/mobile-pc-regression.cjs
           node tools/mobile-scroll-recovery.cjs
+      - name: Portrait and water Node regressions
+        if: matrix.engine == 'chromium'
+        run: |
+          for test in tools/check_*.mjs; do node "$test"; done
+      - name: Portrait and water browser acceptance
+        timeout-minutes: 10
+        env:
+          ORLAITHE_BROWSER_ENGINE: ${{ matrix.engine }}
+        run: |
+          node tools/portrait-completion.cjs
+          node tools/portrait-travellers.cjs
+          node tools/portrait-guests.cjs
+          node tools/portrait-guests-native.cjs
+          node tools/water-advice-browser.cjs
+          node tools/capital-portraits.cjs

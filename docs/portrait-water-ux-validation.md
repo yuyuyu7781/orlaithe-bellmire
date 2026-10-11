@@ -20,11 +20,14 @@ Status: 自動検証済み／実機確認待ち. iPhone Safari is NOT declared P
 SAVE_KEY=bellmire.stay.v1, SAVE_VERSION=1 unchanged. IDs, memories, schedules, visitor/mire kinds, guest slots, stage/unlock rules unchanged. Old テッサ/リス Journal text retained; original historical migration behavior unchanged. Forecast/portrait URLs are not saved. 区画14、王宮内部、Finnの正体、王家の陰謀 remain unresolved/unreleased.
 
 ## Final evidence
-- All 29 tools/check_*.mjs checks passed on final production code, including sequential water oracle, 22 legacy hashes, old-name memory/Journal round trip, 288 legacy guest role/count/text cases, visitor plan equality.
+- All 29 production-focused tools/check_*.mjs checks passed on final production code, including sequential water oracle, 22 legacy hashes, old-name memory/Journal round trip, 288 legacy guest role/count/text cases, visitor plan equality.
 - 19 browser scripts passed: portrait-completion, portrait-guests, portrait-guests-native, lodging-life-audit, lodging-night-dialogue, lodging-return-audit, water-advice-browser, portrait-travellers, capital-save-compat, capital-research-compat, capital-research-ui, boat-sail, capital-closures, capital-weather, capital-days, camera-safari-browser, mobile-interaction, mobile-pc-regression, mobile-scroll-recovery.
 - 27 resident portraits x 5 sizes x human/cat x day/night; 11 guest roles/four slots/next-day selection; image failure; reload; native touch guests; 320/375/390/430/844x390.
 - Water phase/discovery matrix, non-leakage, live weather/reload, ordinary one-night rest and next-morning closure warning. Existing schedule, daily events, weather, boat/mire/ring/save and locked boundaries regressions passed.
 - Chromium119 software rendering with exact production Three0.180.0 supplied locally for test networking. Local WebKit could not launch because its executable is unavailable; not counted as PASS. Real iPhone remains pending.
+
+## Continuous verification
+A browser-engine selection check (RED: WebKit silently launched Chromium → GREEN) raises the Node total to 30. New Node checks and six portrait/water browser scripts are connected to the existing camera-safari CI matrix. ORLAITHE_BROWSER_ENGINE selects the existing test harness engine only; production modules are unchanged. Chromium/WebKit CI results are reported separately from local Chromium119 checks and iPhone verification.
 
 ## Review decisions
 - Isolated sibling worktree used within authorized implementation scope; no ignore/config change (cost: local workspace cleanup only).
