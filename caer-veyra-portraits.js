@@ -2,6 +2,9 @@
 // Stable actor/save IDs; optional night/expression fields use the existing UI.
 const portrait=(name,role,ward,file,focusX,focusY,zoom,mobileY,intro)=>({name,role,ward,path:'./assets/portraits/'+file,focusX,focusY,zoom,mobileFocus:{focusX,focusY:mobileY,zoom:Math.max(1,zoom-.01)},nightVariant:null,expressionVariant:{},intro});
 export const capitalPortraits={
+ cvTessa:portrait('エステル','中央区の宿主','civicWard','cv-tessa-default.png',50,28,1,26,'中央区の宿主'),
+ cvAven:portrait('アヴェン','共同下宿の主人','scholarHeights','cv-aven-default.png',50,28,1,26,'共同下宿の主人'),
+ cvIsel:portrait('イセル','旅の学者','scholarHeights','cv-isel-default.png',50,28,1,26,'旅の学者'),
  cvCedric:portrait('セドリック','外門の記録官','lowerWard','cv-cedric-default.png',50,27,1.02,25,'旅人と荷の通行記録を扱う、外門の記録官。'),
  cvLeon:portrait('レオン','門の警備・治安担当','lowerWard','cv-leon-default.png',49,27,1.02,25,'門の警備と街の日々の巡回を担う。'),
  cvMira:portrait('ミラ','宿屋兼食堂の主人','lowerWard','cv-mira-default.png',50,28,1.02,26,'旅人を迎え、宿と食堂を切り盛りする主人。'),

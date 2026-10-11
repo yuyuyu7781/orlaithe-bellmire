@@ -1,0 +1,484 @@
+[
+  {
+    "id": "baker",
+    "name": "モイラ",
+    "role": "パン屋",
+    "lines": {
+      "human": {
+        "default": [
+          "朝一番の窯は、街が静かなうちに火を入れるんだ。鐘が鳴るころには、最初の籠を外へ出すよ。",
+          "丸いパンをひとつ残しておくのさ。誰が取りに来るかは、日によって違うけれどね。"
+        ],
+        "morning": [
+          {
+            "text": "まだ窯が温まったばかりなんだ。最初の籠が出るまで、鐘ひとつ分ほど待っておくれ。",
+            "expression": "happy"
+          }
+        ],
+        "night": [
+          "今日はもう粉をしまったよ。明日の朝なら、焼きたてを渡せる。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "そこは粉だらけになるよ。籠の横なら、まだ温かいからね。"
+        ],
+        "night": [
+          "今夜の窯はおしまい。暖かい石の方で休んでおいで。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/moira-default.png",
+    "hash": "8e786871782cf526e3aaa2c53ed369d6dbf8d2db8f58d9d2e15eb8d110d4360f"
+  },
+  {
+    "id": "bookseller",
+    "name": "エヴァン",
+    "role": "古書店主",
+    "lines": {
+      "human": {
+        "default": [
+          "古い本ほど、前の持ち主の癖が残るものですよ。この角の折り目も、私はそのままにしています。",
+          "星の本をお探しですか。奥の棚です。帰り道の本は、その隣にありますよ。"
+        ],
+        "night": [
+          {
+            "text": "棚を閉めるところです。この頁の続きは、明るくなってからにしましょう。",
+            "expression": "serious"
+          }
+        ]
+      },
+      "cat": {
+        "default": [
+          "また本の上に乗るつもりかい。開いた頁だけは、空けておいておくれ。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/evan-default.png",
+    "hash": "ea633f82ce3cf79f633cb19ebd9fffde46987276b82ebf65e888cef883c1f6d1"
+  },
+  {
+    "id": "boatworker",
+    "name": "ブラン",
+    "role": "港",
+    "lines": {
+      "human": {
+        "default": [
+          "今日は水が静かだ。こういう日は荷ほどきが早い。終わったら、網のほつれを直さないとな。",
+          "この縄はまだ使えるよ。九つ結んだ印より、手に馴染むかどうかの方が大事さ。"
+        ],
+        "morning": [
+          "朝の荷は、この水が明るくなる前に着くんだ。縄が濡れているから、足元に気をつけて。"
+        ],
+        "night": [
+          "今夜の荷は全部運んだよ。水音を聞いてから帰るのが、いつもの終わりさ。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "魚なら今日はまだないぞ。縄で遊ぶのは、荷が下りてからだ。"
+        ],
+        "night": [
+          "もう魚籠は空だよ。桟橋の端へは行きすぎるな。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/blanc-default.png",
+    "hash": "183fc3740d613272fa2a7a56d0dbd820c40f6909770b3759887e9b019746070d"
+  },
+  {
+    "id": "starmaker",
+    "name": "ネリッサ",
+    "role": "天球儀店",
+    "lines": {
+      "human": {
+        "default": [
+          "星は同じところにある。でも、見る人間の方が動いている。だから、この円を少しずつ直すんです。",
+          "真鍮を磨くと、指まで光ってしまって。夕方には、また布で包んでおきます。"
+        ],
+        "night": [
+          {
+            "text": "今夜は道具を休ませています。星を見るには、磨いた円より暗い窓の方がいいこともあるんです。",
+            "expression": "serious"
+          }
+        ]
+      },
+      "cat": {
+        "default": [
+          "君には星より、あの小さな光の方が気になるかな。真鍮は冷たいから、鼻を近づけすぎないで。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/nerissa-default.png",
+    "hash": "755e10f6ceaabd0b6d1ac7c2823deff550602e848cb52cfa81a42eeec218f9bb"
+  },
+  {
+    "id": "greenBard",
+    "name": "フィン",
+    "role": "緑の吟遊詩人",
+    "lines": {
+      "human": {
+        "default": [
+          "こんにちは。今は弦を張り直しているところ。水音に負けないくらいで、ちょうどいいんだ。",
+          "ここの鐘は、歌の間に入ってくるね。少し待ってから続きを弾くと、うまく収まることがあるよ。"
+        ],
+        "night": [
+          "こんばんは。夜は少し小さな音で弾くんだ。窓の向こうで、誰かが眠っているからね。"
+        ]
+      },
+      "cat": {
+        "first": [
+          "今日は、そちらで歩いているんだね。ここなら、水音も近くに聞こえる。"
+        ],
+        "default": [
+          "この段の端は、昼間の温もりが残っているよ。少し休んでいく？"
+        ],
+        "night": [
+          "今夜は、低い音の方がよく聞こえるね。弦をひとつ、ゆるめてみようか。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/finn-default.png",
+    "hash": "8e4ea1822b4eef84798fc9b404355d7c63a086b1e644faa2830c32b16dfe83f6"
+  },
+  {
+    "id": "lunHost",
+    "name": "マレン",
+    "role": "柳の宿の女将",
+    "lines": {
+      "human": {
+        "default": [
+          "靴は入口で乾かしておいで。湖から来る道は、晴れていても湿っているから。",
+          "今朝の客は、霧が薄くなるまで食卓にいたよ。急がなくてもいい。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "窓の下なら暖かいよ。干してある布には乗らないでね。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/maren-default.png",
+    "hash": "c3522008a2e4e503ee2a664ec1625aa4cb15239fd36f75d453237a01433644ab"
+  },
+  {
+    "id": "lunBoat",
+    "name": "ローワン",
+    "role": "渡し守・舟小屋の人",
+    "lines": {
+      "human": {
+        "default": [
+          "舟底の継ぎ目を直している。今日は漕ぐより、乾かす日だな。",
+          "Lake Lunの桟橋まで、縄を届けてくる。帰りには水位を見ておこう。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "魚の籠は奥だよ。縄を爪でほどかないでおくれ。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/rowan-default.png",
+    "hash": "a3f93769eb4c27227e2330adb52d161a9f6664252af72eecd95291053bf6a745"
+  },
+  {
+    "id": "lunWatcher",
+    "name": "イーラ",
+    "role": "岸辺の小商店の店主",
+    "lines": {
+      "human": {
+        "default": [
+          "乾いた布と旅の食べ物なら、奥の棚にあるよ。湖の道は、思ったより冷えるから。",
+          "霧は珍しくないよ。対岸を見ようとするより、近い杭を見た方が道が分かる。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "草の下を歩くんだね。露がついたら、石の上で乾かしておいで。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/eira-default.png",
+    "hash": "b194206aed720242f5570c381b89d43756f3c890448a3ed1d9c04b099bcf32b9"
+  },
+  {
+    "id": "cvCedric",
+    "name": "セドリック",
+    "role": "外門の記録官",
+    "lines": {
+      "human": {
+        "default": [
+          "Violet Mireから来たのか。今日は泥がひどかっただろ。名前は、この欄へ。",
+          "通行の記録には、荷の数まで書く。古い帳面には、頁が抜けたものもある。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "その隙間なら通れるんだね。濡れた石には気をつけて。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/cv-cedric-default.png",
+    "hash": "98540b80e96bcabf11dfade5e1809126bd219df9c631a285c2b9dddd99892d01"
+  },
+  {
+    "id": "cvLeon",
+    "name": "レオン",
+    "role": "門の警備・治安担当",
+    "lines": {
+      "human": {
+        "default": [
+          "門の内側では荷車が曲がる。広場へは、井戸の側を歩いて。",
+          "またいるな。荷車の下で寝るなよ。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "またいるな。荷車の下で寝るなよ。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/cv-leon-default.png",
+    "hash": "d02bcba1e0dec7dd9c0e66563699b6890ce187af41411bf643b553204dc9e161"
+  },
+  {
+    "id": "cvMira",
+    "name": "ミラ",
+    "role": "宿屋兼食堂の主人",
+    "lines": {
+      "human": {
+        "default": [
+          "まず靴を乾かして、何か食べて。街の話は、それからでいいよ。",
+          "朝食は鐘の後。まだ暗くても、台所には誰かいるよ。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "その隙間なら通れるんだね。濡れた石には気をつけて。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/cv-mira-default.png",
+    "hash": "40651f29a426cd683174aa32eeb8c2231abdb4935c3daf03dec220f81bf566d3"
+  },
+  {
+    "id": "cvGaren",
+    "name": "ガレン",
+    "role": "運河・水門の門番",
+    "lines": {
+      "human": {
+        "default": [
+          "水位標を見ろ。舟を入れる時は、下の門からだ。",
+          "この下の石組みは、俺たちが造ったものじゃない。使えるから使う。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "その隙間なら通れるんだね。濡れた石には気をつけて。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/cv-garen-default.png",
+    "hash": "74aae075fafaca63ada0ede619e343bc23a57e41cba12c4366e61ba322f97014"
+  },
+  {
+    "id": "cvSophia",
+    "name": "ソフィア",
+    "role": "運河港の女商人・帳簿役",
+    "lines": {
+      "human": {
+        "default": [
+          "荷は東の倉庫、空の舟は橋の向こう。そこだけ間違えなければ大丈夫。",
+          "水位が変わると、荷の順番も変わるの。人は待てても、濡れる荷は待てない。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "その隙間なら通れるんだね。濡れた石には気をつけて。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/cv-sophia-default.png",
+    "hash": "9bb397931804a8df29f7383ceb51091c33ac554ddc730e55b7512bcb0dad4cc8"
+  },
+  {
+    "id": "cvEdras",
+    "name": "エドラス",
+    "role": "記録院・公文書館の学者",
+    "lines": {
+      "human": {
+        "default": [
+          "記録にないことと、存在しなかったことは、別です。土地の申請なら右の机へ。",
+          "書かれていない場所は珍しくありません。……この規模の地図で、ここだけというのは珍しいですが。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "その隙間なら通れるんだね。濡れた石には気をつけて。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/cv-edras-default.png",
+    "hash": "759297a7bb4fed7c8e11eb32d0abd37b79201bdfd6ebecf042152afb07ea2118"
+  },
+  {
+    "id": "cvLyune",
+    "name": "リュネ",
+    "role": "アーキビスト",
+    "lines": {
+      "human": {
+        "default": [
+          "目録は残っています。本文は、ここにはありません。なかったとは言っていません。",
+          "棚の番号は変えません。欠けた年代を、隣の年代で埋めることもありません。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "その隙間なら通れるんだね。濡れた石には気をつけて。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/cv-lyune-default.png",
+    "hash": "838e45aab8c0a568f2716dd078848479eab089ecbb7182e42ac2fbca97b1c017"
+  },
+  {
+    "id": "cvCassian",
+    "name": "カシアン",
+    "role": "星章の文官",
+    "lines": {
+      "human": {
+        "default": [
+          "区画境界は、排水と通行の都合で変わります。古い名前が残ることもあります。",
+          "古い道と今の道が違っていても、まずは測り直す。それが役所の仕事です。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "その隙間なら通れるんだね。濡れた石には気をつけて。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/cv-cassian-default.png",
+    "hash": "d8113212c1b0b737834d504cca507e04d39b37d6118260f7e8c2a14f60402fe0"
+  },
+  {
+    "id": "cvOrm",
+    "name": "オルム",
+    "role": "鐘楼守・番人",
+    "lines": {
+      "human": {
+        "default": [
+          "Bellmireの鐘か。何回ではなく、どれくらい間が空いた？ 点検ではそこを聞く。",
+          "響きは石と空気で変わる。古い比率が残っていても、同じ鐘とは限らない。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "その隙間なら通れるんだね。濡れた石には気をつけて。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/cv-orm-default.png",
+    "hash": "1ddefe6923ba50e045a6aacee1f5b101821b5a8060a26d562a3ab24ee14802f7"
+  },
+  {
+    "id": "cvSerena",
+    "name": "セレナ",
+    "role": "星読みの学者",
+    "lines": {
+      "human": {
+        "default": [
+          "形だけでなく、見た方向と時刻も残してください。似ていることは、同じであることではありません。",
+          "Nine Stonesと円環。点の間隔は近い。でも、向きと欠け方は合いません。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "その隙間なら通れるんだね。濡れた石には気をつけて。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/cv-serena-default.png",
+    "hash": "ddcace950693eb9064cdf82b2f5d35378ce118cde79ca99d74f60c5906cf9d10"
+  },
+  {
+    "id": "cvYulio",
+    "name": "ユリオ",
+    "role": "地図学者・測量担当",
+    "lines": {
+      "human": {
+        "default": [
+          "この線、今の道にはありません。現地で確かめるなら、鐘のない鐘楼の方です。",
+          "線が消えたのか、初めから引かなかったのか。古い図だけでは決められません。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "その隙間なら通れるんだね。濡れた石には気をつけて。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/cv-yulio-default.png",
+    "hash": "cca32f98ec1ea84b142d698dcf1069c1f3f5dd44c15cf55e995c3072614a5065"
+  },
+  {
+    "id": "cvNoah",
+    "name": "ノア",
+    "role": "学徒・研究者",
+    "lines": {
+      "human": {
+        "default": [
+          "これ、同じ形に見えません？ ……先生は、もう一度向きを測ろうって。",
+          "資料を並べる机が足りないんです。似ているところより、合わないところが増えてしまって。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "その隙間なら通れるんだね。濡れた石には気をつけて。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/cv-noah-default.png",
+    "hash": "3bfec717272d709b9763eaeafdff5cebb0c1ee315287f2b889621f87cb3ef16b"
+  },
+  {
+    "id": "cvElda",
+    "name": "エルダ",
+    "role": "旧市街の老婦人",
+    "lines": {
+      "human": {
+        "default": [
+          "鐘のない鐘楼の方だよ。昔はここから水が見えたよ。",
+          "昔、ああいう色の外套を着た子がいたねえ。誰の家の子だったか。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "その隙間なら通れるんだね。濡れた石には気をつけて。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/cv-elda-default.png",
+    "hash": "78fd88927bb875caf870ccba6121c1f4956fda0e56a947e592c040c0ebf56a2b"
+  },
+  {
+    "id": "cvVal",
+    "name": "ヴァル",
+    "role": "石工職人",
+    "lines": {
+      "human": {
+        "default": [
+          "使える石は戻す。合わない石は、横へ置く。",
+          "この片は、今の都市図にない場所のものだ。名前は知らん。"
+        ]
+      },
+      "cat": {
+        "default": [
+          "その隙間なら通れるんだね。濡れた石には気をつけて。"
+        ]
+      }
+    },
+    "src": "./assets/portraits/cv-val-default.png",
+    "hash": "448bce097a7ea21b6c34b6bf84fa0a770faaa9f82dc13394c6c63ebd10b76576"
+  }
+]

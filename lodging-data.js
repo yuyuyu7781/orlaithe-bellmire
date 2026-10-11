@@ -4,7 +4,7 @@ export const lodgingFacilities=[
 ].map(s=>({...s,restable:true,lodging:true,hours:{morning:'open',day:'open',evening:'open',night:'open'}}));
 const person=(id,name,role,ward,mainLocation,age,height,width,hair,lines)=>({id,name,role,ward,mainLocation,lodging:true,region:'caer-veyra',profile:{age,height,width,hair},visualProfile:{intro:role,palette:{cloth:'#778077',hair:'#'+hair.toString(16),wash:'#c1b89d'}},portrait:null,portraits:{periods:{},expressions:{}},lines:{human:{default:lines},cat:{default:['椅子の下は空いているよ。寝床は人が使うから、窓辺で休んでおいで。']}},schedule:Object.fromEntries(['morning','day','evening','night'].map(p=>[p,mainLocation]))});
 export const lodgingCharacters=[
- person('cvTessa','テッサ','中央区の宿主','civicWard','cv-civic-inn',46,1.65,1.08,0x645a50,['朝一番なら記録院はまだ空いてるよ。荷物は受付の横へ。','許可証待ちの客が今週は多いね。朝食は早く用意するから。','明日の書類は共同机で揃えておくといい。夜は静かにね。']),
+ person('cvTessa','エステル','中央区の宿主','civicWard','cv-civic-inn',46,1.65,1.08,0x645a50,['朝一番なら記録院はまだ空いてるよ。荷物は受付の横へ。','許可証待ちの客が今週は多いね。朝食は早く用意するから。','明日の書類は共同机で揃えておくといい。夜は静かにね。']),
  person('cvAven','アヴェン','共同下宿の主人','scholarHeights','cv-scholar-house',53,1.74,1.04,0x969180,['共同机の紙は、持ち主が戻るまでそのままにしておいて。','帰りが遅くても、湯と夜食は残してあるよ。','長い滞在の部屋と、今夜だけの部屋がある。外套は入口の横で乾かせる。']),
  person('cvIsel','イセル','旅の学者','scholarHeights','cv-scholar-house',39,1.78,.94,0x554f46,['今日は北側の道を見てきた。数週間のつもりが、まだここにいる。','古い地図は、描いた人の癖まで見ないとね。歩いて比べると、合わない線も見えてくる。','靴が泥だらけでね。今日は食事を忘れる前に戻ってきた。','道が崩れていて、方角を取り直した。明日は別の道を歩くよ。','地図の写しが古かった。今夜は紙を乾かすだけにしておこう。','夕飯はまだ残っているかな。雨で予定を変えたんだ。'])
 ];
