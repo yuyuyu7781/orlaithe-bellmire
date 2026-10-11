@@ -1,3 +1,4 @@
+import {forecastKnownWaterAccess} from './lake-water-level.js';
 import {recordTravel} from './world-graph.js';
 import {createDetailBatch} from './miniature.js';
 import {lakeWaterPhase} from './lake-water-level.js';
@@ -55,4 +56,13 @@ export function connectDrownedWay({THREE,road,level,walking,boatTravel,inspectio
  dialogue.onSpeak(({character,text})=>{if(lunLines[character.id]&&stay.data.currentDay>=2&&/水が|石道|舟底|岸の石|あの石/.test(text??'')){remember('drowned:rumor','水が引く朝、岸から石が長く見えることがあるらしい。');sync();}if(character.id==='starmaker'&&stay.data.discoveries['drowned:mark']){remember('drowned:nerissa','向きは違うのに、古い星図にも似た配置があるという。');sync();}});
  stay.onChange(sync);level.onChange(sync);townLife.onChange(sync);sync();
  return{remember,sync,layout:drownedLayout,get progress(){return{...stay.data.threads.drowned,water:level.phase}},update(dt){elapsed+=dt;if(elapsed<.5)return;elapsed=0;if(!walking.active||shopSystem.current)return;const p=walking.state.feet,q=roadReading(p.x,p.z);if(boatTravel.active){if(level.phase!=='normal'&&q.distance<8)remember('drowned:from-boat','舟から見ると、水の下の石は岸から細く続いていた。');return;}if(['veryLow','extremeLow'].includes(level.phase)&&q.distance<1.4&&p.x<-322){if(remember('drowned:walk','濡れた石道を歩いた。岸の声が、少し遠くなった。'))sync();}}};
+}
+
+// Bind after regional dialogue wrappers: keep the existing bell and cat priorities.
+export function connectKnownWaterAdvice({dialogue,stay,townLife}){
+ const rowan=dialogue.characters.find(c=>c.id==='lunBoat'),previous=rowan.eventReply;
+ rowan.eventReply=args=>{
+  if(args.profile!=='human'||args.index%3!==0||(stay.data.threads.bell?.anomalyDay===stay.data.currentDay&&townLife.state.period==='night'))return previous?.(args);
+  const water=forecastKnownWaterAccess(stay.data,'drowned-way');return water?[water.stateText,water.forecastText].filter(Boolean).join(' '):previous?.(args);
+ };
 }

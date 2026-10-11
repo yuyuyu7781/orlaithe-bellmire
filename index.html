@@ -58,7 +58,7 @@ import {buildNineStones,connectNineStones} from './nine-stones.js';
 import {deepenLakeStay} from './lake-stay-details.js';
 import {buildTheRing,connectTheRing,ringRegion,ringHeight,ringBoatBlocked,ringWallBlocked,ringOpen} from './the-ring.js';
 import {lakeWaterOffset} from './lake-water-level.js';
-import {buildDrownedWay,connectDrownedWay,roadReading} from './drowned-way.js';
+import {buildDrownedWay,connectDrownedWay,connectKnownWaterAdvice,roadReading} from './drowned-way.js';
 import {createLakeWaterLevel} from './lake-water-level.js';
 import {buildCaerith,connectCaerith} from './caerith.js';
 import {createBoatTravel} from './boat-travel.js?v=52.9';
@@ -1292,6 +1292,7 @@ const ringStay=connectTheRing({THREE,camera,getQuality:()=>quality.current,ring:
 const crownStay=connectHollowCrown({THREE,crown:hollowCrown,ring:theRing,stay:stayState,level:lakeWaterLevel,walking,boatTravel,regions:regionSystem,inspections,quietStay,townLife,dialogue,ambientAudio,camera,getQuality:()=>quality.current});
 for(const route of hollowCrown.routes)walking.registerObstacle(route.object);
 const mireStay=connectVioletMire({THREE,mire:violetMire,crown:hollowCrown,stay:stayState,walking,inspections,regions:regionSystem,dialogue,townLife,ambientAudio,residentLife,residentDay,camera,scene,getQuality:()=>quality.current});
+connectKnownWaterAdvice({dialogue,stay:stayState,townLife});
 const capitalLife=connectCapital({THREE,capital,stay:stayState,townLife,walking,inspections,dialogue,residentLife,residentDay,shopSystem,regions:regionSystem,namedTravel,ambientAudio,camera,getQuality:()=>quality.current});
 const capitalResearch=createCapitalResearch({THREE,capital,capitalLife,stay:stayState,townLife,walking,shopSystem,inspections,dialogue,namedTravel});
 journal.setResearch(capitalResearch);
