@@ -20,3 +20,5 @@ Ruling: 共有停止処理は8人だけに限定せず、同じexecutorを使う
 Ruling: sibling worktreeを使用 — main保全と既存gitignore無変更 — ローカルの作業用ディレクトリだけ増える。
 
 Task 2: boatworkerの実移動時にrecord.currentStateがundefinedになるREDを確認。実距離から共通のcurrentState/activity/walkPhaseを更新。待機中は足を止め、実際の進行方向を向く。8人会話復帰＋named animation acceptance PASS。
+
+Task 3: authored dwell未設定のRED→GREEN。19/22/24/27/29/31/34/38秒の待機と6〜12秒の作業停止、0.32〜0.58mの安全な往復。8人の実executor移動PASS。屋内/夜/雨/遠距離は短距離演出を抑制。経路/会話/portrait等の設定は変更なし。Node回帰30/30 PASS。
