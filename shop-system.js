@@ -43,6 +43,7 @@ export function createShopSystem({THREE,scene,walking,grounding,miniature,inspec
  function characterLocation(id){const place=community?.location(id)??travel?.location(id)??locationFor(id);return current&&place===current.shop.id?current.shop.id:'town';}
  function getRoom(shop){if(rooms.has(shop.id))return rooms.get(shop.id);const room=(shop.buildInterior??buildInterior)({THREE,shop});rooms.set(shop.id,room);room.root.visible=false;
   for(const target of room.inspect)inspections.resolver.register(target);
+  for(const guest of room.guests??[])guest.entry=inspections.resolver.entries.get(guest.entry.id);
   const exit={id:'exit:'+shop.id,kind:'exit',verb:'外へ出る',label:shop.name+'の出口',object:room.door,localPoint:[0,1.08,0],localPoints:{cat:[0,.32,0]},range:2.1,profiles:['human','cat'],enabled:()=>current===room};inspections.resolver.register(exit);for(const fn of roomListeners)fn(room);
   return room;}
  function enter(shop){if(!walking.active||current)return false;if(!isShopOpen(shop,townLife.state.period)){inspections.present(entrances.find(e=>e.shop===shop),{text:'今は閉まっている。扉の向こうでは、静かに次の仕事を待っている。'});return false;}
