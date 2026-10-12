@@ -36,7 +36,7 @@ const roleActions={
  mireKeeper:{cycle:33,duration:7,phase:5,pitch:.26,arm:[-.95,-.49],look:.13,work:['mire-repair','mire-exit-watch']}
 };
 export function residentActionFor(record,time,{location,period='day',blocked=false}={}){
- const p=roleActions[record.id];if(!p||blocked||record.routePending||record.object?.userData.conversationPaused||record.bellPause>0||['walking','goingHome','departing','waitingRoute','worldTravel','away','listening'].includes(record.currentState)||record.object?.userData.shopWork?.currentState==='walking')return null;
+ const p=roleActions[record.id];if(!p||blocked||record.routePending||record.object?.userData.conversationPaused||record.bellPause>0||['walking','goingHome','departing','entering','leaving','waitingRoute','worldTravel','away','listening'].includes(record.currentState)||(record.object?.userData.shopWork?.currentState==='walking'||record.object?.userData.shopWork?.transition))return null;
  const holding=!!record.prop?.visible,restArm=holding?[-.94,-.94]:[-.10,-.14],phase=((time+p.phase)%p.cycle+p.cycle)%p.cycle,working=period!=='night'&&p.work.includes(location)&&phase<p.duration;
  if(!working)return {kind:'idle',headPitch:.015,headYaw:Math.sin((time+p.phase)*.12)*p.look,arm:restArm,lean:Math.sin((time+p.phase)*.23)*.009};
  const progress=phase/p.duration,pulse=Math.sin(progress*Math.PI);

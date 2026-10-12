@@ -1,7 +1,7 @@
 name: Caer Veyra Phase 2 verification
 on:
   push:
-    branches: [phase2-plan-a, iphone-followup, feat/npc-social-work, main]
+    branches: [phase2-plan-a, iphone-followup, feat/npc-social-work, feat/npc-building-transitions, main]
 permissions:
   contents: read
 jobs:

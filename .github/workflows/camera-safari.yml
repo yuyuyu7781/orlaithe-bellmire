@@ -1,13 +1,13 @@
 name: Safari camera investigation
 on:
   push:
-    branches: [iphone-camera-safari, iphone-camera-region, feat/npc-social-work, main]
+    branches: [iphone-camera-safari, iphone-camera-region, feat/npc-social-work, feat/npc-building-transitions, main]
 permissions:
   contents: read
 jobs:
   diagnostic:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -65,3 +65,21 @@ jobs:
           node tools/npc-life-lifecycle.cjs
           node tools/npc-social-priority.cjs
           node tools/npc-social-acceptance.cjs
+      - name: NPC building entry and exit acceptance
+        timeout-minutes: 8
+        env:
+          ORLAITHE_BROWSER_ENGINE: ${{ matrix.engine }}
+        run: |
+          node tools/npc-door-acceptance.cjs
+          node tools/npc-door-room.cjs
+          node tools/npc-door-regions.cjs
+          node tools/npc-door-priority.cjs
+          node tools/npc-door-lifecycle.cjs
+      - name: Existing lodging entry regression
+        timeout-minutes: 5
+        env:
+          ORLAITHE_BROWSER_ENGINE: ${{ matrix.engine }}
+        run: |
+          node tools/lodging-life-audit.cjs
+          node tools/lodging-return-audit.cjs
+          node tools/lodging-night-dialogue.cjs
